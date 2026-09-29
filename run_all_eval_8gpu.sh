@@ -7,6 +7,7 @@ set -euo pipefail
 ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 PY=${PY:-/proj/gpu_mtk53742/.conda/envs/distill/bin/python}
 NGPU=${NGPU:-8}
+DIST_MASTER_PORT=${DIST_MASTER_PORT:-29500}
 TASKS=${TASKS:-lm1b_gen,owt_ppl,lm1b_ppl,elf_b,elf_l}
 OUTDIR=${OUTDIR:-"$ROOT/eval_runs/$(date +%Y%m%d_%H%M%S)"}
 
@@ -127,7 +128,8 @@ run_flow_ppl() {
         cd "$ROOT/LangFlow"
         LANGFLOW_EVAL_OUTPUT_DIR="$OUTDIR/$label" \
             run_logged "$label" "$PY" -m torch.distributed.run \
-                --standalone --nproc_per_node="$NGPU" eval_ppl.py \
+                --nnodes=1 --master_addr=127.0.0.1 --master_port="$DIST_MASTER_PORT" \
+                --nproc_per_node="$NGPU" eval_ppl.py \
                 -cn "$config" "${overrides[@]}"
     )
 }
@@ -164,7 +166,8 @@ run_elf() {
         cd "$ROOT/ELF"
         PYTHONPATH="$ROOT/ELF/src${PYTHONPATH:+:$PYTHONPATH}" \
             run_logged "$label" "$PY" -m torch.distributed.run \
-                --standalone --nproc_per_node="$NGPU" src/eval.py \
+                --nnodes=1 --master_addr=127.0.0.1 --master_port="$DIST_MASTER_PORT" \
+                --nproc_per_node="$NGPU" src/eval.py \
                 --config "src/configs/training_configs/train_owt_ELF-$size.yml" \
                 --checkpoint_path "$model" \
                 --config_override "sampling_configs_path=$sampling" \
