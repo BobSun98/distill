@@ -1,0 +1,102 @@
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+[W929 22:41:32.803077781 socket.cpp:938] [c10d] The server socket on [colglx2002]:43633 has timed out, will retry.
+[W929 22:43:47.971081651 socket.cpp:938] [c10d] The server socket on [colglx2002]:43633 has timed out, will retry.
+[E929 22:44:17.849485583 socket.cpp:1028] [c10d] The client socket has timed out after 300000ms while trying to connect to (colglx2002, 43633).
+[E929 22:44:17.850192486 TCPStore.cpp:328] [c10d] TCP client failed to connect/validate to host colglx2002:43633 - timed out (try=0, timeout=300000ms): The client socket has timed out after 300000ms while trying to connect to (colglx2002, 43633).
+Exception raised from throwTimeoutError at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/socket.cpp:1030 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7ae5ac55e60d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x7ae5ac55f5e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistNetworkError::DistNetworkError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x7ae5ac55faa2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: <unknown function> + 0x15ea028 (0x7ae50ddea028 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: <unknown function> + 0x69d9ba6 (0x7ae5131d9ba6 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x69d9daf (0x7ae5131d9daf in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: <unknown function> + 0x69da29b (0x7ae5131da29b in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: <unknown function> + 0x69359e3 (0x7ae5131359e3 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: c10d::TCPStore::TCPStore(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, c10d::TCPStoreOptions const&) + 0x41d (0x7ae51313e76d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: <unknown function> + 0xf5a747 (0x7ae522d5a747 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_python.so)
+frame #10: <unknown function> + 0xf72f4c (0x7ae522d72f4c in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_python.so)
+frame #11: <unknown function> + 0x40b487 (0x7ae52220b487 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_python.so)
+frame #12: <unknown function> + 0x1f379f (0x620b28b2e79f in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #13: <unknown function> + 0x22db0a (0x620b28b68b0a in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #14: <unknown function> + 0x22cf7e (0x620b28b67f7e in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #15: _PyObject_Call + 0x12b (0x620b28b5292b in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #16: <unknown function> + 0x21519f (0x620b28b5019f in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #17: <unknown function> + 0x1d96e3 (0x620b28b146e3 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #18: <unknown function> + 0x4093db (0x7ae5222093db in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_python.so)
+frame #19: _PyObject_MakeTpCall + 0x243 (0x620b28b143c3 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #20: _PyEval_EvalFrameDefault + 0x60b (0x620b28b226bb in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #21: _PyFunction_Vectorcall + 0x165 (0x620b28b482b5 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #22: _PyEval_EvalFrameDefault + 0x4122 (0x620b28b261d2 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #23: _PyFunction_Vectorcall + 0x165 (0x620b28b482b5 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #24: _PyEval_EvalFrameDefault + 0x4122 (0x620b28b261d2 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #25: _PyFunction_Vectorcall + 0x165 (0x620b28b482b5 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #26: _PyEval_EvalFrameDefault + 0x4122 (0x620b28b261d2 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #27: _PyFunction_Vectorcall + 0x165 (0x620b28b482b5 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #28: _PyObject_FastCallDictTstate + 0x65 (0x620b28b19175 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #29: _PyObject_Call_Prepend + 0xe7 (0x620b28b504b7 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #30: <unknown function> + 0x2e7ef7 (0x620b28c22ef7 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #31: PyObject_Call + 0xbe (0x620b28b5264e in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #32: _PyEval_EvalFrameDefault + 0x4122 (0x620b28b261d2 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #33: _PyFunction_Vectorcall + 0x165 (0x620b28b482b5 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #34: _PyEval_EvalFrameDefault + 0x4122 (0x620b28b261d2 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #35: <unknown function> + 0x2a3af5 (0x620b28bdeaf5 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #36: PyEval_EvalCode + 0x9b (0x620b28bde23b in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #37: <unknown function> + 0x2ba0ed (0x620b28bf50ed in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #38: <unknown function> + 0x1f379f (0x620b28b2e79f in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #39: PyObject_Vectorcall + 0x2c (0x620b28b2e68c in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #40: _PyEval_EvalFrameDefault + 0x60b (0x620b28b226bb in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #41: _PyFunction_Vectorcall + 0x165 (0x620b28b482b5 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #42: <unknown function> + 0x2cbc43 (0x620b28c06c43 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #43: Py_RunMain + 0x122 (0x620b28c065f2 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #44: Py_BytesMain + 0x37 (0x620b28bce067 in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+frame #45: <unknown function> + 0x2a1ca (0x7ae5ad42a1ca in /lib/x86_64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x8b (0x7ae5ad42a28b in /lib/x86_64-linux-gnu/libc.so.6)
+frame #47: _start + 0x2e (0x620b28bcdeee in /proj/gpu_mtk53742/.conda/envs/distill/bin/python)
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1142, in <module>
+    main()
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 380, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1138, in main
+    run(args)
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1129, in run
+    elastic_launch(
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 197, in __call__
+    return launch_agent(
+           ^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 377, in launch_agent
+    result = agent.run()
+             ^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/metrics/api.py", line 134, in wrapper
+    result = f(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/agent/server/api.py", line 745, in run
+    result = self._invoke_run(role)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/agent/server/api.py", line 916, in _invoke_run
+    self._initialize_workers(self._worker_group)
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/metrics/api.py", line 134, in wrapper
+    result = f(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/agent/server/api.py", line 713, in _initialize_workers
+    self._rendezvous(worker_group)
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/metrics/api.py", line 134, in wrapper
+    result = f(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/agent/server/api.py", line 528, in _rendezvous
+    rdzv_info = spec.rdzv_handler.next_rendezvous()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py", line 1214, in next_rendezvous
+    self._shared_tcp_store_server = self._create_tcp_store_server(
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/rendezvous/dynamic_rendezvous.py", line 1127, in _create_tcp_store_server
+    return dist.TCPStore(
+           ^^^^^^^^^^^^^^
+torch.distributed.DistNetworkError: The client socket has timed out after 300000ms while trying to connect to (colglx2002, 43633).
