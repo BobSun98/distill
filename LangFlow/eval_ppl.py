@@ -12,7 +12,8 @@ Single-GPU usage:
     python eval_ppl.py -cn langflow-owt-small eval.checkpoint_path=...
 
 Features:
-  - Results saved to JSON file in checkpoint directory
+  - Results saved to JSON file in checkpoint directory, or
+    LANGFLOW_EVAL_OUTPUT_DIR when set
 """
 
 import json
@@ -65,7 +66,7 @@ def _setup_distributed():
     if "RANK" in os.environ and "WORLD_SIZE" in os.environ:
         dist.init_process_group(
             backend="nccl",
-            timeout=timedelta(minutes=10)
+            timeout=timedelta(minutes=int(os.environ.get("LANGFLOW_DIST_TIMEOUT_MIN", "10")))
         )
         local_rank = int(os.environ["LOCAL_RANK"])
         torch.cuda.set_device(local_rank)
@@ -478,9 +479,10 @@ def _eval_langflow_flow_ppl(config, logger, tokenizer):
 # ---------------------------------------------------------------------------
 
 def _save_results_json(results, config, logger):
-    """Save evaluation results to a JSON file in the checkpoint directory."""
+    """Save evaluation results to a JSON file in the selected output directory."""
     checkpoint_path = config.eval.checkpoint_path
-    checkpoint_dir = os.path.dirname(checkpoint_path)
+    checkpoint_dir = (os.environ.get('LANGFLOW_EVAL_OUTPUT_DIR')
+                      or os.path.dirname(checkpoint_path) or '.')
     checkpoint_name = os.path.splitext(os.path.basename(checkpoint_path))[0]
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
