@@ -1,0 +1,59 @@
+run:
+  name: owt_kd_12to6
+  root: run
+  seed: 42
+
+model:
+  teacher: Continuous-Rivals-Discrete/langflow-owt
+  # 本地 safetensors 文件可通过 teacher_config 指定架构配置。
+  teacher_config: null
+  tokenizer: gpt2
+  cache_dir: null
+  keep_layers: [0, 2, 4, 7, 9, 11]
+  device: cuda
+
+data:
+  dataset: Skylion007/openwebtext
+  dataset_config: default
+  # 使用原数据集的 Parquet 转换，兼容不再支持 dataset script 的新版本 datasets。
+  revision: refs/convert/parquet
+  # 已有原始 OWT Dataset.save_to_disk 缓存时可直接加载，目录中需有 text 列。
+  local_dataset: null
+  hf_cache_dir: null
+  prepared_root: run/data
+  sequence_length: 1024
+  # 与现有 LangFlow OWT split 一致：最后 100000 篇保留为验证集。
+  validation_documents: 100000
+  train_documents: 20000
+  valid_documents: 128
+  max_train_blocks: 8192
+  max_valid_blocks: 128
+  tokenize_batch_size: 128
+
+loss:
+  kd_weight: 1.0
+  ce_weight: 0.0
+
+training:
+  max_steps: 1000
+  batch_size: 1
+  grad_accumulation: 8
+  learning_rate: 0.00003
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  self_condition_probability: 0.25
+  log_every: 10
+  validate_every: 100
+  validation_batches: 8
+  save_every: 500
+
+evaluation:
+  seed: 2026
+  num_samples: 32
+  batch_size: 1
+  # 正式比较 teacher/pruned/trained 时，三者使用相同 NFE 与生成长度。
+  num_steps: 1024
+  sequence_length: 1024
+  scorer: gpt2-large
+  scorer_batch_size: 1
+  scorer_max_length: 1024

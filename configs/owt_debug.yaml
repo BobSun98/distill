@@ -1,0 +1,26 @@
+extends: owt_kd.yaml
+
+run:
+  name: owt_debug
+
+data:
+  sequence_length: 128
+  train_documents: 32
+  valid_documents: 16
+  max_train_blocks: 8
+  max_valid_blocks: 4
+
+training:
+  max_steps: 3
+  grad_accumulation: 1
+  log_every: 1
+  validate_every: 3
+  validation_batches: 1
+  save_every: 0
+
+evaluation:
+  num_samples: 2
+  num_steps: 8
+  sequence_length: 128
+  # debug 只验证真实流程；正式生成 PPL 使用 owt_kd.yaml 中的 scorer。
+  scorer: null
