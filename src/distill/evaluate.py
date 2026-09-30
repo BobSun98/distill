@@ -11,19 +11,23 @@ from .config import project_path, write_json
 from .data import make_loader
 from .models import build_student, load_model, parameter_counts
 from .train import seed_everything, validate
+from . import distributed
 
 
 @torch.no_grad()
 def generate(model, tokenizer, settings):
-    seed_everything(settings["seed"])
+    # 每个 rank 负责连续的一段样本；同一 rank 的三种模型使用相同初始噪声。
+    seed_everything(settings["seed"] + distributed.rank())
     model.eval()
     device = next(model.parameters()).device
     ids = []
-    for start in range(0, settings["num_samples"], settings["batch_size"]):
-        count = min(settings["batch_size"], settings["num_samples"] - start)
+    base, remainder = divmod(settings["num_samples"], distributed.world_size())
+    local_samples = base + (distributed.rank() < remainder)
+    for start in range(0, local_samples, settings["batch_size"]):
+        count = min(settings["batch_size"], local_samples - start)
         ids.append(model.generate_samples(num_samples=count, seq_length=settings["sequence_length"],
                                           num_steps=settings["num_steps"], device=device).cpu())
-    tokens = torch.cat(ids)
+    tokens = torch.cat(ids) if ids else torch.empty((0, settings["sequence_length"]), dtype=torch.long)
     # 与现有 gen_ppl 约定相同，特殊 token 也保留在解码文本中。
     texts = tokenizer.batch_decode(tokens, skip_special_tokens=False)
     return tokens, texts
@@ -59,11 +63,15 @@ def score_texts(texts, scorer, tokenizer, settings, device):
         total_tokens += counts.sum().item()
         for nll, count in zip(nlls.tolist(), counts.tolist()):
             per_sample.append({"nll_per_token": nll / count if count else None, "tokens": count})
+    # 汇总的是 NLL 和 token 数，不能直接平均各卡的 PPL。
+    total_nll, total_tokens = distributed.sum_tensor([total_nll, total_tokens], device).tolist()
+    sample_shards = distributed.gather_main(per_sample)
     if not total_tokens:
         raise ValueError("生成文本中没有可评分的 token")
     mean_nll = total_nll / total_tokens
     return {"gen_ppl": math.exp(mean_nll), "nll_per_token": mean_nll,
-            "scored_tokens": total_tokens, "per_sample": per_sample}
+            "scored_tokens": int(total_tokens),
+            "per_sample": [item for shard in sample_shards for item in shard] if sample_shards else []}
 
 
 def evaluate(teacher, tokenizer, checkpoint, config, run_dir):
@@ -77,12 +85,17 @@ def evaluate(teacher, tokenizer, checkpoint, config, run_dir):
                              "sequence_length": settings["sequence_length"],
                              "num_samples": settings["num_samples"],
                              "scorer": settings["scorer"],
-                             "sampler": "LangFlow Euler-EDM"}, "models": {}}
+                             "sampler": "LangFlow Euler-EDM",
+                             "world_size": distributed.world_size(),
+                             "generation_batch_size_per_device": settings["batch_size"],
+                             "rank_seed": "seed + rank"}, "models": {}}
     generated = {}
     output = run_dir / "evaluation"
-    output.mkdir(parents=True, exist_ok=True)
+    if distributed.is_main():
+        output.mkdir(parents=True, exist_ok=True)
     for label in ("teacher", "pruned", "trained"):
-        print(f"[eval] {label}", flush=True)
+        if distributed.is_main():
+            print(f"[eval] {label}", flush=True)
         if label == "teacher":
             model = teacher
         elif label == "pruned":
@@ -99,10 +112,14 @@ def evaluate(teacher, tokenizer, checkpoint, config, run_dir):
         metrics = {"parameters": parameter_counts(model),
                    "denoising": validate(teacher, model, loader, config)}
         tokens, texts = generate(model, tokenizer, settings)
-        metrics.update(diversity_metrics(tokens))
-        torch.save(tokens, output / f"{label}_tokens.pt")
-        write_json(output / f"{label}_texts.json", texts)
-        results["models"][label] = metrics
+        shards = distributed.gather_main((tokens, texts))
+        if distributed.is_main():
+            merged_tokens = torch.cat([shard[0] for shard in shards])
+            merged_texts = [text for shard in shards for text in shard[1]]
+            metrics.update(diversity_metrics(merged_tokens))
+            torch.save(merged_tokens, output / f"{label}_tokens.pt")
+            write_json(output / f"{label}_texts.json", merged_texts)
+            results["models"][label] = metrics
         generated[label] = texts
         del model
     # scorer 与生成器错峰占用 GPU；teacher 后续无需再查询。
@@ -121,8 +138,11 @@ def evaluate(teacher, tokenizer, checkpoint, config, run_dir):
         scorer = AutoModelForCausalLM.from_pretrained(scorer_name, cache_dir=cache_dir)
         scorer = scorer.to(device).eval()
         for label, texts in generated.items():
-            results["models"][label].update(score_texts(texts, scorer, scorer_tokenizer, settings, device))
+            metrics = score_texts(texts, scorer, scorer_tokenizer, settings, device)
+            if distributed.is_main():
+                results["models"][label].update(metrics)
         del scorer
-    write_json(output / "metrics.json", results)
-    print(f"[eval] results: {output / 'metrics.json'}", flush=True)
+    if distributed.is_main():
+        write_json(output / "metrics.json", results)
+        print(f"[eval] results: {output / 'metrics.json'}", flush=True)
     return results

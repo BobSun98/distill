@@ -12,6 +12,7 @@ data:
 
 training:
   max_steps: 3
+  batch_size: 1
   grad_accumulation: 1
   log_every: 1
   validate_every: 3
@@ -20,6 +21,7 @@ training:
 
 evaluation:
   num_samples: 2
+  batch_size: 1
   num_steps: 8
   sequence_length: 128
   # debug 只验证真实流程；正式生成 PPL 使用 owt_kd.yaml 中的 scorer。

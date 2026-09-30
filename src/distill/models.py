@@ -8,6 +8,7 @@ from transformers import AutoTokenizer
 
 from .backbones.langflow import LangFlow, LangFlowConfig
 from .config import project_path
+from . import distributed
 
 
 def load_model(model_name, device, cache_dir=None, config_path=None):
@@ -34,6 +35,8 @@ def load_teacher(config):
     device = torch.device(settings["device"])
     if device.type == "cuda" and not torch.cuda.is_available():
         raise RuntimeError("当前机器没有 CUDA；本地调试请设置 model.device=cpu")
+    if device.type == "cuda" and distributed.active():
+        device = torch.device("cuda", torch.cuda.current_device())
     teacher = load_model(settings["teacher"], device, settings["cache_dir"],
                          settings["teacher_config"])
     teacher.requires_grad_(False)

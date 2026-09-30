@@ -36,8 +36,9 @@ loss:
 
 training:
   max_steps: 1000
-  batch_size: 1
-  grad_accumulation: 8
+  # 每卡 batch；默认八卡时 global batch = 8 × 4 × 2 = 64。
+  batch_size: 4
+  grad_accumulation: 2
   learning_rate: 0.00003
   weight_decay: 0.01
   max_grad_norm: 1.0
@@ -50,10 +51,10 @@ training:
 evaluation:
   seed: 2026
   num_samples: 32
-  batch_size: 1
+  batch_size: 4
   # 正式比较 teacher/pruned/trained 时，三者使用相同 NFE 与生成长度。
   num_steps: 1024
   sequence_length: 1024
   scorer: gpt2-large
-  scorer_batch_size: 1
+  scorer_batch_size: 4
   scorer_max_length: 1024

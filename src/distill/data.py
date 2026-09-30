@@ -5,9 +5,11 @@ import os
 
 import torch
 from torch.utils.data import DataLoader
+from torch.utils.data.distributed import DistributedSampler
 
 from .config import project_path, write_json
 from .models import load_tokenizer
+from . import distributed
 
 
 def prepared_dir(config):
@@ -104,6 +106,18 @@ def make_loader(config, split):
     tokens = load_tokens(config, split)
     if len(tokens) == 0:
         raise ValueError(f"{split} 没有可用的 token block")
-    return DataLoader(tokens, batch_size=config["training"]["batch_size"],
-                      shuffle=split == "train", num_workers=0,
+    sampler = None
+    if distributed.world_size() > 1:
+        if split == "train":
+            # 不补重复样本；每个 epoch 至多丢弃 world_size-1 个尾部样本。
+            sampler = DistributedSampler(tokens, shuffle=True, drop_last=True,
+                                         seed=config["run"]["seed"])
+            if len(sampler) == 0:
+                raise ValueError("训练 block 数少于 DDP 进程数，请增加 max_train_blocks")
+        else:
+            # 验证不补齐、不重复；少量验证样本时允许部分 rank 没有 batch。
+            tokens = tokens[distributed.rank()::distributed.world_size()]
+    return DataLoader(tokens, batch_size=config["training"]["batch_size"], sampler=sampler,
+                      shuffle=split == "train" and sampler is None, num_workers=0,
+                      pin_memory=torch.device(config["model"]["device"]).type == "cuda",
                       generator=torch.Generator().manual_seed(config["run"]["seed"]))
