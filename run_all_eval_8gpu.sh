@@ -77,45 +77,45 @@ export DATA_CACHE
 printf '[run] Python: %s\n[run] Results: %s\n[run] GPUs: %s\n[run] Tasks: %s\n' \
     "$PY" "$OUTDIR" "$NGPU" "$TASKS"
 
-if wants lm1b_gen; then
-    shard_dir="$OUTDIR/langflow_lm1b_gen_shards"
-    mkdir -p "$shard_dir"
-    base=$((LM1B_GEN_TOTAL / NGPU))
-    extra=$((LM1B_GEN_TOTAL % NGPU))
-    pids=()
-    shard_files=()
-    printf '[run] LangFlow LM1B Gen PPL: %s samples, %s steps\n' "$LM1B_GEN_TOTAL" "$LM1B_GEN_STEPS"
-    for ((i=0; i<NGPU; i++)); do
-        n=$base
-        (( i < extra )) && n=$((n + 1))
-        shard_files+=("$shard_dir/shard_$i.json")
-        (
-            cd "$ROOT/LangFlow"
-            CUDA_VISIBLE_DEVICES="${gpu_ids[$i]}" "$PY" gen_ppl.py \
-                --model "$LM1B_MODEL" --tokenizer bert-base-uncased \
-                --ppl-model "$PPL_MODEL" --num-samples "$n" \
-                --num-steps "$LM1B_GEN_STEPS" --seq-length "$LM1B_GEN_LENGTH" \
-                --batch-size "$LM1B_GEN_BS" --ppl-batch-size "$LM1B_SCORE_BS" \
-                --seed "$((42 + i))" --print-samples 0 --device cuda \
-                --output "${shard_files[$i]}" \
-                > "$shard_dir/shard_$i.log" 2>&1
-        ) &
-        pids+=("$!")
-        printf '[run]   GPU %s: %s samples -> %s\n' "${gpu_ids[$i]}" "$n" "${shard_files[$i]}"
-    done
-    failed=0
-    for ((i=0; i<NGPU; i++)); do
-        if ! wait "${pids[$i]}"; then
-            printf '[error] LM1B shard %s failed: %s\n' "$i" "$shard_dir/shard_$i.log" >&2
-            failed=1
-        fi
-    done
-    (( failed == 0 )) || die "LangFlow LM1B Gen PPL failed"
-    (
-        cd "$ROOT/LangFlow"
-        run_logged langflow_lm1b_gen_ppl "$PY" merge_gen_ppl.py "${shard_files[@]}"
-    )
-fi
+# if wants lm1b_gen; then
+#     shard_dir="$OUTDIR/langflow_lm1b_gen_shards"
+#     mkdir -p "$shard_dir"
+#     base=$((LM1B_GEN_TOTAL / NGPU))
+#     extra=$((LM1B_GEN_TOTAL % NGPU))
+#     pids=()
+#     shard_files=()
+#     printf '[run] LangFlow LM1B Gen PPL: %s samples, %s steps\n' "$LM1B_GEN_TOTAL" "$LM1B_GEN_STEPS"
+#     for ((i=0; i<NGPU; i++)); do
+#         n=$base
+#         (( i < extra )) && n=$((n + 1))
+#         shard_files+=("$shard_dir/shard_$i.json")
+#         (
+#             cd "$ROOT/LangFlow"
+#             CUDA_VISIBLE_DEVICES="${gpu_ids[$i]}" "$PY" gen_ppl.py \
+#                 --model "$LM1B_MODEL" --tokenizer bert-base-uncased \
+#                 --ppl-model "$PPL_MODEL" --num-samples "$n" \
+#                 --num-steps "$LM1B_GEN_STEPS" --seq-length "$LM1B_GEN_LENGTH" \
+#                 --batch-size "$LM1B_GEN_BS" --ppl-batch-size "$LM1B_SCORE_BS" \
+#                 --seed "$((42 + i))" --print-samples 0 --device cuda \
+#                 --output "${shard_files[$i]}" \
+#                 > "$shard_dir/shard_$i.log" 2>&1
+#         ) &
+#         pids+=("$!")
+#         printf '[run]   GPU %s: %s samples -> %s\n' "${gpu_ids[$i]}" "$n" "${shard_files[$i]}"
+#     done
+#     failed=0
+#     for ((i=0; i<NGPU; i++)); do
+#         if ! wait "${pids[$i]}"; then
+#             printf '[error] LM1B shard %s failed: %s\n' "$i" "$shard_dir/shard_$i.log" >&2
+#             failed=1
+#         fi
+#     done
+#     (( failed == 0 )) || die "LangFlow LM1B Gen PPL failed"
+#     (
+#         cd "$ROOT/LangFlow"
+#         run_logged langflow_lm1b_gen_ppl "$PY" merge_gen_ppl.py "${shard_files[@]}"
+#     )
+# fi
 
 run_flow_ppl() {
     local label=$1 config=$2 model=$3 first_n=$4
@@ -134,12 +134,12 @@ run_flow_ppl() {
     )
 }
 
-if wants owt_ppl; then
-    run_flow_ppl langflow_owt_ppl eval-owt "$OWT_MODEL" "$OWT_FIRST_N"
-fi
-if wants lm1b_ppl; then
-    run_flow_ppl langflow_lm1b_ppl eval-lm1b-wrap "$LM1B_MODEL" "$LM1B_FIRST_N"
-fi
+# if wants owt_ppl; then
+#     run_flow_ppl langflow_owt_ppl eval-owt "$OWT_MODEL" "$OWT_FIRST_N"
+# fi
+# if wants lm1b_ppl; then
+#     run_flow_ppl langflow_lm1b_ppl eval-lm1b-wrap "$LM1B_MODEL" "$LM1B_FIRST_N"
+# fi
 
 cat > "$OUTDIR/elf_b_sampling.yml" <<'YAML'
 - sampling_method: sde
