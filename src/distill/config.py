@@ -49,6 +49,11 @@ def load_config(path, overrides=()):
         raise ValueError("KD/CE 权重不能为负，且至少启用一个 loss")
     if not 0 <= training["self_condition_probability"] <= 1:
         raise ValueError("self_condition_probability 必须在 [0, 1] 内")
+    stopping = training["early_stopping"]
+    if stopping["metric"] not in ("loss", "kl", "ce"):
+        raise ValueError("early_stopping.metric 只支持验证 loss、kl 或 ce")
+    if stopping["patience"] < 1 or stopping["min_steps"] < 0 or stopping["min_delta"] < 0:
+        raise ValueError("早停 patience 必须为正，min_steps/min_delta 不能为负")
     if data["sequence_length"] < 3:
         raise ValueError("sequence_length 至少为 3，包含 BOS 和 EOS")
     return config

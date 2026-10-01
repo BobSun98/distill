@@ -158,7 +158,43 @@ bash scripts/run_experiment.sh configs/owt_kd.yaml train
 
 # 单独评测一个训练好的 student，仍比较 teacher/pruned/trained 三组。
 bash scripts/run_experiment.sh configs/owt_kd.yaml evaluate \
-  --checkpoint run/<实验目录>/checkpoints/step_001000
+  --checkpoint run/<实验目录>/checkpoints/best
+```
+
+正式配置默认按验证平台期自动停止，`max_steps` 为硬上限：
+
+```yaml
+training:
+  max_steps: 5000
+  validate_every: 100
+  early_stopping:
+    enabled: true
+    metric: loss
+    min_steps: 500
+    patience: 5
+    min_delta: 0.001
+```
+
+`metric` 可选验证 `loss`、`kl` 或 `ce`，都以越低越好判定。默认 `loss` 与当前训练目标
+一致：KD-only 时为 KL，CE-only 时为 CE，混合时为加权之和。验证使用跨卡汇总的指标。
+500 步之前记录最佳指标但不累计平台次数；到 500 步开始，连续 5 次验证没有达到至少
+0.001 的有效下降便停止。小幅下降会与上次有效改善累计比较；`patience` 按验证次数
+计数，不是训练步数。硬上限优先，即使 `min_steps` 大于 `max_steps` 也按上限结束。
+
+rank 0 广播停止决定，八个进程一起退出训练。最佳权重反复写入 `checkpoints/best/`，
+避免为每次改善保存一份大模型；这里保留实际最低值，即使单次改善小于 `min_delta`。
+初始 step 0 也作为候选，若训练始终没有改善，可选择删层初始化模型。
+停止时额外保存 `checkpoints/step_<实际步数>/`。`training.json` 记录实际步数、
+`stop_reason`（`plateau` 或 `max_steps`）、最佳步数/指标以及两份 checkpoint 路径。
+`all` 最后重载**最佳验证指标 checkpoint**做 Gen. PPL 和多样性评测。
+
+当前平台判定基于去噪验证指标，不是周期生成 PPL；它控制 off-policy 拟合的训练预算，
+生成质量仍需看结束后的 Gen. PPL 与多样性。debug 默认关闭早停，保持指定的小步数
+便于人工断点调试。可通过 CLI 调整上限或关闭早停：
+
+```bash
+bash scripts/run_experiment.sh configs/owt_kd.yaml all --set training.max_steps=2000
+bash scripts/run_experiment.sh configs/owt_kd.yaml all --set training.early_stopping.enabled=false
 ```
 
 每次运行创建 `run/<时间>_<名称>/`，保存有效 `config.yaml`、`distributed.json`、`models.json`、

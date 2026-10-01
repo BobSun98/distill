@@ -40,7 +40,8 @@ loss:
   ce_weight: 0.0
 
 training:
-  max_steps: 1000
+  # 硬上限；达到平台期可以更早结束。
+  max_steps: 5000
   # 每卡 batch；默认八卡时 global batch = 8 × 4 × 2 = 64。
   batch_size: 4
   grad_accumulation: 2
@@ -52,6 +53,15 @@ training:
   validate_every: 100
   validation_batches: 8
   save_every: 500
+  early_stopping:
+    enabled: true
+    # 验证 loss 最小化：KD-only 为 KL，CE-only 为 CE，也可明确指定 kl 或 ce。
+    metric: loss
+    min_steps: 500
+    # 按验证次数计数；每 100 步验证一次时，5 次通常对应 500 步。
+    patience: 5
+    # 绝对下降至少 0.001 才重置平台计数；最佳 checkpoint 仍保留实际最低值。
+    min_delta: 0.001
 
 evaluation:
   seed: 2026

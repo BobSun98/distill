@@ -18,6 +18,9 @@ training:
   validate_every: 3
   validation_batches: 1
   save_every: 0
+  # 人工断点调试默认跑完指定的小步数，可通过 --set 开启真实早停流程。
+  early_stopping:
+    enabled: false
 
 evaluation:
   num_samples: 2

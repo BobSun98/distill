@@ -13,6 +13,7 @@ from .data import make_loader
 from .losses import distillation_loss
 from .models import parameter_counts
 from .states import off_policy_state, posterior_logits
+from .early_stopping import PlateauMonitor
 from . import distributed, progress
 
 
@@ -69,8 +70,8 @@ def validate(teacher, student, loader, config):
         return distributed.mean_metrics(sums, tokens, device)
 
 
-def save_checkpoint(student, tokenizer, run_dir, step, config):
-    path = run_dir / "checkpoints" / f"step_{step:06d}"
+def save_checkpoint(student, tokenizer, run_dir, step, config, name=None):
+    path = run_dir / "checkpoints" / (name or f"step_{step:06d}")
     if distributed.is_main():
         progress.emit("checkpoint.save.begin", step=step, path=str(path))
         distributed.unwrap(student).save_pretrained(path, safe_serialization=True)
@@ -86,6 +87,10 @@ def save_checkpoint(student, tokenizer, run_dir, step, config):
 
 def train(teacher, student, tokenizer, config, run_dir):
     settings = config["training"]
+    stopping = settings["early_stopping"]
+    monitor = PlateauMonitor(stopping) if stopping["enabled"] and distributed.is_main() else None
+    best_state = None
+    stop_reason = "max_steps"
     with progress.phase("data.loaders"):
         train_loader, valid_loader = make_loader(config, "train"), make_loader(config, "valid")
     device = next(student.parameters()).device
@@ -121,9 +126,21 @@ def train(teacher, student, tokenizer, config, run_dir):
             log.flush()
             print(f"[train] {event}", flush=True)
 
+        def check_plateau(metrics, step):
+            if not stopping["enabled"]:
+                return None
+            # rank 0 基于全局验证结果决定保存/停止，广播后各 rank 走相同分支。
+            decision = monitor.update(metrics[stopping["metric"]], step) if distributed.is_main() else None
+            decision = distributed.broadcast_main(decision)
+            record({"phase": "early_stopping", "step": step, **decision})
+            if decision["new_best"]:
+                save_checkpoint(student, tokenizer, run_dir, step, config, name="best")
+            return decision
+
         with progress.phase("validation", step=0):
-            record({"phase": "valid", "step": 0,
-                    **validate(teacher, student, valid_loader, config)})
+            metrics = validate(teacher, student, valid_loader, config)
+            record({"phase": "valid", "step": 0, **metrics})
+            best_state = check_plateau(metrics, 0)
         for step in range(1, settings["max_steps"] + 1):
             visible_step = step == 1 or step % settings["log_every"] == 0 or step == settings["max_steps"]
             if visible_step:
@@ -180,13 +197,26 @@ def train(teacher, student, tokenizer, config, run_dir):
                 progress.emit("train.step.end", step=step)
             if step % settings["validate_every"] == 0 or step == settings["max_steps"]:
                 with progress.phase("validation", step=step):
-                    record({"phase": "valid", "step": step,
-                            **validate(teacher, student, valid_loader, config)})
+                    metrics = validate(teacher, student, valid_loader, config)
+                    record({"phase": "valid", "step": step, **metrics})
+                    best_state = check_plateau(metrics, step)
+                if best_state is not None and best_state["should_stop"] and step < settings["max_steps"]:
+                    stop_reason = "plateau"
+                    progress.emit("train.early_stop", step=step, metric=stopping["metric"],
+                                  best_step=best_state["best_step"], best_value=best_state["best_value"])
+                    break
             if settings["save_every"] and step % settings["save_every"] == 0 and step < settings["max_steps"]:
                 save_checkpoint(student, tokenizer, run_dir, step, config)
-    checkpoint = save_checkpoint(student, tokenizer, run_dir, settings["max_steps"], config)
+    # 保留停止时的权重；all 后续评测选择验证指标最佳模型，而不是默认使用最后一步。
+    last_checkpoint = save_checkpoint(student, tokenizer, run_dir, step, config)
+    checkpoint = run_dir / "checkpoints" / "best" if stopping["enabled"] else last_checkpoint
     if distributed.is_main():
         write_json(run_dir / "training.json", {"checkpoint": str(checkpoint),
-                                              "steps": settings["max_steps"]})
+                    "last_checkpoint": str(last_checkpoint), "steps": step,
+                    "max_steps": settings["max_steps"], "stop_reason": stop_reason,
+                    "early_stopping": stopping,
+                    "best_step": best_state["best_step"] if best_state else None,
+                    "best_value": best_state["best_value"] if best_state else None})
+        print(f"[train] stopped at step {step}: {stop_reason}", flush=True)
         print(f"[train] checkpoint: {checkpoint}", flush=True)
     return checkpoint
