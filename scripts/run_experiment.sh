@@ -38,6 +38,9 @@ else
         export GLOO_SOCKET_IFNAME="${GLOO_SOCKET_IFNAME:-lo}"
     fi
     export NCCL_DEBUG="${NCCL_DEBUG:-WARN}"
+    # 本机 iommu=soft + A6000 跨 PCIe/NUMA 拓扑下，NCCL 的 PCIe P2P 会死锁，
+    # 首个 all_reduce 一直自旋（GPU 100%、显存很小）直到超时。禁用 P2P 走共享内存可解。
+    export NCCL_P2P_DISABLE="${NCCL_P2P_DISABLE:-1}"
     if [[ "$NGPU" == 1 ]]; then
         run_logged "$PY" -m distill "$COMMAND" --config "$CONFIG_FILE" "$@"
     else
