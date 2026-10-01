@@ -8,26 +8,40 @@ from transformers import AutoTokenizer
 
 from .backbones.langflow import LangFlow, LangFlowConfig
 from .config import project_path
-from . import distributed
+from . import distributed, progress
+
+
+def resolve_model_files(model_name, cache_dir=None, config_path=None):
+    model_name = str(model_name)
+    cache_dir = str(project_path(cache_dir)) if cache_dir else None
+    files = None
+    # 单机共享缓存只由 rank 0 下载；其他 rank 用 CPU 通信等待，不在 NCCL 中空转。
+    with progress.phase("model.files.wait", model=model_name):
+        if distributed.is_main():
+            with progress.phase("model.files.resolve", model=model_name):
+                local = project_path(model_name)
+                if local.is_file():
+                    if config_path is None:
+                        raise ValueError("单独加载 safetensors 时必须指定 model.teacher_config")
+                    weights, architecture = local, project_path(config_path)
+                elif local.is_dir():
+                    weights, architecture = local / "model.safetensors", local / "config.json"
+                else:
+                    architecture = hf_hub_download(model_name, "config.json", cache_dir=cache_dir)
+                    weights = hf_hub_download(model_name, "model.safetensors", cache_dir=cache_dir)
+                files = str(architecture), str(weights)
+        return distributed.broadcast_main(files)
 
 
 def load_model(model_name, device, cache_dir=None, config_path=None):
-    cache_dir = str(project_path(cache_dir)) if cache_dir else None
-    local = project_path(model_name)
-    if local.is_file():
-        if config_path is None:
-            raise ValueError("单独加载 safetensors 时必须指定 model.teacher_config")
-        weights, architecture = local, project_path(config_path)
-    elif local.is_dir():
-        weights, architecture = local / "model.safetensors", local / "config.json"
-    else:
-        # 只下载配置和权重，始终使用本项目的模型实现，不执行远端 Python 代码。
-        architecture = hf_hub_download(model_name, "config.json", cache_dir=cache_dir)
-        weights = hf_hub_download(model_name, "model.safetensors", cache_dir=cache_dir)
-    config = LangFlowConfig.from_json_file(str(architecture))
-    model = LangFlow(config)
-    model.load_state_dict(load_file(str(weights)), strict=True)
-    return model.to(device).eval()
+    model_name = str(model_name)
+    architecture, weights = resolve_model_files(model_name, cache_dir, config_path)
+    with progress.phase("model.weights.load", model=model_name):
+        config = LangFlowConfig.from_json_file(architecture)
+        model = LangFlow(config)
+        model.load_state_dict(load_file(weights), strict=True)
+    with progress.phase("model.to_device", model=model_name, device=str(device)):
+        return model.to(device).eval()
 
 
 def load_teacher(config):

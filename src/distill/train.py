@@ -13,7 +13,7 @@ from .data import make_loader
 from .losses import distillation_loss
 from .models import parameter_counts
 from .states import off_policy_state, posterior_logits
-from . import distributed
+from . import distributed, progress
 
 
 def seed_everything(seed):
@@ -53,7 +53,11 @@ def validate(teacher, student, loader, config):
                 if index >= config["training"]["validation_batches"]:
                     break
                 batch = batch.to(device, non_blocking=True)
+                if index == 0:
+                    progress.emit("validation.first_batch.begin", tokens=batch.numel())
                 _, metrics = batch_loss(teacher, student, batch, config, query_teacher=True)
+                if index == 0:
+                    progress.emit("validation.first_batch.end", **metrics)
                 count = batch.numel()
                 tokens += count
                 for key, value in metrics.items():
@@ -61,30 +65,36 @@ def validate(teacher, student, loader, config):
     finally:
         student.train(was_training)
     # ce 是加噪状态上的 denoising CE，不是完整生成模型的 NLL/PPL。
-    return distributed.mean_metrics(sums, tokens, device)
+    with progress.phase("validation.reduce", local_tokens=tokens):
+        return distributed.mean_metrics(sums, tokens, device)
 
 
 def save_checkpoint(student, tokenizer, run_dir, step, config):
     path = run_dir / "checkpoints" / f"step_{step:06d}"
     if distributed.is_main():
+        progress.emit("checkpoint.save.begin", step=step, path=str(path))
         distributed.unwrap(student).save_pretrained(path, safe_serialization=True)
         tokenizer.save_pretrained(path)
         write_json(path / "distillation.json", {"step": step, "teacher": config["model"]["teacher"],
                                                "keep_layers": config["model"]["keep_layers"],
                                                "loss": config["loss"]})
-    distributed.barrier()
+        progress.emit("checkpoint.save.end", step=step)
+    with progress.phase("checkpoint.wait_ready", step=step):
+        distributed.barrier()
     return path
 
 
 def train(teacher, student, tokenizer, config, run_dir):
     settings = config["training"]
-    train_loader, valid_loader = make_loader(config, "train"), make_loader(config, "valid")
+    with progress.phase("data.loaders"):
+        train_loader, valid_loader = make_loader(config, "train"), make_loader(config, "valid")
     device = next(student.parameters()).device
     student.train()
     if distributed.world_size() > 1:
-        student = DistributedDataParallel(
-            student, device_ids=[device.index] if device.type == "cuda" else None,
-            broadcast_buffers=False)
+        with progress.phase("ddp.init", device=str(device)):
+            student = DistributedDataParallel(
+                student, device_ids=[device.index] if device.type == "cuda" else None,
+                process_group=distributed.tensor_group(), broadcast_buffers=False)
     optimizer = torch.optim.AdamW((p for p in student.parameters() if p.requires_grad),
                                  lr=settings["learning_rate"], weight_decay=settings["weight_decay"])
     if distributed.is_main():
@@ -111,9 +121,13 @@ def train(teacher, student, tokenizer, config, run_dir):
             log.flush()
             print(f"[train] {event}", flush=True)
 
-        record({"phase": "valid", "step": 0,
-                **validate(teacher, student, valid_loader, config)})
+        with progress.phase("validation", step=0):
+            record({"phase": "valid", "step": 0,
+                    **validate(teacher, student, valid_loader, config)})
         for step in range(1, settings["max_steps"] + 1):
+            visible_step = step == 1 or step % settings["log_every"] == 0 or step == settings["max_steps"]
+            if visible_step:
+                progress.emit("train.step.begin", step=step)
             optimizer.zero_grad(set_to_none=True)
             sums, tokens = {}, 0
             # 先取齐一个优化步的 micro-batches；尾批较小时仍按真实 token 数加权。
@@ -138,11 +152,17 @@ def train(teacher, student, tokenizer, config, run_dir):
                            else nullcontext())
                 # 累积期间只在最后一次 backward 通信；DDP 平均梯度后仍是全局 token 平均。
                 with context:
+                    if step == 1:
+                        progress.emit("train.micro_batch.begin", step=step, micro_batch=index + 1)
                     loss, metrics = batch_loss(teacher, student, batch, config)
+                    if step == 1:
+                        progress.emit("train.micro_batch.forward_done", step=step, micro_batch=index + 1)
                     if not torch.isfinite(loss):
                         raise FloatingPointError(f"step {step}: loss 非有限值")
                     count = batch.numel()
                     (loss * count * distributed.world_size() / global_tokens).backward()
+                    if step == 1:
+                        progress.emit("train.micro_batch.backward_done", step=step, micro_batch=index + 1)
                 tokens += count
                 for key, value in metrics.items():
                     sums[key] = sums.get(key, 0.0) + value * count
@@ -150,16 +170,18 @@ def train(teacher, student, tokenizer, config, run_dir):
                 (p for p in student.parameters() if p.requires_grad),
                 settings["max_grad_norm"], error_if_nonfinite=True)
             optimizer.step()
-            if step == 1 or step % settings["log_every"] == 0 or step == settings["max_steps"]:
+            if visible_step:
                 event = {"phase": "train", "step": step,
                         **distributed.mean_metrics(sums, tokens, device),
                         "grad_norm": float(grad_norm), "tokens": int(global_tokens), "epoch": epoch}
                 if device.type == "cuda" and distributed.is_main():
                     event["rank0_peak_memory_gib"] = torch.cuda.max_memory_allocated(device) / 1024**3
                 record(event)
+                progress.emit("train.step.end", step=step)
             if step % settings["validate_every"] == 0 or step == settings["max_steps"]:
-                record({"phase": "valid", "step": step,
-                        **validate(teacher, student, valid_loader, config)})
+                with progress.phase("validation", step=step):
+                    record({"phase": "valid", "step": step,
+                            **validate(teacher, student, valid_loader, config)})
             if settings["save_every"] and step % settings["save_every"] == 0 and step < settings["max_steps"]:
                 save_checkpoint(student, tokenizer, run_dir, step, config)
     checkpoint = save_checkpoint(student, tokenizer, run_dir, settings["max_steps"], config)

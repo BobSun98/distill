@@ -12,6 +12,11 @@ model:
   keep_layers: [0, 2, 4, 7, 9, 11]
   device: cuda
 
+distributed:
+  # CPU 等待允许首次下载；GPU collective 使用较短超时，避免无输出地等待两小时。
+  control_timeout_seconds: 7200
+  tensor_timeout_seconds: 180
+
 data:
   dataset: Skylion007/openwebtext
   dataset_config: default

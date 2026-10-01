@@ -11,7 +11,7 @@ from .config import project_path, write_json
 from .data import make_loader
 from .models import build_student, load_model, parameter_counts
 from .train import seed_everything, validate
-from . import distributed
+from . import distributed, progress
 
 
 @torch.no_grad()
@@ -25,8 +25,9 @@ def generate(model, tokenizer, settings):
     local_samples = base + (distributed.rank() < remainder)
     for start in range(0, local_samples, settings["batch_size"]):
         count = min(settings["batch_size"], local_samples - start)
-        ids.append(model.generate_samples(num_samples=count, seq_length=settings["sequence_length"],
-                                          num_steps=settings["num_steps"], device=device).cpu())
+        with progress.phase("generation.batch", start=start, samples=count, nfe=settings["num_steps"]):
+            ids.append(model.generate_samples(num_samples=count, seq_length=settings["sequence_length"],
+                                              num_steps=settings["num_steps"], device=device).cpu())
     tokens = torch.cat(ids) if ids else torch.empty((0, settings["sequence_length"]), dtype=torch.long)
     # 与现有 gen_ppl 约定相同，特殊 token 也保留在解码文本中。
     texts = tokenizer.batch_decode(tokens, skip_special_tokens=False)
@@ -53,7 +54,8 @@ def score_texts(texts, scorer, tokenizer, settings, device):
         batch = tokenizer(texts[start:start + settings["scorer_batch_size"]], padding=True,
                           truncation=True, max_length=settings["scorer_max_length"],
                           return_tensors="pt").to(device)
-        logits = scorer(**batch).logits
+        with progress.phase("scorer.batch", start=start, samples=len(batch["input_ids"])):
+            logits = scorer(**batch).logits
         labels = batch["input_ids"][:, 1:]
         mask = batch["attention_mask"][:, 1:].bool()
         losses = F.cross_entropy(logits[:, :-1].float().transpose(1, 2), labels, reduction="none")
@@ -64,7 +66,8 @@ def score_texts(texts, scorer, tokenizer, settings, device):
         for nll, count in zip(nlls.tolist(), counts.tolist()):
             per_sample.append({"nll_per_token": nll / count if count else None, "tokens": count})
     # 汇总的是 NLL 和 token 数，不能直接平均各卡的 PPL。
-    total_nll, total_tokens = distributed.sum_tensor([total_nll, total_tokens], device).tolist()
+    with progress.phase("scorer.reduce", local_tokens=total_tokens):
+        total_nll, total_tokens = distributed.sum_tensor([total_nll, total_tokens], device).tolist()
     sample_shards = distributed.gather_main(per_sample)
     if not total_tokens:
         raise ValueError("生成文本中没有可评分的 token")
@@ -94,6 +97,7 @@ def evaluate(teacher, tokenizer, checkpoint, config, run_dir):
     if distributed.is_main():
         output.mkdir(parents=True, exist_ok=True)
     for label in ("teacher", "pruned", "trained"):
+        progress.emit("evaluation.model.begin", model=label)
         if distributed.is_main():
             print(f"[eval] {label}", flush=True)
         if label == "teacher":
@@ -122,6 +126,7 @@ def evaluate(teacher, tokenizer, checkpoint, config, run_dir):
             results["models"][label] = metrics
         generated[label] = texts
         del model
+        progress.emit("evaluation.model.end", model=label)
     # scorer 与生成器错峰占用 GPU；teacher 后续无需再查询。
     if settings["scorer"]:
         teacher.cpu()
@@ -131,12 +136,16 @@ def evaluate(teacher, tokenizer, checkpoint, config, run_dir):
         cache_dir = str(project_path(cache_dir)) if cache_dir else None
         scorer_path = project_path(settings["scorer"])
         scorer_name = str(scorer_path) if scorer_path.is_dir() else settings["scorer"]
-        scorer_tokenizer = AutoTokenizer.from_pretrained(scorer_name, cache_dir=cache_dir)
-        scorer_tokenizer.padding_side = "right"
-        if scorer_tokenizer.pad_token_id is None:
-            scorer_tokenizer.pad_token = scorer_tokenizer.eos_token
-        scorer = AutoModelForCausalLM.from_pretrained(scorer_name, cache_dir=cache_dir)
-        scorer = scorer.to(device).eval()
+        with progress.phase("scorer.load", model=scorer_name):
+            scorer_tokenizer = AutoTokenizer.from_pretrained(scorer_name, cache_dir=cache_dir)
+            scorer_tokenizer.padding_side = "right"
+            if scorer_tokenizer.pad_token_id is None:
+                scorer_tokenizer.pad_token = scorer_tokenizer.eos_token
+            scorer = AutoModelForCausalLM.from_pretrained(scorer_name, cache_dir=cache_dir)
+            scorer = scorer.to(device).eval()
+        # 等其他 rank 完成下载/加载，再进入 GPU 指标通信，避免再次在 NCCL 中长等待。
+        with progress.phase("scorer.wait_ready"):
+            distributed.barrier()
         for label, texts in generated.items():
             metrics = score_texts(texts, scorer, scorer_tokenizer, settings, device)
             if distributed.is_main():

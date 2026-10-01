@@ -53,6 +53,66 @@ MASTER_PORT=29501 bash scripts/run_experiment.sh configs/owt_kd.yaml train
 self-conditioning 的无梯度预测直接调用原始 student，避免各 rank 的随机 SC 开关
 导致额外 DDP 前向通信。验证分片不补齐，指标按真实 token 数跨卡汇总。
 
+准备数据、下载权重、广播路径、等待 checkpoint 使用 CPU/Gloo 控制通信；
+DDP 梯度和 GPU 指标使用独立的 NCCL 组。等待磁盘/网络时不会调用 NCCL barrier。
+模型文件由 rank 0 解析/下载并共享路径，各 rank 并行加载；全部模型就绪后才进入 DDP。
+训练前会执行 1 MiB 的 all_reduce 与 broadcast，提前检查真实多卡通信。
+GPU 通信超时默认为 180 秒，可用 `--set distributed.tensor_timeout_seconds=600` 调整；
+CPU 准备阶段允许长下载，超时单独配置。
+
+## 启动阻塞与通信诊断
+
+如果 GPU 利用率持续 100% 但每卡显存只有几百 MB，且没有模型加载/训练日志，
+优先检查 NCCL 通信等待。利用率不能证明训练已经开始，最终应以各 rank 的阶段日志定位。
+先停止旧的前台 torchrun（Ctrl+C），同步代码后单独检查八卡通信：
+
+```bash
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 NCCL_DEBUG=INFO \
+  bash scripts/run_experiment.sh configs/owt_kd.yaml check-distributed
+```
+
+成功时每个 rank 应打印 `communication.all_reduce.end`、
+`communication.broadcast.end` 和 `communication.check.completed`。
+此命令不下载数据或模型，也不执行训练。
+如果仍停在 NCCL 初始化/all_reduce，做一次关闭 P2P 的对照：
+
+```bash
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 NCCL_DEBUG=INFO NCCL_P2P_DISABLE=1 \
+  bash scripts/run_experiment.sh configs/owt_kd.yaml check-distributed
+```
+
+若只在关闭 P2P 时通过，提示问题与 GPU P2P 传输路径有关，需要结合驱动、NCCL 版本和
+GPU 拓扑进一步定位。该参数只用于对照或临时绕过，不默认关闭 P2P，以免影响正常性能。
+依据：[NVIDIA GPU 通信排查](https://docs.nvidia.com/deeplearning/nccl/archives/nccl_2312/user-guide/docs/troubleshooting/gpu_troubleshooting.html)。
+
+通信检查通过后，先用真实模型验证八卡两步训练：
+
+```bash
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 NCCL_DEBUG=INFO \
+  bash scripts/run_experiment.sh configs/owt_kd.yaml train \
+  --set training.max_steps=2 --set training.log_every=1 --set training.validation_batches=1
+```
+
+确认 `ddp.init.end`、`train.micro_batch.backward_done` 和训练 loss 输出后，再运行 `all`。
+如果使用临时 P2P 绕过，应在对应的训练命令中显式设置相同环境变量。
+
+启动日志和所有异常堆栈保存在 `run/launch/*.log`；实验目录中的
+`logs/rank_00.jsonl` 到 `logs/rank_07.jsonl` 记录每个 rank 的操作开始/结束、PID 和耗时。
+`logs/nccl.<主机名>.<PID>.log` 保存 NCCL 原生日志（级别由 `NCCL_DEBUG` 控制）。
+单看 rank 0 的最后一条日志还不够，应比较所有 rank 的最后阶段：
+
+```bash
+# 将路径替换为本次新实验目录。
+tail -n 3 run/<实验目录>/logs/rank_*.jsonl
+```
+
+`communication.all_reduce.begin` 表示在测试 GPU 通信；`model.files.resolve.begin`
+表示正在解析/下载文件；`model.weights.load.begin` 表示 CPU 权重加载；
+`model.to_device.begin` 表示搬到 GPU；`ddp.init.begin` 表示 DDP 的参数同步；
+`validation.first_batch.begin` 和 `train.micro_batch.forward_done` 可区分前向与反向阻塞。
+
+## 数据准备与本地权重
+
 第一次准备 OWT 可能下载整个 Parquet 源数据集；文档数限制
 减少的是 tokenization 和训练开销，不是 Hugging Face 的源数据下载量。
 已有 `Dataset.save_to_disk()` 格式的原始 OWT（含 `text` 列）可以直接复用：
@@ -102,7 +162,7 @@ bash scripts/run_experiment.sh configs/owt_kd.yaml evaluate \
 ```
 
 每次运行创建 `run/<时间>_<名称>/`，保存有效 `config.yaml`、`distributed.json`、`models.json`、
-`metrics.jsonl`、`status.json`、checkpoint 和生成结果。
+`metrics.jsonl`、`status.json`、每 rank 阶段日志、checkpoint 和生成结果。
 token 数据缓存位于 `run/data/`，同一预处理配置会复用。临时脚本和检查位于 `tmp/`。
 运行产物和下载资产不提交 Git。
 
