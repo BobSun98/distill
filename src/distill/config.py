@@ -47,6 +47,8 @@ def load_yaml_config(path, overrides=()):
 def load_config(path, overrides=()):
     config = load_yaml_config(path, overrides)
     training, loss, data = config["training"], config["loss"], config["data"]
+    if data.get("corpus", "owt") not in ("owt", "lm1b"):
+        raise ValueError("data.corpus 只支持 owt 或 lm1b")
     if min(training["max_steps"], training["batch_size"], training["grad_accumulation"],
            training["log_every"], training["validate_every"]) < 1:
         raise ValueError("训练步数、batch size、梯度累积与日志间隔必须为正数")

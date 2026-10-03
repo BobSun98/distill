@@ -1,0 +1,25 @@
+extends: langflow_student_eval.yaml
+
+run:
+  name: langflow_lm1b_eval
+
+model:
+  tokenizer: bert-base-uncased
+
+# 先测较便宜的生成 PPL；需要 test-set Flow PPL 可改为 [flow_ppl, gen_ppl]。
+metrics: [gen_ppl]
+
+flow_ppl:
+  corpus: lm1b
+  sequence_length: 128
+  dataset: dvruette/lm1b
+  dataset_config: default
+  revision: refs/convert/parquet
+  validation_documents: null
+  # 0 为完整官方 test；仅流程检查时通过 --set first_n=256 取子集。
+  first_n: 0
+
+gen_ppl:
+  reference: "run_all_eval_8gpu.sh: lm1b_gen / LangFlow/gen_ppl.py / merge_gen_ppl.py"
+  sequence_length: 128
+  num_steps: 128

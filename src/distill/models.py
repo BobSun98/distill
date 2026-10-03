@@ -58,6 +58,17 @@ def load_teacher(config):
     return teacher
 
 
+def ensure_boundary_tokens(tokenizer):
+    # BERT 原生使用 CLS/SEP；复用已有 token 作为边界，不扩展预训练词表。
+    if tokenizer.bos_token_id is None and tokenizer.cls_token_id is not None:
+        tokenizer.bos_token = tokenizer.cls_token
+    if tokenizer.eos_token_id is None and tokenizer.sep_token_id is not None:
+        tokenizer.eos_token = tokenizer.sep_token
+    if tokenizer.bos_token_id is None or tokenizer.eos_token_id is None:
+        raise ValueError("packing 需要预训练 tokenizer 的 BOS/EOS 或 CLS/SEP")
+    return tokenizer
+
+
 def load_tokenizer(config):
     settings = config["model"]
     name = settings["tokenizer"]
@@ -65,9 +76,7 @@ def load_tokenizer(config):
     tokenizer = AutoTokenizer.from_pretrained(
         str(local) if local.is_dir() else name,
         cache_dir=str(project_path(settings["cache_dir"])) if settings["cache_dir"] else None)
-    if tokenizer.bos_token_id is None or tokenizer.eos_token_id is None:
-        raise ValueError("OWT packing 需要预训练 tokenizer 的 BOS/EOS token")
-    return tokenizer
+    return ensure_boundary_tokens(tokenizer)
 
 
 def build_student(teacher, keep_layers):

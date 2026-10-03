@@ -97,7 +97,7 @@ def run_experiment(config, command="all", checkpoint=None, allow_distributed=Tru
 
 
 def main(default_config="configs/owt_kd.yaml", default_command="all", allow_distributed=True):
-    parser = argparse.ArgumentParser(description="OWT 连续 DLM 容量蒸馏")
+    parser = argparse.ArgumentParser(description="OWT/LM1B 连续 DLM 容量蒸馏")
     parser.add_argument("command", nargs="?", choices=["prepare", "train", "evaluate", "all", "check-distributed"],
                         default=default_command)
     parser.add_argument("--config", default=default_config)

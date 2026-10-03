@@ -1,0 +1,33 @@
+extends: owt_kd.yaml
+
+run:
+  name: lm1b_kd_12to6
+
+model:
+  teacher: Continuous-Rivals-Discrete/langflow-lm1b
+  tokenizer: bert-base-uncased
+
+data:
+  corpus: lm1b
+  # 模型卡列出的 LM1B 数据源；Parquet 分支兼容新版 datasets。
+  dataset: dvruette/lm1b
+  dataset_config: default
+  revision: refs/convert/parquet
+  sequence_length: 128
+  # 在 train 尾部留内部验证，不用官方 test 做早停/选 checkpoint。
+  validation_documents: 100000
+  train_documents: 200000
+  valid_documents: 1024
+  max_train_blocks: 32768
+  max_valid_blocks: 256
+
+training:
+  # 八卡：8 × 32 × 2 = 512 blocks，约 65536 token/optimizer step。
+  batch_size: 32
+  grad_accumulation: 2
+
+evaluation:
+  sequence_length: 128
+  num_steps: 128
+  batch_size: 8
+  scorer_batch_size: 8

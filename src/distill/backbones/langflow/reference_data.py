@@ -1,4 +1,4 @@
-"""原版 OWT wrapped 缓存：复用同一验证样本及每 1000 篇分块/丢弃余数规则。"""
+"""原版 OWT/LM1B wrapped 缓存及每 1000 条文本分块/丢弃余数规则。"""
 
 import functools
 import itertools
@@ -7,9 +7,11 @@ from pathlib import Path
 
 import torch
 import tokenizers
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer, BertTokenizer, GPT2Tokenizer, GPT2TokenizerFast
 
 from ...config import project_path
+from ...models import ensure_boundary_tokens
+from .text import lm1b_detokenizer
 
 
 def _group_texts(examples, block_size, bos, eos):
@@ -45,31 +47,38 @@ def validation_cache_path(settings):
     if cache is None:
         hf_home = Path(os.environ.get("HF_HOME", Path.home() / ".cache" / "huggingface"))
         cache = hf_home / "datasets"
-    # 与原版 get_dataset("openwebtext-valid", mode="validation", wrap=True) 同名。
-    return project_path(cache) / f'openwebtext-valid_validation_bs{settings["sequence_length"]}_wrapped.dat'
+    # 与原版 OWT validation / LM1B test wrapped 缓存分别同名。
+    prefix = "lm1b_test" if settings.get("corpus", "owt") == "lm1b" else "openwebtext-valid_validation"
+    return project_path(cache) / f'{prefix}_bs{settings["sequence_length"]}_wrapped.dat'
 
 
 def reference_tokenizer(name, cache_dir=None):
     local = project_path(name)
-    tokenizer = AutoTokenizer.from_pretrained(str(local) if local.is_dir() else name,
-                                              cache_dir=cache_dir)
+    # 原版 get_tokenizer 明确用 BERT slow tokenizer 处理 LM1B。
+    loader = BertTokenizer if name == "bert-base-uncased" else AutoTokenizer
+    tokenizer = loader.from_pretrained(str(local) if local.is_dir() else name, cache_dir=cache_dir)
+    ensure_boundary_tokens(tokenizer)
     # 对齐 duo.dataloader.get_tokenizer；新增 PAD 不参与 wrapped block。
-    tokenizer._tokenizer.post_processor = tokenizers.processors.BertProcessing(
-        (tokenizer.bos_token, tokenizer.bos_token_id),
-        (tokenizer.eos_token, tokenizer.eos_token_id))
+    if isinstance(tokenizer, (GPT2Tokenizer, GPT2TokenizerFast)):
+        tokenizer._tokenizer.post_processor = tokenizers.processors.BertProcessing(
+            (tokenizer.bos_token, tokenizer.bos_token_id),
+            (tokenizer.eos_token, tokenizer.eos_token_id))
     if tokenizer.pad_token is None:
         tokenizer.add_special_tokens({"pad_token": "[PAD]"})
     return tokenizer
 
 
-def pack_validation(dataset, tokenizer, sequence_length, workers):
+def pack_validation(dataset, tokenizer, sequence_length, workers, corpus="owt"):
     eos = tokenizer.encode(tokenizer.eos_token)[0]
     bos = tokenizer.encode(tokenizer.bos_token)[0]
     tokenizer.padding_side = "right"
     tokenizer.truncation_side = "right"
 
     def tokenize(examples):
-        values = tokenizer(examples["text"], add_special_tokens=False,
+        texts = examples["text"]
+        if corpus == "lm1b":
+            texts = [lm1b_detokenizer(text) for text in texts]
+        values = tokenizer(texts, add_special_tokens=False,
                            return_attention_mask=False, return_token_type_ids=False)
         return {"input_ids": [ids + [eos] for ids in values["input_ids"]]}
 
@@ -92,12 +101,14 @@ def prepare_validation(settings, tokenizer):
         if settings["validation_cache"]:
             raise FileNotFoundError(f"指定的原版验证缓存不存在: {path}")
         path.parent.mkdir(parents=True, exist_ok=True)
-        # 保留原始 OWT 的最后 100000 篇；同一数据集的 Parquet 转换无需执行 dataset script。
+        # 原版 LM1B 用官方 test；OWT 用 train 的最后 100000 篇。
+        corpus = settings.get("corpus", "owt")
+        split = "test" if corpus == "lm1b" else f'train[-{settings["validation_documents"]}:]'
         raw = load_dataset(settings["dataset"], settings["dataset_config"],
                            revision=settings["revision"],
-                           split=f'train[-{settings["validation_documents"]}:]',
+                           split=split,
                            cache_dir=str(path.parent))
-        dataset = pack_validation(raw, tokenizer, settings["sequence_length"], settings["data_workers"])
+        dataset = pack_validation(raw, tokenizer, settings["sequence_length"], settings["data_workers"], corpus)
         dataset.save_to_disk(str(path))
     if not len(dataset) or len(dataset[0]["input_ids"]) != settings["sequence_length"]:
         raise ValueError("验证缓存为空或 block 长度与 flow_ppl.sequence_length 不一致")

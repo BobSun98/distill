@@ -24,6 +24,8 @@ def load_eval_config(path, overrides=()):
     if not config["metrics"] or not set(config["metrics"]) <= {"flow_ppl", "gen_ppl"}:
         raise ValueError("metrics 只能包含 flow_ppl 和 gen_ppl")
     flow, gen = config["flow_ppl"], config["gen_ppl"]
+    if flow.get("corpus", "owt") not in ("owt", "lm1b"):
+        raise ValueError("flow_ppl.corpus 只支持 owt 或 lm1b")
     if min(flow["num_steps"], flow["batch_size"], flow["sequence_length"] - 2) < 1 or flow["first_n"] < 0:
         raise ValueError("Flow 积分步数/batch/长度必须为正，first_n 不能为负")
     if min(gen["num_samples"], gen["num_steps"] - 1, gen["batch_size"], gen["scorer_batch_size"]) < 1:
@@ -141,7 +143,7 @@ def run_student_eval(config, checkpoint, model_config=None, allow_distributed=Tr
         # 保留原版 flow evaluator 的梯度设置；只对 z 求导，不执行参数优化。
         tokenizer = load_tokenizer(config)
         if tokenizer.vocab_size != model.config.vocab_size:
-            raise ValueError("该 benchmark 使用 OWT GPT-2 词表，请提供对应的 LangFlow student")
+            raise ValueError("tokenizer 词表与 checkpoint 不一致，请使用匹配的 OWT/LM1B 配置")
         results = {"checkpoint": str(weights), "model_config": str(architecture),
                    "architecture": model.config.to_dict(), "parameters": parameter_counts(model),
                    "tokenizer": config["model"]["tokenizer"],
@@ -149,23 +151,24 @@ def run_student_eval(config, checkpoint, model_config=None, allow_distributed=Tr
         if "flow_ppl" in config["metrics"]:
             metrics = flow_ppl(model, config["flow_ppl"], device)
             if distributed.is_main():
+                reference_task = "lm1b_ppl" if config["flow_ppl"].get("corpus", "owt") == "lm1b" else "owt_ppl"
                 results["results"]["flow_ppl"] = metrics
                 results["protocol"]["flow_ppl"] = {**config["flow_ppl"],
                     "validation_cache": str(validation_cache_path(config["flow_ppl"])),
-                    "reference": "run_all_eval_8gpu.sh: owt_ppl / LangFlow/eval_ppl.py",
+                    "reference": f"run_all_eval_8gpu.sh: {reference_task} / LangFlow/eval_ppl.py",
                     "rank_seed": "seed + rank", "matmul_precision": "high"}
                 write_json(run_dir / "metrics.json", results)
-                print(f'[eval] OWT Flow PPL: {metrics["ppl"]:.4f}', flush=True)
+                print(f'[eval] Flow PPL: {metrics["ppl"]:.4f}', flush=True)
         if "gen_ppl" in config["metrics"]:
             metrics = generation_ppl(model, tokenizer, config["gen_ppl"], config, device, run_dir)
             if distributed.is_main():
                 results["results"]["gen_ppl"] = metrics
                 results["protocol"]["gen_ppl"] = {**config["gen_ppl"],
-                    "reference": "LangFlow/run_gen_ppl_8gpu.sh / gen_ppl.py / merge_gen_ppl.py",
+                    "reference": config["gen_ppl"].get("reference", "LangFlow/run_gen_ppl_8gpu.sh / gen_ppl.py / merge_gen_ppl.py"),
                     "rank_seed": "seed + rank", "scorer_dtype": "float16" if device.type == "cuda" else "float32",
                     "skip_special_tokens": False, "matmul_precision": "highest"}
                 write_json(run_dir / "metrics.json", results)
-                print(f'[eval] OWT Gen. PPL: {metrics["gen_ppl"]:.4f}', flush=True)
+                print(f'[eval] Gen. PPL: {metrics["gen_ppl"]:.4f}', flush=True)
         if distributed.is_main():
             write_json(run_dir / "status.json", {"status": "completed", "checkpoint": str(weights)})
             print(f"[eval] results: {run_dir / 'metrics.json'}", flush=True)

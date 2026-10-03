@@ -1,0 +1,15 @@
+extends: langflow_lm1b_eval.yaml
+
+run:
+  name: langflow_lm1b_eval_debug
+
+flow_ppl:
+  first_n: 1
+  num_steps: 2
+  data_workers: 0
+
+gen_ppl:
+  num_samples: 1
+  num_steps: 8
+  batch_size: 1
+  scorer_batch_size: 1

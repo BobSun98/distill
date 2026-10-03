@@ -137,6 +137,65 @@ bash scripts/run_experiment.sh configs/owt_kd.yaml all \
 单独的 safetensors 文件也支持，默认读取同目录 `config.json`；也可显式设置
 `model.teacher_config=/path/to/config.json`。只读取配置与权重，不执行远端模型代码。
 
+## LM1B 蒸馏与评测
+
+LM1B 入口复用同一删层初始化、KL/CE loss、八卡 DDP 与早停逻辑，不修改 OWT 的
+实验配置。`configs/lm1b_kd.yaml` 使用 `Continuous-Rivals-Discrete/langflow-lm1b`、
+`bert-base-uncased`、训练/生成长度 128、正式生成 128 次前向。默认每卡 32、梯度
+累积 2 次，八卡名义全局 batch 为 512 blocks（约 65536 token/optimizer step）。
+这是初始资源配置，尚未在 A6000 实测；可通过 `training.batch_size` 调整。
+
+```bash
+# 在服务器项目根目录：先单卡真实模型调试，再八卡蒸馏。
+bash scripts/run_experiment.sh configs/lm1b_debug.yaml debug
+bash scripts/run_experiment.sh configs/lm1b_kd.yaml all
+
+# 只训练；仍保存最佳和最后一步模型。
+bash scripts/run_experiment.sh configs/lm1b_kd.yaml train
+```
+
+数据默认使用模型卡列出的 `dvruette/lm1b` Parquet 分支。训练只读取官方 `train`，
+在其最后 100000 条文本中保留内部验证，取其中 1024 条用于验证/早停；训练取前
+200000 条。官方 `test` 不参与模型选择。`train_documents`/`valid_documents` 在 LM1B
+指句子/文本记录数，最终按固定长度 packing 成 blocks。缓存目录使用 `lm1b_` 前缀，
+不会误用已有 OWT token 缓存。本地原始缓存可为 train `Dataset`，或含 `train`/`test`
+的 `DatasetDict`，通过 `data.local_dataset` 指定。
+
+BERT 的 BOS/EOS 自动关联已有 CLS/SEP，不扩充词表；文本先按原版
+`lm1b_detokenizer` 规范化。需要注意原版 wrapped 实现使用
+`tokenizer.encode(special_token)[0]`：BERT 自动前置 CLS，所以其分块的 EOS 实际也
+取 CLS。训练与独立 Flow 评测沿用这条已有约定，不另行替换成 SEP。
+独立评测优先复用原版缓存，保持其每 1000 条 map 分块与丢弃余数的边界。
+
+LM1B student 独立 benchmark 使用同一个八卡脚本，默认先测 Gen. PPL：
+
+```bash
+STUDENT=/path/to/lm1b_student/best/model.safetensors
+
+# 初步检查 64 条，仍使用长度 128、采样前向 128、GPT-2-large CUDA FP16。
+bash scripts/eval_langflow_student.sh "$STUDENT" \
+  --config configs/langflow_lm1b_eval.yaml --set gen_ppl.num_samples=64
+
+# 原版 LM1B Gen. PPL 默认 512 条、每卡 batch=8、seed=42+rank。
+bash scripts/eval_langflow_student.sh "$STUDENT" \
+  --config configs/langflow_lm1b_eval.yaml
+
+# 官方 test 的 Flow PPL，先用相同的前 256 个 block 对比 teacher/student。
+bash scripts/eval_langflow_student.sh "$STUDENT" \
+  --config configs/langflow_lm1b_eval.yaml \
+  --set 'metrics=[flow_ppl]' --set flow_ppl.first_n=256
+```
+
+完整 Flow PPL 设置 `flow_ppl.first_n=0`，读取官方 `test`，长度 128、128 个积分步、
+Heun2、自条件开启；原版缓存名称为 `lm1b_test_bs128_wrapped.dat`。可通过
+`flow_ppl.validation_cache` 显式指定。benchmark 和训练内的轻量生成评测都保留
+特殊 token，再由 GPT-2-large 重新 tokenize，不在 LM1B 上额外删除 `[CLS]`。
+
+IDE 训练 debug 直接运行 `debug/debug_pipeline.py --config configs/lm1b_debug.yaml`。
+评测 debug 直接运行 `debug/debug_student_eval.py --config configs/langflow_lm1b_eval_debug.yaml
+--checkpoint /path/model.safetensors`。两者均单卡、同进程使用真实工程函数。
+本次 LM1B 适配仅做静态检查，没有在本地下载或执行模型，实际验证留给服务器。
+
 ## 与原版对齐的独立 student 评测
 
 `scripts/eval_langflow_student.sh` 输入 student 的 safetensors 文件，默认使用 CUDA 0-7

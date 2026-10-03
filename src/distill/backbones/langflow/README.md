@@ -10,3 +10,6 @@ CPU 上调试；CUDA 仍沿用原始 bf16 backbone、前向参数化与 Euler-ED
 只新增可选下载缓存路径。`reference_data.py` 的 `_group_texts` 复制自
 `LangFlow/duo/dataloader.py`；OWT 分支保留两次 batched map、每篇 EOS、每个 block
 BOS/EOS 以及各 map batch 丢弃余数的规则，不复用蒸馏训练的连续 buffer packing。
+`text.py` 的 LM1B detokenizer 同样复制自 `LangFlow/duo/dataloader.py`。
+LM1B wrapped 兼容原代码 `encode(special_token)[0]` 的边界取值方式；BERT 会自动
+前置 CLS，因此此规则的 EOS 也取 CLS，不另行改为 SEP。
