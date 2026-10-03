@@ -25,13 +25,13 @@ def _merge(base, changes):
     return result
 
 
-def load_config(path, overrides=()):
+def load_yaml_config(path, overrides=()):
     path = project_path(path)
     with path.open(encoding="utf-8") as handle:
         config = yaml.safe_load(handle)
     base = config.pop("extends", None)
     if base:
-        config = _merge(load_config(path.parent / base), config)
+        config = _merge(load_yaml_config(path.parent / base), config)
     for override in overrides:
         key, value = override.split("=", 1)
         target = config
@@ -41,6 +41,11 @@ def load_config(path, overrides=()):
         if parts[-1] not in target:
             raise KeyError(f"未知配置项: {key}")
         target[parts[-1]] = yaml.safe_load(value)
+    return config
+
+
+def load_config(path, overrides=()):
+    config = load_yaml_config(path, overrides)
     training, loss, data = config["training"], config["loss"], config["data"]
     if min(training["max_steps"], training["batch_size"], training["grad_accumulation"],
            training["log_every"], training["validate_every"]) < 1:

@@ -21,9 +21,10 @@ def resolve_model_files(model_name, cache_dir=None, config_path=None):
             with progress.phase("model.files.resolve", model=model_name):
                 local = project_path(model_name)
                 if local.is_file():
-                    if config_path is None:
-                        raise ValueError("单独加载 safetensors 时必须指定 model.teacher_config")
-                    weights, architecture = local, project_path(config_path)
+                    architecture = project_path(config_path) if config_path else local.parent / "config.json"
+                    if not architecture.is_file():
+                        raise ValueError("safetensors 不含完整模型架构；请保留同目录 config.json，或显式指定模型配置路径")
+                    weights = local
                 elif local.is_dir():
                     weights, architecture = local / "model.safetensors", local / "config.json"
                 else:
@@ -33,12 +34,12 @@ def resolve_model_files(model_name, cache_dir=None, config_path=None):
         return distributed.broadcast_main(files)
 
 
-def load_model(model_name, device, cache_dir=None, config_path=None):
+def load_model(model_name, device, cache_dir=None, config_path=None, model_class=LangFlow):
     model_name = str(model_name)
     architecture, weights = resolve_model_files(model_name, cache_dir, config_path)
     with progress.phase("model.weights.load", model=model_name):
         config = LangFlowConfig.from_json_file(architecture)
-        model = LangFlow(config)
+        model = model_class(config)
         model.load_state_dict(load_file(weights), strict=True)
     with progress.phase("model.to_device", model=model_name, device=str(device)):
         return model.to(device).eval()

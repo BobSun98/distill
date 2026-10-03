@@ -134,8 +134,65 @@ bash scripts/run_experiment.sh configs/owt_kd.yaml all \
   --set model.teacher=/path/to/langflow-owt
 ```
 
-单独的 safetensors 文件也支持，但需同时设置
+单独的 safetensors 文件也支持，默认读取同目录 `config.json`；也可显式设置
 `model.teacher_config=/path/to/config.json`。只读取配置与权重，不执行远端模型代码。
+
+## 与原版对齐的独立 student 评测
+
+`scripts/eval_langflow_student.sh` 输入 student 的 safetensors 文件，默认使用 CUDA 0-7
+共八个进程。模型架构自动读取权重旁的 `config.json`，与评测协议 YAML 分开。
+本项目保存的 safetensors metadata 仅有 `format=pt`，不能单凭张量文件完整恢复模型
+结构；请一起保留 `config.json`（包括 student 的 `n_blocks`、hidden size、heads、SC 等）。
+
+```bash
+# 新增 flow NLL 依赖后先更新安装。
+/proj/gpu_mtk53742/.conda/envs/distill/bin/python -m pip install -e .
+
+# 默认 OWT 验证集 PPL，对齐 run_all_eval_8gpu.sh 的 owt_ppl。
+bash scripts/eval_langflow_student.sh run/<实验目录>/checkpoints/best/model.safetensors
+
+# 权重被单独移动时，显式提供 student 架构 JSON。
+bash scripts/eval_langflow_student.sh /path/student.safetensors \
+  --model-config /path/student_config.json
+
+# 生成 PPL，对齐 LangFlow/run_gen_ppl_8gpu.sh。
+bash scripts/eval_langflow_student.sh run/<实验目录>/checkpoints/best/model.safetensors \
+  --set 'metrics=[gen_ppl]'
+
+# 同时计算两种 PPL。
+bash scripts/eval_langflow_student.sh run/<实验目录>/checkpoints/best/model.safetensors \
+  --set 'metrics=[flow_ppl,gen_ppl]'
+```
+
+协议在 `configs/langflow_student_eval.yaml`：
+
+| 指标 | 原版对齐设置 |
+| --- | --- |
+| `flow_ppl` | OWT 最后 100000 篇验证文本，wrapped 长度 1024，积分网格 128 步，Heun2，SC 开启，每卡 batch=1，seed=1+rank，重构+flow+prior NLL 按 token 汇总 |
+| `gen_ppl` | 512 条，长度 1024，采样前向 1024 次，每卡 batch=8，seed=42+rank，GPT-2-large CUDA FP16，评分上限 1024，保留特殊 token，逐样本重评分后按 token 汇总 |
+
+Flow 的 `num_steps=128` 沿用原脚本的积分网格参数（旧日志称 NFE），不能理解为
+总共仅调用模型 128 次；Heun2 与 SC 会产生额外前向。生成的 `num_steps=1024`
+则是原 sampler 的模型前向次数。两个指标在 `metrics.json` 中分开保存。
+
+默认优先读取 `DATA_CACHE/openwebtext-valid_validation_bs1024_wrapped.dat`，也可通过
+`--set flow_ppl.validation_cache=/path/to/original.dat` 明确指定**原版完整 token 缓存**。
+这样连 map batch 丢弃余数和多进程分块边界都一致。没有缓存时，使用同一 OWT 的
+Parquet 转换构建原版规则的缓存；首次准备可能需要下载完整源数据。此入口不使用
+蒸馏训练的 `run/data` 缓存，那个 continuous buffer packing 不是原版评测分块。
+
+`flow_ppl.first_n=0` 为完整验证集。首次服务器检查可以设置 32，只用于流程验证；
+正式对比 teacher/student 时，必须使用相同缓存、样本范围、卡数、batch、种子及
+积分/采样参数。这个入口也可输入原 teacher 的权重，建议在相同环境重跑 teacher
+作为基准，而不是假设不同软件版本/硬件的历史数字能够逐位一致。
+
+运行日志、完整模型配置、评测协议、结果和生成文本保存在 `run/<时间>_langflow_student_eval/`。
+原有训练 `all` 的轻量 Gen. PPL 保持原设置，与这份独立 benchmark 分开。
+
+IDE 运行 `debug/debug_student_eval.py --checkpoint /path/model.safetensors`，默认只做
+少量 Flow PPL，数据 workers=0，同进程直接调用真实模型。可用 `--set model.device=cpu`
+本地调试，或 `--set 'metrics=[gen_ppl]'` 进入真实 GPT-2-large 评分；debug 只减少开销，
+生成长度和 Flow 缓存长度仍需显式匹配。debug 结果不能作为正式质量结论。
 
 ## 配置与对照实验
 

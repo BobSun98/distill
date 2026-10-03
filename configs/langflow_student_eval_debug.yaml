@@ -1,0 +1,16 @@
+extends: langflow_student_eval.yaml
+
+run:
+  name: langflow_student_eval_debug
+
+flow_ppl:
+  first_n: 1
+  num_steps: 2
+  data_workers: 0
+
+# Gen. PPL 的 scorer 仍是真实 GPT-2-large，只减少生成条数和前向次数。
+gen_ppl:
+  num_samples: 1
+  num_steps: 8
+  batch_size: 1
+  scorer_batch_size: 1

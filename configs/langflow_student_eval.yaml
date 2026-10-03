@@ -1,0 +1,43 @@
+run:
+  name: langflow_student_eval
+  root: run
+
+model:
+  device: cuda
+  tokenizer: gpt2
+  cache_dir: null
+
+distributed:
+  control_timeout_seconds: 7200
+
+# 默认对齐 run_all_eval_8gpu.sh 的 langflow_owt_ppl。
+# 生成 PPL 对齐 LangFlow/run_gen_ppl_8gpu.sh，改为 [flow_ppl, gen_ppl] 可同时评测。
+metrics: [flow_ppl]
+
+flow_ppl:
+  seed: 1
+  sequence_length: 1024
+  num_steps: 128
+  ode_method: heun2
+  batch_size: 1
+  use_self_cond: true
+  # 0 表示完整验证集，与原版 OWT_FIRST_N=0 一致。
+  first_n: 0
+  # 默认寻找 DATA_CACHE 中原版 openwebtext-valid_validation_bs1024_wrapped.dat。
+  validation_cache: null
+  data_cache: null
+  data_workers: 2
+  dataset: Skylion007/openwebtext
+  dataset_config: default
+  revision: refs/convert/parquet
+  validation_documents: 100000
+
+gen_ppl:
+  seed: 42
+  num_samples: 512
+  sequence_length: 1024
+  num_steps: 1024
+  batch_size: 8
+  scorer: gpt2-large
+  scorer_batch_size: 8
+  scorer_max_length: 1024
