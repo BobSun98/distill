@@ -1,0 +1,110 @@
+run:
+  name: elf_b_owt_kd_12to6
+  root: run
+  seed: 42
+
+model:
+  teacher: embedded-language-flows/ELF-B-owt-torch
+  # null 自动选择仓库最新 checkpoint；也支持本地原生 checkpoint 文件/目录。
+  checkpoint_file: null
+  use_ema: true
+  encoder: t5-small
+  cache_dir: null
+  device: cuda
+  use_bf16: true
+  keep_layers: [0, 2, 4, 7, 9, 11]
+  gradient_checkpointing: false
+  architecture:
+    text_encoder_dim: 512
+    max_length: 1024
+    hidden_size: 768
+    depth: 12
+    num_heads: 12
+    mlp_ratio: 4.0
+    attn_drop: 0.0
+    proj_drop: 0.0
+    bottleneck_dim: 128
+    num_time_tokens: 4
+    num_self_cond_cfg_tokens: 4
+    num_model_mode_tokens: 4
+    # ELF 使用 tokenizer.vocab_size，不是 T5 encoder 的 padded vocab_size。
+    vocab_size: 32100
+    gradient_checkpointing: false
+
+distributed:
+  control_timeout_seconds: 7200
+  tensor_timeout_seconds: 180
+
+data:
+  # 原版 ELF 的 save_to_disk Arrow 数据，已经用真实 T5 tokenizer 编码。
+  dataset: embedded-language-flows/openwebtext-t5
+  local_dataset: null
+  hf_cache_dir: null
+  prepared_root: run/data
+  sequence_length: 1024
+  validation_documents: 100000
+  train_documents: 20000
+  valid_documents: 128
+  max_train_blocks: 8192
+  max_valid_blocks: 128
+
+diffusion:
+  latent_mean: 0.0
+  latent_std: 0.2
+  denoiser_p_mean: -1.5
+  denoiser_p_std: 0.8
+  denoiser_noise_scale: 2.0
+  time_schedule: logit_normal
+  t_eps: 0.05
+  # 每条样本独立选择 decoder 状态，其余样本训练去噪分支。
+  decoder_probability: 0.2
+  decoder_p_mean: 0.8
+  decoder_p_std: 0.8
+  decoder_noise_scale: 5.0
+  self_cond_cfg_min: 0.5
+  self_cond_cfg_max: 5.0
+
+loss:
+  # 默认：teacher velocity MSE + decoder 的 KL(teacher || student)。
+  flow_weight: 1.0
+  kd_weight: 1.0
+  ce_weight: 0.0
+  # 非蒸馏对照：原版真实 latent 速度目标（含 SC-CFG 修正）。
+  native_flow_weight: 0.0
+
+training:
+  max_steps: 5000
+  # 每卡 batch；八卡全局 batch = 8 × 4 × 2 = 64。
+  batch_size: 4
+  grad_accumulation: 2
+  learning_rate: 0.00003
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  self_condition_probability: 0.5
+  log_every: 10
+  validate_every: 100
+  validation_batches: 8
+  save_every: 500
+  early_stopping:
+    enabled: true
+    metric: loss
+    min_steps: 500
+    patience: 5
+    min_delta: 0.001
+
+evaluation:
+  seed: 42
+  # 小规模初步比较；论文比较需提高样本数并保持三组协议一致。
+  num_samples: 32
+  batch_size: 1
+  num_steps: 32
+  sequence_length: 1024
+  scorer: gpt2-large
+  scorer_batch_size: 8
+  scorer_max_length: 1024
+  sampling:
+    sampling_method: sde
+    time_schedule: logit_normal
+    sde_gamma: 1.5
+    cfg_scale: 1.0
+    self_cond_cfg_scale: 3.0

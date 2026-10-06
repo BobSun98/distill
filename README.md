@@ -6,8 +6,9 @@
 schedule 冻结；其余 student 参数由 AdamW 更新。删掉一半 block 不代表总参数减半，
 每次实验会记录总参数、非 embedding 参数与可训练参数。
 
-模型和采样实现复制在 `src/distill/backbones/langflow/`，外部 `ELF/`、`LangFlow/`
-保持原样。项目目标见 [DistillationContinuesDLM.md](DistillationContinuesDLM.md)。
+LangFlow 和 ELF 模型/采样实现分别复制在 `src/distill/backbones/langflow/`、
+`src/distill/backbones/elf/`，外部 `ELF/`、`LangFlow/` 保持原样。
+ELF-B/L 的运行方式见下方独立说明。项目目标见 [DistillationContinuesDLM.md](DistillationContinuesDLM.md)。
 
 ## 服务器运行
 
@@ -252,6 +253,113 @@ IDE 运行 `debug/debug_student_eval.py --checkpoint /path/model.safetensors`，
 少量 Flow PPL，数据 workers=0，同进程直接调用真实模型。可用 `--set model.device=cpu`
 本地调试，或 `--set 'metrics=[gen_ppl]'` 进入真实 GPT-2-large 评分；debug 只减少开销，
 生成长度和 Flow 缓存长度仍需显式匹配。debug 结果不能作为正式质量结论。
+
+## ELF-B / ELF-L 蒸馏
+
+ELF 沿用原版 T5-small tokenizer、冻结 encoder 和 latent 归一化，使用原版
+`embedded-language-flows/openwebtext-t5` 的预 tokenized Arrow 数据。训练直接对真实
+文本 latent 加噪，不先做 teacher 文本生成。teacher 默认从官方 PyTorch checkpoint
+读取 `ema_params1`（与原版生成一致）；student 复制 teacher 权重并删层，保留宽度和输出头。
+
+| 配置 | Teacher 骨干 | Student | 每卡 batch × 累积 | 八卡全局 batch |
+| --- | --- | --- | --- | --- |
+| `configs/elf_b_kd.yaml` | 12 层，宽度 768，12 heads | 6 层 | 4 × 2 | 64 |
+| `configs/elf_l_kd.yaml` | 32 层，宽度 1280，16 heads | 16 层 | 1 × 8 | 64 |
+
+L 默认开启 student gradient checkpointing。上述 batch 是 A6000 的初步起点，实际峰值
+显存记录在 `metrics.jsonl`；本地未执行模型或 GPU 验证。编码、数据、损失和评测放在
+`src/distill/elf/`，共用现有 DDP、优化、日志与平台期早停流程。
+
+在服务器项目根目录运行，先更新依赖，再分别验证真实 B/L 流程：
+
+```bash
+/proj/gpu_mtk53742/.conda/envs/distill/bin/python -m pip install -e .
+
+# 单卡、当前进程调用真实 T5/ELF：短序列、训练 3 步、保存重载和生成。
+CUDA_VISIBLE_DEVICES=0 bash scripts/run_elf_experiment.sh configs/elf_b_debug.yaml debug
+CUDA_VISIBLE_DEVICES=0 bash scripts/run_elf_experiment.sh configs/elf_l_debug.yaml debug
+
+# 各自占用 CUDA 0-7；两条依次执行。
+bash scripts/run_elf_experiment.sh configs/elf_b_kd.yaml all
+bash scripts/run_elf_experiment.sh configs/elf_l_kd.yaml all
+```
+
+`all` 执行数据准备、八卡 DDP 训练、最佳 checkpoint 重载及三组生成比较。
+默认最大 5000 个 optimizer step；每 100 步验证，至少训练 500 步后，连续 5 次验证
+下降不足 0.001 则停止。早停依据内部验证 loss，不依据 Gen. PPL。
+`train` 只训练，`prepare` 只准备数据；`check-distributed` 仅检查多卡通信。
+所有产物在 `run/`，启动日志在 `run/launch/`。
+
+首次运行需要在服务器下载真实模型及原版 Arrow 数据集，debug 也使用这些资产。
+已有 ELF 数据缓存时建议直接配置 `data.local_dataset`，目录应为原版
+`Dataset.save_to_disk` 输出且包含 `input_ids`、`sequence_length`。两个正式实验共享
+预处理缓存；debug 使用独立的短序列缓存。训练前缀和尾部内部验证保留区分开，
+不使用 Gen. PPL 选 checkpoint。
+
+### ELF 不只支持 MSE
+
+ELF 去噪头输出连续 latent，decoder 头输出词表 logits。它们是两个独立输出头，
+decoder logits 的期望 embedding 并不定义 ELF 的去噪输出。
+
+| 配置项 | 默认 | 目标 |
+| --- | --- | --- |
+| `loss.flow_weight` | 1 | 同一 `(z,t,SC)` 上 teacher/student 的 velocity MSE |
+| `loss.kd_weight` | 1 | decoder 状态上 KL(teacher ‖ student)，温度 1 |
+| `loss.ce_weight` | 0 | decoder 状态上真实 token CE |
+| `loss.native_flow_weight` | 0 | 真实 latent 的原生 velocity MSE，含原版 SC-CFG 目标修正 |
+
+`decoder_probability=0.2` 时每条样本独立选择 decoder 状态，其余为去噪状态。
+去噪使用 `z=t*x0+(1-t)*2*noise`，velocity 为 `(xhat-z)/max(1-t,0.05)`；
+decoder 使用原版逐 token logit-normal 噪声、`t=1` 和零 SC。
+SC 来自当前 student 的无梯度预测，detach 后给双方相同输入。
+两种分支沿用原版混合 batch 的有效 token 总数作分母；因此损失权重还受分支概率影响。
+日志的分项也是对总有效 token 的贡献，不是各分支独立归一化的均值。
+
+```bash
+# 仅做 teacher velocity MSE；不采样 decoder 状态。
+bash scripts/run_elf_experiment.sh configs/elf_b_kd.yaml train \
+  --set loss.kd_weight=0 --set diffusion.decoder_probability=0
+
+# 仅 decoder KL；训练的输入是 decoder 原生噪声状态。
+bash scripts/run_elf_experiment.sh configs/elf_b_kd.yaml train \
+  --set loss.flow_weight=0 --set diffusion.decoder_probability=1
+
+# 原生目标对照：velocity MSE + 真实 token CE。
+# 使用同一 student/优化预算，优化器等并非完整复现原版从头训练。
+bash scripts/run_elf_experiment.sh configs/elf_b_kd.yaml train \
+  --set loss.flow_weight=0 --set loss.kd_weight=0 \
+  --set loss.native_flow_weight=1 --set loss.ce_weight=1
+```
+
+### ELF 生成评测与 checkpoint
+
+正式 `all` 默认对 teacher、未训练删层 student、训练后最佳 student 各生成 **32 条**，
+八卡并行生成、每卡 batch=1。B 使用原版第一组 SDE 32 步、gamma=1.5；L 使用第二组
+SDE 64 步、gamma=1.0；两者 SC-CFG=3、CFG=1、logit-normal schedule。
+步数指去噪步数，另有一次 decoder 前向（默认总 NFE 分别 33/65）。
+三组分别重置同一 rank 种子 `42 + rank * 1000003`，固定相同卡数、batch、长度和采样参数。
+
+生成和 GPT-2-large Gen. PPL/entropy 的实现复制自本地原版 ELF，保留 BF16、
+EOS 处理、整组文本 retokenize/padding 和 token 加权 PPL。与原版一样，在 rank 0
+集中评分，其他卡通过 CPU/Gloo 等待。结果保存在 `evaluation/metrics.json`，
+同时保存文本和 token IDs。内部 `denoising` 指标中的 MSE/KL/CE 不能当作 PPL。
+32 条只用于初步比较；正式比较可增加到原版默认的 1000 条，保持三组协议一致：
+
+```bash
+# 路径替换为实际 ELF-B 实验的最佳模型目录或其中的 model.safetensors。
+bash scripts/run_elf_experiment.sh configs/elf_b_kd.yaml evaluate \
+  --checkpoint run/<实验目录>/checkpoints/best/model.safetensors \
+  --set evaluation.num_samples=1000
+```
+
+ELF checkpoint 的 `model.safetensors` 只含 student 权重；同目录 `config.json` 含
+student 架构、encoder 引用、diffusion 与采样信息，并保存 tokenizer 和层映射。
+移动权重时请保留整个目录。评测配置须对应 B/L、原数据和训练时 latent 设置；生成协议
+由当前 YAML 控制。当前 student 保存原始优化权重，不额外维护 EMA；teacher 使用原版 EMA。
+
+IDE 可直接运行 `debug/debug_elf_pipeline.py --config configs/elf_b_debug.yaml`（或 L），
+在 `elf.data.prepare_data`、`elf.losses.batch_loss`、共用 `train`、`elf.evaluate.generate`
+设置断点。debug 不改变 teacher/student 架构，不加载 PPL scorer。
 
 ## 配置与对照实验
 

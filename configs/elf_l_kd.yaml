@@ -1,0 +1,26 @@
+extends: elf_b_kd.yaml
+
+run:
+  name: elf_l_owt_kd_32to16
+
+model:
+  teacher: embedded-language-flows/ELF-L-owt-torch
+  keep_layers: [0, 2, 4, 6, 8, 10, 12, 14, 17, 19, 21, 23, 25, 27, 29, 31]
+  gradient_checkpointing: true
+  architecture:
+    hidden_size: 1280
+    depth: 32
+    num_heads: 16
+
+training:
+  # A6000 48GB 的保守起点：8 × 1 × 8 = 64；实际显存以服务器记录为准。
+  batch_size: 1
+  grad_accumulation: 8
+  # 与 B 相同，均使用全部 128 条内部验证数据。
+  validation_batches: 16
+
+evaluation:
+  # 原版 uncond_sampling_configs.yml 的第二组配置。
+  num_steps: 64
+  sampling:
+    sde_gamma: 1.0

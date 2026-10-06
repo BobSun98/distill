@@ -17,6 +17,18 @@ from .early_stopping import PlateauMonitor
 from . import distributed, progress
 
 
+def move_batch(batch, device):
+    if isinstance(batch, dict):
+        return {key: value.to(device, non_blocking=True) for key, value in batch.items()}
+    return batch.to(device, non_blocking=True)
+
+
+def batch_tokens(batch):
+    if isinstance(batch, dict):
+        return int(batch["attention_mask"].sum().item())
+    return batch.numel()
+
+
 def seed_everything(seed):
     random.seed(seed)
     torch.manual_seed(seed)
@@ -39,12 +51,12 @@ def batch_loss(teacher, student, token_ids, config, query_teacher=None):
 
 
 @torch.no_grad()
-def validate(teacher, student, loader, config):
+def validate(teacher, student, loader, config, loss_fn=batch_loss, metric_keys=("loss", "ce", "kl")):
     student = distributed.unwrap(student)
     device = next(student.parameters()).device
     was_training = student.training
     student.eval()
-    sums, tokens = {"loss": 0.0, "ce": 0.0, "kl": 0.0}, 0
+    sums, tokens = {key: 0.0 for key in metric_keys}, 0
     # 固定验证噪声，并在退出后恢复 RNG；验证不会改变后续训练状态的随机序列。
     devices = [device.index] if device.type == "cuda" else []
     try:
@@ -53,13 +65,13 @@ def validate(teacher, student, loader, config):
             for index, batch in enumerate(loader):
                 if index >= config["training"]["validation_batches"]:
                     break
-                batch = batch.to(device, non_blocking=True)
+                batch = move_batch(batch, device)
                 if index == 0:
-                    progress.emit("validation.first_batch.begin", tokens=batch.numel())
-                _, metrics = batch_loss(teacher, student, batch, config, query_teacher=True)
+                    progress.emit("validation.first_batch.begin", tokens=batch_tokens(batch))
+                _, metrics = loss_fn(teacher, student, batch, config, query_teacher=True)
                 if index == 0:
                     progress.emit("validation.first_batch.end", **metrics)
-                count = batch.numel()
+                count = batch_tokens(batch)
                 tokens += count
                 for key, value in metrics.items():
                     sums[key] = sums.get(key, 0.0) + value * count
@@ -85,14 +97,16 @@ def save_checkpoint(student, tokenizer, run_dir, step, config, name=None):
     return path
 
 
-def train(teacher, student, tokenizer, config, run_dir):
+def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
+          loader_fn=make_loader, checkpoint_fn=save_checkpoint, counts_fn=parameter_counts,
+          metric_keys=("loss", "ce", "kl")):
     settings = config["training"]
     stopping = settings["early_stopping"]
     monitor = PlateauMonitor(stopping) if stopping["enabled"] and distributed.is_main() else None
     best_state = None
     stop_reason = "max_steps"
     with progress.phase("data.loaders"):
-        train_loader, valid_loader = make_loader(config, "train"), make_loader(config, "valid")
+        train_loader, valid_loader = loader_fn(config, "train"), loader_fn(config, "valid")
     device = next(student.parameters()).device
     student.train()
     if distributed.world_size() > 1:
@@ -103,8 +117,8 @@ def train(teacher, student, tokenizer, config, run_dir):
     optimizer = torch.optim.AdamW((p for p in student.parameters() if p.requires_grad),
                                  lr=settings["learning_rate"], weight_decay=settings["weight_decay"])
     if distributed.is_main():
-        write_json(run_dir / "models.json", {"teacher": parameter_counts(teacher),
-                    "student": parameter_counts(distributed.unwrap(student)),
+        write_json(run_dir / "models.json", {"teacher": counts_fn(teacher),
+                    "student": counts_fn(distributed.unwrap(student)),
                     "keep_layers": config["model"]["keep_layers"],
                     "world_size": distributed.world_size(),
                     "per_device_batch_size": settings["batch_size"],
@@ -134,11 +148,11 @@ def train(teacher, student, tokenizer, config, run_dir):
             decision = distributed.broadcast_main(decision)
             record({"phase": "early_stopping", "step": step, **decision})
             if decision["new_best"]:
-                save_checkpoint(student, tokenizer, run_dir, step, config, name="best")
+                checkpoint_fn(student, tokenizer, run_dir, step, config, name="best")
             return decision
 
         with progress.phase("validation", step=0):
-            metrics = validate(teacher, student, valid_loader, config)
+            metrics = validate(teacher, student, valid_loader, config, loss_fn, metric_keys)
             record({"phase": "valid", "step": 0, **metrics})
             best_state = check_plateau(metrics, 0)
         for step in range(1, settings["max_steps"] + 1):
@@ -159,10 +173,10 @@ def train(teacher, student, tokenizer, config, run_dir):
                     batches = iter(train_loader)
                     batch = next(batches)
                 micro_batches.append(batch)
-            step_tokens = sum(batch.numel() for batch in micro_batches)
+            step_tokens = sum(batch_tokens(batch) for batch in micro_batches)
             global_tokens = distributed.sum_tensor(step_tokens, device).item()
             for index, batch in enumerate(micro_batches):
-                batch = batch.to(device, non_blocking=True)
+                batch = move_batch(batch, device)
                 accumulating = index < len(micro_batches) - 1
                 context = (student.no_sync()
                            if isinstance(student, DistributedDataParallel) and accumulating
@@ -171,12 +185,12 @@ def train(teacher, student, tokenizer, config, run_dir):
                 with context:
                     if step == 1:
                         progress.emit("train.micro_batch.begin", step=step, micro_batch=index + 1)
-                    loss, metrics = batch_loss(teacher, student, batch, config)
+                    loss, metrics = loss_fn(teacher, student, batch, config)
                     if step == 1:
                         progress.emit("train.micro_batch.forward_done", step=step, micro_batch=index + 1)
                     if not torch.isfinite(loss):
                         raise FloatingPointError(f"step {step}: loss 非有限值")
-                    count = batch.numel()
+                    count = batch_tokens(batch)
                     (loss * count * distributed.world_size() / global_tokens).backward()
                     if step == 1:
                         progress.emit("train.micro_batch.backward_done", step=step, micro_batch=index + 1)
@@ -197,7 +211,7 @@ def train(teacher, student, tokenizer, config, run_dir):
                 progress.emit("train.step.end", step=step)
             if step % settings["validate_every"] == 0 or step == settings["max_steps"]:
                 with progress.phase("validation", step=step):
-                    metrics = validate(teacher, student, valid_loader, config)
+                    metrics = validate(teacher, student, valid_loader, config, loss_fn, metric_keys)
                     record({"phase": "valid", "step": step, **metrics})
                     best_state = check_plateau(metrics, step)
                 if best_state is not None and best_state["should_stop"] and step < settings["max_steps"]:
@@ -206,9 +220,9 @@ def train(teacher, student, tokenizer, config, run_dir):
                                   best_step=best_state["best_step"], best_value=best_state["best_value"])
                     break
             if settings["save_every"] and step % settings["save_every"] == 0 and step < settings["max_steps"]:
-                save_checkpoint(student, tokenizer, run_dir, step, config)
+                checkpoint_fn(student, tokenizer, run_dir, step, config)
     # 保留停止时的权重；all 后续评测选择验证指标最佳模型，而不是默认使用最后一步。
-    last_checkpoint = save_checkpoint(student, tokenizer, run_dir, step, config)
+    last_checkpoint = checkpoint_fn(student, tokenizer, run_dir, step, config)
     checkpoint = run_dir / "checkpoints" / "best" if stopping["enabled"] else last_checkpoint
     if distributed.is_main():
         write_json(run_dir / "training.json", {"checkpoint": str(checkpoint),

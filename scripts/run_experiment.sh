@@ -6,6 +6,8 @@ PROJECT_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 PY=${PY:-/proj/gpu_mtk53742/.conda/envs/distill/bin/python}
 CONFIG_FILE=${1:-configs/owt_kd.yaml}
 COMMAND=${2:-all}
+RUN_MODULE=${DISTILL_MODULE:-distill}
+DEBUG_ENTRY=${DISTILL_DEBUG_ENTRY:-debug/debug_pipeline.py}
 if (( $# >= 2 )); then shift 2; elif (( $# == 1 )); then shift; fi
 export PYTHONPATH="$PROJECT_ROOT/src${PYTHONPATH:+:$PYTHONPATH}"
 export PYTHONUNBUFFERED=1
@@ -24,9 +26,9 @@ if [[ "$COMMAND" == debug ]]; then
     # debug 只暴露用户选择的第一张卡，并直接启动一个 Python 进程。
     export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0}"
     export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES%%,*}"
-    run_logged "$PY" "$PROJECT_ROOT/debug/debug_pipeline.py" --config "$CONFIG_FILE" "$@"
+    run_logged "$PY" "$PROJECT_ROOT/$DEBUG_ENTRY" --config "$CONFIG_FILE" "$@"
 elif [[ "$COMMAND" == prepare ]]; then
-    run_logged "$PY" -m distill "$COMMAND" --config "$CONFIG_FILE" "$@"
+    run_logged "$PY" -m "$RUN_MODULE" "$COMMAND" --config "$CONFIG_FILE" "$@"
 else
     NGPU=${NGPU:-8}
     export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0,1,2,3,4,5,6,7}"
@@ -42,10 +44,10 @@ else
     # 首个 all_reduce 一直自旋（GPU 100%、显存很小）直到超时。禁用 P2P 走共享内存可解。
     export NCCL_P2P_DISABLE="${NCCL_P2P_DISABLE:-1}"
     if [[ "$NGPU" == 1 ]]; then
-        run_logged "$PY" -m distill "$COMMAND" --config "$CONFIG_FILE" "$@"
+        run_logged "$PY" -m "$RUN_MODULE" "$COMMAND" --config "$CONFIG_FILE" "$@"
     else
         run_logged "$PY" -m torch.distributed.run --nnodes=1 --nproc_per_node="$NGPU" \
             --master_addr=127.0.0.1 --master_port="${MASTER_PORT:-29500}" \
-            -m distill "$COMMAND" --config "$CONFIG_FILE" "$@"
+            -m "$RUN_MODULE" "$COMMAND" --config "$CONFIG_FILE" "$@"
     fi
 fi
