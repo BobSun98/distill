@@ -75,7 +75,7 @@ loss:
 training:
   max_steps: 5000
   # 每卡 batch；八卡全局 batch = 8 × 4 × 2 = 64。
-  batch_size: 4
+  batch_size: 8
   grad_accumulation: 2
   learning_rate: 0.00003
   weight_decay: 0.01
@@ -95,7 +95,7 @@ training:
 evaluation:
   seed: 42
   # 小规模初步比较；论文比较需提高样本数并保持三组协议一致。
-  num_samples: 32
+  num_samples: 512
   batch_size: 1
   num_steps: 32
   sequence_length: 1024
