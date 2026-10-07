@@ -1,0 +1,9 @@
+extends: elf_b_kd.yaml
+
+run:
+  name: elf_b_owt_kd_12to3
+
+model:
+  # 层编号从 0 开始；每 4 层保留第 4 层，同时保留 teacher 最后一层。
+  # teacher 架构仍为 12 层，student 深度由 keep_layers 自动设为 3。
+  keep_layers: [3, 7, 11]
