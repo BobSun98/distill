@@ -1,0 +1,43 @@
+run:
+  name: gpt2_real_corpus_ppl
+  root: run
+  seed: 42
+
+model:
+  name_or_path: gpt2-large
+  device: cuda
+  # 权重/前向用 FP16，token 交叉熵用 FP32，NLL 汇总用 FP64。
+  dtype: float16
+  cache_dir: null
+
+distributed:
+  control_timeout_seconds: 7200
+
+evaluation:
+  # 每个数据集各 512 条；一条真实句子/文档算一个样本，不 packing。
+  num_samples: 512
+  batch_size: 8
+  # 两个语料都使用 GPT-2 的 1024 context 上限；长文档只评分前 1024 token。
+  max_length: 1024
+
+data:
+  hf_cache_dir: null
+  lm1b:
+    dataset: dvruette/lm1b
+    dataset_config: default
+    revision: refs/convert/parquet
+    split: test
+    tail_documents: null
+    detokenize: true
+    # 可提供包含 text 列的 Dataset.save_to_disk 原始 test 或 DatasetDict 缓存。
+    local_dataset: null
+  owt:
+    dataset: Skylion007/openwebtext
+    dataset_config: default
+    revision: refs/convert/parquet
+    split: train
+    # 与现有项目一致，在 train 最后 100000 条保留区内抽样。
+    tail_documents: 100000
+    detokenize: false
+    # 默认应提供完整原始 train；已单独存验证尾部时将 tail_documents 设为 null。
+    local_dataset: null

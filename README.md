@@ -254,6 +254,48 @@ IDE 运行 `debug/debug_student_eval.py --checkpoint /path/model.safetensors`，
 本地调试，或 `--set 'metrics=[gen_ppl]'` 进入真实 GPT-2-large 评分；debug 只减少开销，
 生成长度和 Flow 缓存长度仍需显式匹配。debug 结果不能作为正式质量结论。
 
+## 真实数据的 GPT-2-Large PPL（LM1B / OWT）
+
+这个入口直接将真实文本输入预训练 GPT-2-Large，分别计算 LM1B 和 OWT 的 PPL。
+默认每个语料抽取 **512 条可评分文本**，固定 seed=42；LM1B 从官方 `test` 抽取句子，
+沿用项目中的 LM1B detokenizer，OWT 从 `train` 最后 100000 篇验证保留区抽取文档。
+一个句子/文档算一个样本，不拼接、packing，也不添加 BERT/T5 边界 token。
+
+```bash
+# 服务器项目根目录：默认 CUDA 0-7，八卡并行，GPT 模型每卡只加载一次。
+bash scripts/eval_gpt2_corpus_ppl.sh
+
+# 单卡真实 GPT-2-Large debug（8 条/语料，长度上限 64，直接进入工程函数）。
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_gpt2_corpus_ppl.sh configs/gpt2_corpus_ppl_debug.yaml debug
+
+# 可使用原始文本缓存；不能使用仅含 input_ids 的 ELF 数据或 wrapped token 缓存。
+bash scripts/eval_gpt2_corpus_ppl.sh configs/gpt2_corpus_ppl.yaml all \
+  --set data.lm1b.local_dataset=/path/to/raw_lm1b_test \
+  --set data.owt.local_dataset=/path/to/raw_owt_train
+```
+
+缓存支持 `Dataset.save_to_disk` 或含配置中 `split` 的 `DatasetDict`，必须有 `text` 列。
+OWT 若提供的是已经单独保存的验证尾部，请同时设置 `--set data.owt.tail_documents=null`。
+没有本地缓存时从配置的 Hugging Face Parquet 分支加载，复用 `DATA_CACHE` 或 HF 默认缓存。
+首次准备数据/下载 GPT 权重的时间单独记录在阶段日志中。
+
+GPT 前向默认使用 FP16，交叉熵使用 FP32，NLL 汇总使用 FP64。标准自回归口径为
+`PPL = exp(全部有效目标 token 的 NLL 总和 / 有效目标 token 总数)`，排除 padding，
+每条文本的首 token 不评分；真实 EOS token 若在正文中仍正常评分。两个语料均最多取
+前 1024 个 GPT token，超过长度的部分截断，因此结果是这 512 条文本前缀上的 PPL，
+不是整个语料、也不是每条完整长文档的 PPL。分卡不重复样本，不平均各卡或逐样本 PPL。
+
+结果位于 `run/<时间>_gpt2_real_corpus_ppl/metrics.json`：分别读取
+`results.lm1b.ppl`、`results.owt.ppl`。同时记录 NLL、有效 token 数、逐样本评分，
+`lm1b/samples.json` 和 `owt/samples.json` 保存实际文本、来源索引和实际送入 GPT 的 token IDs。
+此入口使用标准 padding mask；ELF 原版 BF16/EOS-mask 评分属于另一套数值口径，
+直接比较时应统一精度、文本长度和掩码。
+
+配置见 `configs/gpt2_corpus_ppl.yaml`；可通过 `--set evaluation.num_samples=...`、
+`--set evaluation.batch_size=...`、`--set evaluation.max_length=...` 调整预算。
+IDE 可直接运行 `debug/debug_corpus_ppl.py`，在 `select_samples`、`score_samples`、`token_nll`
+设置断点；debug 不创建其他 Python 进程，也不替换预训练模型。
+
 ## ELF-B / ELF-L 蒸馏
 
 ELF 沿用原版 T5-small tokenizer、冻结 encoder 和 latent 归一化，使用原版
