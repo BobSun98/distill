@@ -73,6 +73,13 @@ loss:
   native_flow_weight: 0.0
 
 training:
+  plot_loss: true
+  ppl_evaluation:
+    enabled: true
+    interval: 100
+    # 八卡各生成 32 条，共 256 条；步数/长度/采样方法继承 evaluation。
+    num_samples_per_rank: 32
+    batch_size: 32
   max_steps: 5000
   # 每卡 batch；八卡全局 batch = 8 × 4 × 2 = 64。
   batch_size: 8

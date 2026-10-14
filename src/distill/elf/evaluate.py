@@ -9,6 +9,7 @@ import torch
 from .. import distributed, progress
 from ..config import write_json
 from ..train import seed_everything, validate
+from ..training_monitor import periodic_config, scorer_files, scorer_on_device, release_scorer
 from ..backbones.elf.sampling_utils import get_sampling_steps
 from ..backbones.elf.generation_utils import (
     _generate_samples_single_batch, _dlm_decode_batch, mask_after_eos,
@@ -57,6 +58,62 @@ def generate(model, tokenizer, config):
     return tokens, texts
 
 
+def score_generated_texts(texts, scorer, settings):
+    nonempty = [text for text in texts if text.strip()]
+    if not nonempty:
+        return {"gen_ppl": None, "sample_entropy": None, "per_sample_ppl": [],
+                "num_scored_samples": 0, "score_status": "empty_generation"}
+    scorer.reset()
+    metrics = scorer.record_generative_perplexity(nonempty, settings["scorer_max_length"])
+    finite = math.isfinite(metrics["ppl"])
+    return {"gen_ppl": metrics["ppl"] if finite else None, "sample_entropy": metrics["mean_entropy"],
+            "per_sample_ppl": [value if math.isfinite(value) else None for value in metrics["per_sample_ppl"]],
+            "num_scored_samples": len(nonempty), "score_status": "completed" if finite else "nonfinite_ppl"}
+
+
+@torch.no_grad()
+def training_ppl(student, tokenizer, config, run_dir, step, *, scorer_cache):
+    current = periodic_config(config)
+    settings = current["evaluation"]
+    device = next(student.parameters()).device
+    torch.set_float32_matmul_precision("high")
+    tokens, texts = generate(student, tokenizer, current)
+    shards = distributed.gather_main((tokens, texts))
+    path = scorer_files(current, scorer_cache)
+    if not distributed.is_main():
+        # rank 0 复用原版全局 retokenize/padding/评分，其余卡由训练入口在 Gloo 等待。
+        return None
+    output = run_dir / "ppl" / f"step_{step:06d}"
+    output.mkdir(parents=True, exist_ok=True)
+    merged_tokens = torch.cat([shard[0] for shard in shards])
+    merged_texts = [text for shard in shards for text in shard[1]]
+    torch.save(merged_tokens, output / "student_tokens.pt")
+    write_json(output / "student_texts.json", merged_texts)
+    if "metrics" not in scorer_cache:
+        scorer_cache["metrics"] = Metrics(path, settings["scorer_batch_size"], settings["scorer_max_length"])
+    scorer = scorer_cache["metrics"]
+    dtype = torch.bfloat16 if device.type == "cuda" else torch.float32
+    try:
+        if any(text.strip() for text in merged_texts):
+            scorer._eval_model = scorer_on_device(scorer_cache, device, dtype)
+            scorer._eval_device = device
+        with progress.phase("elf.training.scorer", step=step, samples=len(merged_texts)):
+            metrics = score_generated_texts(merged_texts, scorer, settings)
+    finally:
+        release_scorer(scorer_cache, device)
+    summary = {"model": "current_student", "gen_ppl": metrics["gen_ppl"],
+               "sample_entropy": metrics["sample_entropy"], "num_samples": len(merged_texts),
+               "num_scored_samples": metrics["num_scored_samples"], "score_status": metrics["score_status"],
+               "directory": str(output)}
+    write_json(output / "metrics.json", {"step": step, **summary, "scores": metrics,
+        "student_depth": student.depth,
+        "protocol": {**settings, "world_size": distributed.world_size(),
+                     "nfe_including_decoder": settings["num_steps"] + 1,
+                     "rank_seed": "seed + rank * 1000003", "scorer_dtype": str(dtype) if "model" in scorer_cache else None,
+                     "score_rank": 0, "weight_source": "in_memory_student_after_optimizer_step"}})
+    return summary
+
+
 def evaluate(teacher, encoder, tokenizer, checkpoint, config, run_dir):
     loss_fn = partial(batch_loss, encoder=encoder)
     loader = make_loader(config, "valid")
@@ -96,21 +153,8 @@ def evaluate(teacher, encoder, tokenizer, checkpoint, config, run_dir):
         if settings["scorer"]:
             scorer = Metrics(settings["scorer"], settings["scorer_batch_size"], settings["scorer_max_length"])
             for label, texts in all_texts.items():
-                nonempty = [text for text in texts if text.strip()]
-                if not nonempty:
-                    # 与原版一样跳过全空文本，但保留失败的生成表现，继续比较其他模型。
-                    results["models"][label].update({"gen_ppl": None, "sample_entropy": None,
-                        "per_sample_ppl": [], "num_scored_samples": 0, "score_status": "empty_generation"})
-                    continue
-                scorer.reset()
-                with progress.phase("elf.scorer", model=label, samples=len(nonempty)):
-                    metrics = scorer.record_generative_perplexity(nonempty, settings["scorer_max_length"])
-                metrics["per_sample_ppl"] = [value if math.isfinite(value) else None for value in metrics["per_sample_ppl"]]
-                finite_ppl = math.isfinite(metrics["ppl"])
-                results["models"][label].update({"gen_ppl": metrics["ppl"] if finite_ppl else None,
-                    "sample_entropy": metrics["mean_entropy"], "per_sample_ppl": metrics["per_sample_ppl"],
-                    "num_scored_samples": len(nonempty),
-                    "score_status": "completed" if finite_ppl else "nonfinite_ppl"})
+                with progress.phase("elf.scorer", model=label, samples=len(texts)):
+                    results["models"][label].update(score_generated_texts(texts, scorer, settings))
         write_json(output / "metrics.json", results)
         print(f"[eval] ELF results: {output / 'metrics.json'}", flush=True)
     distributed.barrier()

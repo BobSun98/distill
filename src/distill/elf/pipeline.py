@@ -11,8 +11,9 @@ from .. import distributed, progress
 from ..config import load_yaml_config, create_run_dir, project_path, write_json
 from ..train import train, seed_everything
 from . import models, data
-from .evaluate import evaluate
+from .evaluate import evaluate, training_ppl
 from .losses import batch_loss, METRIC_KEYS
+from ..training_monitor import validate_monitor_config
 
 
 def load_config(path, overrides=()):
@@ -37,6 +38,7 @@ def load_config(path, overrides=()):
         raise ValueError("ELF 实际序列不能超过预训练 RoPE 长度")
     if min(config["evaluation"]["num_samples"], config["evaluation"]["batch_size"], config["evaluation"]["num_steps"]) < 1:
         raise ValueError("ELF 生成样本、batch 和采样步数必须为正")
+    validate_monitor_config(config)
     return config
 
 
@@ -85,7 +87,7 @@ def run_experiment(config, command="all", checkpoint=None, allow_distributed=Tru
                     checkpoint = train(teacher, student, tokenizer, config, run_dir,
                         loss_fn=partial(batch_loss, encoder=encoder), loader_fn=data.make_loader,
                         checkpoint_fn=models.save_checkpoint, counts_fn=models.parameter_counts,
-                        metric_keys=METRIC_KEYS)
+                        metric_keys=METRIC_KEYS, ppl_fn=partial(training_ppl, scorer_cache={}))
                     del student
                 if command in ("evaluate", "all"):
                     if checkpoint is None:

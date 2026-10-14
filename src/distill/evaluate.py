@@ -11,6 +11,7 @@ from .config import project_path, write_json
 from .data import make_loader
 from .models import build_student, load_model, parameter_counts
 from .train import seed_everything, validate
+from .training_monitor import periodic_config, scorer_files, scorer_on_device, release_scorer
 from . import distributed, progress
 
 
@@ -75,6 +76,49 @@ def score_texts(texts, scorer, tokenizer, settings, device):
     return {"gen_ppl": math.exp(mean_nll), "nll_per_token": mean_nll,
             "scored_tokens": int(total_tokens),
             "per_sample": [item for shard in sample_shards for item in shard] if sample_shards else []}
+
+
+@torch.no_grad()
+def training_ppl(student, tokenizer, config, run_dir, step, *, scorer_cache):
+    current = periodic_config(config)
+    settings = current["evaluation"]
+    device = next(student.parameters()).device
+    torch.set_float32_matmul_precision("highest")
+    tokens, texts = generate(student, tokenizer, settings)
+    shards = distributed.gather_main((tokens, texts))
+    output = run_dir / "ppl" / f"step_{step:06d}"
+    diversity = None
+    if distributed.is_main():
+        output.mkdir(parents=True, exist_ok=True)
+        merged_tokens = torch.cat([shard[0] for shard in shards])
+        merged_texts = [text for shard in shards for text in shard[1]]
+        torch.save(merged_tokens, output / "student_tokens.pt")
+        write_json(output / "student_texts.json", merged_texts)
+        diversity = diversity_metrics(merged_tokens)
+    # 沿用本项目 LangFlow all 入口的 FP32 scorer 与有效 token 掩码，按卡并行评分。
+    path = scorer_files(current, scorer_cache)
+    try:
+        scorer = scorer_on_device(scorer_cache, device, torch.float32)
+        if "tokenizer" not in scorer_cache:
+            scorer_cache["tokenizer"] = AutoTokenizer.from_pretrained(path)
+            scorer_cache["tokenizer"].padding_side = "right"
+            if scorer_cache["tokenizer"].pad_token_id is None:
+                scorer_cache["tokenizer"].pad_token = scorer_cache["tokenizer"].eos_token
+        distributed.barrier()
+        metrics = score_texts(texts, scorer, scorer_cache["tokenizer"], settings, device)
+    finally:
+        release_scorer(scorer_cache, device)
+    if distributed.is_main():
+        summary = {"model": "current_student", "gen_ppl": metrics["gen_ppl"], **diversity,
+                   "num_samples": settings["num_samples"], "scored_tokens": metrics["scored_tokens"],
+                   "score_status": "completed", "directory": str(output)}
+        write_json(output / "metrics.json", {"step": step, **summary, "scores": metrics,
+            "student_depth": student.config.n_blocks,
+            "protocol": {**settings, "world_size": distributed.world_size(),
+                         "rank_seed": "seed + rank", "scorer_dtype": "float32",
+                         "weight_source": "in_memory_student_after_optimizer_step"}})
+        return summary
+    return None
 
 
 def evaluate(teacher, tokenizer, checkpoint, config, run_dir):

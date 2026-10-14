@@ -14,6 +14,7 @@ from .losses import distillation_loss
 from .models import parameter_counts
 from .states import off_policy_state, posterior_logits
 from .early_stopping import PlateauMonitor
+from .training_monitor import evaluation_state, plot_training_curves, ppl_due
 from . import distributed, progress
 
 
@@ -99,8 +100,16 @@ def save_checkpoint(student, tokenizer, run_dir, step, config, name=None):
 
 def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
           loader_fn=make_loader, checkpoint_fn=save_checkpoint, counts_fn=parameter_counts,
-          metric_keys=("loss", "ce", "kl")):
+          metric_keys=("loss", "ce", "kl"), ppl_fn=None):
     settings = config["training"]
+    if settings.get("plot_loss", False):
+        from importlib.util import find_spec
+        # 在长训练开始前检查必要绘图依赖，不能等权重训完才报缺少 matplotlib。
+        if find_spec("matplotlib") is None:
+            raise RuntimeError("绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .")
+    ppl_settings = settings.get("ppl_evaluation", {})
+    if ppl_settings.get("enabled", False) and ppl_fn is None:
+        raise ValueError("定期 PPL 已启用，但模型入口未提供真实 student 评测函数")
     stopping = settings["early_stopping"]
     monitor = PlateauMonitor(stopping) if stopping["enabled"] and distributed.is_main() else None
     best_state = None
@@ -201,6 +210,7 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
                 (p for p in student.parameters() if p.requires_grad),
                 settings["max_grad_norm"], error_if_nonfinite=True)
             optimizer.step()
+            should_stop = False
             if visible_step:
                 event = {"phase": "train", "step": step,
                         **distributed.mean_metrics(sums, tokens, device),
@@ -214,11 +224,22 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
                     metrics = validate(teacher, student, valid_loader, config, loss_fn, metric_keys)
                     record({"phase": "valid", "step": step, **metrics})
                     best_state = check_plateau(metrics, step)
-                if best_state is not None and best_state["should_stop"] and step < settings["max_steps"]:
-                    stop_reason = "plateau"
-                    progress.emit("train.early_stop", step=step, metric=stopping["metric"],
-                                  best_step=best_state["best_step"], best_value=best_state["best_value"])
-                    break
+                should_stop = best_state is not None and best_state["should_stop"] and step < settings["max_steps"]
+            if ppl_due(ppl_settings, step, settings["max_steps"], should_stop):
+                # 已结束当前 optimizer 更新，释放梯度后直接评测当前 student，不读 best/teacher。
+                optimizer.zero_grad(set_to_none=True)
+                with progress.phase("training.ppl", step=step):
+                    with evaluation_state(distributed.unwrap(student)):
+                        metrics = ppl_fn(distributed.unwrap(student), tokenizer, config, run_dir, step)
+                    metrics = distributed.broadcast_main(metrics)
+                    record({"phase": "gen_ppl", "step": step, **metrics})
+                    # 较快的 rank 在 CPU/Gloo 等待，不提前进入下一步 NCCL 梯度通信。
+                    distributed.barrier()
+            if should_stop:
+                stop_reason = "plateau"
+                progress.emit("train.early_stop", step=step, metric=stopping["metric"],
+                              best_step=best_state["best_step"], best_value=best_state["best_value"])
+                break
             if settings["save_every"] and step % settings["save_every"] == 0 and step < settings["max_steps"]:
                 checkpoint_fn(student, tokenizer, run_dir, step, config)
     # 保留停止时的权重；all 后续评测选择验证指标最佳模型，而不是默认使用最后一步。
@@ -233,4 +254,9 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
                     "best_value": best_state["best_value"] if best_state else None})
         print(f"[train] stopped at step {step}: {stop_reason}", flush=True)
         print(f"[train] checkpoint: {checkpoint}", flush=True)
+        if settings.get("plot_loss", False):
+            with progress.phase("training.plot"):
+                paths = plot_training_curves(run_dir)
+                print(f"[train] curves: {', '.join(str(path) for path in paths)}", flush=True)
+    distributed.barrier()
     return checkpoint

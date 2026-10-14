@@ -61,6 +61,80 @@ DDP 梯度和 GPU 指标使用独立的 NCCL 组。等待磁盘/网络时不会�
 GPU 通信超时默认为 180 秒，可用 `--set distributed.tensor_timeout_seconds=600` 调整；
 CPU 准备阶段允许长下载，超时单独配置。
 
+## 训练曲线与定期生成 PPL
+
+LangFlow OWT/LM1B 和 ELF-B/L 的正式训练配置默认开启结束后绘图及定期生成 PPL：
+
+```yaml
+training:
+  plot_loss: true
+  ppl_evaluation:
+    enabled: true
+    interval: 100
+    num_samples_per_rank: 32
+    batch_size: 32
+```
+
+`interval` 按 **optimizer 更新次数**计数。默认每 100 步暂停训练，各卡用当前 student
+生成 32 条，八卡共 **256 条**；`batch_size=32` 表示每卡一次生成 32 条，可调小并分批生成，
+总样本数仍由 `num_samples_per_rank` 决定。仅评测当前 step 的内存权重，每次重置同一生成种子。
+到达 max_steps 或平台期早停时，即使不是 interval 的整倍数，也补测一次停止 step。
+
+PPL 指 **生成文本在 GPT-2-Large 下的 Gen. PPL**。采样步数、生成长度、scorer 和评分长度
+继承当前 `evaluation`；ELF 还继承 SDE/ODE 与 SC-CFG 设置。ELF 沿用原版 BF16/EOS-mask
+和 rank 0 整组评分，LangFlow 沿用本项目 `all` 入口的 FP32 scorer、有效 token 掩码和
+多卡 NLL 汇总。它们与独立 LangFlow benchmark 的 FP16 或真实语料 PPL 入口是不同数值口径，
+对比时请检查结果中记录的精度、掩码、生成 batch 和样本数。
+
+评测不更新 student；结束后恢复训练模式、Python/Torch RNG 和 matmul precision。
+GPT scorer 首次加载后缓存 CPU 权重，下一次复用，避免训练阶段常驻 GPU；较快的 rank
+通过 CPU/Gloo 等待，不提前进入下一步 NCCL 梯度通信。早停仍依据原有内部验证 loss。
+评测次数越多、`evaluation.num_steps` 越大，训练总耗时越长；这里沿用正式采样步数。
+
+在服务器更新绘图依赖后，使用现有启动脚本：
+
+```bash
+/proj/gpu_mtk53742/.conda/envs/distill/bin/python -m pip install -e .
+
+# ELF-B 示例，默认每 100 步、八卡各 32 条。
+bash scripts/run_elf_experiment.sh configs/elf_b_kd.yaml all
+
+# 自定义间隔；每卡分 4 批生成，样本总数仍为 8 × 32 = 256。
+bash scripts/run_elf_experiment.sh configs/elf_l_kd.yaml train \
+  --set training.ppl_evaluation.interval=200 \
+  --set training.ppl_evaluation.batch_size=8
+
+# LangFlow 同样支持；仅关闭训练期间 PPL，结束绘图仍保留。
+bash scripts/run_experiment.sh configs/lm1b_kd.yaml train \
+  --set training.ppl_evaluation.enabled=false
+```
+
+每次实验目录增加：
+
+- `loss_curve.png`：日志中记录的 train/validation 总 loss，横轴是 optimizer step。
+- `ppl_curve.png`：当前 student 的定期生成 PPL；无可评分文本时保留断点，不能画成零。
+- `ppl/step_000100/` 等目录：该 step 的 `student_texts.json`、`student_tokens.pt` 和 `metrics.json`。
+- `metrics.jsonl` 中 `phase=gen_ppl` 的行：step、PPL、entropy、实际样本数及结果目录。
+
+`ppl/step_*/` 记录当前 step，而结束后的 `evaluation/trained_*` 仍来自验证 loss 最佳
+checkpoint；两者可能是不同权重/样本。每次保存的采样协议可用于核对比较条件。
+
+debug 默认不加载 GPT scorer；若要在同一个真实进程里调试“评测→继续训练”的路径：
+
+```bash
+CUDA_VISIBLE_DEVICES=0 bash scripts/run_elf_experiment.sh configs/elf_b_debug.yaml debug train \
+  --set training.ppl_evaluation.enabled=true \
+  --set training.ppl_evaluation.interval=1 \
+  --set evaluation.scorer=gpt2-large
+```
+
+此时仍使用真实 teacher/student，每步只生成 2 条、每批 1 条。旧实验可以直接重绘曲线：
+
+```bash
+PYTHONPATH=src /proj/gpu_mtk53742/.conda/envs/distill/bin/python \
+  -m distill.training_monitor run/<已有实验目录>
+```
+
 ## 启动阻塞与通信诊断
 
 如果 GPU 利用率持续 100% 但每卡显存只有几百 MB，且没有模型加载/训练日志，
@@ -375,7 +449,7 @@ bash scripts/run_elf_experiment.sh configs/elf_b_kd.yaml train \
 
 ### ELF 生成评测与 checkpoint
 
-正式 `all` 默认对 teacher、未训练删层 student、训练后最佳 student 各生成 **32 条**，
+正式 `all` 默认对 teacher、未训练删层 student、训练后最佳 student 各生成 **512 条**，
 八卡并行生成、每卡 batch=1。B 使用原版第一组 SDE 32 步、gamma=1.5；L 使用第二组
 SDE 64 步、gamma=1.0；两者 SC-CFG=3、CFG=1、logit-normal schedule。
 步数指去噪步数，另有一次 decoder 前向（默认总 NFE 分别 33/65）。
@@ -385,7 +459,7 @@ SDE 64 步、gamma=1.0；两者 SC-CFG=3、CFG=1、logit-normal schedule。
 EOS 处理、整组文本 retokenize/padding 和 token 加权 PPL。与原版一样，在 rank 0
 集中评分，其他卡通过 CPU/Gloo 等待。结果保存在 `evaluation/metrics.json`，
 同时保存文本和 token IDs。内部 `denoising` 指标中的 MSE/KL/CE 不能当作 PPL。
-32 条只用于初步比较；正式比较可增加到原版默认的 1000 条，保持三组协议一致：
+可增加到原版默认的 1000 条，保持三组协议一致：
 
 ```bash
 # 路径替换为实际 ELF-B 实验的最佳模型目录或其中的 model.safetensors。

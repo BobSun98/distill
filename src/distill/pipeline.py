@@ -2,13 +2,14 @@
 
 import argparse
 import os
+from functools import partial
 from pathlib import Path
 
 import torch
 
 from .config import create_run_dir, load_config, project_path, write_json
 from .data import prepare_data
-from .evaluate import evaluate
+from .evaluate import evaluate, training_ppl
 from .models import build_student, load_teacher, load_tokenizer
 from .train import seed_everything, train
 from . import distributed, progress
@@ -73,7 +74,8 @@ def run_experiment(config, command="all", checkpoint=None, allow_distributed=Tru
                 student = build_student(teacher, config["model"]["keep_layers"])
             with progress.phase("models.wait_student"):
                 distributed.barrier()
-            checkpoint = train(teacher, student, tokenizer, config, run_dir)
+            checkpoint = train(teacher, student, tokenizer, config, run_dir,
+                               ppl_fn=partial(training_ppl, scorer_cache={}))
             del student
         if command in ("evaluate", "all"):
             if checkpoint is None:

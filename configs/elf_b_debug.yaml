@@ -12,6 +12,11 @@ data:
   max_valid_blocks: 4
 
 training:
+  ppl_evaluation:
+    enabled: false
+    interval: 3
+    num_samples_per_rank: 2
+    batch_size: 1
   max_steps: 3
   batch_size: 1
   grad_accumulation: 1
