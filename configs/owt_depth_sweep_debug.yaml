@@ -1,0 +1,27 @@
+extends: owt_depth_sweep.yaml
+
+run:
+  name: langflow_owt_uniform_depth_sweep_debug
+
+data:
+  sequence_length: 128
+  train_documents: 32
+  valid_documents: 16
+  max_train_blocks: 8
+  max_valid_blocks: 4
+
+training:
+  # 保留真实 12 层 teacher 及全部六种 student 深度，仅缩短数据和运行。
+  max_steps: 3
+  batch_size: 1
+  grad_accumulation: 1
+  log_every: 1
+  validate_every: 3
+  validation_batches: 1
+
+evaluation:
+  num_samples: 2
+  batch_size: 1
+  num_steps: 8
+  sequence_length: 128
+  scorer_batch_size: 1

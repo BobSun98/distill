@@ -108,7 +108,7 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
         if find_spec("matplotlib") is None:
             raise RuntimeError("绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .")
     ppl_settings = settings.get("ppl_evaluation", {})
-    if ppl_settings.get("enabled", False) and ppl_fn is None:
+    if ppl_settings.get("enabled", False) and ppl_settings["interval"] > 0 and ppl_fn is None:
         raise ValueError("定期 PPL 已启用，但模型入口未提供真实 student 评测函数")
     stopping = settings["early_stopping"]
     monitor = PlateauMonitor(stopping) if stopping["enabled"] and distributed.is_main() else None

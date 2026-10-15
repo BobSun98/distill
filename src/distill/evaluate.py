@@ -2,6 +2,7 @@
 
 import math
 from collections import Counter
+from pathlib import Path
 
 import torch
 import torch.nn.functional as F
@@ -79,14 +80,13 @@ def score_texts(texts, scorer, tokenizer, settings, device):
 
 
 @torch.no_grad()
-def training_ppl(student, tokenizer, config, run_dir, step, *, scorer_cache):
-    current = periodic_config(config)
-    settings = current["evaluation"]
+def evaluate_generation(student, tokenizer, config, output, *, step, scorer_cache, checkpoint=None):
+    settings = config["evaluation"]
+    output = Path(output)
     device = next(student.parameters()).device
     torch.set_float32_matmul_precision("highest")
     tokens, texts = generate(student, tokenizer, settings)
     shards = distributed.gather_main((tokens, texts))
-    output = run_dir / "ppl" / f"step_{step:06d}"
     diversity = None
     if distributed.is_main():
         output.mkdir(parents=True, exist_ok=True)
@@ -96,7 +96,7 @@ def training_ppl(student, tokenizer, config, run_dir, step, *, scorer_cache):
         write_json(output / "student_texts.json", merged_texts)
         diversity = diversity_metrics(merged_tokens)
     # 沿用本项目 LangFlow all 入口的 FP32 scorer 与有效 token 掩码，按卡并行评分。
-    path = scorer_files(current, scorer_cache)
+    path = scorer_files(config, scorer_cache)
     try:
         scorer = scorer_on_device(scorer_cache, device, torch.float32)
         if "tokenizer" not in scorer_cache:
@@ -114,11 +114,17 @@ def training_ppl(student, tokenizer, config, run_dir, step, *, scorer_cache):
                    "score_status": "completed", "directory": str(output)}
         write_json(output / "metrics.json", {"step": step, **summary, "scores": metrics,
             "student_depth": student.config.n_blocks,
+            "checkpoint": str(checkpoint) if checkpoint else None,
             "protocol": {**settings, "world_size": distributed.world_size(),
                          "rank_seed": "seed + rank", "scorer_dtype": "float32",
-                         "weight_source": "in_memory_student_after_optimizer_step"}})
+                         "weight_source": "checkpoint" if checkpoint else "in_memory_student_after_optimizer_step"}})
         return summary
     return None
+
+
+def training_ppl(student, tokenizer, config, run_dir, step, *, scorer_cache):
+    return evaluate_generation(student, tokenizer, periodic_config(config),
+        run_dir / "ppl" / f"step_{step:06d}", step=step, scorer_cache=scorer_cache)
 
 
 def evaluate(teacher, tokenizer, checkpoint, config, run_dir):

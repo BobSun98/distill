@@ -78,7 +78,9 @@ training:
 `interval` 按 **optimizer 更新次数**计数。默认每 100 步暂停训练，各卡用当前 student
 生成 32 条，八卡共 **256 条**；`batch_size=32` 表示每卡一次生成 32 条，可调小并分批生成，
 总样本数仍由 `num_samples_per_rank` 决定。仅评测当前 step 的内存权重，每次重置同一生成种子。
-到达 max_steps 或平台期早停时，即使不是 interval 的整倍数，也补测一次停止 step。
+interval 为正时，到达 max_steps 或平台期早停时，即使不是 interval 的整倍数，也补测一次停止 step。
+设置 `training.ppl_evaluation.interval=-1` 则关闭训练循环内的全部自动 PPL 评测，
+包括停止 step 的补测；`all` 命令结束后的独立评测仍正常执行。旧的正数 interval 行为不变。
 
 PPL 指 **生成文本在 GPT-2-Large 下的 Gen. PPL**。采样步数、生成长度、scorer 和评分长度
 继承当前 `evaluation`；ELF 还继承 SDE/ODE 与 SC-CFG 设置。ELF 沿用原版 BF16/EOS-mask
@@ -134,6 +136,50 @@ CUDA_VISIBLE_DEVICES=0 bash scripts/run_elf_experiment.sh configs/elf_b_debug.ya
 PYTHONPATH=src /proj/gpu_mtk53742/.conda/envs/distill/bin/python \
   -m distill.training_monitor run/<已有实验目录>
 ```
+
+## LangFlow-OWT 独立均匀删层实验
+
+`configs/owt_depth_sweep.yaml` 固定同一个 12 层 LangFlow-OWT teacher，依次训练
+11、10、9、8、7、6 层 student。**每个 student 独立从原始 teacher 初始化**，
+不继承上一阶段的训练权重或 optimizer。每个深度完整训练 **5000 个 optimizer step**，
+关闭早停与训练中间 PPL（`interval=-1`），随后重载第 5000 步 checkpoint，仅评测该 student。
+完整实验共 6 × 5000 = 30000 次更新，数据、种子、学习率和全局 batch 保持一致。
+
+均匀方案在原始编号 0–11 上等间距选取保留层：
+`round(i * (12 - 1) / (student_depth - 1))`，保留首尾层。各目标深度分别计算，不要求
+层集合嵌套；只做深度缩减，宽度、tokenizer、冻结 embedding/schedule 均沿用真实 teacher。
+
+| Student 层数 | 保留的原始 teacher 层（从 0 开始） |
+| --- | --- |
+| 11 | `[0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11]` |
+| 10 | `[0, 1, 2, 4, 5, 6, 7, 9, 10, 11]` |
+| 9 | `[0, 1, 3, 4, 6, 7, 8, 10, 11]` |
+| 8 | `[0, 2, 3, 5, 6, 8, 9, 11]` |
+| 7 | `[0, 2, 4, 6, 7, 9, 11]` |
+| 6 | `[0, 2, 4, 7, 9, 11]` |
+
+```bash
+# 服务器项目根目录，依次使用全部八卡执行六个独立训练条件。
+bash scripts/run_owt_depth_sweep.sh
+
+# 单卡真实 debug：保留同一 12 层 teacher 和六种 student 结构，每种只训练 3 步。
+# 当前 Python 进程直接调用训练、保存重载、生成和真实 GPT-2-Large 评分。
+CUDA_VISIBLE_DEVICES=0 bash scripts/run_owt_depth_sweep.sh configs/owt_depth_sweep_debug.yaml debug
+```
+
+默认每卡训练 batch=4、累积 2 次，八卡全局 batch=64。每个 student 训练结束后生成
+**256 条**（八卡各 32 条，生成 batch=32），长度 1024、采样前向 1024 次、seed=2026+rank，
+使用本项目 LangFlow `all` 入口的 GPT-2-Large FP32/有效 token 掩码口径。各深度的
+生成和评分设置一致，不额外重复评测 teacher 或未训练 pruned student。
+
+根目录 `run/<时间>_langflow_owt_uniform_depth_sweep/` 保存 `summary.json`、`summary.csv`
+及 `depth_ppl_curve.png`，曲线横轴为 student 层数，并附 entropy 面板；每完成一个深度
+就更新一次。`student_11_layers/` 等阶段目录保存配置、独立训练日志、`loss_curve.png`、
+最终 checkpoint 和 `evaluation/` 中的文本、token IDs、逐样本评分。图上的每个点都对应
+该 student 的最后一步权重。
+
+可用 `--set evaluation.num_samples=512` 增加每个条件的生成样本，或用
+`--set evaluation.batch_size=8` 分批生成。预算/采样协议会写入结果，不改变既有实验配置。
 
 ## 启动阻塞与通信诊断
 

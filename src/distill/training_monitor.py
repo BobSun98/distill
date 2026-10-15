@@ -17,8 +17,10 @@ from .config import project_path
 def validate_monitor_config(config):
     settings = config["training"].get("ppl_evaluation", {})
     if settings.get("enabled", False):
+        if settings["interval"] == -1:
+            return
         if min(settings["interval"], settings["num_samples_per_rank"], settings["batch_size"]) < 1:
-            raise ValueError("定期 PPL 的 interval、每卡样本数与生成 batch 必须为正")
+            raise ValueError("定期 PPL 的 interval 必须为 -1 或正数，样本数与 batch 必须为正")
         if not config["evaluation"]["scorer"]:
             raise ValueError("定期 PPL 需要 evaluation.scorer（默认 gpt2-large）")
 
@@ -32,7 +34,8 @@ def periodic_config(config):
 
 
 def ppl_due(settings, step, max_steps, stopping=False):
-    return settings.get("enabled", False) and (
+    # -1 关闭训练循环内的全部 PPL，包括最后一步；外部仍可显式评测 checkpoint。
+    return settings.get("enabled", False) and settings["interval"] > 0 and (
         step % settings["interval"] == 0 or step == max_steps or stopping)
 
 

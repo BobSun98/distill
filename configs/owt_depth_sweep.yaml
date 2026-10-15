@@ -1,0 +1,28 @@
+extends: owt_kd.yaml
+
+run:
+  name: langflow_owt_uniform_depth_sweep
+
+sweep:
+  teacher_depth: 12
+  student_depths: [11, 10, 9, 8, 7, 6]
+  # 每个深度独立从原始 teacher 等间距保留层，首尾层保留，不继承上一个 student。
+  layer_selection: uniform
+
+training:
+  max_steps: 5000
+  # 各深度预算一致；八卡全局 batch = 8 × 4 × 2 = 64。
+  batch_size: 4
+  grad_accumulation: 2
+  save_every: 0
+  plot_loss: true
+  early_stopping:
+    enabled: false
+  ppl_evaluation:
+    # 仅在独立实验入口中，于每个 student 训练完成后显式测一次 PPL。
+    interval: -1
+
+evaluation:
+  # 八卡各 32 条，共 256 条。训练后评测沿用当前 LangFlow all 入口的评分口径。
+  num_samples: 256
+  batch_size: 32
