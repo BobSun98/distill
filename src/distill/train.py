@@ -14,6 +14,7 @@ from .losses import distillation_loss
 from .models import parameter_counts
 from .states import off_policy_state, posterior_logits
 from .early_stopping import PlateauMonitor
+from .lr_schedule import make_lr_scheduler
 from .training_monitor import evaluation_state, plot_training_curves, ppl_due
 from . import distributed, progress
 
@@ -125,6 +126,7 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
                 process_group=distributed.tensor_group(), broadcast_buffers=False)
     optimizer = torch.optim.AdamW((p for p in student.parameters() if p.requires_grad),
                                  lr=settings["learning_rate"], weight_decay=settings["weight_decay"])
+    scheduler = make_lr_scheduler(optimizer, settings)
     if distributed.is_main():
         write_json(run_dir / "models.json", {"teacher": counts_fn(teacher),
                     "student": counts_fn(distributed.unwrap(student)),
@@ -209,12 +211,16 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
             grad_norm = torch.nn.utils.clip_grad_norm_(
                 (p for p in student.parameters() if p.requires_grad),
                 settings["max_grad_norm"], error_if_nonfinite=True)
+            learning_rate = optimizer.param_groups[0]["lr"]
             optimizer.step()
+            if scheduler is not None and step < settings["max_steps"]:
+                scheduler.step()
             should_stop = False
             if visible_step:
                 event = {"phase": "train", "step": step,
                         **distributed.mean_metrics(sums, tokens, device),
-                        "grad_norm": float(grad_norm), "tokens": int(global_tokens), "epoch": epoch}
+                        "grad_norm": float(grad_norm), "tokens": int(global_tokens), "epoch": epoch,
+                        "learning_rate": learning_rate}
                 if device.type == "cuda" and distributed.is_main():
                     event["rank0_peak_memory_gib"] = torch.cuda.max_memory_allocated(device) / 1024**3
                 record(event)
@@ -232,7 +238,7 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
                     with evaluation_state(distributed.unwrap(student)):
                         metrics = ppl_fn(distributed.unwrap(student), tokenizer, config, run_dir, step)
                     metrics = distributed.broadcast_main(metrics)
-                    record({"phase": "gen_ppl", "step": step, **metrics})
+                    record({"phase": "gen_ppl", "step": step, "learning_rate": learning_rate, **metrics})
                     # 较快的 rank 在 CPU/Gloo 等待，不提前进入下一步 NCCL 梯度通信。
                     distributed.barrier()
             if should_stop:
@@ -249,6 +255,8 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
         write_json(run_dir / "training.json", {"checkpoint": str(checkpoint),
                     "last_checkpoint": str(last_checkpoint), "steps": step,
                     "max_steps": settings["max_steps"], "stop_reason": stop_reason,
+                    "initial_learning_rate": settings["learning_rate"], "final_learning_rate": learning_rate,
+                    "lr_scheduler": settings.get("lr_scheduler", {"name": "constant"}),
                     "early_stopping": stopping,
                     "best_step": best_state["best_step"] if best_state else None,
                     "best_value": best_state["best_value"] if best_state else None})

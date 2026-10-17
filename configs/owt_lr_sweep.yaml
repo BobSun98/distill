@@ -1,0 +1,36 @@
+extends: owt_kd.yaml
+
+run:
+  name: langflow_owt_12to6_lr_sweep
+
+model:
+  keep_layers: [0, 2, 4, 7, 9, 11]
+
+lr_sweep:
+  teacher_depth: 12
+  learning_rates: [0.00001, 0.00003, 0.0001, 0.0003, 0.001]
+
+training:
+  max_steps: 5000
+  # 五组保持相同预算，八卡 global batch = 8 × 4 × 2 = 64。
+  batch_size: 4
+  grad_accumulation: 2
+  log_every: 100
+  validate_every: 100
+  save_every: 0
+  plot_loss: true
+  early_stopping:
+    enabled: false
+  lr_scheduler:
+    name: cosine
+    final_ratio: 0.1
+  ppl_evaluation:
+    enabled: true
+    interval: 1000
+    num_samples_per_rank: 32
+    batch_size: 32
+
+evaluation:
+  # 训练中及结束 step 的 PPL 使用同一 256 样本预算。
+  num_samples: 256
+  batch_size: 32

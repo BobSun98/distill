@@ -14,6 +14,7 @@ from . import models, data
 from .evaluate import evaluate, training_ppl
 from .losses import batch_loss, METRIC_KEYS
 from ..training_monitor import validate_monitor_config
+from ..lr_schedule import validate_lr_schedule
 
 
 def load_config(path, overrides=()):
@@ -39,6 +40,7 @@ def load_config(path, overrides=()):
     if min(config["evaluation"]["num_samples"], config["evaluation"]["batch_size"], config["evaluation"]["num_steps"]) < 1:
         raise ValueError("ELF 生成样本、batch 和采样步数必须为正")
     validate_monitor_config(config)
+    validate_lr_schedule(training)
     return config
 
 

@@ -46,6 +46,7 @@ def load_yaml_config(path, overrides=()):
 
 def load_config(path, overrides=()):
     from .training_monitor import validate_monitor_config
+    from .lr_schedule import validate_lr_schedule
     config = load_yaml_config(path, overrides)
     training, loss, data = config["training"], config["loss"], config["data"]
     if data.get("corpus", "owt") not in ("owt", "lm1b"):
@@ -65,6 +66,7 @@ def load_config(path, overrides=()):
     if data["sequence_length"] < 3:
         raise ValueError("sequence_length 至少为 3，包含 BOS 和 EOS")
     validate_monitor_config(config)
+    validate_lr_schedule(training)
     return config
 
 

@@ -181,6 +181,63 @@ CUDA_VISIBLE_DEVICES=0 bash scripts/run_owt_depth_sweep.sh configs/owt_depth_swe
 可用 `--set evaluation.num_samples=512` 增加每个条件的生成样本，或用
 `--set evaluation.batch_size=8` 分批生成。预算/采样协议会写入结果，不改变既有实验配置。
 
+## LangFlow-OWT 12→6 层 LR sweep
+
+`configs/owt_lr_sweep.yaml` 固定 12 层 teacher 与均匀保留 `[0,2,4,7,9,11]` 的 6 层
+student，扫描五个初始学习率。每组重新从原始 teacher 初始化、重新创建 optimizer/scheduler，
+固定训练数据、随机种子、八卡 global batch=64、5000 个 optimizer 更新，不启用早停。
+
+| 初始 LR | 第 5000 次更新使用的 LR |
+| --- | --- |
+| `1e-5` | `1e-6` |
+| `3e-5` | `3e-6` |
+| `1e-4` | `1e-5` |
+| `3e-4` | `3e-5` |
+| `1e-3` | `1e-4` |
+
+这些是覆盖现有 `3e-5` 起点的候选值，实际效果由本次实验比较。scheduler 使用无 warmup
+的余弦衰减，从第一次更新的初始 LR 到最后一次更新的 `lr/10`，按 optimizer step 推进，
+不按 micro-batch 推进。旧配置未设置 `lr_scheduler` 时仍使用原有恒定 LR。
+
+```yaml
+training:
+  lr_scheduler:
+    name: cosine
+    final_ratio: 0.1
+  log_every: 100
+  validate_every: 100
+  ppl_evaluation:
+    enabled: true
+    interval: 1000
+    num_samples_per_rank: 32
+    batch_size: 32
+```
+
+每组在 step **1000、2000、3000、4000、5000** 计算当前 student 的生成 PPL，每次八卡
+各生成 32 条，共 256 条，GPT-2-Large 的生成/评分口径与现有 LangFlow `all` 一致。
+不在结束后重复额外生成一遍。train/val loss 每 100 步记录；另外保留 step=0 验证和
+首个训练步的诊断日志，汇总 loss 图的 train 曲线按 100 步取点。
+
+```bash
+# 服务器项目根目录：五组依次占用 CUDA 0-7，总计 5 × 5000 次 optimizer 更新。
+bash scripts/run_owt_lr_sweep.sh
+
+# 单卡真实 debug：相同 teacher、6 层 student 和五个候选 LR，各训练 3 步。
+CUDA_VISIBLE_DEVICES=0 bash scripts/run_owt_lr_sweep.sh configs/owt_lr_sweep_debug.yaml debug
+```
+
+结果根目录 `run/<时间>_langflow_owt_12to6_lr_sweep/` 保存：
+
+- `ppl_comparison.png`：5 条 PPL 曲线，横轴 optimizer step，图例标注各自初始 LR。
+- `loss_comparison.png`：5 条 train + 5 条 val，共 10 条曲线；同 LR 同色、train 实线/val 虚线。
+- `summary.json`、`summary.csv`：每组初始/最终 LR、最后一步 PPL、entropy、checkpoint 等。
+- `lr_*/`：各自完整配置、训练日志、loss/PPL 曲线、最终 checkpoint 和逐次 PPL 的文本/评分。
+
+每完成一组就更新汇总图，五组完成后得到完整的 5/10 条曲线。`metrics.jsonl` 的 train
+行记录该次 optimizer 更新实际使用的 `learning_rate`；PPL 行也记录对应 LR。
+`training.json` 保存 scheduler 配置与实际最终 LR，便于核对衰减终点。
+比较结果时同时检查 entropy 和文本，避免仅按低 PPL 判断生成质量。
+
 ## 启动阻塞与通信诊断
 
 如果 GPU 利用率持续 100% 但每卡显存只有几百 MB，且没有模型加载/训练日志，

@@ -1,0 +1,31 @@
+extends: owt_lr_sweep.yaml
+
+run:
+  name: langflow_owt_12to6_lr_sweep_debug
+
+data:
+  sequence_length: 128
+  train_documents: 32
+  valid_documents: 16
+  max_train_blocks: 8
+  max_valid_blocks: 4
+
+training:
+  # 保留真实 teacher、6 层 student 和五个 LR，只减少数据、步数与生成预算。
+  max_steps: 3
+  batch_size: 1
+  grad_accumulation: 1
+  log_every: 1
+  validate_every: 1
+  validation_batches: 1
+  ppl_evaluation:
+    interval: 1
+    num_samples_per_rank: 2
+    batch_size: 1
+
+evaluation:
+  num_samples: 2
+  batch_size: 1
+  num_steps: 8
+  sequence_length: 128
+  scorer_batch_size: 1
