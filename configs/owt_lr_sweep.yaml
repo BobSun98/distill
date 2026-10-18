@@ -8,11 +8,11 @@ model:
 
 lr_sweep:
   teacher_depth: 12
-  learning_rates: [0.00001, 0.00003, 0.0001, 0.0003, 0.001]
+  learning_rates: [0.00001, 0.00003, 0.0001, 0.0003, 0.001, 0.005, 0.01]
 
 training:
   max_steps: 5000
-  # 五组保持相同预算，八卡 global batch = 8 × 4 × 2 = 64。
+  # 各组保持相同预算，八卡 global batch = 8 × 4 × 2 = 64。
   batch_size: 4
   grad_accumulation: 2
   log_every: 100
@@ -32,5 +32,5 @@ training:
 
 evaluation:
   # 训练中及结束 step 的 PPL 使用同一 256 样本预算。
-  num_samples: 256
+  num_samples: 512
   batch_size: 32
