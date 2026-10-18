@@ -5,3 +5,6 @@
 模型/采样仅调整包内导入和类型注解；metrics 仅保留 Gen. PPL 使用的四个类。
 RoPE 支持截取已有位置编码前缀以运行较短 debug 序列；
 不缩小 teacher/student 的宽度或额外减少 debug 模型层数。外部 `ELF/` 不修改。
+
+统一 Gen PPL 为 `_sde_step` 新增可选 `noise`，支持按 sample/step 提供固定标准噪声；
+未传时仍走原版 CPU/CUDA 随机路径，SDE/ODE 公式保持不变。

@@ -1,0 +1,23 @@
+extends: gen_ppl.yaml
+
+run:
+  name: unified_gen_ppl_debug
+
+# 只允许由 debug/debug_gen_ppl.py 进入此小样本协议，结果显式标注 debug。
+protocol:
+  num_samples: 4
+
+runtime:
+  generation_batch_size: 1
+
+models:
+  - name: langflow_owt_real_debug
+    architecture:
+      repo_id: Continuous-Rivals-Discrete/langflow-owt
+      filename: config.json
+    weights:
+      repo_id: Continuous-Rivals-Discrete/langflow-owt
+      filename: model.safetensors
+    generation:
+      num_steps: 8
+      sequence_length: 128

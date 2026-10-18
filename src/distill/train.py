@@ -15,6 +15,7 @@ from .models import parameter_counts
 from .states import off_policy_state, posterior_logits
 from .early_stopping import PlateauMonitor
 from .lr_schedule import make_lr_scheduler
+from .gen_ppl_protocol import write_manifest
 from .training_monitor import evaluation_state, plot_training_curves, ppl_due
 from . import distributed, progress
 
@@ -93,6 +94,9 @@ def save_checkpoint(student, tokenizer, run_dir, step, config, name=None):
         write_json(path / "distillation.json", {"step": step, "teacher": config["model"]["teacher"],
                                                "keep_layers": config["model"]["keep_layers"],
                                                "loss": config["loss"]})
+        write_manifest(path / "gen_ppl_eval.yaml", [{"name": "student", "architecture": str(path / "config.json"),
+            "weights": str(path / "model.safetensors"), "generation": {
+                "num_steps": config["evaluation"]["num_steps"], "sequence_length": config["evaluation"]["sequence_length"]}}])
         progress.emit("checkpoint.save.end", step=step)
     with progress.phase("checkpoint.wait_ready", step=step):
         distributed.barrier()

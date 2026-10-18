@@ -496,6 +496,7 @@ class LangFlow(transformers.PreTrainedModel):
         seq_length: typing.Optional[int] = None,
         num_steps: int = 128,
         device: typing.Optional[torch.device] = None,
+        initial_noise: typing.Optional[torch.Tensor] = None,
     ) -> torch.LongTensor:
         """Generate samples using Euler-EDM solver.
         
@@ -517,10 +518,16 @@ class LangFlow(transformers.PreTrainedModel):
         eps = 1e-5
 
         # Initialize with Gaussian noise
-        z = torch.randn(num_samples, seq_length, embed_dim, device=device)
+        if initial_noise is None:
+            z = torch.randn(num_samples, seq_length, embed_dim, device=device)
+        else:
+            # 统一评测可显式提供噪声；原入口不传此参数时保持原随机采样行为。
+            if initial_noise.shape != (num_samples, seq_length, embed_dim):
+                raise ValueError("initial_noise 形状与模型/样本数/生成长度不一致")
+            z = initial_noise.to(device=device, dtype=next(self.parameters()).dtype)
 
         # Create gamma schedule from t=1-eps to t=eps
-        t = torch.linspace(1.0 - eps, eps, num_steps, device=device)
+        t = torch.linspace(1.0 - eps, eps, num_steps, device=device, dtype=z.dtype)
         gamma = self.proposal(t)
 
         # Self-conditioning state

@@ -1,0 +1,26 @@
+extends: gen_ppl.yaml
+
+models:
+  # 每套 student 必须使用它自己的架构 JSON，不能将 teacher 的 12 层 JSON 配给 6 层权重。
+  - name: langflow_owt_student6_step1000
+    architecture: run/REPLACE_EXPERIMENT/checkpoints/step_001000/config.json
+    weights: run/REPLACE_EXPERIMENT/checkpoints/step_001000/model.safetensors
+    generation:
+      num_steps: 1024
+      sequence_length: 1024
+  - name: langflow_owt_student6_step5000
+    architecture: run/REPLACE_EXPERIMENT/checkpoints/step_005000/config.json
+    weights: run/REPLACE_EXPERIMENT/checkpoints/step_005000/model.safetensors
+    generation:
+      num_steps: 128
+      sequence_length: 1024
+  - name: elf_student
+    architecture: run/REPLACE_ELF_EXPERIMENT/checkpoints/best/config.json
+    weights: run/REPLACE_ELF_EXPERIMENT/checkpoints/best/model.safetensors
+    generation:
+      num_steps: 64
+      sequence_length: 1024
+      sampling:
+        sampling_method: sde
+        sde_gamma: 1.0
+        self_cond_cfg_scale: 3.0

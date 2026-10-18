@@ -13,6 +13,7 @@ from transformers import AutoTokenizer, T5EncoderModel
 from .. import distributed, progress
 from ..backbones.elf import ELF
 from ..config import project_path, write_json
+from ..gen_ppl_protocol import write_manifest
 
 
 def resolve_teacher(config):
@@ -145,11 +146,15 @@ def save_checkpoint(student, tokenizer, run_dir, step, config, name=None):
                        str(path / "model.safetensors"), metadata={"format": "pt"})
             write_json(path / "config.json", {"model_type": "ELF", "architecture": model.architecture,
                                               "encoder": config["model"]["encoder"],
-                                              "diffusion": config["diffusion"],
+                                              "diffusion": {**config["diffusion"],
+                                                  "self_cond_prob": config["training"]["self_condition_probability"]},
                                               "sampling": config["evaluation"]["sampling"]})
             tokenizer.save_pretrained(path)
             write_json(path / "distillation.json", {"step": step, "teacher": config["model"]["teacher"],
                        "keep_layers": config["model"]["keep_layers"], "loss": config["loss"]})
+            write_manifest(path / "gen_ppl_eval.yaml", [{"name": "elf_student", "architecture": str(path / "config.json"),
+                "weights": str(path / "model.safetensors"), "generation": {
+                    "num_steps": config["evaluation"]["num_steps"], "sequence_length": config["evaluation"]["sequence_length"]}}])
     distributed.barrier()
     return path
 

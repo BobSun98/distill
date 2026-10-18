@@ -20,6 +20,7 @@ from .depth_sweep import uniform_keep_layers
 from .evaluate import training_ppl
 from .models import build_student, load_teacher, load_tokenizer
 from .train import seed_everything, train
+from .gen_ppl_protocol import write_manifest
 
 
 def load_config(path, overrides=()):
@@ -107,6 +108,11 @@ def plot_sweep_curves(run_dir, config, rows):
 
 
 def save_results(run_dir, config, rows):
+    write_manifest(run_dir / "gen_ppl_models.yaml", [{"name": Path(row["directory"]).name,
+        "architecture": str(Path(row["checkpoint"]) / "config.json"),
+        "weights": str(Path(row["checkpoint"]) / "model.safetensors"),
+        "generation": {"num_steps": config["evaluation"]["num_steps"],
+                       "sequence_length": config["evaluation"]["sequence_length"]}} for row in rows])
     write_json(run_dir / "summary.json", {"teacher": config["model"]["teacher"],
         "student_keep_layers": config["model"]["keep_layers"], "initialization": "independent_from_teacher",
         "learning_rates": config["lr_sweep"]["learning_rates"], "training": config["training"],

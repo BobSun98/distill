@@ -10,6 +10,89 @@ LangFlow 和 ELF 模型/采样实现分别复制在 `src/distill/backbones/langf
 `src/distill/backbones/elf/`，外部 `ELF/`、`LangFlow/` 保持原样。
 ELF-B/L 的运行方式见下方独立说明。项目目标见 [DistillationContinuesDLM.md](DistillationContinuesDLM.md)。
 
+## 统一 Gen PPL：后续实验正式对比入口
+
+正式对比统一使用 **`scripts/eval_gen_ppl.sh` / `gen_ppl_v1`**，固定 seed=42、
+每套权重生成 1024 条、GPT-2-Large scorer、GPT 评分上限 1024 token，默认 CUDA 0-7。
+只加载给定架构和权重做无条件生成；不额外加载 teacher、训练数据或 T5 encoder。
+旧的原版复现入口与训练中诊断 PPL 保留原协议；历史数值需要通过新入口重评后再同表比较。
+
+```bash
+# 默认配置示范同一任务内评测 LangFlow OWT 和 LM1B 两套真实权重。
+bash scripts/eval_gen_ppl.sh configs/gen_ppl.yaml
+
+# 新训练保存的 checkpoint 自动附带单模型清单。
+bash scripts/eval_gen_ppl.sh run/<实验>/checkpoints/step_005000/gen_ppl_eval.yaml
+
+# depth / LR sweep 自动导出多权重清单，一次重评全部已完成条件。
+bash scripts/eval_gen_ppl.sh run/<sweep实验>/gen_ppl_models.yaml
+```
+
+一个 YAML 的 `models` 可以放任意多套权重，每项独立设置步数、长度，必要时覆盖生成 batch：
+
+```yaml
+extends: gen_ppl.yaml
+models:
+  - name: student6_step1000
+    architecture: run/<实验>/checkpoints/step_001000/config.json
+    weights: run/<实验>/checkpoints/step_001000/model.safetensors
+    generation:
+      num_steps: 1024
+      sequence_length: 1024
+  - name: student6_step5000
+    architecture: run/<实验>/checkpoints/step_005000/config.json
+    weights: run/<实验>/checkpoints/step_005000/model.safetensors
+    generation:
+      num_steps: 128
+      sequence_length: 1024
+```
+
+配置文件保存在 `configs/` 时可直接 `extends: gen_ppl.yaml`；其他目录需提供正确的相对
+继承路径，或复制完整清单。模型文件字符串路径相对项目根目录；HF 文件用
+`{repo_id: ..., filename: ...}` 明确指定。更多示例见 `configs/gen_ppl_models_example.yaml`。
+student 必须使用自己的架构 JSON；safetensors 自身不包含完整架构。
+tokenizer 优先读取权重旁保存的真实 tokenizer；LangFlow OWT/LM1B 可由词表识别 GPT-2/BERT，
+ELF 使用架构中 `encoder` 的 tokenizer 引用，不加载 encoder 模型权重。
+
+本项目 ELF student 可直接使用保存的 `config.json`。原生 ELF checkpoint 可使用
+`configs/architectures/elf_b.json` / `elf_l.json` 加实际权重路径；默认选择存在的
+`ema_params1`，否则 `params`/直接 state dict，也可通过模型项的 `weights_key` 明确指定。
+需要修改过噪声/SC 设置的架构，应在 JSON 的 `diffusion`、`sampling` 中如实保存推理配置。
+读取原生 PyTorch 文件使用 `weights_only=True`，自定义 pickle 对象需先导出模型 state dict。
+
+噪声和采样约定：
+
+- sample_id 固定为 0–1023，按编号分卡，不补齐、不重复。CPU FP32 generator 由
+  `(seed, sample_id, noise_stream)` 定位，不依赖模型顺序、卡数或 batch 划分。
+- 每个 latent 维度固定占 1024 个随机位置，较短长度/较小维度共享完整噪声的重叠前缀。
+  不同潜空间只能共享标准正态 epsilon；各模型的坐标定义和噪声缩放仍来自其架构。
+- LangFlow 使用原 Euler-EDM；ELF 使用原 SDE/ODE 公式，时间网格固定并共享，各 SDE step
+  也使用可寻址噪声。ELF 生成步数之外还有 decoder 前向；实际采样参数随结果保存。
+- 生成参数 FP32、CUDA backbone BF16，scorer 固定 FP32/eager、逐条评分、禁用 KV cache。
+  固定噪声不等于跨 GPU/软件版本逐位相同的输出；结果记录 Torch 版本和运行卡数。
+
+统一文本/评分约定：
+
+- 每条序列先去掉至多一个开头 BOS，再在 tokenizer 定义的第一个 EOS 截断，解码时去掉
+  special tokens，禁用额外 whitespace cleanup。这样 GPT-2 的 BOS=EOS 不会误清空整条样本。
+- 用同一个 GPT-2-Large tokenizer 重新 tokenize，不加人工 BOS/EOS，最多前 1024 token。
+  shifted next-token CE 排除 padding，首 token 不评分，正文 EOS 仍按真实内容正常评分。
+- `Gen. PPL = exp(所有有效目标 token 的 NLL 总和 / 有效目标 token 总数)`，不平均 PPL。
+  空白/不足两个 GPT token 的样本不重采样，记录 coverage；全部不可评分时 PPL 为 null。
+- 同时报告 GPT-token unigram entropy、重复 4-gram 比例和空样本数，保留实际文本。
+  各权重的长度/步数可以不同，但预算差异会影响对比，应核对结果中的生成设置。
+
+产物在 `run/<时间>_unified_gen_ppl/`：`protocol.json`、汇总 `metrics.json`/`summary.csv`，
+每个模型目录中的 `samples.jsonl`、含逐样本 NLL 的 `metrics.json`、真实 tokenizer，
+以及 `initial_noise_sample_0.pt`（未施加模型噪声缩放的标准 epsilon）。每完成一套权重即更新汇总。
+
+```bash
+# 单卡、真实模型、当前进程断点调试；seed/scorer 相同，只减少样本、长度和步数。
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_gen_ppl.sh configs/gen_ppl_debug.yaml debug
+```
+
+debug 结果标为 `gen_ppl_v1_debug`，正式入口拒绝样本数不是 1024 的配置，避免误报为正式结果。
+
 ## 服务器运行
 
 在项目根目录安装依赖。服务器需事先安装适配驱动、满足 `pyproject.toml` 版本要求的

@@ -226,7 +226,7 @@ def _ode_step(
 def _sde_step(
     model, z, t, t_next, x_pred_prev,
     config, cfg_scale, self_cond_cfg_scale,
-    cond_seq, cond_seq_mask, gamma, generator,
+    cond_seq, cond_seq_mask, gamma, generator, noise=None,
 ):
     """Per-step SDE-style sampler with hybrid (t-and-step) noise scaling.
 
@@ -237,7 +237,10 @@ def _sde_step(
     h = float(t_next - t)
     alpha = max(0.0, min(1.0, 1.0 - gamma * h))
     t_back = alpha * float(t)
-    if z.is_cuda:
+    if noise is not None:
+        # 统一评测显式传入每个 sample/step 的标准噪声；旧入口仍走原随机路径。
+        eps = noise.to(device=z.device, dtype=z.dtype) * config.denoiser_noise_scale
+    elif z.is_cuda:
         eps = torch.randn(z.shape, dtype=z.dtype, device=z.device) * config.denoiser_noise_scale
     else:
         eps = torch.randn(z.shape, generator=generator, dtype=z.dtype) * config.denoiser_noise_scale

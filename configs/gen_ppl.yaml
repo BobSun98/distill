@@ -1,0 +1,40 @@
+run:
+  name: unified_gen_ppl
+  root: run
+
+# 正式评测固定这些字段，不能用 --set 改成另一套标准。
+protocol:
+  version: gen_ppl_v1
+  seed: 42
+  num_samples: 1024
+  scorer: gpt2-large
+  scorer_max_length: 1024
+
+runtime:
+  device: cuda
+  cache_dir: null
+  generation_batch_size: 8
+  control_timeout_seconds: 7200
+
+# 每项只指定架构、权重和生成设置。可将 HF 引用替换成本地文件路径。
+models:
+  - name: langflow_owt
+    architecture:
+      repo_id: Continuous-Rivals-Discrete/langflow-owt
+      filename: config.json
+    weights:
+      repo_id: Continuous-Rivals-Discrete/langflow-owt
+      filename: model.safetensors
+    generation:
+      num_steps: 1024
+      sequence_length: 1024
+  - name: langflow_lm1b
+    architecture:
+      repo_id: Continuous-Rivals-Discrete/langflow-lm1b
+      filename: config.json
+    weights:
+      repo_id: Continuous-Rivals-Discrete/langflow-lm1b
+      filename: model.safetensors
+    generation:
+      num_steps: 128
+      sequence_length: 128

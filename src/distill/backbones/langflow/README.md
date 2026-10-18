@@ -13,3 +13,6 @@ BOS/EOS 以及各 map batch 丢弃余数的规则，不复用蒸馏训练的连�
 `text.py` 的 LM1B detokenizer 同样复制自 `LangFlow/duo/dataloader.py`。
 LM1B wrapped 兼容原代码 `encode(special_token)[0]` 的边界取值方式；BERT 会自动
 前置 CLS，因此此规则的 EOS 也取 CLS，不另行改为 SEP。
+
+统一 Gen PPL 给 `generate_samples` 增加可选 `initial_noise`；未传时仍使用原版随机噪声。
+时间网格 dtype 跟随噪声，Euler-EDM 更新与最终 token readout 不变。

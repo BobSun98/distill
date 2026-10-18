@@ -18,6 +18,7 @@ from .evaluate import evaluate_generation
 from .models import build_student, load_model, load_teacher, load_tokenizer, parameter_counts
 from .train import seed_everything, train
 from .training_monitor import evaluation_state
+from .gen_ppl_protocol import write_manifest
 
 
 def uniform_keep_layers(teacher_depth, student_depth):
@@ -57,6 +58,11 @@ def stage_config(config, depth):
 
 
 def write_summary(run_dir, config, rows):
+    write_manifest(run_dir / "gen_ppl_models.yaml", [{"name": f"student_{row['student_depth']}_layers",
+        "architecture": str(Path(row["checkpoint"]) / "config.json"),
+        "weights": str(Path(row["checkpoint"]) / "model.safetensors"),
+        "generation": {"num_steps": config["evaluation"]["num_steps"],
+                       "sequence_length": config["evaluation"]["sequence_length"]}} for row in rows])
     write_json(run_dir / "summary.json", {"teacher": config["model"]["teacher"],
         "teacher_depth": config["sweep"]["teacher_depth"], "initialization": "independent_from_teacher",
         "layer_selection": "uniform_linspace_round_keep_endpoints", "steps_per_student": config["training"]["max_steps"],
