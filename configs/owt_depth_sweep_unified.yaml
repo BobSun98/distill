@@ -1,0 +1,35 @@
+extends: owt_depth_sweep.yaml
+
+run:
+  name: langflow_owt_depth_sweep_lr1e-3_unified
+
+sweep:
+  student_depths: [6, 7, 8, 9, 10, 11]
+  # 全部 student 训练完后，原始 12 层 teacher 和六套最终权重共用统一测试入口。
+  evaluation_protocol: gen_ppl_v1
+
+training:
+  max_steps: 5000
+  # 统一初始 LR；沿用已确认的余弦衰减，第 5000 次更新为 0.0001。
+  learning_rate: 0.001
+  lr_scheduler:
+    name: cosine
+    final_ratio: 0.1
+  log_every: 100
+  validate_every: 100
+  early_stopping:
+    enabled: false
+  ppl_evaluation:
+    interval: -1
+
+evaluation:
+  seed: 42
+  num_samples: 1024
+  # 每卡生成 batch=8；1024 条按 sample_id 分给八卡，每卡 128 条。
+  batch_size: 8
+  num_steps: 1024
+  sequence_length: 1024
+  scorer: gpt2-large
+  # 统一入口固定 FP32/eager、逐条评分，不受旧评测 batch 设置影响。
+  scorer_batch_size: 1
+  scorer_max_length: 1024

@@ -220,7 +220,43 @@ PYTHONPATH=src /proj/gpu_mtk53742/.conda/envs/distill/bin/python \
   -m distill.training_monitor run/<已有实验目录>
 ```
 
-## LangFlow-OWT 独立均匀删层实验
+## LangFlow-OWT 6→11 层 sweep 与 teacher 统一评测
+
+新配置 `configs/owt_depth_sweep_unified.yaml` 按 **6、7、8、9、10、11 层**执行。
+每个 student 独立从同一个原始 12 层 teacher 均匀删层初始化，每组完整训练 **5000 步**，
+初始 LR 都为 **0.001**，沿用无 warmup 的 cosine scheduler 衰减至 **0.0001**。
+每卡 batch=4、累积 2 次，八卡 global batch=64；每 100 步记录 train/val loss。
+关闭早停和训练中 PPL（`interval=-1`），六组共 30000 次 optimizer 更新。
+
+训练完成后释放训练模型，**直接调用与 `scripts/eval_gen_ppl.sh` 相同的 `run_gen_ppl` 工程函数**，
+依次重载原始 teacher 和六套第 5000 步 student 权重进行八卡评测。teacher 仅评测，不训练。
+七个条件共用 `gen_ppl_v1`：**seed=42、每个模型 1024 条、GPT-2-Large FP32/eager**，
+生成长度和采样前向均为 1024。每卡生成 batch=8、共 128 条；同一 sample_id 使用相同初始噪声。
+
+```bash
+# 服务器项目根目录；默认 CUDA 0-7、八卡训练及评测。
+bash scripts/run_owt_depth_sweep_unified.sh
+
+# 显式指定新配置。
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
+  bash scripts/run_owt_depth_sweep_unified.sh configs/owt_depth_sweep_unified.yaml all
+
+# 真实模型单卡 debug：六个深度各 3 步，每个模型评测 2 条、长度 128、采样 8 步。
+CUDA_VISIBLE_DEVICES=0 bash scripts/run_owt_depth_sweep_unified.sh configs/owt_depth_sweep_unified_debug.yaml debug
+```
+
+根目录 `run/<时间>_langflow_owt_depth_sweep_lr1e-3_unified/` 保存 `summary.json`、
+`summary.csv`、`depth_ppl_curve.png`；曲线包含 6–11 层 student，以及 12 层 teacher
+的星形点和基准虚线，并附 entropy 面板。汇总记录 `role`、层数、checkpoint、实际评分覆盖率
+及协议元数据。`student_06_layers/` 等目录保留各自的 loss 图、训练日志和最终权重。
+`<时间>_unified_gen_ppl/` 保存统一入口的协议、指标及七个模型的文本、token IDs、逐样本 NLL。
+
+根目录还导出包含 teacher 和六个 student 的 `gen_ppl_models.yaml`，之后可用
+`bash scripts/eval_gen_ppl.sh run/<本次实验>/gen_ppl_models.yaml` 单独重评。
+debug 必须通过单卡 debug 入口进入，产物明确标为 `gen_ppl_v1_debug`。
+旧的 `owt_depth_sweep.yaml` 和启动脚本继续沿用原来的配置及评测流程。
+
+## LangFlow-OWT 独立均匀删层实验（旧入口）
 
 `configs/owt_depth_sweep.yaml` 固定同一个 12 层 LangFlow-OWT teacher，依次训练
 11、10、9、8、7、6 层 student。**每个 student 独立从原始 teacher 初始化**，

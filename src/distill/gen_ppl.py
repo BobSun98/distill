@@ -21,9 +21,8 @@ from .gen_ppl_protocol import (SEED, NUM_SAMPLES, SCORER, MAX_LENGTH, VERSION,
 from .gen_ppl_sampling import generate_batch
 
 
-def load_config(path, overrides=(), debug=False):
-    config = load_yaml_config(path, overrides)
-    protocol, runtime = config["protocol"], config["runtime"]
+def validate_protocol(protocol, debug=False):
+    """正式入口和训练后的自动评测共用同一套协议约束。"""
     if (protocol["version"] != VERSION or protocol["seed"] != SEED or protocol["scorer"] != SCORER
             or protocol["scorer_max_length"] != MAX_LENGTH):
         raise ValueError("统一协议固定 gen_ppl_v1、seed=42、gpt2-large、评分上限 1024")
@@ -31,6 +30,12 @@ def load_config(path, overrides=(), debug=False):
             or not debug and protocol["num_samples"] != NUM_SAMPLES
             or debug and not 1 <= protocol["num_samples"] <= NUM_SAMPLES):
         raise ValueError("正式统一评测固定 1024 条；只有单卡 debug 入口可减少样本数")
+
+
+def load_config(path, overrides=(), debug=False):
+    config = load_yaml_config(path, overrides)
+    validate_protocol(config["protocol"], debug)
+    runtime = config["runtime"]
     if runtime["generation_batch_size"] < 1 or not config["models"]:
         raise ValueError("生成 batch 必须为正，models 不能为空")
     names = []

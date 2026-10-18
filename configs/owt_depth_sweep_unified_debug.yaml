@@ -1,0 +1,27 @@
+extends: owt_depth_sweep_unified.yaml
+
+run:
+  name: langflow_owt_depth_sweep_unified_debug
+
+data:
+  sequence_length: 128
+  train_documents: 32
+  valid_documents: 16
+  max_train_blocks: 8
+  max_valid_blocks: 4
+
+training:
+  # 保留真实 teacher 与六种 student 结构，只缩短每组训练、数据和采样预算。
+  max_steps: 3
+  batch_size: 1
+  grad_accumulation: 1
+  log_every: 1
+  validate_every: 3
+  validation_batches: 1
+
+evaluation:
+  # 只允许单卡 debug 入口减少样本；结果标记 gen_ppl_v1_debug。
+  num_samples: 2
+  batch_size: 1
+  num_steps: 8
+  sequence_length: 128
