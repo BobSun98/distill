@@ -1,0 +1,15 @@
+extends: on_policy_base.yaml
+
+run:
+  name: on_policy_langflow_owt
+
+model:
+  # TODO: 填写 OWT off-policy student 目录或 model.safetensors。
+  student_weights: null
+  student_config: null
+  teacher: Continuous-Rivals-Discrete/langflow-owt
+  tokenizer: gpt2
+
+loss:
+  ce_weight: 1.0
+  mse_weight: 0.0

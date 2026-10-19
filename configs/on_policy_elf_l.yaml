@@ -1,0 +1,22 @@
+extends: on_policy_elf_b.yaml
+
+run:
+  name: on_policy_elf_l
+
+model:
+  # TODO: 填写 ELF-L off-policy student 目录或 model.safetensors。
+  student_weights: null
+  student_config: null
+  teacher: embedded-language-flows/ELF-L-owt-torch
+  architecture_config: configs/architectures/elf_l.json
+  gradient_checkpointing: true
+
+training:
+  batch_size: 1
+  grad_accumulation: 4
+
+evaluation:
+  num_steps: 64
+  batch_size: 1
+  sampling:
+    sde_gamma: 1.0

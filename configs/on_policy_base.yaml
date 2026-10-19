@@ -1,0 +1,83 @@
+# 四种模型共用的第二阶段训练预算；实际模型配置见对应的 on_policy_*.yaml。
+run:
+  name: on_policy
+  root: run
+  seed: 42
+
+model:
+  family: langflow
+  device: cuda
+  cache_dir: null
+  # 填写第一阶段训练好的 student，支持目录或 model.safetensors。
+  student_weights: null
+  # 默认读取权重旁的 config.json；权重与架构分开存放时填写此项。
+  student_config: null
+  teacher: Continuous-Rivals-Discrete/langflow-owt
+  teacher_config: null
+  tokenizer: gpt2
+  architecture_config: null
+  checkpoint_file: null
+  use_ema: true
+  use_bf16: false
+  gradient_checkpointing: false
+  # 运行时从原 checkpoint 的 distillation.json 读取，不再执行删层。
+  keep_layers: null
+
+distributed:
+  control_timeout_seconds: 7200
+  tensor_timeout_seconds: 180
+
+loss:
+  ce_weight: 1.0
+  mse_weight: 0.0
+  # soft: -sum(p_teacher * log p_student)；hard: CE(argmax teacher, student)。
+  ce_target: soft
+
+on_policy:
+  rollout_batch_size: 1
+  states_per_rollout: 8
+  buffer_capacity: 64
+  # 按训练 micro-batch 次数刷新；使用真实当前 student，旧状态按容量逐步淘汰。
+  refresh_every: 16
+  # ELF 同时启用 CE/MSE 时，从实际终点 decoder 状态采样的概率。
+  decoder_probability: 0.2
+
+training:
+  max_steps: 5000
+  batch_size: 2
+  grad_accumulation: 2
+  learning_rate: 0.00001
+  lr_scheduler:
+    name: cosine
+    final_ratio: 0.1
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  log_every: 10
+  validate_every: 100
+  validation_batches: 2
+  save_every: 500
+  plot_loss: true
+  ppl_evaluation:
+    enabled: true
+    interval: 500
+    # 使用 eval_gen_ppl.sh 同一协议：正式评测固定全局 1024 条，不设每卡样本数。
+    batch_size: 2
+  early_stopping:
+    enabled: true
+    # CE 优化目标不变；扣除 teacher entropy 后的误差用于选 best，避免熵变化主导选模。
+    metric: error
+    min_steps: 500
+    patience: 5
+    min_delta: 0.001
+
+evaluation:
+  seed: 42
+  # rollout 与生成评测共用长度/NFE，不在训练中暗中缩短 student 的采样路径。
+  num_steps: 1024
+  sequence_length: 1024
+  batch_size: 2
+  # all 的最终评测沿用统一 gen_ppl_v1（1024 条），比较 off-policy 起点和新 student。
+  num_samples: 1024
+  scorer: gpt2-large
+  scorer_batch_size: 4
+  scorer_max_length: 1024

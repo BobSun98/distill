@@ -1,0 +1,29 @@
+extends: on_policy_base.yaml
+
+run:
+  name: on_policy_elf_b
+
+model:
+  family: elf
+  # TODO: 填写 ELF-B off-policy student 目录或 model.safetensors，深度从权重架构读取。
+  student_weights: null
+  student_config: null
+  teacher: embedded-language-flows/ELF-B-owt-torch
+  architecture_config: configs/architectures/elf_b.json
+  tokenizer: t5-small
+  use_bf16: true
+
+loss:
+  # MSE-only；如需同时恢复 decoder，可设置 ce_weight=1。
+  ce_weight: 0.0
+  mse_weight: 1.0
+
+evaluation:
+  num_steps: 32
+  batch_size: 2
+  sampling:
+    sampling_method: sde
+    time_schedule: logit_normal
+    sde_gamma: 1.5
+    cfg_scale: 1.0
+    self_cond_cfg_scale: 3.0

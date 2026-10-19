@@ -189,6 +189,18 @@ def save_summary(run_dir, protocol, results):
         writer.writerows(results)
 
 
+def protocol_metadata(config, debug=False):
+    return {**config["protocol"], "version": VERSION + "_debug" if debug else VERSION,
+            "debug": debug, "world_size": distributed.world_size(), "torch_version": torch.__version__,
+            "noise": "sample_id_stream_cpu_fp32_dim_major_stride_1024_v1",
+            "scorer_dtype": "float32", "scorer_attention": "eager", "scorer_batch_size": 1,
+            "generation_precision": "float32_parameters_bfloat16_cuda_backbone",
+            "decode": "strip_one_leading_bos_stop_at_first_eos_skip_special_tokens_no_cleanup",
+            "aggregation": "exp(sum_nll / sum_valid_target_tokens)", "padding": "excluded_by_attention_mask",
+            "add_special_tokens": False, "first_token": "not_scored",
+            "empty_policy": "no_resampling_report_coverage", "scoring_truncation": "first_1024_gpt_tokens"}
+
+
 def run_gen_ppl(config, allow_distributed=True, debug=False):
     runtime = config["runtime"]
     owns_group = distributed.setup(runtime["device"], allow_distributed, runtime["control_timeout_seconds"])
@@ -203,15 +215,7 @@ def run_gen_ppl(config, allow_distributed=True, debug=False):
             device = torch.device("cuda", torch.cuda.current_device())
         torch.set_float32_matmul_precision("highest")
         cache_dir = str(project_path(runtime["cache_dir"])) if runtime["cache_dir"] else None
-        protocol = {**config["protocol"], "version": VERSION + "_debug" if debug else VERSION,
-            "debug": debug, "world_size": distributed.world_size(), "torch_version": torch.__version__,
-            "noise": "sample_id_stream_cpu_fp32_dim_major_stride_1024_v1",
-            "scorer_dtype": "float32", "scorer_attention": "eager", "scorer_batch_size": 1,
-            "generation_precision": "float32_parameters_bfloat16_cuda_backbone",
-            "decode": "strip_one_leading_bos_stop_at_first_eos_skip_special_tokens_no_cleanup",
-            "aggregation": "exp(sum_nll / sum_valid_target_tokens)", "padding": "excluded_by_attention_mask",
-            "add_special_tokens": False, "first_token": "not_scored",
-            "empty_policy": "no_resampling_report_coverage", "scoring_truncation": "first_1024_gpt_tokens"}
+        protocol = protocol_metadata(config, debug)
         if distributed.is_main():
             write_json(run_dir / "protocol.json", protocol)
         for entry in config["models"]:
