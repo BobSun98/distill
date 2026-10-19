@@ -218,7 +218,7 @@ def run_gen_ppl(config, allow_distributed=True, debug=False):
             output = run_dir / entry["name"]
             files = prepare_files(entry, output, cache_dir)
             tokenizer = AutoTokenizer.from_pretrained(files["tokenizer"], use_fast=files["use_fast"], local_files_only=True)
-            with progress.phase("unified.model.load", name=entry["name"]):
+            with progress.phase("unified.model.load", model=entry["name"]):
                 model, metadata = load_generator(files, entry, device)
             records = generate_records(model, tokenizer, files, entry, config, metadata, output)
             del model

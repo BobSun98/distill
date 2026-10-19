@@ -64,7 +64,7 @@ def trial_row(rate, directory, checkpoint=None):
             "directory": str(directory)}
 
 
-def plot_sweep_curves(run_dir, config, rows):
+def plot_sweep_curves(run_dir, config, rows, suffix=""):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -82,7 +82,7 @@ def plot_sweep_curves(run_dir, config, rows):
     ax.grid(alpha=0.25)
     ax.legend()
     fig.tight_layout()
-    path = run_dir / "ppl_comparison.png"
+    path = run_dir / f"ppl_comparison{suffix}.png"
     fig.savefig(path, dpi=180)
     plt.close(fig)
     paths.append(path)
@@ -100,7 +100,7 @@ def plot_sweep_curves(run_dir, config, rows):
     ax.grid(alpha=0.25)
     ax.legend(ncol=2, fontsize=9)
     fig.tight_layout()
-    path = run_dir / "loss_comparison.png"
+    path = run_dir / f"loss_comparison{suffix}.png"
     fig.savefig(path, dpi=180)
     plt.close(fig)
     paths.append(path)
