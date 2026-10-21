@@ -4,16 +4,23 @@ run:
   name: on_policy_elf_l
 
 model:
-  # TODO: 填写 ELF-L off-policy student 目录或 model.safetensors。
-  student_weights: null
+  # ELF-L 32→16 off-policy half-student（lr=1e-3 stage-1 best；ELF-L 跑完生成）。
+  student_weights: run/20261020_055035_436199_elf_l_owt_kd_32to16_lr1e-3/checkpoints/best
   student_config: null
   teacher: embedded-language-flows/ELF-L-owt-torch
   architecture_config: configs/architectures/elf_l.json
   gradient_checkpointing: true
 
 training:
-  batch_size: 1
-  grad_accumulation: 4
+  # 算力瓶颈（>=8 后吞吐饱和 ~10 samples/s），bs=128 显存仅 29 GiB 但单步 12s；
+  # 取 8 使全局 64 序列，与 off-policy 一致。
+  batch_size: 8
+  grad_accumulation: 1
+
+on_policy:
+  # 每次刷新新增 4×8=32 个状态，buffer 容纳 8 次刷新。
+  rollout_batch_size: 4
+  buffer_capacity: 256
 
 evaluation:
   num_steps: 64

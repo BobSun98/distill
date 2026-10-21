@@ -1,0 +1,693 @@
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 2] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.end {"seconds": 0.022705061826854944, "backend": "gloo", "world_size": 8}[rank 2] control_group.init.end {"seconds": 0.23948766011744738, "backend": "gloo", "world_size": 8}
+
+[rank 6] control_group.init.end {"seconds": 0.02289038011804223, "backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.end {"seconds": 0.043887101113796234, "backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.end {"seconds": 0.03173066396266222, "backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.end {"seconds": 0.0371112572029233, "backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.end {"seconds": 0.046257404144853354, "backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.end {"seconds": 0.08491523517295718, "backend": "gloo", "world_size": 8}
+[rank 2] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 2, "device": "cuda"}
+[rank 2] cuda.runtime {"logical_device": 2, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 2] data.wait_ready.begin {}
+[rank 6] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 6, "device": "cuda"}
+[rank 6] cuda.runtime {"logical_device": 6, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 6] data.wait_ready.begin {}
+[rank 0] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 0, "device": "cuda"}
+[rank 0] cuda.runtime {"logical_device": 0, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[run] /proj/gpu_mtk53742/CDLM-distillation/run/20261014_221711_087297_owt_kd_12to6 (world_size=8)
+[rank 0] data.prepare.begin {}
+[rank 4] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 4, "device": "cuda"}
+[rank 4] cuda.runtime {"logical_device": 4, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 4] data.wait_ready.begin {}
+[rank 1] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 1, "device": "cuda"}
+[rank 5] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 5, "device": "cuda"}
+[rank 1] cuda.runtime {"logical_device": 1, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 5] cuda.runtime {"logical_device": 5, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}[rank 7] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 7, "device": "cuda"}
+
+[rank 1] data.wait_ready.begin {}
+[rank 3] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 3, "device": "cuda"}
+[rank 5] data.wait_ready.begin {}
+[rank 7] cuda.runtime {"logical_device": 7, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 3] cuda.runtime {"logical_device": 3, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 7] data.wait_ready.begin {}
+[rank 3] data.wait_ready.begin {}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[data] 复用 /proj/gpu_mtk53742/CDLM-distillation/run/data/owt_l1024_t20000_v128
+[rank 0] data.prepare.end {"seconds": 0.9288797099143267}
+[rank 0] data.wait_ready.begin {}
+[rank 0] data.wait_ready.end {"seconds": 0.0008485261350870132}
+[rank 0] tensor_group.init.begin {"backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 4] data.wait_ready.end {"seconds": 0.9290889361873269}
+[rank 6] data.wait_ready.end {"seconds": 0.9321897067129612}
+[rank 2] data.wait_ready.end {"seconds": 0.9326306348666549}
+[rank 1] data.wait_ready.end {"seconds": 0.9271909766830504}
+[rank 7] data.wait_ready.end {"seconds": 0.9266630467027426}
+[rank 3] data.wait_ready.end {"seconds": 0.9266129620373249}
+[rank 5] data.wait_ready.end {"seconds": 0.9270673440769315}
+[rank 0] tensor_group.init.end {"seconds": 0.006807086989283562, "backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 0] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 4] tensor_group.init.begin {"backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 4] tensor_group.init.end {"seconds": 0.00554704712703824, "backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}
+[rank 4] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 3] tensor_group.init.begin {"backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 2] tensor_group.init.begin {"backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}
+[rank 7] tensor_group.init.begin {"backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}
+[rank 6] tensor_group.init.begin {"backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+[rank 3] tensor_group.init.end {"seconds": 0.005470653995871544, "backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}
+[rank 3] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:3", "bytes": 1048576}
+[rank 2] tensor_group.init.end {"seconds": 0.0054092081263661385, "backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}
+[rank 2] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:2", "bytes": 1048576}[rank 7] tensor_group.init.end {"seconds": 0.005284226965159178, "backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}
+
+[rank 7] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+[rank 6] tensor_group.init.end {"seconds": 0.005407069809734821, "backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+[rank 6] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 1] tensor_group.init.begin {"backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}
+[rank 1] tensor_group.init.end {"seconds": 0.008033407852053642, "backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}
+[rank 1] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:1", "bytes": 1048576}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 5] tensor_group.init.begin {"backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+[rank 5] tensor_group.init.end {"seconds": 0.01665661111474037, "backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+[rank 5] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+[rank 5] communication.all_reduce.end {"seconds": 0.8446418140083551, "backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+[rank 5] communication.broadcast.begin {"backend": "nccl", "device": "cuda:5"}
+[rank 6] communication.all_reduce.end {"seconds": 0.9747950970195234, "backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+[rank 6] communication.broadcast.begin {"backend": "nccl", "device": "cuda:6"}
+[rank 3] communication.all_reduce.end {"seconds": 0.9788228911347687, "backend": "nccl", "device": "cuda:3", "bytes": 1048576}
+[rank 3] communication.broadcast.begin {"backend": "nccl", "device": "cuda:3"}
+[rank 1] communication.all_reduce.end {"seconds": 0.87441913690418, "backend": "nccl", "device": "cuda:1", "bytes": 1048576}
+[rank 1] communication.broadcast.begin {"backend": "nccl", "device": "cuda:1"}
+[rank 7] communication.all_reduce.end {"seconds": 0.9768548449501395, "backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+[rank 7] communication.broadcast.begin {"backend": "nccl", "device": "cuda:7"}
+[rank 4] communication.all_reduce.end {"seconds": 0.9866868699900806, "backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+[rank 4] communication.broadcast.begin {"backend": "nccl", "device": "cuda:4"}
+[rank 0] communication.all_reduce.end {"seconds": 1.3892531730234623, "backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+[rank 0] communication.broadcast.begin {"backend": "nccl", "device": "cuda:0"}
+[rank 1] communication.broadcast.end {"seconds": 0.002657610923051834, "backend": "nccl", "device": "cuda:1"}
+[rank 0] communication.broadcast.end {"seconds": 0.0009099999442696571, "backend": "nccl", "device": "cuda:0"}
+[rank 1] teacher.load.begin {}
+[rank 0] teacher.load.begin {}
+[rank 1] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] communication.all_reduce.end {"seconds": 0.9800163828767836, "backend": "nccl", "device": "cuda:2", "bytes": 1048576}
+[rank 2] communication.broadcast.begin {"backend": "nccl", "device": "cuda:2"}
+[rank 3] communication.broadcast.end {"seconds": 0.004534074105322361, "backend": "nccl", "device": "cuda:3"}
+[rank 2] communication.broadcast.end {"seconds": 0.0008054915815591812, "backend": "nccl", "device": "cuda:2"}
+[rank 4] communication.broadcast.end {"seconds": 0.0036214329302310944, "backend": "nccl", "device": "cuda:4"}
+[rank 3] teacher.load.begin {}
+[rank 2] teacher.load.begin {}
+[rank 5] communication.broadcast.end {"seconds": 0.005313740111887455, "backend": "nccl", "device": "cuda:5"}
+[rank 4] teacher.load.begin {}
+[rank 6] communication.broadcast.end {"seconds": 0.00523552717640996, "backend": "nccl", "device": "cuda:6"}
+[rank 5] teacher.load.begin {}
+[rank 3] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] communication.broadcast.end {"seconds": 0.004179385956376791, "backend": "nccl", "device": "cuda:7"}
+[rank 6] teacher.load.begin {}
+[rank 5] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] teacher.load.begin {}
+[rank 4] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.end {"seconds": 0.4224530286155641, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.end {"seconds": 0.42501526279374957, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.files.wait.end {"seconds": 0.42390278866514564, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.files.wait.end {"seconds": 0.42391012562438846, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.files.wait.end {"seconds": 0.4238292369991541, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 1] model.files.wait.end {"seconds": 0.4257947229780257, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.files.wait.end {"seconds": 0.42405911488458514, "model": "Continuous-Rivals-Discrete/langflow-owt"}[rank 2] model.files.wait.end {"seconds": 0.42429352924227715, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.files.wait.end {"seconds": 0.4244488417170942, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+
+[rank 1] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 1] model.weights.load.end {"seconds": 1.4230719371698797, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 1] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:1"}
+[rank 7] model.weights.load.end {"seconds": 1.424887946806848, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:7"}
+[rank 4] model.weights.load.end {"seconds": 1.4257048000581563, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:4"}
+[rank 6] model.weights.load.end {"seconds": 1.426262707915157, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:6"}
+[rank 3] model.weights.load.end {"seconds": 1.4754347931593657, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:3"}
+[rank 2] model.weights.load.end {"seconds": 1.47795623075217, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:2"}
+[rank 5] model.weights.load.end {"seconds": 1.4997393600642681, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:5"}
+[rank 1] model.to_device.end {"seconds": 0.1170290750451386, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:1"}
+[rank 1] teacher.load.end {"seconds": 1.967807365115732}
+[rank 1] models.wait_teacher.begin {}
+[rank 7] model.to_device.end {"seconds": 0.13687572302296758, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:7"}
+[rank 7] teacher.load.end {"seconds": 1.98769990215078}
+[rank 7] models.wait_teacher.begin {}
+[rank 6] model.to_device.end {"seconds": 0.1375258332118392, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:6"}
+[rank 6] teacher.load.end {"seconds": 1.9893494127318263}
+[rank 6] models.wait_teacher.begin {}
+[rank 4] model.to_device.end {"seconds": 0.1388051169924438, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:4"}
+[rank 4] teacher.load.end {"seconds": 1.9901991090737283}
+[rank 4] models.wait_teacher.begin {}
+[rank 3] model.to_device.end {"seconds": 0.13003909215331078, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:3"}
+[rank 3] teacher.load.end {"seconds": 2.032229104079306}
+[rank 3] models.wait_teacher.begin {}
+[rank 0] model.weights.load.end {"seconds": 1.6093256562016904, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:0"}
+[rank 5] model.to_device.end {"seconds": 0.1314174816943705, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:5"}
+[rank 5] teacher.load.end {"seconds": 2.057461785618216}
+[rank 5] models.wait_teacher.begin {}
+[rank 0] model.to_device.end {"seconds": 0.10740269301459193, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:0"}
+[rank 0] teacher.load.end {"seconds": 2.1435246458277106}
+[rank 0] models.wait_teacher.begin {}
+[rank 2] model.to_device.end {"seconds": 0.28980646608397365, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:2"}
+[rank 2] teacher.load.end {"seconds": 2.194303127937019}
+[rank 2] models.wait_teacher.begin {}
+[rank 2] models.wait_teacher.end {"seconds": 0.0011326232925057411}
+[rank 1] models.wait_teacher.end {"seconds": 0.2295589498244226}
+[rank 6] models.wait_teacher.end {"seconds": 0.2060114899650216}
+[rank 7] models.wait_teacher.end {"seconds": 0.20762063097208738}[rank 0] models.wait_teacher.end {"seconds": 0.05376006616279483}
+
+[rank 3] models.wait_teacher.end {"seconds": 0.16333826025947928}
+[rank 5] models.wait_teacher.end {"seconds": 0.13807207718491554}
+[rank 4] models.wait_teacher.end {"seconds": 0.20538187120109797}
+[rank 2] student.build.begin {}
+[rank 0] student.build.begin {}
+[rank 5] student.build.begin {}
+[rank 1] student.build.begin {}
+[rank 6] student.build.begin {}
+[rank 4] student.build.begin {}
+[rank 3] student.build.begin {}
+[rank 7] student.build.begin {}
+[rank 6] student.build.end {"seconds": 1.07779262913391}
+[rank 6] models.wait_student.begin {}
+[rank 5] student.build.end {"seconds": 1.0826873839832842}
+[rank 5] models.wait_student.begin {}
+[rank 4] student.build.end {"seconds": 1.0834568818099797}
+[rank 4] models.wait_student.begin {}
+[rank 7] student.build.end {"seconds": 1.0828387513756752}
+[rank 7] models.wait_student.begin {}
+[rank 1] student.build.end {"seconds": 1.097294702194631}
+[rank 1] models.wait_student.begin {}
+[rank 0] student.build.end {"seconds": 1.1101705473847687}
+[rank 0] models.wait_student.begin {}
+[rank 2] student.build.end {"seconds": 1.1135581657290459}
+[rank 2] models.wait_student.begin {}
+[rank 3] student.build.end {"seconds": 1.108534533996135}
+[rank 3] models.wait_student.begin {}
+[rank 3] models.wait_student.end {"seconds": 0.0004386496730148792}
+[rank 1] models.wait_student.end {"seconds": 0.012981226202100515}
+[rank 5] models.wait_student.end {"seconds": 0.030222401954233646}[rank 7] models.wait_student.end {"seconds": 0.024384718853980303}
+
+[rank 0] models.wait_student.end {"seconds": 0.006416140124201775}[rank 1] data.loaders.begin {}
+
+[rank 4] models.wait_student.end {"seconds": 0.02572503499686718}
+[rank 2] models.wait_student.end {"seconds": 0.005486495792865753}
+[rank 6] models.wait_student.end {"seconds": 0.03181965509429574}
+[rank 3] data.loaders.begin {}
+[rank 7] data.loaders.begin {}
+[rank 5] data.loaders.begin {}
+[rank 6] data.loaders.begin {}
+[rank 0] data.loaders.begin {}
+[rank 2] data.loaders.begin {}
+[rank 4] data.loaders.begin {}
+[rank 1] data.loaders.end {"seconds": 0.10983137274160981}[rank 6] data.loaders.end {"seconds": 0.1093696248717606}[rank 0] data.loaders.end {"seconds": 0.1093374858610332}
+
+
+[rank 4] data.loaders.end {"seconds": 0.10917398380115628}
+[rank 2] data.loaders.end {"seconds": 0.10936195589601994}
+[rank 3] data.loaders.end {"seconds": 0.10977719398215413}
+[rank 1] ddp.init.begin {"device": "cuda:1"}
+[rank 0] ddp.init.begin {"device": "cuda:0"}
+[rank 6] ddp.init.begin {"device": "cuda:6"}
+[rank 2] ddp.init.begin {"device": "cuda:2"}
+[rank 4] ddp.init.begin {"device": "cuda:4"}
+[rank 3] ddp.init.begin {"device": "cuda:3"}
+[rank 7] data.loaders.end {"seconds": 0.11024881806224585}
+[rank 7] ddp.init.begin {"device": "cuda:7"}
+[rank 5] data.loaders.end {"seconds": 0.11878331983461976}
+[rank 5] ddp.init.begin {"device": "cuda:5"}
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:123: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:123: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:123: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:123: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:123: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:123: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:123: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:123: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+[rank 0] ddp.init.end {"seconds": 1.4710284769535065, "device": "cuda:0"}
+[rank 6] ddp.init.end {"seconds": 1.472068197093904, "device": "cuda:6"}
+[rank 6] validation.begin {"step": 0}
+[rank 0] validation.begin {"step": 0}
+[rank 3] ddp.init.end {"seconds": 1.4730425751768053, "device": "cuda:3"}
+[rank 7] ddp.init.end {"seconds": 1.4726905161514878, "device": "cuda:7"}
+[rank 5] ddp.init.end {"seconds": 1.4645612509921193, "device": "cuda:5"}
+[rank 3] validation.begin {"step": 0}
+[rank 1] ddp.init.end {"seconds": 1.4742420352995396, "device": "cuda:1"}
+[rank 4] ddp.init.end {"seconds": 1.4742142828181386, "device": "cuda:4"}
+[rank 7] validation.begin {"step": 0}
+[rank 6] validation.first_batch.begin {"tokens": 14336}
+[rank 0] validation.first_batch.begin {"tokens": 14336}
+[rank 5] validation.begin {"step": 0}
+[rank 4] validation.begin {"step": 0}
+[rank 1] validation.begin {"step": 0}
+[rank 2] ddp.init.end {"seconds": 1.475628551095724, "device": "cuda:2"}
+[rank 3] validation.first_batch.begin {"tokens": 14336}
+[rank 2] validation.begin {"step": 0}
+[rank 7] validation.first_batch.begin {"tokens": 14336}
+[rank 5] validation.first_batch.begin {"tokens": 14336}
+[rank 4] validation.first_batch.begin {"tokens": 14336}
+[rank 1] validation.first_batch.begin {"tokens": 14336}
+[rank 2] validation.first_batch.begin {"tokens": 14336}
+[rank 2] validation.first_batch.end {"loss": 1.2625861167907715, "ce": 4.861380577087402, "kl": 1.2625861167907715}
+[rank 2] validation.reduce.begin {"local_tokens": 16384}
+[rank 0] validation.first_batch.end {"loss": 1.145351767539978, "ce": 5.08284330368042, "kl": 1.145351767539978}
+[rank 6] validation.first_batch.end {"loss": 0.7779121994972229, "ce": 5.069838047027588, "kl": 0.7779121994972229}
+[rank 3] validation.first_batch.end {"loss": 1.1985327005386353, "ce": 4.535379409790039, "kl": 1.1985327005386353}
+[rank 7] validation.first_batch.end {"loss": 0.8852216005325317, "ce": 4.4325361251831055, "kl": 0.8852216005325317}
+[rank 1] validation.first_batch.end {"loss": 0.9506531357765198, "ce": 5.4889702796936035, "kl": 0.9506531357765198}
+[rank 4] validation.first_batch.end {"loss": 1.0183604955673218, "ce": 4.911490440368652, "kl": 1.0183604955673218}
+[rank 0] validation.reduce.begin {"local_tokens": 16384}
+[rank 5] validation.first_batch.end {"loss": 1.0913445949554443, "ce": 3.9872355461120605, "kl": 1.0913445949554443}
+[rank 3] validation.reduce.begin {"local_tokens": 16384}
+[rank 6] validation.reduce.begin {"local_tokens": 16384}
+[rank 7] validation.reduce.begin {"local_tokens": 16384}
+[rank 1] validation.reduce.begin {"local_tokens": 16384}
+[rank 4] validation.reduce.begin {"local_tokens": 16384}
+[rank 5] validation.reduce.begin {"local_tokens": 16384}
+[rank 0] validation.reduce.end {"seconds": 0.10535274585708976, "local_tokens": 16384}
+[rank 3] validation.reduce.end {"seconds": 0.06987276999279857, "local_tokens": 16384}
+[rank 2] validation.reduce.end {"seconds": 0.20470308419317007, "local_tokens": 16384}
+[rank 5] validation.reduce.end {"seconds": 0.00036972202360630035, "local_tokens": 16384}
+[rank 1] validation.reduce.end {"seconds": 0.018751909025013447, "local_tokens": 16384}
+[train] {'phase': 'valid', 'step': 0, 'ce': 4.7610558196902275, 'kl': 1.0394455818459392, 'loss': 1.0394455818459392, 'elapsed_seconds': 1.0765534518286586}
+[rank 6] validation.reduce.end {"seconds": 0.06525020394474268, "local_tokens": 16384}[rank 7] validation.reduce.end {"seconds": 0.061917539685964584, "local_tokens": 16384}
+
+[rank 4] validation.reduce.end {"seconds": 0.016607102006673813, "local_tokens": 16384}
+[train] {'phase': 'early_stopping', 'step': 0, 'metric': 'loss', 'value': 1.0394455818459392, 'new_best': True, 'best_value': 1.0394455818459392, 'best_step': 0, 'bad_checks': 0, 'should_stop': False, 'elapsed_seconds': 1.077545267995447}
+[rank 0] checkpoint.save.begin {"step": 0, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261014_221711_087297_owt_kd_12to6/checkpoints/best"}
+[rank 1] checkpoint.wait_ready.begin {"step": 0}
+[rank 5] checkpoint.wait_ready.begin {"step": 0}
+[rank 3] checkpoint.wait_ready.begin {"step": 0}
+[rank 2] checkpoint.wait_ready.begin {"step": 0}
+[rank 7] checkpoint.wait_ready.begin {"step": 0}
+[rank 6] checkpoint.wait_ready.begin {"step": 0}
+[rank 4] checkpoint.wait_ready.begin {"step": 0}
+[rank 0] checkpoint.save.end {"step": 0}
+[rank 0] checkpoint.wait_ready.begin {"step": 0}
+[rank 0] checkpoint.wait_ready.end {"seconds": 0.0007037273608148098, "step": 0}
+[rank 0] validation.end {"seconds": 1.641507896129042, "step": 0}
+[rank 0] train.step.begin {"step": 1}[rank 6] checkpoint.wait_ready.end {"seconds": 0.5636831801384687, "step": 0}
+
+[rank 6] validation.end {"seconds": 1.641868303064257, "step": 0}
+[rank 6] train.step.begin {"step": 1}
+[rank 4] checkpoint.wait_ready.end {"seconds": 0.5630102972500026, "step": 0}
+[rank 2] checkpoint.wait_ready.end {"seconds": 0.5637705312110484, "step": 0}
+[rank 5] checkpoint.wait_ready.end {"seconds": 0.5638109538704157, "step": 0}
+[rank 7] checkpoint.wait_ready.end {"seconds": 0.5637751379981637, "step": 0}
+[rank 1] checkpoint.wait_ready.end {"seconds": 0.5638424712233245, "step": 0}
+[rank 3] checkpoint.wait_ready.end {"seconds": 0.5637994669377804, "step": 0}
+[rank 4] validation.end {"seconds": 1.6396008408628404, "step": 0}
+[rank 2] validation.end {"seconds": 1.6382695422507823, "step": 0}[rank 5] validation.end {"seconds": 1.6399771100841463, "step": 0}
+
+[rank 1] validation.end {"seconds": 1.63957779109478, "step": 0}
+[rank 7] validation.end {"seconds": 1.6404541567899287, "step": 0}
+[rank 3] validation.end {"seconds": 1.640924031380564, "step": 0}
+[rank 4] train.step.begin {"step": 1}
+[rank 2] train.step.begin {"step": 1}[rank 5] train.step.begin {"step": 1}
+
+[rank 1] train.step.begin {"step": 1}
+[rank 7] train.step.begin {"step": 1}
+[rank 3] train.step.begin {"step": 1}
+[rank 0] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 5] train.micro_batch.begin {"step": 1, "micro_batch": 1}[rank 1] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+
+[rank 2] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 3] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 6] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 7] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 4] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 0] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 4] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 5] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 2] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 1] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 3] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 7] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 6] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 0] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 0] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 4] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 4] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 5] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 5] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 1] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 2] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 1] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 2] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 6] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 7] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 6] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 7] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 3] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 3] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 0] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 4] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 5] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 1] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 2] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 6] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 7] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 3] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 0] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 4] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 5] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 1] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 2] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 7] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 6] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 3] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 4] train.step.end {"step": 1}[rank 1] train.step.end {"step": 1}
+
+[rank 6] train.step.end {"step": 1}
+[rank 2] train.step.end {"step": 1}[rank 7] train.step.end {"step": 1}
+
+[rank 3] train.step.end {"step": 1}
+[rank 5] train.step.end {"step": 1}
+[train] {'phase': 'train', 'step': 1, 'ce': 4.723838791251183, 'kl': 1.2123225256800652, 'loss': 1.2123225256800652, 'grad_norm': 4.106680870056152, 'tokens': 229376, 'epoch': 0, 'rank0_peak_memory_gib': 25.096994876861572, 'elapsed_seconds': 3.393954023718834}
+[rank 0] train.step.end {"step": 1}
+[rank 5] train.step.begin {"step": 10}
+[rank 7] train.step.begin {"step": 10}
+[rank 0] train.step.begin {"step": 10}
+[rank 6] train.step.begin {"step": 10}
+[rank 4] train.step.begin {"step": 10}
+[rank 1] train.step.begin {"step": 10}
+[rank 2] train.step.begin {"step": 10}
+[rank 3] train.step.begin {"step": 10}
+[rank 2] train.step.end {"step": 10}[rank 4] train.step.end {"step": 10}[rank 6] train.step.end {"step": 10}
+
+
+[rank 3] train.step.end {"step": 10}
+[rank 5] train.step.end {"step": 10}[rank 7] train.step.end {"step": 10}
+
+[rank 1] train.step.end {"step": 10}
+[train] {'phase': 'train', 'step': 10, 'ce': 4.773784548044205, 'kl': 0.913676530122757, 'loss': 0.913676530122757, 'grad_norm': 2.226485013961792, 'tokens': 229376, 'epoch': 0, 'rank0_peak_memory_gib': 25.739584922790527, 'elapsed_seconds': 17.223254514858127}
+[rank 0] train.step.end {"step": 10}
+[rank 7] train.step.begin {"step": 20}
+[rank 6] train.step.begin {"step": 20}
+[rank 0] train.step.begin {"step": 20}
+[rank 1] train.step.begin {"step": 20}
+[rank 4] train.step.begin {"step": 20}
+[rank 2] train.step.begin {"step": 20}
+[rank 3] train.step.begin {"step": 20}
+[rank 5] train.step.begin {"step": 20}
+[rank 6] train.step.end {"step": 20}
+[rank 7] train.step.end {"step": 20}
+[rank 1] train.step.end {"step": 20}
+[rank 4] train.step.end {"step": 20}
+[rank 2] train.step.end {"step": 20}
+[train] {'phase': 'train', 'step': 20, 'ce': 4.605490326881409, 'kl': 0.7239394802600145, 'loss': 0.7239394802600145, 'grad_norm': 1.1074427366256714, 'tokens': 229376, 'epoch': 0, 'rank0_peak_memory_gib': 25.739584922790527, 'elapsed_seconds': 32.648643997032195}
+[rank 3] train.step.end {"step": 20}
+[rank 0] train.step.end {"step": 20}
+[rank 5] train.step.end {"step": 20}
+[rank 7] train.step.begin {"step": 30}
+[rank 6] train.step.begin {"step": 30}
+[rank 0] train.step.begin {"step": 30}
+[rank 4] train.step.begin {"step": 30}
+[rank 5] train.step.begin {"step": 30}
+[rank 1] train.step.begin {"step": 30}
+[rank 3] train.step.begin {"step": 30}
+[rank 2] train.step.begin {"step": 30}
+[rank 7] train.step.end {"step": 30}[rank 6] train.step.end {"step": 30}[rank 4] train.step.end {"step": 30}
+
+
+[rank 1] train.step.end {"step": 30}[rank 3] train.step.end {"step": 30}
+
+[rank 2] train.step.end {"step": 30}
+[rank 5] train.step.end {"step": 30}
+[train] {'phase': 'train', 'step': 30, 'ce': 4.518915355205536, 'kl': 0.691872663795948, 'loss': 0.691872663795948, 'grad_norm': 0.6093586683273315, 'tokens': 229376, 'epoch': 0, 'rank0_peak_memory_gib': 25.739584922790527, 'elapsed_seconds': 48.13216335186735}
+[rank 0] train.step.end {"step": 30}
+[rank 7] train.step.begin {"step": 40}
+[rank 6] train.step.begin {"step": 40}
+[rank 0] train.step.begin {"step": 40}
+[rank 3] train.step.begin {"step": 40}
+[rank 1] train.step.begin {"step": 40}
+[rank 2] train.step.begin {"step": 40}
+[rank 4] train.step.begin {"step": 40}
+[rank 5] train.step.begin {"step": 40}
+[rank 7] train.step.end {"step": 40}[rank 3] train.step.end {"step": 40}[rank 6] train.step.end {"step": 40}
+
+
+[rank 4] train.step.end {"step": 40}
+[rank 1] train.step.end {"step": 40}
+[rank 2] train.step.end {"step": 40}
+[train] {'phase': 'train', 'step': 40, 'ce': 4.507044479250908, 'kl': 0.5940599162131548, 'loss': 0.5940599162131548, 'grad_norm': 0.48049020767211914, 'tokens': 229376, 'epoch': 1, 'rank0_peak_memory_gib': 25.739584922790527, 'elapsed_seconds': 63.12026950204745}
+[rank 0] train.step.end {"step": 40}
+[rank 5] train.step.end {"step": 40}
+[rank 7] train.step.begin {"step": 50}
+[rank 6] train.step.begin {"step": 50}
+[rank 0] train.step.begin {"step": 50}
+[rank 3] train.step.begin {"step": 50}
+[rank 4] train.step.begin {"step": 50}
+[rank 5] train.step.begin {"step": 50}
+[rank 1] train.step.begin {"step": 50}
+[rank 2] train.step.begin {"step": 50}
+[rank 3] train.step.end {"step": 50}[rank 7] train.step.end {"step": 50}[rank 6] train.step.end {"step": 50}
+
+
+[rank 2] train.step.end {"step": 50}
+[rank 4] train.step.end {"step": 50}
+[rank 1] train.step.end {"step": 50}
+[train] {'phase': 'train', 'step': 50, 'ce': 4.235321089625359, 'kl': 0.6483683027327061, 'loss': 0.6483683027327061, 'grad_norm': 0.39024123549461365, 'tokens': 229376, 'epoch': 1, 'rank0_peak_memory_gib': 25.739584922790527, 'elapsed_seconds': 78.69475782010704}
+[rank 5] train.step.end {"step": 50}
+[rank 0] train.step.end {"step": 50}
+[rank 6] train.step.begin {"step": 60}
+[rank 7] train.step.begin {"step": 60}
+[rank 0] train.step.begin {"step": 60}
+[rank 3] train.step.begin {"step": 60}
+[rank 2] train.step.begin {"step": 60}
+[rank 1] train.step.begin {"step": 60}
+[rank 5] train.step.begin {"step": 60}
+[rank 4] train.step.begin {"step": 60}
+[rank 7] train.step.end {"step": 60}[rank 6] train.step.end {"step": 60}[rank 3] train.step.end {"step": 60}
+
+
+[rank 1] train.step.end {"step": 60}
+[rank 4] train.step.end {"step": 60}
+[rank 2] train.step.end {"step": 60}
+[rank 5] train.step.end {"step": 60}
+[train] {'phase': 'train', 'step': 60, 'ce': 4.412311255931854, 'kl': 0.5854154042899609, 'loss': 0.5854154042899609, 'grad_norm': 0.29705020785331726, 'tokens': 229376, 'epoch': 1, 'rank0_peak_memory_gib': 25.739584922790527, 'elapsed_seconds': 94.28896842291579}
+[rank 0] train.step.end {"step": 60}
+[rank 6] train.step.begin {"step": 70}
+[rank 5] train.step.begin {"step": 70}[rank 7] train.step.begin {"step": 70}
+
+[rank 0] train.step.begin {"step": 70}
+[rank 3] train.step.begin {"step": 70}
+[rank 2] train.step.begin {"step": 70}
+[rank 1] train.step.begin {"step": 70}
+[rank 4] train.step.begin {"step": 70}
+[rank 5] train.step.end {"step": 70}[rank 7] train.step.end {"step": 70}[rank 6] train.step.end {"step": 70}[rank 3] train.step.end {"step": 70}
+
+
+[rank 4] train.step.end {"step": 70}
+
+[rank 1] train.step.end {"step": 70}
+[train] {'phase': 'train', 'step': 70, 'ce': 4.230001524090767, 'kl': 0.5759963914752007, 'loss': 0.5759963914752007, 'grad_norm': 0.2504837214946747, 'tokens': 229376, 'epoch': 1, 'rank0_peak_memory_gib': 25.739584922790527, 'elapsed_seconds': 109.8882582038641}
+[rank 2] train.step.end {"step": 70}
+[rank 0] train.step.end {"step": 70}
+[rank 6] train.step.begin {"step": 80}
+[rank 5] train.step.begin {"step": 80}
+[rank 7] train.step.begin {"step": 80}
+[rank 0] train.step.begin {"step": 80}
+[rank 3] train.step.begin {"step": 80}
+[rank 4] train.step.begin {"step": 80}
+[rank 2] train.step.begin {"step": 80}
+[rank 1] train.step.begin {"step": 80}
+[rank 7] train.step.end {"step": 80}[rank 5] train.step.end {"step": 80}[rank 6] train.step.end {"step": 80}[rank 3] train.step.end {"step": 80}
+
+
+
+[rank 2] train.step.end {"step": 80}
+[rank 1] train.step.end {"step": 80}
+[rank 4] train.step.end {"step": 80}
+[train] {'phase': 'train', 'step': 80, 'ce': 4.390287086367607, 'kl': 0.5885891411453485, 'loss': 0.5885891411453485, 'grad_norm': 0.27451130747795105, 'tokens': 229376, 'epoch': 2, 'rank0_peak_memory_gib': 25.739584922790527, 'elapsed_seconds': 124.94409590912983}
+[rank 0] train.step.end {"step": 80}
+[rank 7] train.step.begin {"step": 90}
+[rank 6] train.step.begin {"step": 90}
+[rank 5] train.step.begin {"step": 90}
+[rank 0] train.step.begin {"step": 90}
+[rank 3] train.step.begin {"step": 90}
+[rank 4] train.step.begin {"step": 90}
+[rank 2] train.step.begin {"step": 90}
+[rank 1] train.step.begin {"step": 90}
+[rank 7] train.step.end {"step": 90}[rank 3] train.step.end {"step": 90}
+
+[rank 4] train.step.end {"step": 90}
+[rank 6] train.step.end {"step": 90}
+[rank 5] train.step.end {"step": 90}
+[rank 2] train.step.end {"step": 90}
+[rank 1] train.step.end {"step": 90}
+[train] {'phase': 'train', 'step': 90, 'ce': 4.571380108594894, 'kl': 0.5063183326274157, 'loss': 0.5063183326274157, 'grad_norm': 0.1937667280435562, 'tokens': 229376, 'epoch': 2, 'rank0_peak_memory_gib': 25.739584922790527, 'elapsed_seconds': 140.56300315773115}
+[rank 0] train.step.end {"step": 90}
+[rank 6] train.step.begin {"step": 100}
+[rank 0] train.step.begin {"step": 100}
+[rank 5] train.step.begin {"step": 100}
+[rank 7] train.step.begin {"step": 100}
+[rank 3] train.step.begin {"step": 100}
+[rank 2] train.step.begin {"step": 100}
+[rank 1] train.step.begin {"step": 100}
+[rank 4] train.step.begin {"step": 100}
+[rank 5] train.step.end {"step": 100}[rank 3] train.step.end {"step": 100}[rank 6] train.step.end {"step": 100}
+
+
+[rank 1] train.step.end {"step": 100}
+[rank 2] train.step.end {"step": 100}
+[rank 7] train.step.end {"step": 100}
+[rank 4] train.step.end {"step": 100}
+[rank 3] validation.begin {"step": 100}
+[rank 6] validation.begin {"step": 100}
+[train] {'phase': 'train', 'step': 100, 'ce': 4.436142638325691, 'kl': 0.5230731721967459, 'loss': 0.5230731721967459, 'grad_norm': 0.19265711307525635, 'tokens': 229376, 'epoch': 2, 'rank0_peak_memory_gib': 25.739584922790527, 'elapsed_seconds': 156.1934853149578}
+[rank 5] validation.begin {"step": 100}
+[rank 1] validation.begin {"step": 100}[rank 2] validation.begin {"step": 100}
+
+[rank 7] validation.begin {"step": 100}
+[rank 4] validation.begin {"step": 100}
+[rank 0] train.step.end {"step": 100}
+[rank 0] validation.begin {"step": 100}
+[rank 6] validation.first_batch.begin {"tokens": 14336}
+[rank 3] validation.first_batch.begin {"tokens": 14336}
+[rank 0] validation.first_batch.begin {"tokens": 14336}
+[rank 2] validation.first_batch.begin {"tokens": 14336}
+[rank 1] validation.first_batch.begin {"tokens": 14336}
+[rank 7] validation.first_batch.begin {"tokens": 14336}
+[rank 4] validation.first_batch.begin {"tokens": 14336}
+[rank 5] validation.first_batch.begin {"tokens": 14336}
+[rank 2] validation.first_batch.end {"loss": 0.625422477722168, "ce": 4.274043560028076, "kl": 0.625422477722168}
+[rank 2] validation.reduce.begin {"local_tokens": 16384}
+[rank 0] validation.first_batch.end {"loss": 0.5036428570747375, "ce": 4.430564880371094, "kl": 0.5036428570747375}
+[rank 5] validation.first_batch.end {"loss": 0.48039889335632324, "ce": 3.3529369831085205, "kl": 0.48039889335632324}
+[rank 4] validation.first_batch.end {"loss": 0.46944987773895264, "ce": 4.350042343139648, "kl": 0.46944987773895264}
+[rank 1] validation.first_batch.end {"loss": 0.4129803776741028, "ce": 5.0240960121154785, "kl": 0.4129803776741028}
+[rank 3] validation.first_batch.end {"loss": 0.5500814914703369, "ce": 3.8981051445007324, "kl": 0.5500814914703369}
+[rank 6] validation.first_batch.end {"loss": 0.33180534839630127, "ce": 4.620826244354248, "kl": 0.33180534839630127}
+[rank 7] validation.first_batch.end {"loss": 0.35981637239456177, "ce": 3.870441436767578, "kl": 0.35981637239456177}
+[rank 0] validation.reduce.begin {"local_tokens": 16384}
+[rank 3] validation.reduce.begin {"local_tokens": 16384}
+[rank 7] validation.reduce.begin {"local_tokens": 16384}
+[rank 5] validation.reduce.begin {"local_tokens": 16384}
+[rank 6] validation.reduce.begin {"local_tokens": 16384}
+[rank 4] validation.reduce.begin {"local_tokens": 16384}
+[rank 1] validation.reduce.begin {"local_tokens": 16384}
+[rank 5] validation.reduce.end {"seconds": 0.003599695861339569, "local_tokens": 16384}
+[rank 3] validation.reduce.end {"seconds": 0.03523679217323661, "local_tokens": 16384}
+[rank 4] validation.reduce.end {"seconds": 0.0014995988458395004, "local_tokens": 16384}
+[rank 6] validation.reduce.end {"seconds": 0.001955416053533554, "local_tokens": 16384}
+[rank 0] validation.reduce.end {"seconds": 0.04851351724937558, "local_tokens": 16384}
+[rank 7] validation.reduce.end {"seconds": 0.03219881001859903, "local_tokens": 16384}
+[rank 2] validation.reduce.end {"seconds": 0.23678392404690385, "local_tokens": 16384}
+[train] {'phase': 'valid', 'step': 100, 'ce': 4.199052810668945, 'kl': 0.47327799908816814, 'loss': 0.47327799908816814, 'elapsed_seconds': 156.88896337803453}
+[rank 1] validation.reduce.end {"seconds": 0.00035738805308938026, "local_tokens": 16384}
+[train] {'phase': 'early_stopping', 'step': 100, 'metric': 'loss', 'value': 0.47327799908816814, 'new_best': True, 'best_value': 0.47327799908816814, 'best_step': 100, 'bad_checks': 0, 'should_stop': False, 'elapsed_seconds': 156.89006948377937}
+[rank 0] checkpoint.save.begin {"step": 100, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261014_221711_087297_owt_kd_12to6/checkpoints/best"}
+[rank 4] checkpoint.wait_ready.begin {"step": 100}
+[rank 6] checkpoint.wait_ready.begin {"step": 100}
+[rank 2] checkpoint.wait_ready.begin {"step": 100}
+[rank 3] checkpoint.wait_ready.begin {"step": 100}
+[rank 1] checkpoint.wait_ready.begin {"step": 100}
+[rank 5] checkpoint.wait_ready.begin {"step": 100}[rank 7] checkpoint.wait_ready.begin {"step": 100}
+
+[rank 0] checkpoint.save.end {"step": 100}
+[rank 0] checkpoint.wait_ready.begin {"step": 100}
+[rank 4] checkpoint.wait_ready.end {"seconds": 0.7609968078322709, "step": 100}
+[rank 5] checkpoint.wait_ready.end {"seconds": 0.7607411509379745, "step": 100}
+[rank 0] checkpoint.wait_ready.end {"seconds": 0.0007858937606215477, "step": 100}
+[rank 1] checkpoint.wait_ready.end {"seconds": 0.7608483312651515, "step": 100}
+[rank 6] checkpoint.wait_ready.end {"seconds": 0.7610913272947073, "step": 100}
+[rank 3] checkpoint.wait_ready.end {"seconds": 0.7608800916932523, "step": 100}
+[rank 2] checkpoint.wait_ready.end {"seconds": 0.7610254930332303, "step": 100}[rank 7] checkpoint.wait_ready.end {"seconds": 0.7607679353095591, "step": 100}
+
+[rank 4] validation.end {"seconds": 1.4582234011031687, "step": 100}
+[rank 1] validation.end {"seconds": 1.4583453559316695, "step": 100}
+[rank 6] validation.end {"seconds": 1.4583701509982347, "step": 100}
+[rank 5] validation.end {"seconds": 1.45835885964334, "step": 100}
+[rank 2] validation.end {"seconds": 1.458400787319988, "step": 100}[rank 3] validation.end {"seconds": 1.4584041316993535, "step": 100}
+
+[rank 0] validation.end {"seconds": 1.4581420980393887, "step": 100}
+[rank 7] validation.end {"seconds": 1.4584265989251435, "step": 100}
+[rank 4] training.ppl.begin {"step": 100}
+[rank 2] training.ppl.begin {"step": 100}[rank 5] training.ppl.begin {"step": 100}
+
+[rank 1] training.ppl.begin {"step": 100}[rank 3] training.ppl.begin {"step": 100}
+
+[rank 6] training.ppl.begin {"step": 100}
+[rank 0] training.ppl.begin {"step": 100}
+[rank 7] training.ppl.begin {"step": 100}
+[rank 4] generation.batch.begin {"start": 0, "samples": 32, "nfe": 1024}[rank 2] generation.batch.begin {"start": 0, "samples": 32, "nfe": 1024}
+
+[rank 3] generation.batch.begin {"start": 0, "samples": 32, "nfe": 1024}
+[rank 1] generation.batch.begin {"start": 0, "samples": 32, "nfe": 1024}
+[rank 5] generation.batch.begin {"start": 0, "samples": 32, "nfe": 1024}
+[rank 6] generation.batch.begin {"start": 0, "samples": 32, "nfe": 1024}
+[rank 0] generation.batch.begin {"start": 0, "samples": 32, "nfe": 1024}
+[rank 7] generation.batch.begin {"start": 0, "samples": 32, "nfe": 1024}
+[rank1]:[W1014 22:19:56.100401256 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 1 while trying to allocate 6589251584 bytes (free: 2058682368, total: 50899648512).
+[rank4]:[W1014 22:19:56.101036271 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 4 while trying to allocate 6589251584 bytes (free: 2058682368, total: 50899648512).
+[rank6]:[W1014 22:19:56.101186535 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 6 while trying to allocate 6589251584 bytes (free: 2058682368, total: 50899648512).
+[rank2]:[W1014 22:19:56.101188350 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 2 while trying to allocate 6589251584 bytes (free: 2190802944, total: 50899648512).
+[rank3]:[W1014 22:19:56.101197426 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 3 while trying to allocate 6589251584 bytes (free: 2058682368, total: 50899648512).
+[rank5]:[W1014 22:19:56.101977553 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 5 while trying to allocate 6589251584 bytes (free: 2058682368, total: 50899648512).
+[rank0]:[W1014 22:19:56.109311809 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 6589251584 bytes (free: 2058682368, total: 50899648512).
+[rank7]:[W1014 22:19:56.109332541 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 7 while trying to allocate 6589251584 bytes (free: 2058682368, total: 50899648512).

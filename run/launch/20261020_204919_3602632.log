@@ -1,0 +1,61 @@
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 0] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.end {"seconds": 0.4667303869500756, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.end {"seconds": 0.46715931221842766, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.end {"seconds": 1.5560590918175876, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda"}
+[rank 0] model.to_device.end {"seconds": 0.2857100279070437, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda"}
+[rank 0] data.loaders.begin {}
+[rank 0] data.loaders.end {"seconds": 0.00027035921812057495}
+[rank 0] validation.begin {"step": 0}
+[rank 0] validation.first_batch.begin {"tokens": 16384}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 1, "steps": 1024}
+[rank 0] on_policy.rollout.end {"seconds": 18.176679036114365, "family": "langflow", "trajectories": 1, "steps": 1024}
+[rank 0] validation.first_batch.end {"loss": 2.4973528385162354, "ce": 2.4973528385162354, "mse": -0.0, "teacher_entropy": 2.3685410022735596, "error": 0.12881183624267578}
+[rank 0] validation.reduce.begin {"local_tokens": 16384}
+[rank 0] validation.reduce.end {"seconds": 0.00017020292580127716, "local_tokens": 16384}
+[train] {'phase': 'valid', 'step': 0, 'ce': 2.4973528385162354, 'error': 0.12881183624267578, 'loss': 2.4973528385162354, 'mse': 0.0, 'teacher_entropy': 2.3685410022735596, 'elapsed_seconds': 18.690124180167913}
+[rank 0] validation.end {"seconds": 18.68992678169161, "step": 0}
+[rank 0] train.step.begin {"step": 1}
+[rank 0] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 1, "steps": 1024}
+[rank 0] on_policy.rollout.end {"seconds": 17.83581363921985, "family": "langflow", "trajectories": 1, "steps": 1024}
+[rank 0] on_policy.buffer {"states": 8, "micro_batch": 0}
+[rank 0] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 0] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[train] {'phase': 'train', 'step': 1, 'ce': 3.5252671241760254, 'error': 0.14650249481201172, 'loss': 3.5252671241760254, 'mse': 0.0, 'teacher_entropy': 3.3787646293640137, 'grad_norm': 0.38968467712402344, 'tokens': 16384, 'epoch': 0, 'learning_rate': 1e-05, 'rank0_peak_memory_gib': 24.697431087493896, 'elapsed_seconds': 37.30837093107402}
+[rank 0] train.step.end {"step": 1}
+[rank 0] train.step.begin {"step": 2}
+[train] {'phase': 'train', 'step': 2, 'ce': 3.3130664825439453, 'error': 0.12234306335449219, 'loss': 3.3130664825439453, 'mse': 0.0, 'teacher_entropy': 3.190723419189453, 'grad_norm': 0.28281188011169434, 'tokens': 16384, 'epoch': 0, 'learning_rate': 9.140576474687265e-06, 'rank0_peak_memory_gib': 25.34924840927124, 'elapsed_seconds': 37.98035201430321}
+[rank 0] train.step.end {"step": 2}
+[rank 0] train.step.begin {"step": 3}
+[train] {'phase': 'train', 'step': 3, 'ce': 2.72763991355896, 'error': 0.10114407539367676, 'loss': 2.72763991355896, 'mse': 0.0, 'teacher_entropy': 2.626495838165283, 'grad_norm': 0.23186206817626953, 'tokens': 16384, 'epoch': 0, 'learning_rate': 6.8905764746872645e-06, 'rank0_peak_memory_gib': 25.34924840927124, 'elapsed_seconds': 38.647742833942175}
+[rank 0] train.step.end {"step": 3}
+[rank 0] train.step.begin {"step": 4}
+[train] {'phase': 'train', 'step': 4, 'ce': 3.0975451469421387, 'error': 0.1413874626159668, 'loss': 3.0975451469421387, 'mse': 0.0, 'teacher_entropy': 2.956157684326172, 'grad_norm': 0.30305877327919006, 'tokens': 16384, 'epoch': 0, 'learning_rate': 4.109423525312737e-06, 'rank0_peak_memory_gib': 25.34924840927124, 'elapsed_seconds': 39.310904663056135}
+[rank 0] train.step.end {"step": 4}
+[rank 0] train.step.begin {"step": 5}
+[train] {'phase': 'train', 'step': 5, 'ce': 3.023620843887329, 'error': 0.11067819595336914, 'loss': 3.023620843887329, 'mse': 0.0, 'teacher_entropy': 2.91294264793396, 'grad_norm': 0.25780153274536133, 'tokens': 16384, 'epoch': 0, 'learning_rate': 1.859423525312737e-06, 'rank0_peak_memory_gib': 25.34924840927124, 'elapsed_seconds': 39.99699612520635}
+[rank 0] train.step.end {"step": 5}
+[rank 0] train.step.begin {"step": 6}
+[train] {'phase': 'train', 'step': 6, 'ce': 3.33107852935791, 'error': 0.11450076103210449, 'loss': 3.33107852935791, 'mse': 0.0, 'teacher_entropy': 3.2165777683258057, 'grad_norm': 0.2481660395860672, 'tokens': 16384, 'epoch': 0, 'learning_rate': 1.0000000000000002e-06, 'rank0_peak_memory_gib': 25.34924840927124, 'elapsed_seconds': 40.726785340346396}
+[rank 0] train.step.end {"step": 6}
+[rank 0] validation.begin {"step": 6}
+[rank 0] validation.first_batch.begin {"tokens": 16384}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 1, "steps": 1024}
+[rank 0] on_policy.rollout.end {"seconds": 17.970223711337894, "family": "langflow", "trajectories": 1, "steps": 1024}
+[rank 0] validation.first_batch.end {"loss": 2.5396387577056885, "ce": 2.5396387577056885, "mse": -0.0, "teacher_entropy": 2.4234914779663086, "error": 0.11614727973937988}
+[rank 0] validation.reduce.begin {"local_tokens": 16384}
+[rank 0] validation.reduce.end {"seconds": 0.0001734239049255848, "local_tokens": 16384}
+[train] {'phase': 'valid', 'step': 6, 'ce': 2.5396387577056885, 'error': 0.11614727973937988, 'loss': 2.5396387577056885, 'mse': 0.0, 'teacher_entropy': 2.4234914779663086, 'elapsed_seconds': 59.19487779028714}
+[rank 0] validation.end {"seconds": 18.46787994913757, "step": 6}
+[rank 0] checkpoint.save.begin {"step": 6, "path": "/tmp/onp_bs_test/20261020_204921_631991_probe_owt_16/checkpoints/step_000006"}
+[rank 0] checkpoint.save.end {"step": 6}
+[rank 0] checkpoint.wait_ready.begin {"step": 6}
+[rank 0] checkpoint.wait_ready.end {"seconds": 1.5250872820615768e-05, "step": 6}
+[train] stopped at step 6: max_steps
+[train] checkpoint: /tmp/onp_bs_test/20261020_204921_631991_probe_owt_16/checkpoints/step_000006
+[on-policy] /tmp/onp_bs_test/20261020_204921_631991_probe_owt_16

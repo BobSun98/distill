@@ -1,0 +1,76 @@
+{
+  "protocol": {
+    "version": "gen_ppl_v1",
+    "seed": 42,
+    "num_samples": 1024,
+    "scorer": "gpt2-large",
+    "scorer_max_length": 1024,
+    "debug": false,
+    "world_size": 8,
+    "torch_version": "2.14.0+cu130",
+    "noise": "sample_id_stream_cpu_fp32_dim_major_stride_1024_v1",
+    "scorer_dtype": "float32",
+    "scorer_attention": "eager",
+    "scorer_batch_size": 1,
+    "generation_precision": "float32_parameters_bfloat16_cuda_backbone",
+    "decode": "strip_one_leading_bos_stop_at_first_eos_skip_special_tokens_no_cleanup",
+    "aggregation": "exp(sum_nll / sum_valid_target_tokens)",
+    "padding": "excluded_by_attention_mask",
+    "add_special_tokens": false,
+    "first_token": "not_scored",
+    "empty_policy": "no_resampling_report_coverage",
+    "scoring_truncation": "first_1024_gpt_tokens"
+  },
+  "models": [
+    {
+      "name": "off_policy_initial",
+      "family": "langflow",
+      "num_steps": 128,
+      "sequence_length": 128,
+      "gen_ppl": 169.86785061375602,
+      "nll_per_token": 5.1350207854267556,
+      "num_samples": 1024,
+      "num_scored_tokens": 128827,
+      "num_scored_samples": 1024,
+      "num_empty_samples": 0,
+      "sample_entropy": 4.375216803977319,
+      "repetition_4gram": 0.00192298724507267,
+      "score_status": "completed",
+      "architecture": "/proj/gpu_mtk53742/CDLM-distillation/run/20261020_021521_191614_lm1b_kd_12to6_lr1e-3/checkpoints/best/config.json",
+      "weights": "/proj/gpu_mtk53742/CDLM-distillation/run/20261020_021521_191614_lm1b_kd_12to6_lr1e-3/checkpoints/best/model.safetensors",
+      "selected_weights_key": null,
+      "effective_sampling": {
+        "sampling_method": "euler_edm",
+        "noise_scale": 1.0,
+        "self_conditioning": true,
+        "nfe": 128
+      },
+      "effective_generation_batch_size": 8
+    },
+    {
+      "name": "on_policy_student",
+      "family": "langflow",
+      "num_steps": 128,
+      "sequence_length": 128,
+      "gen_ppl": 190.00761700011753,
+      "nll_per_token": 5.247064160831227,
+      "num_samples": 1024,
+      "num_scored_tokens": 128777,
+      "num_scored_samples": 1024,
+      "num_empty_samples": 0,
+      "sample_entropy": 4.388334329587087,
+      "repetition_4gram": 0.0013882342652093821,
+      "score_status": "completed",
+      "architecture": "/proj/gpu_mtk53742/CDLM-distillation/run/20261021_000111_935466_on_policy_langflow_lm1b/checkpoints/best/config.json",
+      "weights": "/proj/gpu_mtk53742/CDLM-distillation/run/20261021_000111_935466_on_policy_langflow_lm1b/checkpoints/best/model.safetensors",
+      "selected_weights_key": null,
+      "effective_sampling": {
+        "sampling_method": "euler_edm",
+        "noise_scale": 1.0,
+        "self_conditioning": true,
+        "nfe": 128
+      },
+      "effective_generation_batch_size": 8
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261020_025737_021127_elf_b_owt_kd_12to6_lr1e-3/checkpoints/best",
+  "last_checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261020_025737_021127_elf_b_owt_kd_12to6_lr1e-3/checkpoints/step_003000",
+  "steps": 3000,
+  "max_steps": 5000,
+  "stop_reason": "plateau",
+  "initial_learning_rate": 0.001,
+  "final_learning_rate": 0.001,
+  "lr_scheduler": {
+    "name": "constant"
+  },
+  "early_stopping": {
+    "enabled": true,
+    "metric": "loss",
+    "min_steps": 500,
+    "patience": 5,
+    "min_delta": 0.001
+  },
+  "best_step": 2700,
+  "best_value": 0.13808931080115783
+}

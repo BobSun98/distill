@@ -1,0 +1,352 @@
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 2] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.end {"seconds": 0.028072615154087543, "backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.end {"seconds": 0.029009398072957993, "backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.end {"seconds": 0.10836014291271567, "backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.end {"seconds": 0.04707713657990098, "backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.end {"seconds": 0.02432309929281473, "backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.end {"seconds": 0.10832621343433857, "backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.end {"seconds": 1.9505367176607251, "backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.end {"seconds": 0.13663441175594926, "backend": "gloo", "world_size": 8}
+[rank 0] corpus.scorer.resolve.begin {"model": "gpt2-large"}
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1126.68it/s]
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 0] corpus.scorer.resolve.end {"seconds": 0.6326019861735404, "model": "gpt2-large"}
+[rank 0] corpus.data.prepare.begin {"corpus": "lm1b"}
+[rank 0] corpus.data.prepare.end {"seconds": 4.159539320971817, "corpus": "lm1b"}
+[rank 0] corpus.data.prepare.begin {"corpus": "owt"}
+[rank 0] corpus.data.prepare.end {"seconds": 4.2769331890158355, "corpus": "owt"}
+[rank 0] corpus.scorer.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 4] corpus.scorer.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 2] corpus.scorer.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 6] corpus.scorer.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 3] corpus.scorer.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 1] corpus.scorer.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 5] corpus.scorer.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 7] corpus.scorer.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 0] corpus.scorer.load.end {"seconds": 1.7216890887357295, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 1] corpus.scorer.load.end {"seconds": 1.81974196434021, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 3] corpus.scorer.load.end {"seconds": 1.8916703527793288, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 2] corpus.scorer.load.end {"seconds": 1.8920160830020905, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 6] corpus.scorer.load.end {"seconds": 1.897693061735481, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 7] corpus.scorer.load.end {"seconds": 1.8980368077754974, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 4] corpus.scorer.load.end {"seconds": 1.9315759758464992, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 5] corpus.scorer.load.end {"seconds": 1.9529681969434023, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519", "dtype": "torch.float16"}
+[rank 5] corpus.score.begin {"corpus": "lm1b", "local_samples": 64}
+[rank 4] corpus.score.begin {"corpus": "lm1b", "local_samples": 64}
+[rank 3] corpus.score.begin {"corpus": "lm1b", "local_samples": 64}
+[rank 6] corpus.score.begin {"corpus": "lm1b", "local_samples": 64}
+[rank 2] corpus.score.begin {"corpus": "lm1b", "local_samples": 64}
+[rank 1] corpus.score.begin {"corpus": "lm1b", "local_samples": 64}
+[rank 7] corpus.score.begin {"corpus": "lm1b", "local_samples": 64}
+[rank 5] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 4] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 0] corpus.score.begin {"corpus": "lm1b", "local_samples": 64}
+[rank 6] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 3] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 1] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 2] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 0] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 1.3967731287702918, "batch": 0, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 0.01783524313941598, "batch": 1, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 1] corpus.score.batch.end {"seconds": 1.4282898516394198, "batch": 0, "samples": 8}
+[rank 1] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 0.01747156772762537, "batch": 2, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 1] corpus.score.batch.end {"seconds": 0.020540514960885048, "batch": 1, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 0.018272569868713617, "batch": 3, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 1.4518355270847678, "batch": 0, "samples": 8}
+[rank 0] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 0.02190186269581318, "batch": 1, "samples": 8}
+[rank 0] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 0.02400905592367053, "batch": 2, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 1.515481404028833, "batch": 0, "samples": 8}
+[rank 2] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 0] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 1] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 0.016408341005444527, "batch": 4, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 0.017634214833378792, "batch": 1, "samples": 8}
+[rank 1] corpus.score.batch.end {"seconds": 0.015583921689540148, "batch": 2, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 0.021161952055990696, "batch": 3, "samples": 8}
+[rank 2] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 1] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 0] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 0.015340153127908707, "batch": 5, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 1] corpus.score.batch.end {"seconds": 0.015544849913567305, "batch": 3, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 0.018648384138941765, "batch": 2, "samples": 8}
+[rank 1] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 2] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 0.023736767005175352, "batch": 4, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 0.01691810879856348, "batch": 6, "samples": 8}
+[rank 0] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 1] corpus.score.batch.end {"seconds": 0.017321100924164057, "batch": 4, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 0.016805491875857115, "batch": 3, "samples": 8}
+[rank 1] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 2] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 0.021852425765246153, "batch": 5, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 0.017666921950876713, "batch": 7, "samples": 8}
+[rank 0] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 7] corpus.score.end {"seconds": 1.6185511401854455, "corpus": "lm1b", "local_samples": 64}
+[rank 1] corpus.score.batch.end {"seconds": 0.014956368599087, "batch": 5, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 0.019314311910420656, "batch": 4, "samples": 8}
+[rank 1] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 2] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 0.020361829083412886, "batch": 6, "samples": 8}
+[rank 1] corpus.score.batch.end {"seconds": 0.01681821420788765, "batch": 6, "samples": 8}
+[rank 0] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 0.01583230495452881, "batch": 5, "samples": 8}
+[rank 1] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 2] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 1] corpus.score.batch.end {"seconds": 0.016543084289878607, "batch": 7, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 0.02154223108664155, "batch": 7, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 0.016531730070710182, "batch": 6, "samples": 8}
+[rank 1] corpus.score.end {"seconds": 1.6687875930219889, "corpus": "lm1b", "local_samples": 64}
+[rank 0] corpus.score.end {"seconds": 1.6587954782880843, "corpus": "lm1b", "local_samples": 64}
+[rank 2] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 0.015937561634927988, "batch": 7, "samples": 8}
+[rank 2] corpus.score.end {"seconds": 1.6944944630376995, "corpus": "lm1b", "local_samples": 64}
+[rank 5] corpus.score.batch.end {"seconds": 1.7480385010130703, "batch": 0, "samples": 8}
+[rank 5] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 1.7494313479401171, "batch": 0, "samples": 8}
+[rank 3] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 5] corpus.score.batch.end {"seconds": 0.024451276753097773, "batch": 1, "samples": 8}
+[rank 5] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 1.770366056356579, "batch": 0, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 0.018979086074978113, "batch": 1, "samples": 8}
+[rank 6] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 3] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 5] corpus.score.batch.end {"seconds": 0.022711293771862984, "batch": 2, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 0.021081409882754087, "batch": 1, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 0.01868320070207119, "batch": 2, "samples": 8}
+[rank 5] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 4] corpus.score.batch.end {"seconds": 1.8092665201984346, "batch": 0, "samples": 8}
+[rank 4] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 5] corpus.score.batch.end {"seconds": 0.020769427064806223, "batch": 3, "samples": 8}
+[rank 4] corpus.score.batch.end {"seconds": 0.017268298659473658, "batch": 1, "samples": 8}
+[rank 5] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 4] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 6] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 4] corpus.score.batch.end {"seconds": 0.019480011891573668, "batch": 2, "samples": 8}
+[rank 5] corpus.score.batch.end {"seconds": 0.023241396062076092, "batch": 4, "samples": 8}
+[rank 3] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 0.024148724041879177, "batch": 2, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 0.016566880978643894, "batch": 3, "samples": 8}
+[rank 6] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 3] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 0.015977244824171066, "batch": 4, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 0.020052941981703043, "batch": 3, "samples": 8}
+[rank 3] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 5] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 6] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 4] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 0.0155177041888237, "batch": 5, "samples": 8}
+[rank 3] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 5] corpus.score.batch.end {"seconds": 0.021411614026874304, "batch": 5, "samples": 8}
+[rank 4] corpus.score.batch.end {"seconds": 0.015799582935869694, "batch": 3, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 0.02434232085943222, "batch": 4, "samples": 8}
+[rank 5] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 6] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 4] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 0.015605681110173464, "batch": 6, "samples": 8}
+[rank 3] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 5] corpus.score.batch.end {"seconds": 0.01650266395881772, "batch": 6, "samples": 8}
+[rank 5] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 0.0190399382263422, "batch": 5, "samples": 8}
+[rank 4] corpus.score.batch.end {"seconds": 0.017256329767405987, "batch": 4, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 0.015100095421075821, "batch": 7, "samples": 8}
+[rank 6] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 4] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 3] corpus.score.end {"seconds": 1.9741609157063067, "corpus": "lm1b", "local_samples": 64}
+[rank 5] corpus.score.batch.end {"seconds": 0.01663212664425373, "batch": 7, "samples": 8}
+[rank 5] corpus.score.end {"seconds": 1.9905294082127512, "corpus": "lm1b", "local_samples": 64}
+[rank 4] corpus.score.batch.end {"seconds": 0.015156622044742107, "batch": 5, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 0.0189056359231472, "batch": 6, "samples": 8}
+[rank 4] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 6] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 4] corpus.score.batch.end {"seconds": 0.01603084523230791, "batch": 6, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 0.015778124798089266, "batch": 7, "samples": 8}
+[rank 4] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 6] corpus.score.end {"seconds": 2.013692419975996, "corpus": "lm1b", "local_samples": 64}
+[rank 4] corpus.score.batch.end {"seconds": 0.015743697062134743, "batch": 7, "samples": 8}
+[rank 4] corpus.score.end {"seconds": 2.0378702110610902, "corpus": "lm1b", "local_samples": 64}
+[rank 4] corpus.score.begin {"corpus": "owt", "local_samples": 64}
+[rank 4] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 6] corpus.score.begin {"corpus": "owt", "local_samples": 64}
+[rank 6] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 4] corpus.score.batch.end {"seconds": 0.017571619246155024, "batch": 0, "samples": 8}
+[rank 3] corpus.score.begin {"corpus": "owt", "local_samples": 64}
+[rank 1] corpus.score.begin {"corpus": "owt", "local_samples": 64}
+[rank 3] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 7] corpus.score.begin {"corpus": "owt", "local_samples": 64}
+[rank 1] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 0.018215684220194817, "batch": 0, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 0.0179518130607903, "batch": 0, "samples": 8}
+[rank 1] corpus.score.batch.end {"seconds": 0.01757452404126525, "batch": 0, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 0.0177296819165349, "batch": 0, "samples": 8}
+[rank 2] corpus.score.begin {"corpus": "owt", "local_samples": 64}
+[rank 5] corpus.score.begin {"corpus": "owt", "local_samples": 64}
+[rank 2] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 5] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 0.03108629724010825, "batch": 0, "samples": 8}
+[rank 5] corpus.score.batch.end {"seconds": 0.030988642014563084, "batch": 0, "samples": 8}
+[GPT-2-Large] LM1B: PPL=30.781738, samples=512, tokens=14091
+[rank 0] corpus.score.begin {"corpus": "owt", "local_samples": 64}
+[rank 0] corpus.score.batch.begin {"batch": 0, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 0.022389275021851063, "batch": 0, "samples": 8}
+[rank 4] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 6] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 4] corpus.score.batch.end {"seconds": 0.016186646185815334, "batch": 1, "samples": 8}
+[rank 3] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 1] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 0.01603757729753852, "batch": 1, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 0.01640536915510893, "batch": 1, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 0.016579438000917435, "batch": 1, "samples": 8}
+[rank 1] corpus.score.batch.end {"seconds": 0.01667853817343712, "batch": 1, "samples": 8}
+[rank 2] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 5] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 0.01610135193914175, "batch": 1, "samples": 8}
+[rank 5] corpus.score.batch.end {"seconds": 0.0201646126806736, "batch": 1, "samples": 8}
+[rank 0] corpus.score.batch.begin {"batch": 1, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 0.02441430790349841, "batch": 1, "samples": 8}
+[rank 4] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 6] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 4] corpus.score.batch.end {"seconds": 0.015358095057308674, "batch": 2, "samples": 8}
+[rank 3] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 1] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 0.015376060735434294, "batch": 2, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 0.015508187003433704, "batch": 2, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 0.015164160169661045, "batch": 2, "samples": 8}
+[rank 1] corpus.score.batch.end {"seconds": 0.015482991002500057, "batch": 2, "samples": 8}
+[rank 2] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 5] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 0.015294943936169147, "batch": 2, "samples": 8}
+[rank 5] corpus.score.batch.end {"seconds": 0.01929194899275899, "batch": 2, "samples": 8}
+[rank 0] corpus.score.batch.begin {"batch": 2, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 0.020248275250196457, "batch": 2, "samples": 8}
+[rank 4] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 6] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 4] corpus.score.batch.end {"seconds": 0.015220210887491703, "batch": 3, "samples": 8}
+[rank 3] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 1] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 0.015335275325924158, "batch": 3, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 0.015291049145162106, "batch": 3, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 0.01645372388884425, "batch": 3, "samples": 8}
+[rank 1] corpus.score.batch.end {"seconds": 0.01546875573694706, "batch": 3, "samples": 8}
+[rank 5] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 2] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 0.015166839584708214, "batch": 3, "samples": 8}
+[rank 5] corpus.score.batch.end {"seconds": 0.019117950927466154, "batch": 3, "samples": 8}
+[rank 0] corpus.score.batch.begin {"batch": 3, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 0.019957460928708315, "batch": 3, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 0.014944941736757755, "batch": 4, "samples": 8}
+[rank 4] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 6] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 4] corpus.score.batch.end {"seconds": 0.015065446961671114, "batch": 4, "samples": 8}
+[rank 3] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 1] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 0.015106346923857927, "batch": 4, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 0.016250617802143097, "batch": 4, "samples": 8}
+[rank 1] corpus.score.batch.end {"seconds": 0.01570713520050049, "batch": 4, "samples": 8}
+[rank 5] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 2] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 0.015118332114070654, "batch": 4, "samples": 8}
+[rank 5] corpus.score.batch.end {"seconds": 0.019108921755105257, "batch": 4, "samples": 8}
+[rank 0] corpus.score.batch.begin {"batch": 4, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 0.01975482888519764, "batch": 4, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 0.014810204040259123, "batch": 5, "samples": 8}
+[rank 4] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 3] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 6] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 4] corpus.score.batch.end {"seconds": 0.014962997753173113, "batch": 5, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 0.014987941831350327, "batch": 5, "samples": 8}
+[rank 1] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 0.01504311989992857, "batch": 5, "samples": 8}
+[rank 1] corpus.score.batch.end {"seconds": 0.01670178258791566, "batch": 5, "samples": 8}
+[rank 5] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 2] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 0.01509065367281437, "batch": 5, "samples": 8}
+[rank 5] corpus.score.batch.end {"seconds": 0.01902096625417471, "batch": 5, "samples": 8}
+[rank 0] corpus.score.batch.begin {"batch": 5, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 0.0210296050645411, "batch": 5, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 0.016099754720926285, "batch": 6, "samples": 8}
+[rank 4] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 3] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 6] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 4] corpus.score.batch.end {"seconds": 0.014972939155995846, "batch": 6, "samples": 8}
+[rank 1] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 0.01624062703922391, "batch": 6, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 0.015082266181707382, "batch": 6, "samples": 8}
+[rank 1] corpus.score.batch.end {"seconds": 0.015535805840045214, "batch": 6, "samples": 8}
+[rank 5] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 2] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 0.01526842312887311, "batch": 6, "samples": 8}
+[rank 5] corpus.score.batch.end {"seconds": 0.019039850682020187, "batch": 6, "samples": 8}
+[rank 0] corpus.score.batch.begin {"batch": 6, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 0.01999700628221035, "batch": 6, "samples": 8}
+[rank 7] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 7] corpus.score.batch.end {"seconds": 0.01620911294594407, "batch": 7, "samples": 8}
+[rank 3] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 3] corpus.score.batch.end {"seconds": 0.016021027695387602, "batch": 7, "samples": 8}
+[rank 4] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 4] corpus.score.batch.end {"seconds": 0.01497747702524066, "batch": 7, "samples": 8}
+[rank 6] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 1] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 6] corpus.score.batch.end {"seconds": 0.015044320840388536, "batch": 7, "samples": 8}
+[rank 1] corpus.score.batch.end {"seconds": 0.015463256277143955, "batch": 7, "samples": 8}
+[rank 5] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 2] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 5] corpus.score.batch.end {"seconds": 0.01633347710594535, "batch": 7, "samples": 8}
+[rank 2] corpus.score.batch.end {"seconds": 0.015119277872145176, "batch": 7, "samples": 8}
+[rank 0] corpus.score.batch.begin {"batch": 7, "samples": 8}
+[rank 0] corpus.score.batch.end {"seconds": 0.015769941732287407, "batch": 7, "samples": 8}
+[rank 7] corpus.score.end {"seconds": 2.432375353295356, "corpus": "owt", "local_samples": 64}
+[rank 3] corpus.score.end {"seconds": 2.478475626092404, "corpus": "owt", "local_samples": 64}
+[rank 4] corpus.score.end {"seconds": 2.5182856540195644, "corpus": "owt", "local_samples": 64}
+[rank 6] corpus.score.end {"seconds": 2.531134219840169, "corpus": "owt", "local_samples": 64}
+[rank 1] corpus.score.end {"seconds": 2.532662880141288, "corpus": "owt", "local_samples": 64}
+[rank 5] corpus.score.end {"seconds": 2.5244969450868666, "corpus": "owt", "local_samples": 64}
+[rank 2] corpus.score.end {"seconds": 2.5292947432026267, "corpus": "owt", "local_samples": 64}
+[rank 0] corpus.score.end {"seconds": 2.5004727598279715, "corpus": "owt", "local_samples": 64}
+[GPT-2-Large] OWT: PPL=13.092231, samples=512, tokens=352226
+[corpus] results: /proj/gpu_mtk53742/CDLM-distillation/run/20261013_174011_379271_gpt2_real_corpus_ppl

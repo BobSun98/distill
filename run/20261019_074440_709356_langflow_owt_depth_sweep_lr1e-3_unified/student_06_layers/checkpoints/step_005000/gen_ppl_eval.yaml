@@ -1,0 +1,21 @@
+run:
+  name: unified_gen_ppl
+  root: run
+protocol:
+  version: gen_ppl_v1
+  seed: 42
+  num_samples: 1024
+  scorer: gpt2-large
+  scorer_max_length: 1024
+runtime:
+  device: cuda
+  cache_dir: null
+  generation_batch_size: 8
+  control_timeout_seconds: 7200
+models:
+- name: student
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_06_layers/checkpoints/step_005000/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_06_layers/checkpoints/step_005000/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024

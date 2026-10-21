@@ -1,0 +1,46 @@
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 0] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.end {"seconds": 0.4732080651447177, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.end {"seconds": 0.47382735507562757, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.end {"seconds": 1.6276024337857962, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda"}
+[rank 0] model.to_device.end {"seconds": 0.503182637039572, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda"}
+[rank 0] data.loaders.begin {}
+[rank 0] data.loaders.end {"seconds": 0.0002536480315029621}
+[rank 0] validation.begin {"step": 0}
+[rank 0] validation.first_batch.begin {"tokens": 49152}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 1, "steps": 1024}
+[rank 0] on_policy.rollout.end {"seconds": 18.022787517867982, "family": "langflow", "trajectories": 1, "steps": 1024}
+[W1020 20:49:48.896189956 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 9881780224 bytes (free: 7312179200, total: 50899648512).
+[W1020 20:49:49.040684366 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 9881780224 bytes (free: 3635871744, total: 50899648512).
+[W1020 20:49:50.368628318 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 9881780224 bytes (free: 8784379904, total: 50899648512).
+[rank 0] validation.failed {"error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 9.20 GiB. GPU 0 has a total capacity of 47.40 GiB of which 8.18 GiB is free. Including non-PyTorch memory, this process has 39.21 GiB memory in use. Of the allocated memory 38.38 GiB is allocated by PyTorch, and 533.42 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)", "step": 0}
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/on_policy/pipeline.py", line 266, in <module>
+    main()
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/on_policy/pipeline.py", line 262, in main
+    run_experiment(load_config(args.config, args.overrides), args.command, args.checkpoint, allow_distributed, debug)
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/on_policy/pipeline.py", line 213, in run_experiment
+    checkpoint = train(teacher, student, tokenizer, config, run_dir, loss_fn=OnPolicyLoss(config),
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 170, in train
+    metrics = validate(teacher, student, valid_loader, config, loss_fn, metric_keys)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 74, in validate
+    _, metrics = loss_fn(teacher, student, batch, config, query_teacher=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/on_policy/losses.py", line 50, in __call__
+    values, entropies = teacher_ce(prediction, target, weights["ce_target"])
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/on_policy/losses.py", line 16, in teacher_ce
+    probabilities = log_teacher.exp()
+                    ^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 9.20 GiB. GPU 0 has a total capacity of 47.40 GiB of which 8.18 GiB is free. Including non-PyTorch memory, this process has 39.21 GiB memory in use. Of the allocated memory 38.38 GiB is allocated by PyTorch, and 533.42 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)

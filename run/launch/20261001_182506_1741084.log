@@ -1,0 +1,77 @@
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 3] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.end {"seconds": 0.020003434969112277, "backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.end {"seconds": 0.03257989604026079, "backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.end {"seconds": 0.09404389909468591, "backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.end {"seconds": 0.0992099188733846, "backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.end {"seconds": 0.1513832330238074, "backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.end {"seconds": 1.7539286350365728, "backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.end {"seconds": 0.046479488955810666, "backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.end {"seconds": 0.021739627001807094, "backend": "gloo", "world_size": 8}
+[rank 6] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 6, "device": "cuda"}
+[rank 0] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 0, "device": "cuda"}
+[rank 2] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 2, "device": "cuda"}
+[rank 6] cuda.runtime {"logical_device": 6, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 6] data.wait_ready.begin {}
+[rank 0] cuda.runtime {"logical_device": 0, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[run] /proj/gpu_mtk53742/CDLM-distillation/run/20261001_182512_220897_owt_kd_12to6 (world_size=8)[rank 2] cuda.runtime {"logical_device": 2, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+
+[rank 2] data.wait_ready.begin {}
+[rank 5] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 5, "device": "cuda"}
+[rank 4] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 4, "device": "cuda"}
+[rank 1] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 1, "device": "cuda"}
+[rank 0] data.prepare.begin {}[rank 3] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 3, "device": "cuda"}
+
+[rank 5] cuda.runtime {"logical_device": 5, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 7] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 7, "device": "cuda"}
+[rank 1] cuda.runtime {"logical_device": 1, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 5] data.wait_ready.begin {}
+[rank 4] cuda.runtime {"logical_device": 4, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 3] cuda.runtime {"logical_device": 3, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 1] data.wait_ready.begin {}
+[rank 7] cuda.runtime {"logical_device": 7, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 3] data.wait_ready.begin {}
+[rank 4] data.wait_ready.begin {}
+[rank 7] data.wait_ready.begin {}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[data] 复用 /proj/gpu_mtk53742/CDLM-distillation/run/data/owt_l1024_t20000_v128
+[rank 0] data.prepare.end {"seconds": 0.8853533079382032}
+[rank 0] data.wait_ready.begin {}
+[rank 0] data.wait_ready.end {"seconds": 0.0008469070307910442}
+[rank 0] tensor_group.init.begin {"backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 6] data.wait_ready.end {"seconds": 0.8872658570762724}
+[rank 1] data.wait_ready.end {"seconds": 0.8860740480013192}
+[rank 3] data.wait_ready.end {"seconds": 0.885894627077505}
+[rank 4] data.wait_ready.end {"seconds": 0.8857453020755202}
+[rank 2] data.wait_ready.end {"seconds": 0.8870586298871785}[rank 7] data.wait_ready.end {"seconds": 0.8858405810315162}
+
+[rank 5] data.wait_ready.end {"seconds": 0.8862803601659834}
+[rank 0] tensor_group.init.end {"seconds": 0.00527509581297636, "backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 0] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:0", "bytes": 1048576}

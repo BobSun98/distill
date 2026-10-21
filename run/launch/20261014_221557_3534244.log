@@ -1,0 +1,450 @@
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 1] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.end {"seconds": 0.019944333005696535, "backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.end {"seconds": 0.16277461173012853, "backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.end {"seconds": 0.0975467637181282, "backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.end {"seconds": 0.04350852407515049, "backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.end {"seconds": 0.14289609529078007, "backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.end {"seconds": 0.07559444196522236, "backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.end {"seconds": 0.12022241996601224, "backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.end {"seconds": 0.11011299770325422, "backend": "gloo", "world_size": 8}
+[rank 0] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 0, "device": "cuda"}
+[rank 0] cuda.runtime {"logical_device": 0, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[run] /proj/gpu_mtk53742/CDLM-distillation/run/20261014_221604_246833_owt_kd_12to6 (world_size=8)
+[rank 5] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 5, "device": "cuda"}
+[rank 2] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 2, "device": "cuda"}
+[rank 5] cuda.runtime {"logical_device": 5, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 0] data.prepare.begin {}
+[rank 4] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 4, "device": "cuda"}
+[rank 1] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 1, "device": "cuda"}
+[rank 5] data.wait_ready.begin {}
+[rank 2] cuda.runtime {"logical_device": 2, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 6] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 6, "device": "cuda"}
+[rank 3] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 3, "device": "cuda"}
+[rank 7] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 7, "device": "cuda"}
+[rank 2] data.wait_ready.begin {}
+[rank 4] cuda.runtime {"logical_device": 4, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 1] cuda.runtime {"logical_device": 1, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 6] cuda.runtime {"logical_device": 6, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 3] cuda.runtime {"logical_device": 3, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 1] data.wait_ready.begin {}
+[rank 4] data.wait_ready.begin {}
+[rank 7] cuda.runtime {"logical_device": 7, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 6] data.wait_ready.begin {}
+[rank 3] data.wait_ready.begin {}
+[rank 7] data.wait_ready.begin {}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[data] 复用 /proj/gpu_mtk53742/CDLM-distillation/run/data/owt_l1024_t20000_v128
+[rank 0] data.prepare.end {"seconds": 4.821017699316144}
+[rank 0] data.wait_ready.begin {}
+[rank 0] data.wait_ready.end {"seconds": 0.0011706589721143246}
+[rank 4] data.wait_ready.end {"seconds": 4.821862997021526}
+[rank 2] data.wait_ready.end {"seconds": 4.8221919452771544}[rank 7] data.wait_ready.end {"seconds": 4.821709437761456}[rank 5] data.wait_ready.end {"seconds": 4.822366280015558}
+
+
+[rank 6] data.wait_ready.end {"seconds": 4.821835033595562}[rank 1] data.wait_ready.end {"seconds": 4.821906957309693}
+
+[rank 3] data.wait_ready.end {"seconds": 4.821776251774281}
+[rank 0] tensor_group.init.begin {"backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 0] tensor_group.init.end {"seconds": 0.016399167012423277, "backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 0] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 7] tensor_group.init.begin {"backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 4] tensor_group.init.begin {"backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}
+[rank 7] tensor_group.init.end {"seconds": 0.0052835880778729916, "backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}
+[rank 7] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 4] tensor_group.init.end {"seconds": 0.005237224977463484, "backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}
+[rank 4] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+[rank 3] tensor_group.init.begin {"backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}
+[rank 5] tensor_group.init.begin {"backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+[rank 3] tensor_group.init.end {"seconds": 0.0051988717168569565, "backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}
+[rank 5] tensor_group.init.end {"seconds": 0.005119750276207924, "backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+[rank 3] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:3", "bytes": 1048576}
+[rank 5] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 1] tensor_group.init.begin {"backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}
+[rank 2] tensor_group.init.begin {"backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 1] tensor_group.init.end {"seconds": 0.005443989764899015, "backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}
+[rank 1] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:1", "bytes": 1048576}
+[rank 2] tensor_group.init.end {"seconds": 0.00523799005895853, "backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}
+[rank 2] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:2", "bytes": 1048576}
+[rank 6] tensor_group.init.begin {"backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+[rank 6] tensor_group.init.end {"seconds": 0.00518064433708787, "backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+[rank 6] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+[rank 4] communication.all_reduce.end {"seconds": 0.9374485379084945, "backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+[rank 4] communication.broadcast.begin {"backend": "nccl", "device": "cuda:4"}
+[rank 6] communication.all_reduce.end {"seconds": 0.912125704344362, "backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+[rank 6] communication.broadcast.begin {"backend": "nccl", "device": "cuda:6"}
+[rank 0] communication.all_reduce.end {"seconds": 1.3316720272414386, "backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+[rank 0] communication.broadcast.begin {"backend": "nccl", "device": "cuda:0"}
+[rank 2] communication.all_reduce.end {"seconds": 0.9196932320483029, "backend": "nccl", "device": "cuda:2", "bytes": 1048576}
+[rank 2] communication.broadcast.begin {"backend": "nccl", "device": "cuda:2"}
+[rank 1] communication.all_reduce.end {"seconds": 0.9207217497751117, "backend": "nccl", "device": "cuda:1", "bytes": 1048576}
+[rank 0] communication.broadcast.end {"seconds": 0.0007502008229494095, "backend": "nccl", "device": "cuda:0"}
+[rank 1] communication.broadcast.begin {"backend": "nccl", "device": "cuda:1"}
+[rank 0] teacher.load.begin {}
+[rank 0] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 1] communication.broadcast.end {"seconds": 0.0005422551184892654, "backend": "nccl", "device": "cuda:1"}
+[rank 2] communication.broadcast.end {"seconds": 0.0010729287751019, "backend": "nccl", "device": "cuda:2"}
+[rank 1] teacher.load.begin {}
+[rank 2] teacher.load.begin {}
+[rank 1] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] communication.all_reduce.end {"seconds": 0.9463780731894076, "backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+[rank 7] communication.broadcast.begin {"backend": "nccl", "device": "cuda:7"}
+[rank 3] communication.all_reduce.end {"seconds": 0.9342379281297326, "backend": "nccl", "device": "cuda:3", "bytes": 1048576}
+[rank 3] communication.broadcast.begin {"backend": "nccl", "device": "cuda:3"}
+[rank 3] communication.broadcast.end {"seconds": 0.0005423808470368385, "backend": "nccl", "device": "cuda:3"}
+[rank 4] communication.broadcast.end {"seconds": 0.004710684064775705, "backend": "nccl", "device": "cuda:4"}
+[rank 3] teacher.load.begin {}
+[rank 4] teacher.load.begin {}
+[rank 3] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] communication.all_reduce.end {"seconds": 0.9390517873689532, "backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+[rank 5] communication.broadcast.begin {"backend": "nccl", "device": "cuda:5"}
+[rank 5] communication.broadcast.end {"seconds": 0.0005842777900397778, "backend": "nccl", "device": "cuda:5"}
+[rank 6] communication.broadcast.end {"seconds": 0.009253781754523516, "backend": "nccl", "device": "cuda:6"}
+[rank 7] communication.broadcast.end {"seconds": 0.005738419014960527, "backend": "nccl", "device": "cuda:7"}
+[rank 5] teacher.load.begin {}
+[rank 6] teacher.load.begin {}
+[rank 7] teacher.load.begin {}
+[rank 5] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.end {"seconds": 0.4205451221205294, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.end {"seconds": 0.4229163732379675, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.files.wait.end {"seconds": 0.422699190210551, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 1] model.files.wait.end {"seconds": 0.4227575249969959, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.files.wait.end {"seconds": 0.420646911021322, "model": "Continuous-Rivals-Discrete/langflow-owt"}[rank 5] model.files.wait.end {"seconds": 0.4158844379708171, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+
+[rank 3] model.files.wait.end {"seconds": 0.42076486721634865, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.files.wait.end {"seconds": 0.4158870195969939, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 1] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.files.wait.end {"seconds": 0.41597126377746463, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.weights.load.end {"seconds": 1.4228240847587585, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:7"}
+[rank 5] model.weights.load.end {"seconds": 1.4251239253208041, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.weights.load.end {"seconds": 1.4250552370212972, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:5"}
+[rank 3] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:3"}
+[rank 4] model.weights.load.end {"seconds": 1.4255874888040125, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:4"}
+[rank 6] model.weights.load.end {"seconds": 1.425941411871463, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:6"}
+[rank 1] model.weights.load.end {"seconds": 1.4503772561438382, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 1] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:1"}
+[rank 2] model.weights.load.end {"seconds": 1.5411821189336479, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:2"}
+[rank 3] model.to_device.end {"seconds": 0.12661997973918915, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:3"}
+[rank 3] teacher.load.end {"seconds": 1.9745371113531291}
+[rank 3] models.wait_teacher.begin {}
+[rank 7] model.to_device.end {"seconds": 0.14727670000866055, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:7"}
+[rank 7] teacher.load.end {"seconds": 1.9878268125467002}
+[rank 7] models.wait_teacher.begin {}
+[rank 1] model.to_device.end {"seconds": 0.12593026412650943, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:1"}
+[rank 1] teacher.load.end {"seconds": 2.0010203840211034}
+[rank 1] models.wait_teacher.begin {}
+[rank 5] model.to_device.end {"seconds": 0.15513856895267963, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:5"}
+[rank 5] teacher.load.end {"seconds": 1.9978722496889532}
+[rank 5] models.wait_teacher.begin {}
+[rank 4] model.to_device.end {"seconds": 0.15714154671877623, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:4"}
+[rank 4] teacher.load.end {"seconds": 2.005334252025932}
+[rank 4] models.wait_teacher.begin {}
+[rank 6] model.to_device.end {"seconds": 0.1592657882720232, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:6"}
+[rank 6] teacher.load.end {"seconds": 2.0032395869493484}
+[rank 6] models.wait_teacher.begin {}
+[rank 0] model.weights.load.end {"seconds": 1.617743853945285, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:0"}
+[rank 2] model.to_device.end {"seconds": 0.11724091228097677, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:2"}
+[rank 2] teacher.load.end {"seconds": 2.083094142843038}
+[rank 2] models.wait_teacher.begin {}
+[rank 0] model.to_device.end {"seconds": 0.10327794821932912, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:0"}
+[rank 0] teacher.load.end {"seconds": 2.145881832111627}
+[rank 0] models.wait_teacher.begin {}
+[rank 0] models.wait_teacher.end {"seconds": 0.0009203008376061916}
+[rank 7] models.wait_teacher.end {"seconds": 0.15121118910610676}
+[rank 3] models.wait_teacher.end {"seconds": 0.1694382238201797}
+[rank 5] models.wait_teacher.end {"seconds": 0.1412899107672274}[rank 6] models.wait_teacher.end {"seconds": 0.13586209807544947}
+
+[rank 1] models.wait_teacher.end {"seconds": 0.145116469822824}
+[rank 2] models.wait_teacher.end {"seconds": 0.06300549628213048}
+[rank 4] models.wait_teacher.end {"seconds": 0.1386697730049491}
+[rank 0] student.build.begin {}
+[rank 6] student.build.begin {}
+[rank 2] student.build.begin {}
+[rank 7] student.build.begin {}
+[rank 3] student.build.begin {}
+[rank 5] student.build.begin {}
+[rank 1] student.build.begin {}
+[rank 4] student.build.begin {}
+[rank 6] student.build.end {"seconds": 1.0764072840102017}
+[rank 6] models.wait_student.begin {}
+[rank 3] student.build.end {"seconds": 1.08768808003515}
+[rank 3] models.wait_student.begin {}
+[rank 5] student.build.end {"seconds": 1.088112826924771}
+[rank 5] models.wait_student.begin {}
+[rank 7] student.build.end {"seconds": 1.088776365853846}
+[rank 7] models.wait_student.begin {}
+[rank 4] student.build.end {"seconds": 1.089392077177763}
+[rank 4] models.wait_student.begin {}
+[rank 1] student.build.end {"seconds": 1.0934025254100561}
+[rank 1] models.wait_student.begin {}
+[rank 0] student.build.end {"seconds": 1.1200128910131752}
+[rank 0] models.wait_student.begin {}
+[rank 2] student.build.end {"seconds": 1.1223095511086285}
+[rank 2] models.wait_student.begin {}
+[rank 3] models.wait_student.end {"seconds": 0.03535157721489668}
+[rank 7] models.wait_student.end {"seconds": 0.03441089205443859}
+[rank 2] models.wait_student.end {"seconds": 0.0008320570923388004}
+[rank 1] models.wait_student.end {"seconds": 0.029546594247221947}
+[rank 5] models.wait_student.end {"seconds": 0.034753830172121525}
+[rank 0] models.wait_student.end {"seconds": 0.01522662490606308}
+[rank 6] models.wait_student.end {"seconds": 0.05007445393130183}
+[rank 4] models.wait_student.end {"seconds": 0.03347598668187857}
+[rank 7] run.failed {"error": "RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e ."}
+[rank 2] run.failed {"error": "RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e ."}
+[rank 3] run.failed {"error": "RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e ."}[rank 1] run.failed {"error": "RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e ."}
+
+[rank 5] run.failed {"error": "RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e ."}
+[rank 4] run.failed {"error": "RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e ."}
+[rank 0] run.failed {"error": "RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e ."}
+[rank 6] run.failed {"error": "RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e ."}
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank0]:   File "<frozen runpy>", line 88, in _run_code
+[rank0]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank0]:     main()
+[rank0]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 112, in main
+[rank0]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank0]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 77, in run_experiment
+[rank0]:     checkpoint = train(teacher, student, tokenizer, config, run_dir,
+[rank0]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 109, in train
+[rank0]:     raise RuntimeError("绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .")
+[rank0]: RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank1]:   File "<frozen runpy>", line 88, in _run_code
+[rank1]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank1]:     main()
+[rank1]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 112, in main
+[rank1]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank1]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 77, in run_experiment
+[rank1]:     checkpoint = train(teacher, student, tokenizer, config, run_dir,
+[rank1]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 109, in train
+[rank1]:     raise RuntimeError("绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .")
+[rank1]: RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .
+[rank2]: Traceback (most recent call last):
+[rank2]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank2]:   File "<frozen runpy>", line 88, in _run_code
+[rank2]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank2]:     main()
+[rank2]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 112, in main
+[rank2]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank2]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 77, in run_experiment
+[rank2]:     checkpoint = train(teacher, student, tokenizer, config, run_dir,
+[rank2]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 109, in train
+[rank2]:     raise RuntimeError("绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .")
+[rank2]: RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank3]:   File "<frozen runpy>", line 88, in _run_code
+[rank3]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank3]:     main()
+[rank3]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 112, in main
+[rank3]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank3]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 77, in run_experiment
+[rank3]:     checkpoint = train(teacher, student, tokenizer, config, run_dir,
+[rank3]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 109, in train
+[rank3]:     raise RuntimeError("绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .")
+[rank3]: RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .
+[rank4]: Traceback (most recent call last):
+[rank4]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank4]:   File "<frozen runpy>", line 88, in _run_code
+[rank4]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank4]:     main()
+[rank4]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 112, in main
+[rank4]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank4]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 77, in run_experiment
+[rank4]:     checkpoint = train(teacher, student, tokenizer, config, run_dir,
+[rank4]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank4]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 109, in train
+[rank4]:     raise RuntimeError("绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .")
+[rank4]: RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .
+[rank5]: Traceback (most recent call last):
+[rank5]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank5]:   File "<frozen runpy>", line 88, in _run_code
+[rank5]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank5]:     main()
+[rank5]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 112, in main
+[rank5]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank5]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 77, in run_experiment
+[rank5]:     checkpoint = train(teacher, student, tokenizer, config, run_dir,
+[rank5]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank5]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 109, in train
+[rank5]:     raise RuntimeError("绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .")
+[rank5]: RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .
+[rank6]: Traceback (most recent call last):
+[rank6]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank6]:   File "<frozen runpy>", line 88, in _run_code
+[rank6]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank6]:     main()
+[rank6]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 112, in main
+[rank6]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank6]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 77, in run_experiment
+[rank6]:     checkpoint = train(teacher, student, tokenizer, config, run_dir,
+[rank6]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 109, in train
+[rank6]:     raise RuntimeError("绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .")
+[rank6]: RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .
+[rank7]: Traceback (most recent call last):
+[rank7]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank7]:   File "<frozen runpy>", line 88, in _run_code
+[rank7]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank7]:     main()
+[rank7]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 112, in main
+[rank7]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank7]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 77, in run_experiment
+[rank7]:     checkpoint = train(teacher, student, tokenizer, config, run_dir,
+[rank7]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank7]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 109, in train
+[rank7]:     raise RuntimeError("绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .")
+[rank7]: RuntimeError: 绘图需要 matplotlib，请先用服务器解释器执行 python -m pip install -e .
+W1014 22:16:14.810000 3534250 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 3534369 closing signal SIGTERM
+W1014 22:16:14.811000 3534250 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 3534372 closing signal SIGTERM
+W1014 22:16:14.811000 3534250 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 3534373 closing signal SIGTERM
+W1014 22:16:14.811000 3534250 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 3534374 closing signal SIGTERM
+W1014 22:16:14.811000 3534250 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 3534375 closing signal SIGTERM
+W1014 22:16:14.811000 3534250 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 3534376 closing signal SIGTERM
+E1014 22:16:15.335000 3534250 site-packages/torch/distributed/elastic/multiprocessing/api.py:1002] failed (exitcode: 1) local_rank: 1 (pid: 3534370) of binary: /proj/gpu_mtk53742/.conda/envs/distill/bin/python
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1142, in <module>
+    main()
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 380, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1138, in main
+    run(args)
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1129, in run
+    elastic_launch(
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 197, in __call__
+    return launch_agent(
+           ^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 386, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+distill FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2026-10-14_22:16:14
+  host      : colglx2002
+  rank      : 2 (local_rank: 2)
+  exitcode  : 1 (pid: 3534371) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[2]:
+  time      : 2026-10-14_22:16:15
+  host      : colglx2002
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 3534369) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[3]:
+  time      : 2026-10-14_22:16:15
+  host      : colglx2002
+  rank      : 3 (local_rank: 3)
+  exitcode  : 1 (pid: 3534372) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[4]:
+  time      : 2026-10-14_22:16:15
+  host      : colglx2002
+  rank      : 4 (local_rank: 4)
+  exitcode  : 1 (pid: 3534373) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[5]:
+  time      : 2026-10-14_22:16:15
+  host      : colglx2002
+  rank      : 5 (local_rank: 5)
+  exitcode  : 1 (pid: 3534374) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[6]:
+  time      : 2026-10-14_22:16:15
+  host      : colglx2002
+  rank      : 6 (local_rank: 6)
+  exitcode  : 1 (pid: 3534375) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[7]:
+  time      : 2026-10-14_22:16:15
+  host      : colglx2002
+  rank      : 7 (local_rank: 7)
+  exitcode  : 1 (pid: 3534376) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-10-14_22:16:14
+  host      : colglx2002
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 3534370) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

@@ -1,0 +1,907 @@
+{"time": "2026-10-21T00:15:18+08:00", "rank": 6, "pid": 3797329, "stage": "tensor_group.init.begin", "elapsed_seconds": 0.15662914980202913, "backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+{"time": "2026-10-21T00:15:18+08:00", "rank": 6, "pid": 3797329, "stage": "tensor_group.init.end", "elapsed_seconds": 0.16124370973557234, "seconds": 0.00437545171007514, "backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+{"time": "2026-10-21T00:15:18+08:00", "rank": 6, "pid": 3797329, "stage": "communication.all_reduce.begin", "elapsed_seconds": 0.16137389186769724, "backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+{"time": "2026-10-21T00:15:19+08:00", "rank": 6, "pid": 3797329, "stage": "communication.all_reduce.end", "elapsed_seconds": 1.007772774901241, "seconds": 0.8462999928742647, "backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+{"time": "2026-10-21T00:15:19+08:00", "rank": 6, "pid": 3797329, "stage": "communication.broadcast.begin", "elapsed_seconds": 1.007977700792253, "backend": "nccl", "device": "cuda:6"}
+{"time": "2026-10-21T00:15:19+08:00", "rank": 6, "pid": 3797329, "stage": "communication.broadcast.end", "elapsed_seconds": 1.0187192098237574, "seconds": 0.010639233980327845, "backend": "nccl", "device": "cuda:6"}
+{"time": "2026-10-21T00:15:19+08:00", "rank": 6, "pid": 3797329, "stage": "elf.teacher.load.begin", "elapsed_seconds": 1.4790642359293997, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+{"time": "2026-10-21T00:15:21+08:00", "rank": 6, "pid": 3797329, "stage": "elf.teacher.load.end", "elapsed_seconds": 3.3209683848544955, "seconds": 1.841552690602839, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+{"time": "2026-10-21T00:15:22+08:00", "rank": 6, "pid": 3797329, "stage": "data.loaders.begin", "elapsed_seconds": 4.230447412002832}
+{"time": "2026-10-21T00:15:22+08:00", "rank": 6, "pid": 3797329, "stage": "data.loaders.end", "elapsed_seconds": 4.231072863098234, "seconds": 0.00043921172618865967}
+{"time": "2026-10-21T00:15:22+08:00", "rank": 6, "pid": 3797329, "stage": "ddp.init.begin", "elapsed_seconds": 4.231642682105303, "device": "cuda:6"}
+{"time": "2026-10-21T00:15:23+08:00", "rank": 6, "pid": 3797329, "stage": "ddp.init.end", "elapsed_seconds": 5.52364541310817, "seconds": 1.2918897080235183, "device": "cuda:6"}
+{"time": "2026-10-21T00:15:23+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 5.5247136750258505, "step": 0}
+{"time": "2026-10-21T00:15:23+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 5.587309017777443, "tokens": 16384}
+{"time": "2026-10-21T00:15:23+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 5.588019629940391, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:25+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 6.8808755478821695, "seconds": 1.2927247770130634, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:25+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 7.072761401999742, "loss": 0.05696596950292587, "ce": 0.0, "mse": 0.05696596950292587, "teacher_entropy": 0.0, "error": 0.05696596950292587}
+{"time": "2026-10-21T00:15:25+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 7.073738670907915, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:26+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 7.922956010792404, "seconds": 0.849061403889209, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:26+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 8.117833644151688, "local_tokens": 32768}
+{"time": "2026-10-21T00:15:26+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 8.118610106874257, "seconds": 0.0005429093725979328, "local_tokens": 32768}
+{"time": "2026-10-21T00:15:26+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 8.306932721752673, "seconds": 2.782048569060862, "step": 0}
+{"time": "2026-10-21T00:15:26+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 8.307247857097536, "step": 1}
+{"time": "2026-10-21T00:15:26+08:00", "rank": 6, "pid": 3797329, "stage": "train.micro_batch.begin", "elapsed_seconds": 8.309523940086365, "step": 1, "micro_batch": 1}
+{"time": "2026-10-21T00:15:26+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 8.310879684053361, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:27+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 9.155775027815253, "seconds": 0.8446668079122901, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:27+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 9.156336762942374, "states": 64, "micro_batch": 0}
+{"time": "2026-10-21T00:15:27+08:00", "rank": 6, "pid": 3797329, "stage": "train.micro_batch.forward_done", "elapsed_seconds": 9.341880085878074, "step": 1, "micro_batch": 1}
+{"time": "2026-10-21T00:15:27+08:00", "rank": 6, "pid": 3797329, "stage": "train.micro_batch.backward_done", "elapsed_seconds": 9.393090881872922, "step": 1, "micro_batch": 1}
+{"time": "2026-10-21T00:15:28+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 9.71412745397538, "step": 1}
+{"time": "2026-10-21T00:15:30+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 12.3530224240385, "step": 10}
+{"time": "2026-10-21T00:15:31+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 12.695509919896722, "step": 10}
+{"time": "2026-10-21T00:15:33+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 14.710424695163965, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:34+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 15.667035040911287, "seconds": 0.9564081877470016, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:34+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 15.66760386293754, "states": 128, "micro_batch": 16}
+{"time": "2026-10-21T00:15:35+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 16.67608740273863, "step": 20}
+{"time": "2026-10-21T00:15:35+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 17.015546266920865, "step": 20}
+{"time": "2026-10-21T00:15:38+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 20.01769553683698, "step": 30}
+{"time": "2026-10-21T00:15:38+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 20.357754380907863, "step": 30}
+{"time": "2026-10-21T00:15:39+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 21.035508433822542, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:40+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 21.988932131789625, "seconds": 0.9531764541752636, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:40+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 21.98957272991538, "states": 192, "micro_batch": 32}
+{"time": "2026-10-21T00:15:42+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 24.32806483283639, "step": 40}
+{"time": "2026-10-21T00:15:43+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 24.667193429078907, "step": 40}
+{"time": "2026-10-21T00:15:45+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 27.362570798024535, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:46+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 28.314107459038496, "seconds": 0.9512922698631883, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:46+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 28.314655305817723, "states": 256, "micro_batch": 48}
+{"time": "2026-10-21T00:15:46+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 28.644190976861864, "step": 50}
+{"time": "2026-10-21T00:15:47+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 28.982751466799527, "step": 50}
+{"time": "2026-10-21T00:15:50+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 32.023017916828394, "step": 60}
+{"time": "2026-10-21T00:15:50+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 32.3596128388308, "step": 60}
+{"time": "2026-10-21T00:15:52+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 33.692172560840845, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:52+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 34.638531567994505, "seconds": 0.9461905960924923, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:52+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 34.639055938925594, "states": 320, "micro_batch": 64}
+{"time": "2026-10-21T00:15:54+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 36.29658497776836, "step": 70}
+{"time": "2026-10-21T00:15:54+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 36.631999500095844, "step": 70}
+{"time": "2026-10-21T00:15:57+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 39.62594786612317, "step": 80}
+{"time": "2026-10-21T00:15:58+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 39.96450806502253, "step": 80}
+{"time": "2026-10-21T00:15:58+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 39.965942461043596, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:59+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 40.91386818699539, "seconds": 0.9477969063445926, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:15:59+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 40.91438727173954, "states": 384, "micro_batch": 80}
+{"time": "2026-10-21T00:16:02+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 43.98905375506729, "step": 90}
+{"time": "2026-10-21T00:16:02+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 44.336124824825674, "step": 90}
+{"time": "2026-10-21T00:16:04+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 46.38183664204553, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:05+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 47.329128813929856, "seconds": 0.9470970411784947, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:05+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 47.32964810775593, "states": 448, "micro_batch": 96}
+{"time": "2026-10-21T00:16:06+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 48.33401232678443, "step": 100}
+{"time": "2026-10-21T00:16:07+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 48.67468706285581, "step": 100}
+{"time": "2026-10-21T00:16:07+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 48.67485911818221, "step": 100}
+{"time": "2026-10-21T00:16:07+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 48.676512592006475, "tokens": 16384}
+{"time": "2026-10-21T00:16:07+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 48.67698200792074, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:07+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 49.624309605918825, "seconds": 0.9472105670720339, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:08+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 49.82446807296947, "loss": 0.024844622239470482, "ce": -0.0, "mse": 0.024844622239470482, "teacher_entropy": -0.0, "error": 0.024844622239470482}
+{"time": "2026-10-21T00:16:08+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 49.825312132015824, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:09+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 50.75536057911813, "seconds": 0.9299067161045969, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:09+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 50.95558622898534, "local_tokens": 32768}
+{"time": "2026-10-21T00:16:09+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 50.96425861818716, "seconds": 0.008449982851743698, "local_tokens": 32768}
+{"time": "2026-10-21T00:16:09+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 51.342161296866834, "seconds": 2.6671618609689176, "step": 100}
+{"time": "2026-10-21T00:16:12+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 54.332513459958136, "step": 110}
+{"time": "2026-10-21T00:16:13+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 54.66387787600979, "step": 110}
+{"time": "2026-10-21T00:16:13+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 55.32736654486507, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:14+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 56.26032814802602, "seconds": 0.9327926239930093, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:14+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 56.26083544502035, "states": 512, "micro_batch": 112}
+{"time": "2026-10-21T00:16:16+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 58.60513644013554, "step": 120}
+{"time": "2026-10-21T00:16:17+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 58.94441271480173, "step": 120}
+{"time": "2026-10-21T00:16:19+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 61.61508151283488, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:20+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 62.5651186760515, "seconds": 0.9498351272195578, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:20+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 62.566030027810484, "states": 512, "micro_batch": 128}
+{"time": "2026-10-21T00:16:21+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 62.895305905956775, "step": 130}
+{"time": "2026-10-21T00:16:21+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 63.230157122947276, "step": 130}
+{"time": "2026-10-21T00:16:24+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 66.20652984781191, "step": 140}
+{"time": "2026-10-21T00:16:24+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 66.54692681785673, "step": 140}
+{"time": "2026-10-21T00:16:26+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 67.88122997106984, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:27+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 68.75143587216735, "seconds": 0.870026761200279, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:27+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 68.75237191002816, "states": 512, "micro_batch": 144}
+{"time": "2026-10-21T00:16:28+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 70.33353249309584, "step": 150}
+{"time": "2026-10-21T00:16:28+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 70.64145266916603, "step": 150}
+{"time": "2026-10-21T00:16:31+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 73.39391754101962, "step": 160}
+{"time": "2026-10-21T00:16:32+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 73.70271284598857, "step": 160}
+{"time": "2026-10-21T00:16:32+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 73.70408976590261, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:32+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 74.56429491797462, "seconds": 0.8600671980530024, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:32+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 74.56519240001217, "states": 512, "micro_batch": 160}
+{"time": "2026-10-21T00:16:35+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 77.38507704716176, "step": 170}
+{"time": "2026-10-21T00:16:36+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 77.69532887311652, "step": 170}
+{"time": "2026-10-21T00:16:37+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 79.52609632117674, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:38+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 80.37105232384056, "seconds": 0.8447852400131524, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:38+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 80.37189905485138, "states": 512, "micro_batch": 176}
+{"time": "2026-10-21T00:16:39+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 81.34847565973178, "step": 180}
+{"time": "2026-10-21T00:16:40+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 81.66492870915681, "step": 180}
+{"time": "2026-10-21T00:16:42+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 84.41267351200804, "step": 190}
+{"time": "2026-10-21T00:16:43+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 84.72336645517498, "step": 190}
+{"time": "2026-10-21T00:16:43+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 85.33736224891618, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:44+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 86.16455883998424, "seconds": 0.8270354769192636, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:44+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 86.16541050188243, "states": 512, "micro_batch": 192}
+{"time": "2026-10-21T00:16:46+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 88.35534844594076, "step": 200}
+{"time": "2026-10-21T00:16:47+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 88.66060994984582, "step": 200}
+{"time": "2026-10-21T00:16:47+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 88.66077946405858, "step": 200}
+{"time": "2026-10-21T00:16:47+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 88.66244337614626, "tokens": 16384}
+{"time": "2026-10-21T00:16:47+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 88.66291044699028, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:47+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 89.48532818816602, "seconds": 0.82231903122738, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:48+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 89.66985319089144, "loss": 0.02378474920988083, "ce": -0.0, "mse": 0.02378474920988083, "teacher_entropy": -0.0, "error": 0.02378474920988083}
+{"time": "2026-10-21T00:16:48+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 89.67074678884819, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:48+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 90.48035322409123, "seconds": 0.8094682581722736, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:49+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 90.66568653099239, "local_tokens": 32768}
+{"time": "2026-10-21T00:16:49+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 90.67914542276412, "seconds": 0.013295845128595829, "local_tokens": 32768}
+{"time": "2026-10-21T00:16:49+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 90.9711062037386, "seconds": 2.310190313961357, "step": 200}
+{"time": "2026-10-21T00:16:51+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 93.42040565703064, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:52+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 94.23003883007914, "seconds": 0.8094568699598312, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:52+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 94.23083984013647, "states": 512, "micro_batch": 208}
+{"time": "2026-10-21T00:16:52+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 94.60869637317955, "step": 210}
+{"time": "2026-10-21T00:16:53+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 94.93283484317362, "step": 210}
+{"time": "2026-10-21T00:16:56+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 97.69371438212693, "step": 220}
+{"time": "2026-10-21T00:16:56+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 98.01045239018276, "step": 220}
+{"time": "2026-10-21T00:16:57+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 99.27085088798776, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:58+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 100.09914441173896, "seconds": 0.8280867571011186, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:16:58+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 100.10051819076762, "states": 512, "micro_batch": 224}
+{"time": "2026-10-21T00:17:00+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 101.82849999284372, "step": 230}
+{"time": "2026-10-21T00:17:00+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 102.17706711078063, "step": 230}
+{"time": "2026-10-21T00:17:03+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 105.36899403575808, "step": 240}
+{"time": "2026-10-21T00:17:04+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 105.7082852111198, "step": 240}
+{"time": "2026-10-21T00:17:04+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 105.70972310891375, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:05+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 106.74959125602618, "seconds": 1.039728017989546, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:05+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 106.75070762215182, "states": 512, "micro_batch": 240}
+{"time": "2026-10-21T00:17:08+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 109.88158150482923, "step": 250}
+{"time": "2026-10-21T00:17:08+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 110.22275067586452, "step": 250}
+{"time": "2026-10-21T00:17:10+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 112.19228391675279, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:11+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 113.14827857073396, "seconds": 0.9557264377363026, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:11+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 113.1492475909181, "states": 512, "micro_batch": 256}
+{"time": "2026-10-21T00:17:12+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 114.1859069308266, "step": 260}
+{"time": "2026-10-21T00:17:12+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 114.50743057206273, "step": 260}
+{"time": "2026-10-21T00:17:15+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 117.46337649878114, "step": 270}
+{"time": "2026-10-21T00:17:16+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 117.77943639177829, "step": 270}
+{"time": "2026-10-21T00:17:16+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 118.40956979617476, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:17+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 119.3159725307487, "seconds": 0.9062189869582653, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:17+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 119.3172185937874, "states": 512, "micro_batch": 272}
+{"time": "2026-10-21T00:17:20+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 121.66116055287421, "step": 280}
+{"time": "2026-10-21T00:17:20+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 121.98028537398204, "step": 280}
+{"time": "2026-10-21T00:17:22+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 124.52519671572372, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:23+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 125.4224845720455, "seconds": 0.8970662299543619, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:23+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 125.42364127188921, "states": 512, "micro_batch": 288}
+{"time": "2026-10-21T00:17:24+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 125.7562178238295, "step": 290}
+{"time": "2026-10-21T00:17:24+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 126.10883819591254, "step": 290}
+{"time": "2026-10-21T00:17:27+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 128.91643601702526, "step": 300}
+{"time": "2026-10-21T00:17:27+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 129.22896909108385, "step": 300}
+{"time": "2026-10-21T00:17:27+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 129.2291538817808, "step": 300}
+{"time": "2026-10-21T00:17:27+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 129.2318965648301, "tokens": 16384}
+{"time": "2026-10-21T00:17:27+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 129.23240046901628, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:28+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 130.1115430770442, "seconds": 0.8790206019766629, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:28+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 130.29396331496537, "loss": 0.02473534271121025, "ce": -0.0, "mse": 0.02473534271121025, "teacher_entropy": -0.0, "error": 0.02473534271121025}
+{"time": "2026-10-21T00:17:28+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 130.29487521294504, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:29+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 131.09236061992124, "seconds": 0.797349703963846, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:29+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 131.27657738281414, "local_tokens": 32768}
+{"time": "2026-10-21T00:17:29+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 131.2776970290579, "seconds": 0.0007184590213000774, "local_tokens": 32768}
+{"time": "2026-10-21T00:17:29+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 131.55950607499108, "seconds": 2.3302123891189694, "step": 300}
+{"time": "2026-10-21T00:17:31+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 132.81738149002194, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:32+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 133.66675917292014, "seconds": 0.8491536476649344, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:32+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 133.66815250180662, "states": 512, "micro_batch": 304}
+{"time": "2026-10-21T00:17:33+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 135.33900683093816, "step": 310}
+{"time": "2026-10-21T00:17:34+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 135.65867520682514, "step": 310}
+{"time": "2026-10-21T00:17:36+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 138.5038902000524, "step": 320}
+{"time": "2026-10-21T00:17:37+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 138.81974182697013, "step": 320}
+{"time": "2026-10-21T00:17:37+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 138.82112026307732, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:38+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 139.6761739710346, "seconds": 0.8549155304208398, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:38+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 139.67737459996715, "states": 512, "micro_batch": 320}
+{"time": "2026-10-21T00:17:40+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 142.57086455309764, "step": 330}
+{"time": "2026-10-21T00:17:41+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 142.89050743496045, "step": 330}
+{"time": "2026-10-21T00:17:43+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 144.74222041899338, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:43+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 145.58339397981763, "seconds": 0.8410005010664463, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:43+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 145.58439872972667, "states": 512, "micro_batch": 336}
+{"time": "2026-10-21T00:17:44+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 146.559807469137, "step": 340}
+{"time": "2026-10-21T00:17:45+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 146.87310988409445, "step": 340}
+{"time": "2026-10-21T00:17:48+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 149.68171822978184, "step": 350}
+{"time": "2026-10-21T00:17:48+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 150.00078834407032, "step": 350}
+{"time": "2026-10-21T00:17:48+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 150.62065963912755, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:49+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 151.48738480499014, "seconds": 0.8665457279421389, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:49+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 151.48854922084138, "states": 512, "micro_batch": 352}
+{"time": "2026-10-21T00:17:52+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 153.75417107110843, "step": 360}
+{"time": "2026-10-21T00:17:52+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 154.0844201790169, "step": 360}
+{"time": "2026-10-21T00:17:54+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 156.60774556407705, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:55+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 157.45466152997687, "seconds": 0.8466541902162135, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:17:55+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 157.4557271450758, "states": 512, "micro_batch": 368}
+{"time": "2026-10-21T00:17:56+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 157.79308238904923, "step": 370}
+{"time": "2026-10-21T00:17:56+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 158.13001425983384, "step": 370}
+{"time": "2026-10-21T00:17:59+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 160.96872702706605, "step": 380}
+{"time": "2026-10-21T00:17:59+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 161.28153424104676, "step": 380}
+{"time": "2026-10-21T00:18:00+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 162.54385847086087, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:01+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 163.39579870272428, "seconds": 0.8517302591353655, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:01+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 163.39680991275236, "states": 512, "micro_batch": 384}
+{"time": "2026-10-21T00:18:03+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 165.01494570681825, "step": 390}
+{"time": "2026-10-21T00:18:03+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 165.32828296814114, "step": 390}
+{"time": "2026-10-21T00:18:06+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 168.14364572800696, "step": 400}
+{"time": "2026-10-21T00:18:06+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 168.4616762297228, "step": 400}
+{"time": "2026-10-21T00:18:06+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 168.4619321860373, "step": 400}
+{"time": "2026-10-21T00:18:06+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 168.4639612059109, "tokens": 16384}
+{"time": "2026-10-21T00:18:06+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 168.46449451474473, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:07+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 169.31579259503633, "seconds": 0.8511892012320459, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:07+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 169.50052987411618, "loss": 0.024564873427152634, "ce": -0.0, "mse": 0.024564873427152634, "teacher_entropy": -0.0, "error": 0.024564873427152634}
+{"time": "2026-10-21T00:18:07+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 169.5014290488325, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:08+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 170.30219352291897, "seconds": 0.8006233591586351, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:08+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 170.48804548894987, "local_tokens": 32768}
+{"time": "2026-10-21T00:18:08+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 170.49034213274717, "seconds": 0.0021337689831852913, "local_tokens": 32768}
+{"time": "2026-10-21T00:18:09+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 170.7743460969068, "seconds": 2.3122460208833218, "step": 400}
+{"time": "2026-10-21T00:18:09+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 170.77761787781492, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:09+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 171.58691734308377, "seconds": 0.8090371959842741, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:09+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 171.5878470609896, "states": 512, "micro_batch": 400}
+{"time": "2026-10-21T00:18:12+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 174.45809295587242, "step": 410}
+{"time": "2026-10-21T00:18:13+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 174.7676929058507, "step": 410}
+{"time": "2026-10-21T00:18:14+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 176.59957632096484, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:15+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 177.4313384438865, "seconds": 0.8315902589820325, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:15+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 177.43249724898487, "states": 512, "micro_batch": 416}
+{"time": "2026-10-21T00:18:16+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 178.4359609070234, "step": 420}
+{"time": "2026-10-21T00:18:17+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 178.7495094621554, "step": 420}
+{"time": "2026-10-21T00:18:19+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 181.5208598030731, "step": 430}
+{"time": "2026-10-21T00:18:20+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 181.83196902973577, "step": 430}
+{"time": "2026-10-21T00:18:20+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 182.45366091793403, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:21+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 183.31356138316914, "seconds": 0.8597004851326346, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:21+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 183.3148041968234, "states": 512, "micro_batch": 432}
+{"time": "2026-10-21T00:18:23+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 185.53094974486157, "step": 440}
+{"time": "2026-10-21T00:18:24+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 185.84042982617393, "step": 440}
+{"time": "2026-10-21T00:18:26+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 188.32171026291326, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:27+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 189.17634946107864, "seconds": 0.8544625374488533, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:27+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 189.1775556690991, "states": 512, "micro_batch": 448}
+{"time": "2026-10-21T00:18:27+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 189.5105099119246, "step": 450}
+{"time": "2026-10-21T00:18:28+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 189.8410028340295, "step": 450}
+{"time": "2026-10-21T00:18:30+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 192.61668653599918, "step": 460}
+{"time": "2026-10-21T00:18:31+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 192.9294977360405, "step": 460}
+{"time": "2026-10-21T00:18:32+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 194.16368261398748, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:33+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 194.999658272136, "seconds": 0.8357937950640917, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:33+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 195.0007454478182, "states": 512, "micro_batch": 464}
+{"time": "2026-10-21T00:18:34+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 196.57496100198478, "step": 470}
+{"time": "2026-10-21T00:18:35+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 196.88357623293996, "step": 470}
+{"time": "2026-10-21T00:18:37+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 199.61234300304204, "step": 480}
+{"time": "2026-10-21T00:18:38+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 199.91868665395305, "step": 480}
+{"time": "2026-10-21T00:18:38+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 199.92003683373332, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:39+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 200.75121719017625, "seconds": 0.8310371311381459, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:39+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 200.7521970877424, "states": 512, "micro_batch": 480}
+{"time": "2026-10-21T00:18:41+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 203.52281460212544, "step": 490}
+{"time": "2026-10-21T00:18:42+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 203.82995744608343, "step": 490}
+{"time": "2026-10-21T00:18:44+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 205.6573838321492, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:44+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 206.4765622727573, "seconds": 0.8190069789998233, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:44+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 206.477642102167, "states": 512, "micro_batch": 496}
+{"time": "2026-10-21T00:18:45+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 207.4235788709484, "step": 500}
+{"time": "2026-10-21T00:18:46+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 207.72920808987692, "step": 500}
+{"time": "2026-10-21T00:18:46+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 207.7293941359967, "step": 500}
+{"time": "2026-10-21T00:18:46+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 207.73101734509692, "tokens": 16384}
+{"time": "2026-10-21T00:18:46+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 207.73149999789894, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:46+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 208.54748734785244, "seconds": 0.8158766087144613, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:47+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 208.734227667097, "loss": 0.02454991266131401, "ce": -0.0, "mse": 0.02454991266131401, "teacher_entropy": -0.0, "error": 0.02454991266131401}
+{"time": "2026-10-21T00:18:47+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 208.73512046877295, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:47+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 209.5373095208779, "seconds": 0.8020473644137383, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:48+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 209.72218864085153, "local_tokens": 32768}
+{"time": "2026-10-21T00:18:48+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 209.72267849184573, "seconds": 0.0003122766502201557, "local_tokens": 32768}
+{"time": "2026-10-21T00:18:48+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 210.009338430129, "seconds": 2.279778155963868, "step": 500}
+{"time": "2026-10-21T00:18:51+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 212.80548904277384, "step": 510}
+{"time": "2026-10-21T00:18:51+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 213.11623566783965, "step": 510}
+{"time": "2026-10-21T00:18:52+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 213.73192379111424, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:52+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 214.5834991489537, "seconds": 0.8513940060511231, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:52+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 214.58464453415945, "states": 512, "micro_batch": 512}
+{"time": "2026-10-21T00:18:55+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 216.80620986409485, "step": 520}
+{"time": "2026-10-21T00:18:55+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 217.11961176386103, "step": 520}
+{"time": "2026-10-21T00:18:57+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 219.56329585704952, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:58+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 220.40024836407974, "seconds": 0.8367691598832607, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:18:58+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 220.40134430490434, "states": 512, "micro_batch": 528}
+{"time": "2026-10-21T00:18:59+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 220.73572413995862, "step": 530}
+{"time": "2026-10-21T00:18:59+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 221.06023084791377, "step": 530}
+{"time": "2026-10-21T00:19:02+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 223.79925790894777, "step": 540}
+{"time": "2026-10-21T00:19:02+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 224.10998234711587, "step": 540}
+{"time": "2026-10-21T00:19:03+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 225.33188357390463, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:04+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 226.15567399002612, "seconds": 0.8236282239668071, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:04+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 226.15666286693886, "states": 512, "micro_batch": 544}
+{"time": "2026-10-21T00:19:06+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 227.75219175592065, "step": 550}
+{"time": "2026-10-21T00:19:06+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 228.06776741379872, "step": 550}
+{"time": "2026-10-21T00:19:09+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 230.86562409205362, "step": 560}
+{"time": "2026-10-21T00:19:09+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 231.18319386802614, "step": 560}
+{"time": "2026-10-21T00:19:09+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 231.18455075193197, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:10+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 232.03673243988305, "seconds": 0.8520141383633018, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:10+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 232.03792442707345, "states": 512, "micro_batch": 560}
+{"time": "2026-10-21T00:19:13+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 234.91139202285558, "step": 570}
+{"time": "2026-10-21T00:19:13+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 235.23006977094337, "step": 570}
+{"time": "2026-10-21T00:19:15+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 237.11100298492238, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:16+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 237.9350921739824, "seconds": 0.8239290798082948, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:16+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 237.9361164048314, "states": 512, "micro_batch": 576}
+{"time": "2026-10-21T00:19:17+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 238.880031269975, "step": 580}
+{"time": "2026-10-21T00:19:17+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 239.18667076481506, "step": 580}
+{"time": "2026-10-21T00:19:20+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 241.934514910914, "step": 590}
+{"time": "2026-10-21T00:19:20+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 242.24159275973216, "step": 590}
+{"time": "2026-10-21T00:19:21+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 242.8475334001705, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:22+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 243.68910569604486, "seconds": 0.8413868132047355, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:22+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 243.69015973201022, "states": 512, "micro_batch": 592}
+{"time": "2026-10-21T00:19:24+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 245.86716501181945, "step": 600}
+{"time": "2026-10-21T00:19:24+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 246.17585537582636, "step": 600}
+{"time": "2026-10-21T00:19:24+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 246.17603638581932, "step": 600}
+{"time": "2026-10-21T00:19:24+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 246.17769609577954, "tokens": 16384}
+{"time": "2026-10-21T00:19:24+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 246.17817929387093, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:25+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 247.01508110109717, "seconds": 0.8367876280099154, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:25+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 247.19969415897503, "loss": 0.023970993235707283, "ce": -0.0, "mse": 0.023970993235707283, "teacher_entropy": -0.0, "error": 0.023970993235707283}
+{"time": "2026-10-21T00:19:25+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 247.2005822090432, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:26+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 248.00427499879152, "seconds": 0.8035481739789248, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:26+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 248.18909665709361, "local_tokens": 32768}
+{"time": "2026-10-21T00:19:26+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 248.18960838997737, "seconds": 0.00034295301884412766, "local_tokens": 32768}
+{"time": "2026-10-21T00:19:26+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 248.48534373100847, "seconds": 2.3091578809544444, "step": 600}
+{"time": "2026-10-21T00:19:29+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 250.97421896411106, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:30+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 251.77918440615758, "seconds": 0.8047326658852398, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:30+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 251.78011133288965, "states": 512, "micro_batch": 608}
+{"time": "2026-10-21T00:19:30+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 252.12578935502097, "step": 610}
+{"time": "2026-10-21T00:19:30+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 252.45271857175976, "step": 610}
+{"time": "2026-10-21T00:19:33+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 255.2126457877457, "step": 620}
+{"time": "2026-10-21T00:19:33+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 255.5239849970676, "step": 620}
+{"time": "2026-10-21T00:19:35+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 256.7395966378972, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:35+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 257.5694491881877, "seconds": 0.8296765149571002, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:35+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 257.5705099548213, "states": 512, "micro_batch": 624}
+{"time": "2026-10-21T00:19:37+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 259.14725635992363, "step": 630}
+{"time": "2026-10-21T00:19:37+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 259.46672891499475, "step": 630}
+{"time": "2026-10-21T00:19:40+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 262.21258902875707, "step": 640}
+{"time": "2026-10-21T00:19:40+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 262.52704235818237, "step": 640}
+{"time": "2026-10-21T00:19:40+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 262.5283851241693, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:41+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 263.3548987978138, "seconds": 0.8263777550309896, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:41+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 263.35587259894237, "states": 512, "micro_batch": 640}
+{"time": "2026-10-21T00:19:44+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 266.1964611681178, "step": 650}
+{"time": "2026-10-21T00:19:44+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 266.5064138970338, "step": 650}
+{"time": "2026-10-21T00:19:46+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 268.36364146182314, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:47+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 269.2137458669022, "seconds": 0.8499353439547122, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:47+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 269.21475063683465, "states": 512, "micro_batch": 656}
+{"time": "2026-10-21T00:19:48+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 270.18819610076025, "step": 660}
+{"time": "2026-10-21T00:19:48+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 270.50351628288627, "step": 660}
+{"time": "2026-10-21T00:19:51+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 273.2522396799177, "step": 670}
+{"time": "2026-10-21T00:19:51+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 273.56344870710745, "step": 670}
+{"time": "2026-10-21T00:19:52+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 274.173427419737, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:53+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 275.0117218629457, "seconds": 0.8381248549558222, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:53+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 275.0126976869069, "states": 512, "micro_batch": 672}
+{"time": "2026-10-21T00:19:55+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 277.19363308977336, "step": 680}
+{"time": "2026-10-21T00:19:55+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 277.50155849801376, "step": 680}
+{"time": "2026-10-21T00:19:58+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 279.93218232505023, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:59+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 280.76481311488897, "seconds": 0.8324393033981323, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:19:59+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 280.7657729610801, "states": 512, "micro_batch": 688}
+{"time": "2026-10-21T00:19:59+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 281.0837948368862, "step": 690}
+{"time": "2026-10-21T00:19:59+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 281.40048237517476, "step": 690}
+{"time": "2026-10-21T00:20:02+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 284.1151222907938, "step": 700}
+{"time": "2026-10-21T00:20:02+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 284.41960284812376, "step": 700}
+{"time": "2026-10-21T00:20:02+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 284.4197811060585, "step": 700}
+{"time": "2026-10-21T00:20:02+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 284.42135345283896, "tokens": 16384}
+{"time": "2026-10-21T00:20:02+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 284.42183627095073, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:03+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 285.2368308668956, "seconds": 0.814885884989053, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:03+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 285.422551066149, "loss": 0.0236516036093235, "ce": -0.0, "mse": 0.0236516036093235, "teacher_entropy": -0.0, "error": 0.0236516036093235}
+{"time": "2026-10-21T00:20:03+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 285.4234604788944, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:04+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 286.22161182016134, "seconds": 0.798019289970398, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:04+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 286.387992573902, "local_tokens": 32768}
+{"time": "2026-10-21T00:20:04+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 286.42638795403764, "seconds": 0.03824901906773448, "local_tokens": 32768}
+{"time": "2026-10-21T00:20:04+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 286.4276282628998, "seconds": 2.007771573960781, "step": 700}
+{"time": "2026-10-21T00:20:05+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 287.6264644791372, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:06+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 288.4254884067923, "seconds": 0.7988894069567323, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:06+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 288.4262797278352, "states": 512, "micro_batch": 704}
+{"time": "2026-10-21T00:20:08+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 290.0305455108173, "step": 710}
+{"time": "2026-10-21T00:20:08+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 290.3464833027683, "step": 710}
+{"time": "2026-10-21T00:20:11+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 293.1279388060793, "step": 720}
+{"time": "2026-10-21T00:20:11+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 293.4404687988572, "step": 720}
+{"time": "2026-10-21T00:20:11+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 293.4415988698602, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:12+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 294.2408666317351, "seconds": 0.799159609246999, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:12+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 294.2416139957495, "states": 512, "micro_batch": 720}
+{"time": "2026-10-21T00:20:15+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 297.0149279171601, "step": 730}
+{"time": "2026-10-21T00:20:15+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 297.31890378007665, "step": 730}
+{"time": "2026-10-21T00:20:17+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 299.1119117010385, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:18+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 299.9531840151176, "seconds": 0.8411036808975041, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:18+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 299.95401931507513, "states": 512, "micro_batch": 736}
+{"time": "2026-10-21T00:20:19+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 300.8803046550602, "step": 740}
+{"time": "2026-10-21T00:20:19+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 301.183272481896, "step": 740}
+{"time": "2026-10-21T00:20:22+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 303.86970752011985, "step": 750}
+{"time": "2026-10-21T00:20:22+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 304.1753535880707, "step": 750}
+{"time": "2026-10-21T00:20:23+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 304.78433058410883, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:23+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 305.61540978308767, "seconds": 0.8309093206189573, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:23+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 305.6162385838106, "states": 512, "micro_batch": 752}
+{"time": "2026-10-21T00:20:26+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 307.7652245089412, "step": 760}
+{"time": "2026-10-21T00:20:26+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 308.070048046764, "step": 760}
+{"time": "2026-10-21T00:20:28+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 310.4879076271318, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:29+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 311.3095275857486, "seconds": 0.8214611350558698, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:29+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 311.3103257380426, "states": 512, "micro_batch": 768}
+{"time": "2026-10-21T00:20:30+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 311.651203264948, "step": 770}
+{"time": "2026-10-21T00:20:30+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 311.9643297959119, "step": 770}
+{"time": "2026-10-21T00:20:33+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 314.710761745926, "step": 780}
+{"time": "2026-10-21T00:20:33+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 315.0192487658933, "step": 780}
+{"time": "2026-10-21T00:20:34+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 316.22265140898526, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:35+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 317.04377572983503, "seconds": 0.8209453509189188, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:35+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 317.0448098378256, "states": 512, "micro_batch": 784}
+{"time": "2026-10-21T00:20:36+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 318.61548821488395, "step": 790}
+{"time": "2026-10-21T00:20:37+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 318.9207171089947, "step": 790}
+{"time": "2026-10-21T00:20:39+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 321.6446857769042, "step": 800}
+{"time": "2026-10-21T00:20:40+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 321.9501202511601, "step": 800}
+{"time": "2026-10-21T00:20:40+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 321.950306579005, "step": 800}
+{"time": "2026-10-21T00:20:40+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 321.9518753089942, "tokens": 16384}
+{"time": "2026-10-21T00:20:40+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 321.9523751307279, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:41+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 322.76894317474216, "seconds": 0.8164593069814146, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:41+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 322.95456945803016, "loss": 0.02338438853621483, "ce": -0.0, "mse": 0.02338438853621483, "teacher_entropy": -0.0, "error": 0.02338438853621483}
+{"time": "2026-10-21T00:20:41+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 322.9554675947875, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:42+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 323.758863390889, "seconds": 0.8032651850953698, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:42+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 323.94424340315163, "local_tokens": 32768}
+{"time": "2026-10-21T00:20:42+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 323.9534019329585, "seconds": 0.008983350824564695, "local_tokens": 32768}
+{"time": "2026-10-21T00:20:42+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 323.9546024268493, "seconds": 2.0042083198204637, "step": 800}
+{"time": "2026-10-21T00:20:42+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 323.9559314241633, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:43+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 324.76091099716723, "seconds": 0.8048651572316885, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:43+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 324.7618081327528, "states": 512, "micro_batch": 800}
+{"time": "2026-10-21T00:20:45+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 327.54398373002186, "step": 810}
+{"time": "2026-10-21T00:20:46+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 327.85115572204813, "step": 810}
+{"time": "2026-10-21T00:20:48+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 329.668817833066, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:48+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 330.4798114881851, "seconds": 0.8108347011730075, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:48+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 330.4807360358536, "states": 512, "micro_batch": 816}
+{"time": "2026-10-21T00:20:49+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 331.4315173118375, "step": 820}
+{"time": "2026-10-21T00:20:50+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 331.739588691853, "step": 820}
+{"time": "2026-10-21T00:20:52+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 334.48601078707725, "step": 830}
+{"time": "2026-10-21T00:20:53+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 334.7963439198211, "step": 830}
+{"time": "2026-10-21T00:20:53+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 335.4076110897586, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:54+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 336.21378309000283, "seconds": 0.8060123058967292, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:20:54+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 336.2146870647557, "states": 512, "micro_batch": 832}
+{"time": "2026-10-21T00:20:56+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 338.42387405689806, "step": 840}
+{"time": "2026-10-21T00:20:57+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 338.74038398312405, "step": 840}
+{"time": "2026-10-21T00:20:59+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 341.2132366541773, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:00+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 342.0623287661001, "seconds": 0.8489113408140838, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:00+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 342.0635147318244, "states": 512, "micro_batch": 848}
+{"time": "2026-10-21T00:21:00+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 342.3962293919176, "step": 850}
+{"time": "2026-10-21T00:21:01+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 342.7393572847359, "step": 850}
+{"time": "2026-10-21T00:21:03+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 345.5036963149905, "step": 860}
+{"time": "2026-10-21T00:21:04+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 345.81094442214817, "step": 860}
+{"time": "2026-10-21T00:21:05+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 347.02706227684394, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:06+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 347.84717895975336, "seconds": 0.8199386419728398, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:06+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 347.8480934421532, "states": 512, "micro_batch": 864}
+{"time": "2026-10-21T00:21:07+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 349.41865484416485, "step": 870}
+{"time": "2026-10-21T00:21:08+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 349.7255539759062, "step": 870}
+{"time": "2026-10-21T00:21:10+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 352.45178606081754, "step": 880}
+{"time": "2026-10-21T00:21:11+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 352.75758616486564, "step": 880}
+{"time": "2026-10-21T00:21:11+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 352.7589676361531, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:11+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 353.57382449600846, "seconds": 0.8147224630229175, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:11+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 353.57472570380196, "states": 512, "micro_batch": 880}
+{"time": "2026-10-21T00:21:14+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 356.3549003251828, "step": 890}
+{"time": "2026-10-21T00:21:15+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 356.6621874817647, "step": 890}
+{"time": "2026-10-21T00:21:16+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 358.48584223678336, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:17+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 359.29833105392754, "seconds": 0.812321768142283, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:17+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 359.29923198278993, "states": 512, "micro_batch": 896}
+{"time": "2026-10-21T00:21:18+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 360.23705282993615, "step": 900}
+{"time": "2026-10-21T00:21:18+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 360.5453721070662, "step": 900}
+{"time": "2026-10-21T00:21:18+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 360.54555958509445, "step": 900}
+{"time": "2026-10-21T00:21:18+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 360.54700366500765, "tokens": 16384}
+{"time": "2026-10-21T00:21:18+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 360.5474903387949, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:19+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 361.3568678367883, "seconds": 0.8092749840579927, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:19+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 361.54498105775565, "loss": 0.023998873308300972, "ce": -0.0, "mse": 0.023998873308300972, "teacher_entropy": -0.0, "error": 0.023998873308300972}
+{"time": "2026-10-21T00:21:19+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 361.5458537461236, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:20+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 362.3482499127276, "seconds": 0.8022693037055433, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:20+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 362.53510215878487, "local_tokens": 32768}
+{"time": "2026-10-21T00:21:20+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 362.5437044110149, "seconds": 0.008440504781901836, "local_tokens": 32768}
+{"time": "2026-10-21T00:21:21+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 362.83734525879845, "seconds": 2.29163867700845, "step": 900}
+{"time": "2026-10-21T00:21:23+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 365.57836372591555, "step": 910}
+{"time": "2026-10-21T00:21:24+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 365.8857403327711, "step": 910}
+{"time": "2026-10-21T00:21:24+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 366.4910546457395, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:25+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 367.29482408380136, "seconds": 0.803605389315635, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:25+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 367.2956790491007, "states": 512, "micro_batch": 912}
+{"time": "2026-10-21T00:21:27+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 369.4561282810755, "step": 920}
+{"time": "2026-10-21T00:21:28+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 369.76315823895857, "step": 920}
+{"time": "2026-10-21T00:21:30+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 372.18604759080335, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:31+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 372.9917571339756, "seconds": 0.8055136017501354, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:31+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 372.99260642612353, "states": 512, "micro_batch": 928}
+{"time": "2026-10-21T00:21:31+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 373.34410482877865, "step": 930}
+{"time": "2026-10-21T00:21:32+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 373.65165093913674, "step": 930}
+{"time": "2026-10-21T00:21:34+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 376.3705044379458, "step": 940}
+{"time": "2026-10-21T00:21:35+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 376.67664510104805, "step": 940}
+{"time": "2026-10-21T00:21:36+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 377.8838720531203, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:37+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 378.69081240706146, "seconds": 0.8067819606512785, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:37+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 378.691661179997, "states": 512, "micro_batch": 944}
+{"time": "2026-10-21T00:21:38+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 380.2581504629925, "step": 950}
+{"time": "2026-10-21T00:21:38+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 380.5655970838852, "step": 950}
+{"time": "2026-10-21T00:21:41+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 383.2895033499226, "step": 960}
+{"time": "2026-10-21T00:21:41+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 383.5955245238729, "step": 960}
+{"time": "2026-10-21T00:21:41+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 383.5968633387238, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:42+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 384.40335218794644, "seconds": 0.8063629469834268, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:42+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 384.40415494702756, "states": 512, "micro_batch": 960}
+{"time": "2026-10-21T00:21:45+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 387.22783849807456, "step": 970}
+{"time": "2026-10-21T00:21:45+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 387.5351910861209, "step": 970}
+{"time": "2026-10-21T00:21:47+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 389.3579991357401, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:48+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 390.1625800267793, "seconds": 0.8044241950847208, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:48+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 390.16345204180107, "states": 512, "micro_batch": 976}
+{"time": "2026-10-21T00:21:49+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 391.17642701184377, "step": 980}
+{"time": "2026-10-21T00:21:49+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 391.48282027384266, "step": 980}
+{"time": "2026-10-21T00:21:52+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 394.2216792367399, "step": 990}
+{"time": "2026-10-21T00:21:52+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 394.5270744408481, "step": 990}
+{"time": "2026-10-21T00:21:53+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 395.1352256750688, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:54+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 395.940149046015, "seconds": 0.8047597529366612, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:54+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 395.94100189907476, "states": 512, "micro_batch": 992}
+{"time": "2026-10-21T00:21:56+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 398.2853042851202, "step": 1000}
+{"time": "2026-10-21T00:21:56+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 398.62455810885876, "step": 1000}
+{"time": "2026-10-21T00:21:56+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 398.6247290628962, "step": 1000}
+{"time": "2026-10-21T00:21:56+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 398.6259536659345, "tokens": 16384}
+{"time": "2026-10-21T00:21:56+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 398.6264326288365, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:57+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 399.4490361600183, "seconds": 0.822490309830755, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:57+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 399.6343574351631, "loss": 0.02325262501835823, "ce": -0.0, "mse": 0.02325262501835823, "teacher_entropy": -0.0, "error": 0.02325262501835823}
+{"time": "2026-10-21T00:21:57+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 399.6352090751752, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:58+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 400.4361047069542, "seconds": 0.8007461279630661, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:21:58+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 400.6216020770371, "local_tokens": 32768}
+{"time": "2026-10-21T00:21:58+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 400.6328829359263, "seconds": 0.011119381990283728, "local_tokens": 32768}
+{"time": "2026-10-21T00:21:58+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 400.63424028176814, "seconds": 2.009431852027774, "step": 1000}
+{"time": "2026-10-21T00:22:01+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 403.2841840307228, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:02+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 404.09161754278466, "seconds": 0.8072540010325611, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:02+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 404.09253101283684, "states": 512, "micro_batch": 1008}
+{"time": "2026-10-21T00:22:02+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 404.42048359196633, "step": 1010}
+{"time": "2026-10-21T00:22:03+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 404.7371349888854, "step": 1010}
+{"time": "2026-10-21T00:22:05+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 407.45436366274953, "step": 1020}
+{"time": "2026-10-21T00:22:06+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 407.7598211108707, "step": 1020}
+{"time": "2026-10-21T00:22:07+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 408.96589399594814, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:08+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 409.7727536968887, "seconds": 0.8067100387997925, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:08+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 409.77349722292274, "states": 512, "micro_batch": 1024}
+{"time": "2026-10-21T00:22:09+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 411.3211489007808, "step": 1030}
+{"time": "2026-10-21T00:22:09+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 411.63681695610285, "step": 1030}
+{"time": "2026-10-21T00:22:12+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 414.34629845712334, "step": 1040}
+{"time": "2026-10-21T00:22:13+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 414.65199291473255, "step": 1040}
+{"time": "2026-10-21T00:22:13+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 414.65321397874504, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:13+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 415.4666320919059, "seconds": 0.8132860502228141, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:13+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 415.46750072576106, "states": 512, "micro_batch": 1040}
+{"time": "2026-10-21T00:22:16+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 418.2184716318734, "step": 1050}
+{"time": "2026-10-21T00:22:16+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 418.52470324980095, "step": 1050}
+{"time": "2026-10-21T00:22:18+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 420.3316938127391, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:19+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 421.1409649751149, "seconds": 0.8091047671623528, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:19+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 421.1418637270108, "states": 512, "micro_batch": 1056}
+{"time": "2026-10-21T00:22:20+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 422.08918749913573, "step": 1060}
+{"time": "2026-10-21T00:22:20+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 422.39511046698317, "step": 1060}
+{"time": "2026-10-21T00:22:23+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 425.1070583681576, "step": 1070}
+{"time": "2026-10-21T00:22:23+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 425.41564902476966, "step": 1070}
+{"time": "2026-10-21T00:22:24+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 426.021509304177, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:25+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 426.833991013933, "seconds": 0.8123236140236259, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:25+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 426.8348987731151, "states": 512, "micro_batch": 1072}
+{"time": "2026-10-21T00:22:27+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 428.99681263789535, "step": 1080}
+{"time": "2026-10-21T00:22:27+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 429.30506581394, "step": 1080}
+{"time": "2026-10-21T00:22:30+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 431.74564170185477, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:30+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 432.570034309756, "seconds": 0.8242267016321421, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:30+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 432.5709938229993, "states": 512, "micro_batch": 1088}
+{"time": "2026-10-21T00:22:31+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 432.90451869089156, "step": 1090}
+{"time": "2026-10-21T00:22:31+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 433.2157551641576, "step": 1090}
+{"time": "2026-10-21T00:22:34+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 435.95288730273023, "step": 1100}
+{"time": "2026-10-21T00:22:34+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 436.27874833298847, "step": 1100}
+{"time": "2026-10-21T00:22:34+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 436.27893212484196, "step": 1100}
+{"time": "2026-10-21T00:22:34+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 436.28046729415655, "tokens": 16384}
+{"time": "2026-10-21T00:22:34+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 436.2809389671311, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:35+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 437.13428002409637, "seconds": 0.8532173070125282, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:35+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 437.32053741579875, "loss": 0.02397814579308033, "ce": -0.0, "mse": 0.02397814579308033, "teacher_entropy": -0.0, "error": 0.02397814579308033}
+{"time": "2026-10-21T00:22:35+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 437.3214143710211, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:36+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 438.1239038640633, "seconds": 0.8023493331857026, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:36+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 438.3087323899381, "local_tokens": 32768}
+{"time": "2026-10-21T00:22:36+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 438.3091977578588, "seconds": 0.0003060717135667801, "local_tokens": 32768}
+{"time": "2026-10-21T00:22:36+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 438.31052736286074, "seconds": 2.0315182129852474, "step": 1100}
+{"time": "2026-10-21T00:22:37+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 439.5425738459453, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:38+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 440.345720582176, "seconds": 0.8029873771592975, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:38+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 440.34654976287857, "states": 512, "micro_batch": 1104}
+{"time": "2026-10-21T00:22:40+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 441.95440356293693, "step": 1110}
+{"time": "2026-10-21T00:22:40+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 442.26209556590766, "step": 1110}
+{"time": "2026-10-21T00:22:43+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 445.0247742231004, "step": 1120}
+{"time": "2026-10-21T00:22:43+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 445.3315471019596, "step": 1120}
+{"time": "2026-10-21T00:22:43+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 445.33287438796833, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:44+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 446.17646270478144, "seconds": 0.8434412409551442, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:44+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 446.1774309608154, "states": 512, "micro_batch": 1120}
+{"time": "2026-10-21T00:22:47+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 448.9779275287874, "step": 1130}
+{"time": "2026-10-21T00:22:47+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 449.2842838577926, "step": 1130}
+{"time": "2026-10-21T00:22:49+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 451.0988385230303, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:50+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 451.94114541402087, "seconds": 0.8421323942020535, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:50+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 451.9421246191487, "states": 512, "micro_batch": 1136}
+{"time": "2026-10-21T00:22:51+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 452.9381281910464, "step": 1140}
+{"time": "2026-10-21T00:22:51+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 453.26733882306144, "step": 1140}
+{"time": "2026-10-21T00:22:54+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 456.1904174508527, "step": 1150}
+{"time": "2026-10-21T00:22:54+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 456.5204959320836, "step": 1150}
+{"time": "2026-10-21T00:22:55+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 457.1730503551662, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:56+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 457.985657195095, "seconds": 0.8124413508921862, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:22:56+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 457.98657556576654, "states": 512, "micro_batch": 1152}
+{"time": "2026-10-21T00:22:58+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 460.19618018809706, "step": 1160}
+{"time": "2026-10-21T00:22:58+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 460.5103052230552, "step": 1160}
+{"time": "2026-10-21T00:23:01+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 462.9295714250766, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:02+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 463.7404171489179, "seconds": 0.8106777630746365, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:02+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 463.7413321691565, "states": 512, "micro_batch": 1168}
+{"time": "2026-10-21T00:23:02+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 464.08369397977367, "step": 1170}
+{"time": "2026-10-21T00:23:02+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 464.41502926917747, "step": 1170}
+{"time": "2026-10-21T00:23:05+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 467.14000176498666, "step": 1180}
+{"time": "2026-10-21T00:23:05+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 467.44723423104733, "step": 1180}
+{"time": "2026-10-21T00:23:07+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 468.6551760970615, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:07+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 469.4609643789008, "seconds": 0.8056172537617385, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:07+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 469.46183217316866, "states": 512, "micro_batch": 1184}
+{"time": "2026-10-21T00:23:09+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 471.01548307714984, "step": 1190}
+{"time": "2026-10-21T00:23:09+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 471.32340470096096, "step": 1190}
+{"time": "2026-10-21T00:23:12+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 474.03688732674345, "step": 1200}
+{"time": "2026-10-21T00:23:12+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 474.34318467089906, "step": 1200}
+{"time": "2026-10-21T00:23:12+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 474.34336832305416, "step": 1200}
+{"time": "2026-10-21T00:23:12+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 474.3448100229725, "tokens": 16384}
+{"time": "2026-10-21T00:23:12+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 474.34530281601474, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:13+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 475.1501713739708, "seconds": 0.8047650740481913, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:13+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 475.3358522010967, "loss": 0.022790830582380295, "ce": -0.0, "mse": 0.022790830582380295, "teacher_entropy": -0.0, "error": 0.022790830582380295}
+{"time": "2026-10-21T00:23:13+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 475.33672636700794, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:14+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 476.1367161567323, "seconds": 0.7998628979548812, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:14+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 476.3226050599478, "local_tokens": 32768}
+{"time": "2026-10-21T00:23:14+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 476.3442341987975, "seconds": 0.02146485773846507, "local_tokens": 32768}
+{"time": "2026-10-21T00:23:14+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 476.6397448531352, "seconds": 2.296251946128905, "step": 1200}
+{"time": "2026-10-21T00:23:14+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 476.6428364291787, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:15+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 477.45419473480433, "seconds": 0.8110952996648848, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:15+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 477.4550828677602, "states": 512, "micro_batch": 1200}
+{"time": "2026-10-21T00:23:18+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 480.2214035131037, "step": 1210}
+{"time": "2026-10-21T00:23:18+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 480.52628695080057, "step": 1210}
+{"time": "2026-10-21T00:23:20+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 482.33905977988616, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:21+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 483.14124251902103, "seconds": 0.8020238089375198, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:21+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 483.14209123980254, "states": 512, "micro_batch": 1216}
+{"time": "2026-10-21T00:23:22+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 484.11254684394225, "step": 1220}
+{"time": "2026-10-21T00:23:22+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 484.4279097588733, "step": 1220}
+{"time": "2026-10-21T00:23:25+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 487.1413650037721, "step": 1230}
+{"time": "2026-10-21T00:23:25+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 487.4474023091607, "step": 1230}
+{"time": "2026-10-21T00:23:26+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 488.0507951178588, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:27+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 488.8554288679734, "seconds": 0.8044757889583707, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:27+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 488.8562962329015, "states": 512, "micro_batch": 1232}
+{"time": "2026-10-21T00:23:29+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 491.02224448602647, "step": 1240}
+{"time": "2026-10-21T00:23:29+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 491.32629408175126, "step": 1240}
+{"time": "2026-10-21T00:23:32+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 493.73748962488025, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:32+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 494.5408326778561, "seconds": 0.8031855444423854, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:32+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 494.5416682609357, "states": 512, "micro_batch": 1248}
+{"time": "2026-10-21T00:23:33+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 494.87933189980686, "step": 1250}
+{"time": "2026-10-21T00:23:33+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 495.1932980250567, "step": 1250}
+{"time": "2026-10-21T00:23:36+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 497.9057115567848, "step": 1260}
+{"time": "2026-10-21T00:23:36+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 498.2117606638931, "step": 1260}
+{"time": "2026-10-21T00:23:37+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 499.41863813390955, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:38+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 500.2230285699479, "seconds": 0.8042054339312017, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:38+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 500.2238693279214, "states": 512, "micro_batch": 1264}
+{"time": "2026-10-21T00:23:40+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 501.80224625812843, "step": 1270}
+{"time": "2026-10-21T00:23:40+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 502.109577847179, "step": 1270}
+{"time": "2026-10-21T00:23:43+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 504.82941861776635, "step": 1280}
+{"time": "2026-10-21T00:23:43+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 505.13728184299543, "step": 1280}
+{"time": "2026-10-21T00:23:43+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 505.1386575801298, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:44+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 505.94210566813126, "seconds": 0.8033288712613285, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:44+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 505.94295684201643, "states": 512, "micro_batch": 1280}
+{"time": "2026-10-21T00:23:47+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 508.93732390599325, "step": 1290}
+{"time": "2026-10-21T00:23:47+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 509.2786709489301, "step": 1290}
+{"time": "2026-10-21T00:23:49+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 511.2806038330309, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:50+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 512.1063811378554, "seconds": 0.825615115929395, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:50+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 512.1072992049158, "states": 512, "micro_batch": 1296}
+{"time": "2026-10-21T00:23:51+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 513.0911605330184, "step": 1300}
+{"time": "2026-10-21T00:23:51+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 513.4136317051016, "step": 1300}
+{"time": "2026-10-21T00:23:51+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 513.413816248998, "step": 1300}
+{"time": "2026-10-21T00:23:51+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 513.4150501289405, "tokens": 16384}
+{"time": "2026-10-21T00:23:51+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 513.4155268948525, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:52+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 514.2368924161419, "seconds": 0.8212584527209401, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:52+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 514.4221217189915, "loss": 0.022537022829055786, "ce": -0.0, "mse": 0.022537022829055786, "teacher_entropy": -0.0, "error": 0.022537022829055786}
+{"time": "2026-10-21T00:23:52+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 514.4229915710166, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:53+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 515.2240479178727, "seconds": 0.800924161914736, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:53+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 515.4102932680398, "local_tokens": 32768}
+{"time": "2026-10-21T00:23:53+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 515.4377557327971, "seconds": 0.02729560388252139, "local_tokens": 32768}
+{"time": "2026-10-21T00:23:54+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 515.7642384930514, "seconds": 2.3502921010367572, "step": 1300}
+{"time": "2026-10-21T00:23:56+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 518.5270265601575, "step": 1310}
+{"time": "2026-10-21T00:23:57+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 518.8340130690485, "step": 1310}
+{"time": "2026-10-21T00:23:57+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 519.4424799769185, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:58+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 520.2462582290173, "seconds": 0.8036020011641085, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:23:58+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 520.2471187678166, "states": 512, "micro_batch": 1312}
+{"time": "2026-10-21T00:24:00+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 522.4486441728659, "step": 1320}
+{"time": "2026-10-21T00:24:01+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 522.7567760180682, "step": 1320}
+{"time": "2026-10-21T00:24:03+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 525.1984101738781, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:04+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 526.0041910829023, "seconds": 0.8056243010796607, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:04+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 526.0050160139799, "states": 512, "micro_batch": 1328}
+{"time": "2026-10-21T00:24:04+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 526.3582270871848, "step": 1330}
+{"time": "2026-10-21T00:24:05+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 526.6858149319887, "step": 1330}
+{"time": "2026-10-21T00:24:07+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 529.419802675955, "step": 1340}
+{"time": "2026-10-21T00:24:08+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 529.7275049341843, "step": 1340}
+{"time": "2026-10-21T00:24:09+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 530.9518414288759, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:10+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 531.7753613339737, "seconds": 0.8233305620960891, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:10+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 531.7762870970182, "states": 512, "micro_batch": 1344}
+{"time": "2026-10-21T00:24:11+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 533.3422070280649, "step": 1350}
+{"time": "2026-10-21T00:24:12+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 533.6503325360827, "step": 1350}
+{"time": "2026-10-21T00:24:14+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 536.379677197896, "step": 1360}
+{"time": "2026-10-21T00:24:15+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 536.6858879867941, "step": 1360}
+{"time": "2026-10-21T00:24:15+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 536.6872845189646, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:15+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 537.5033431560732, "seconds": 0.8159301830455661, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:15+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 537.5042110690847, "states": 512, "micro_batch": 1360}
+{"time": "2026-10-21T00:24:18+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 540.29503282113, "step": 1370}
+{"time": "2026-10-21T00:24:18+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 540.6011478179134, "step": 1370}
+{"time": "2026-10-21T00:24:20+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 542.4182362570427, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:21+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 543.2302280310541, "seconds": 0.811789380852133, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:21+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 543.2311160727404, "states": 512, "micro_batch": 1376}
+{"time": "2026-10-21T00:24:22+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 544.2093672640622, "step": 1380}
+{"time": "2026-10-21T00:24:22+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 544.515934904106, "step": 1380}
+{"time": "2026-10-21T00:24:25+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 547.2509716148488, "step": 1390}
+{"time": "2026-10-21T00:24:25+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 547.5578118390404, "step": 1390}
+{"time": "2026-10-21T00:24:26+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 548.1791066960432, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:27+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 548.9921415131539, "seconds": 0.812859850935638, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:27+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 548.9930103798397, "states": 512, "micro_batch": 1392}
+{"time": "2026-10-21T00:24:29+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 551.1850369749591, "step": 1400}
+{"time": "2026-10-21T00:24:29+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 551.4910536641255, "step": 1400}
+{"time": "2026-10-21T00:24:29+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 551.4912266731262, "step": 1400}
+{"time": "2026-10-21T00:24:29+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 551.4927840749733, "tokens": 16384}
+{"time": "2026-10-21T00:24:29+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 551.493290991988, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:30+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 552.2969643599354, "seconds": 0.8035548008047044, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:30+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 552.483194953762, "loss": 0.023787740617990494, "ce": -0.0, "mse": 0.023787740617990494, "teacher_entropy": -0.0, "error": 0.023787740617990494}
+{"time": "2026-10-21T00:24:30+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 552.4841255387291, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:31+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 553.2839321517386, "seconds": 0.7996778688393533, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:31+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 553.4702978227288, "local_tokens": 32768}
+{"time": "2026-10-21T00:24:31+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 553.4887053468265, "seconds": 0.018228754866868258, "local_tokens": 32768}
+{"time": "2026-10-21T00:24:32+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 553.7868921551853, "seconds": 2.2955277236178517, "step": 1400}
+{"time": "2026-10-21T00:24:34+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 556.2276470018551, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:35+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 557.0306306960993, "seconds": 0.8028201488777995, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:35+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 557.0315773580223, "states": 512, "micro_batch": 1408}
+{"time": "2026-10-21T00:24:35+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 557.3662429498509, "step": 1410}
+{"time": "2026-10-21T00:24:36+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 557.6842343099415, "step": 1410}
+{"time": "2026-10-21T00:24:38+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 560.3922429960221, "step": 1420}
+{"time": "2026-10-21T00:24:39+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 560.7018682630733, "step": 1420}
+{"time": "2026-10-21T00:24:40+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 561.9041869938374, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:41+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 562.7118936609477, "seconds": 0.807537104934454, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:41+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 562.7127778730355, "states": 512, "micro_batch": 1424}
+{"time": "2026-10-21T00:24:42+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 564.3769076471217, "step": 1430}
+{"time": "2026-10-21T00:24:43+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 564.7092953338288, "step": 1430}
+{"time": "2026-10-21T00:24:46+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 567.6726966919377, "step": 1440}
+{"time": "2026-10-21T00:24:46+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 568.0070181828924, "step": 1440}
+{"time": "2026-10-21T00:24:46+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 568.0083007370122, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:47+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 568.8426393610425, "seconds": 0.8342039827257395, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:47+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 568.8436409239657, "states": 512, "micro_batch": 1440}
+{"time": "2026-10-21T00:24:49+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 571.6095210569911, "step": 1450}
+{"time": "2026-10-21T00:24:50+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 571.9173508109525, "step": 1450}
+{"time": "2026-10-21T00:24:52+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 573.729476321023, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:52+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 574.5525041711517, "seconds": 0.8228626986965537, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:52+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 574.5534563628025, "states": 512, "micro_batch": 1456}
+{"time": "2026-10-21T00:24:53+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 575.5190108930692, "step": 1460}
+{"time": "2026-10-21T00:24:54+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 575.8323725047521, "step": 1460}
+{"time": "2026-10-21T00:24:56+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 578.5617794287391, "step": 1470}
+{"time": "2026-10-21T00:24:57+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 578.8664926309139, "step": 1470}
+{"time": "2026-10-21T00:24:57+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 579.4703848441131, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:58+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 580.2925736298785, "seconds": 0.8220240962691605, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:24:58+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 580.2935746000148, "states": 512, "micro_batch": 1472}
+{"time": "2026-10-21T00:25:00+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 582.4508926267736, "step": 1480}
+{"time": "2026-10-21T00:25:01+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 582.756631296128, "step": 1480}
+{"time": "2026-10-21T00:25:03+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 585.1724751950242, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:04+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 585.9901374927722, "seconds": 0.8174989297986031, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:04+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 585.9910661540926, "states": 512, "micro_batch": 1488}
+{"time": "2026-10-21T00:25:04+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 586.3289211457595, "step": 1490}
+{"time": "2026-10-21T00:25:04+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 586.6493520881049, "step": 1490}
+{"time": "2026-10-21T00:25:07+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 589.3889057869092, "step": 1500}
+{"time": "2026-10-21T00:25:08+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 589.6980309658684, "step": 1500}
+{"time": "2026-10-21T00:25:08+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 589.6981968409382, "step": 1500}
+{"time": "2026-10-21T00:25:08+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 589.6993086710572, "tokens": 16384}
+{"time": "2026-10-21T00:25:08+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 589.6997780581005, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:08+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 590.5197189077735, "seconds": 0.8198306853882968, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:09+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 590.7046474739909, "loss": 0.02092139795422554, "ce": -0.0, "mse": 0.02092139795422554, "teacher_entropy": -0.0, "error": 0.02092139795422554}
+{"time": "2026-10-21T00:25:09+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 590.7055364530534, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:09+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 591.5073069068603, "seconds": 0.8016226361505687, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:10+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 591.693391290959, "local_tokens": 32768}
+{"time": "2026-10-21T00:25:10+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 591.6994327427819, "seconds": 0.005876387003809214, "local_tokens": 32768}
+{"time": "2026-10-21T00:25:10+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 591.9600172699429, "seconds": 2.2616960993036628, "step": 1500}
+{"time": "2026-10-21T00:25:11+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 593.199606937822, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:12+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 594.0060441419482, "seconds": 0.8062752038240433, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:12+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 594.0068645221181, "states": 512, "micro_batch": 1504}
+{"time": "2026-10-21T00:25:13+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 595.5803784737363, "step": 1510}
+{"time": "2026-10-21T00:25:14+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 595.8892511399463, "step": 1510}
+{"time": "2026-10-21T00:25:16+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 598.6077434099279, "step": 1520}
+{"time": "2026-10-21T00:25:17+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 598.9164313781075, "step": 1520}
+{"time": "2026-10-21T00:25:17+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 598.9177788030356, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:18+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 599.7380722891539, "seconds": 0.8201626907102764, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:18+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 599.738976104185, "states": 512, "micro_batch": 1520}
+{"time": "2026-10-21T00:25:20+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 602.4980783010833, "step": 1530}
+{"time": "2026-10-21T00:25:21+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 602.8047646679915, "step": 1530}
+{"time": "2026-10-21T00:25:22+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 604.6191102471203, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:23+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 605.4308610730805, "seconds": 0.8115705479867756, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:23+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 605.4317997181788, "states": 512, "micro_batch": 1536}
+{"time": "2026-10-21T00:25:24+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 606.407637395896, "step": 1540}
+{"time": "2026-10-21T00:25:25+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 606.7154085938819, "step": 1540}
+{"time": "2026-10-21T00:25:27+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 609.4282304327935, "step": 1550}
+{"time": "2026-10-21T00:25:28+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 609.7367151100188, "step": 1550}
+{"time": "2026-10-21T00:25:28+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 610.338942351751, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:29+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 611.1483060908504, "seconds": 0.8091924572363496, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:29+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 611.1491925530136, "states": 512, "micro_batch": 1552}
+{"time": "2026-10-21T00:25:31+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 613.3387326700613, "step": 1560}
+{"time": "2026-10-21T00:25:31+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 613.6448393389583, "step": 1560}
+{"time": "2026-10-21T00:25:34+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 616.0817559007555, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:35+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 616.8899547788315, "seconds": 0.8080367562361062, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:35+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 616.890801182948, "states": 512, "micro_batch": 1568}
+{"time": "2026-10-21T00:25:35+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 617.252391947899, "step": 1570}
+{"time": "2026-10-21T00:25:35+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 617.5920192920603, "step": 1570}
+{"time": "2026-10-21T00:25:38+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 620.5810901601799, "step": 1580}
+{"time": "2026-10-21T00:25:39+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 620.9229526831768, "step": 1580}
+{"time": "2026-10-21T00:25:40+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 622.2546109771356, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:41+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 623.0632124599069, "seconds": 0.8084387551061809, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:41+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 623.0641060909256, "states": 512, "micro_batch": 1584}
+{"time": "2026-10-21T00:25:43+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 624.6517285029404, "step": 1590}
+{"time": "2026-10-21T00:25:43+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 624.9568110690452, "step": 1590}
+{"time": "2026-10-21T00:25:46+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 627.6753901648335, "step": 1600}
+{"time": "2026-10-21T00:25:46+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 627.982535189949, "step": 1600}
+{"time": "2026-10-21T00:25:46+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 627.9827147647738, "step": 1600}
+{"time": "2026-10-21T00:25:46+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 627.9839007849805, "tokens": 16384}
+{"time": "2026-10-21T00:25:46+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 627.9843749660067, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:47+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 628.789819677826, "seconds": 0.805345619097352, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:47+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 628.976487849839, "loss": 0.023334220051765442, "ce": -0.0, "mse": 0.023334220051765442, "teacher_entropy": -0.0, "error": 0.023334220051765442}
+{"time": "2026-10-21T00:25:47+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 628.9774119690992, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:48+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 629.7776728207245, "seconds": 0.8001326862722635, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:48+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 629.9642483941279, "local_tokens": 32768}
+{"time": "2026-10-21T00:25:48+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 629.9805841851048, "seconds": 0.01614637626335025, "local_tokens": 32768}
+{"time": "2026-10-21T00:25:48+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 629.9818707257509, "seconds": 1.99907465884462, "step": 1600}
+{"time": "2026-10-21T00:25:48+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 629.9831808549352, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:49+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 630.7904584109783, "seconds": 0.8071629763580859, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:49+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 630.7913127918728, "states": 512, "micro_batch": 1600}
+{"time": "2026-10-21T00:25:51+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 633.5582980168983, "step": 1610}
+{"time": "2026-10-21T00:25:52+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 633.866144943051, "step": 1610}
+{"time": "2026-10-21T00:25:54+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 635.6786236697808, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:54+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 636.4794639158063, "seconds": 0.8006697939708829, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:25:54+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 636.4803512440994, "states": 512, "micro_batch": 1616}
+{"time": "2026-10-21T00:25:55+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 637.4665361531079, "step": 1620}
+{"time": "2026-10-21T00:25:56+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 637.773070669733, "step": 1620}
+{"time": "2026-10-21T00:25:58+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 640.5111208171584, "step": 1630}
+{"time": "2026-10-21T00:25:59+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 640.8176666810177, "step": 1630}
+{"time": "2026-10-21T00:25:59+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 641.4204961727373, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:00+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 642.225973547902, "seconds": 0.8053117818199098, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:00+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 642.2268461938947, "states": 512, "micro_batch": 1632}
+{"time": "2026-10-21T00:26:02+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 644.455086865928, "step": 1640}
+{"time": "2026-10-21T00:26:03+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 644.7619349681772, "step": 1640}
+{"time": "2026-10-21T00:26:05+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 647.181098097004, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:06+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 647.9835454961285, "seconds": 0.8022903162054718, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:06+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 647.9843843267299, "states": 512, "micro_batch": 1648}
+{"time": "2026-10-21T00:26:06+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 648.3518501799554, "step": 1650}
+{"time": "2026-10-21T00:26:07+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 648.6718179918826, "step": 1650}
+{"time": "2026-10-21T00:26:09+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 651.3901320998557, "step": 1660}
+{"time": "2026-10-21T00:26:10+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 651.696089441888, "step": 1660}
+{"time": "2026-10-21T00:26:11+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 652.9014379759319, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:12+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 653.7046220707707, "seconds": 0.8030229229480028, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:12+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 653.7054508649744, "states": 512, "micro_batch": 1664}
+{"time": "2026-10-21T00:26:13+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 655.284233415965, "step": 1670}
+{"time": "2026-10-21T00:26:13+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 655.5888338647783, "step": 1670}
+{"time": "2026-10-21T00:26:16+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 658.2882791277952, "step": 1680}
+{"time": "2026-10-21T00:26:16+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 658.5941201900132, "step": 1680}
+{"time": "2026-10-21T00:26:16+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 658.5956900250167, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:17+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 659.3982101948932, "seconds": 0.8023893008939922, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:17+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 659.3990593091585, "states": 512, "micro_batch": 1680}
+{"time": "2026-10-21T00:26:20+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 662.205511784181, "step": 1690}
+{"time": "2026-10-21T00:26:20+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 662.5115443188697, "step": 1690}
+{"time": "2026-10-21T00:26:22+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 664.3174459398724, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:23+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 665.1252825288102, "seconds": 0.807633955962956, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:23+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 665.1262475270778, "states": 512, "micro_batch": 1696}
+{"time": "2026-10-21T00:26:24+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 666.0987678798847, "step": 1700}
+{"time": "2026-10-21T00:26:24+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 666.406898168847, "step": 1700}
+{"time": "2026-10-21T00:26:24+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 666.4070781157352, "step": 1700}
+{"time": "2026-10-21T00:26:24+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 666.4083131398074, "tokens": 16384}
+{"time": "2026-10-21T00:26:24+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 666.4087675721385, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:25+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 667.2123909550719, "seconds": 0.8035283125936985, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:25+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 667.3988684159704, "loss": 0.024095114320516586, "ce": -0.0, "mse": 0.024095114320516586, "teacher_entropy": -0.0, "error": 0.024095114320516586}
+{"time": "2026-10-21T00:26:25+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 667.3997546248138, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:26+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 668.1998257050291, "seconds": 0.7999315629713237, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:26+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 668.3855937137268, "local_tokens": 32768}
+{"time": "2026-10-21T00:26:26+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 668.4062736318447, "seconds": 0.020511344075202942, "local_tokens": 32768}
+{"time": "2026-10-21T00:26:26+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 668.4075526609086, "seconds": 2.000395618379116, "step": 1700}
+{"time": "2026-10-21T00:26:29+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 671.114447243046, "step": 1710}
+{"time": "2026-10-21T00:26:29+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 671.4227244821377, "step": 1710}
+{"time": "2026-10-21T00:26:30+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 672.0284185279161, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:31+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 672.8309498429298, "seconds": 0.8023774242028594, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:31+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 672.8317269417457, "states": 512, "micro_batch": 1712}
+{"time": "2026-10-21T00:26:33+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 675.1531378449872, "step": 1720}
+{"time": "2026-10-21T00:26:33+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 675.4901955570094, "step": 1720}
+{"time": "2026-10-21T00:26:36+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 678.1665582847781, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:37+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 678.9817710369825, "seconds": 0.8150323396548629, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:37+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 678.9825364761055, "states": 512, "micro_batch": 1728}
+{"time": "2026-10-21T00:26:37+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 679.3208687021397, "step": 1730}
+{"time": "2026-10-21T00:26:38+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 679.6516942661256, "step": 1730}
+{"time": "2026-10-21T00:26:40+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 682.375256110914, "step": 1740}
+{"time": "2026-10-21T00:26:41+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 682.6835857029073, "step": 1740}
+{"time": "2026-10-21T00:26:42+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 683.891924505122, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:43+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 684.7018388770521, "seconds": 0.8097586962394416, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:43+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 684.7026028321125, "states": 512, "micro_batch": 1744}
+{"time": "2026-10-21T00:26:44+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 686.2856982140802, "step": 1750}
+{"time": "2026-10-21T00:26:44+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 686.5914750727825, "step": 1750}
+{"time": "2026-10-21T00:26:47+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 689.3029615930282, "step": 1760}
+{"time": "2026-10-21T00:26:47+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 689.6087507698685, "step": 1760}
+{"time": "2026-10-21T00:26:47+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 689.6100097778253, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:48+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 690.4188608131371, "seconds": 0.8087455369532108, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:48+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 690.4195818668231, "states": 512, "micro_batch": 1760}
+{"time": "2026-10-21T00:26:51+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 693.1722115208395, "step": 1770}
+{"time": "2026-10-21T00:26:51+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 693.4830707609653, "step": 1770}
+{"time": "2026-10-21T00:26:53+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 695.2969035808928, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:54+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 696.1106615429744, "seconds": 0.81359579320997, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:26:54+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 696.1114520048723, "states": 512, "micro_batch": 1776}
+{"time": "2026-10-21T00:26:55+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 697.0795567417517, "step": 1780}
+{"time": "2026-10-21T00:26:55+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 697.3870663400739, "step": 1780}
+{"time": "2026-10-21T00:26:58+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 700.1019712239504, "step": 1790}
+{"time": "2026-10-21T00:26:58+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 700.4093683981337, "step": 1790}
+{"time": "2026-10-21T00:26:59+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 701.0140717998147, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:27:00+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 701.8217353248037, "seconds": 0.8075045682489872, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:27:00+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.buffer", "elapsed_seconds": 701.8225301187485, "states": 512, "micro_batch": 1792}
+{"time": "2026-10-21T00:27:02+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.begin", "elapsed_seconds": 703.9818146578036, "step": 1800}
+{"time": "2026-10-21T00:27:02+08:00", "rank": 6, "pid": 3797329, "stage": "train.step.end", "elapsed_seconds": 704.2885788530111, "step": 1800}
+{"time": "2026-10-21T00:27:02+08:00", "rank": 6, "pid": 3797329, "stage": "validation.begin", "elapsed_seconds": 704.2887424789369, "step": 1800}
+{"time": "2026-10-21T00:27:02+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.begin", "elapsed_seconds": 704.2897327719256, "tokens": 16384}
+{"time": "2026-10-21T00:27:02+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 704.2901068190113, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:27:03+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 705.0956952190027, "seconds": 0.8055076012387872, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:27:03+08:00", "rank": 6, "pid": 3797329, "stage": "validation.first_batch.end", "elapsed_seconds": 705.273712858092, "loss": 0.022282041609287262, "ce": -0.0, "mse": 0.022282041609287262, "teacher_entropy": -0.0, "error": 0.022282041609287262}
+{"time": "2026-10-21T00:27:03+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.begin", "elapsed_seconds": 705.2744602970779, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:27:04+08:00", "rank": 6, "pid": 3797329, "stage": "on_policy.rollout.end", "elapsed_seconds": 706.0685908291489, "seconds": 0.7940170429646969, "family": "elf", "trajectories": 8, "steps": 32}
+{"time": "2026-10-21T00:27:04+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.begin", "elapsed_seconds": 706.2473744377494, "local_tokens": 32768}
+{"time": "2026-10-21T00:27:04+08:00", "rank": 6, "pid": 3797329, "stage": "validation.reduce.end", "elapsed_seconds": 706.2850584299304, "seconds": 0.0375123112462461, "local_tokens": 32768}
+{"time": "2026-10-21T00:27:04+08:00", "rank": 6, "pid": 3797329, "stage": "validation.end", "elapsed_seconds": 706.2862319177948, "seconds": 1.9974227203056216, "step": 1800}
+{"time": "2026-10-21T00:27:04+08:00", "rank": 6, "pid": 3797329, "stage": "train.early_stop", "elapsed_seconds": 706.2863311837427, "step": 1800, "metric": "error", "best_step": 1500, "best_value": 0.039495590957812965}

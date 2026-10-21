@@ -1,0 +1,755 @@
+[launcher] log: /proj/gpu_mtk53742/CDLM-distillation/run/launch/20261020_204746_3599645.log
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 3] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.end {"seconds": 0.11101903021335602, "backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.end {"seconds": 0.05096311308443546, "backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.end {"seconds": 0.07221156125888228, "backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.end {"seconds": 0.12487852107733488, "backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.end {"seconds": 0.13102461490780115, "backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.end {"seconds": 0.10827177902683616, "backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.end {"seconds": 0.03478198405355215, "backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.end {"seconds": 0.02160647278651595, "backend": "gloo", "world_size": 8}
+[rank 0] tensor_group.init.begin {"backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 0] tensor_group.init.end {"seconds": 0.005486191716045141, "backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 0] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+[rank 4] tensor_group.init.begin {"backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}
+[rank 7] tensor_group.init.begin {"backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}
+[rank 2] tensor_group.init.begin {"backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}
+[rank 5] tensor_group.init.begin {"backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+[rank 1] tensor_group.init.begin {"backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}
+[rank 3] tensor_group.init.begin {"backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}
+[rank 6] tensor_group.init.begin {"backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+[rank 4] tensor_group.init.end {"seconds": 0.006409955210983753, "backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}[rank 7] tensor_group.init.end {"seconds": 0.006374009884893894, "backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}[rank 2] tensor_group.init.end {"seconds": 0.006340550724416971, "backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}
+
+
+[rank 4] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+[rank 2] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:2", "bytes": 1048576}[rank 7] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+
+[rank 1] tensor_group.init.end {"seconds": 0.006370979826897383, "backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}
+[rank 5] tensor_group.init.end {"seconds": 0.006499888375401497, "backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+[rank 1] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:1", "bytes": 1048576}
+[rank 5] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+[rank 6] tensor_group.init.end {"seconds": 0.006310347001999617, "backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+[rank 3] tensor_group.init.end {"seconds": 0.0063796681351959705, "backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}
+[rank 6] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+[rank 3] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:3", "bytes": 1048576}
+[rank 7] communication.all_reduce.end {"seconds": 0.8763427720405161, "backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+[rank 5] communication.all_reduce.end {"seconds": 0.8762760162353516, "backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+[rank 7] communication.broadcast.begin {"backend": "nccl", "device": "cuda:7"}
+[rank 5] communication.broadcast.begin {"backend": "nccl", "device": "cuda:5"}
+[rank 6] communication.all_reduce.end {"seconds": 0.8770590657368302, "backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+[rank 6] communication.broadcast.begin {"backend": "nccl", "device": "cuda:6"}
+[rank 0] communication.all_reduce.end {"seconds": 0.8969677411951125, "backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+[rank 3] communication.all_reduce.end {"seconds": 0.8778934287838638, "backend": "nccl", "device": "cuda:3", "bytes": 1048576}
+[rank 0] communication.broadcast.begin {"backend": "nccl", "device": "cuda:0"}
+[rank 3] communication.broadcast.begin {"backend": "nccl", "device": "cuda:3"}
+[rank 0] communication.broadcast.end {"seconds": 0.00047164829447865486, "backend": "nccl", "device": "cuda:0"}
+[rank 4] communication.all_reduce.end {"seconds": 0.8793297777883708, "backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+[rank 0] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 4] communication.broadcast.begin {"backend": "nccl", "device": "cuda:4"}
+[rank 0] model.files.resolve.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 2] communication.all_reduce.end {"seconds": 0.8795440131798387, "backend": "nccl", "device": "cuda:2", "bytes": 1048576}
+[rank 2] communication.broadcast.begin {"backend": "nccl", "device": "cuda:2"}
+[rank 1] communication.all_reduce.end {"seconds": 0.8859518659301102, "backend": "nccl", "device": "cuda:1", "bytes": 1048576}
+[rank 1] communication.broadcast.begin {"backend": "nccl", "device": "cuda:1"}
+[rank 1] communication.broadcast.end {"seconds": 0.0006169937551021576, "backend": "nccl", "device": "cuda:1"}
+[rank 2] communication.broadcast.end {"seconds": 0.006899337284266949, "backend": "nccl", "device": "cuda:2"}
+[rank 3] communication.broadcast.end {"seconds": 0.007994465995579958, "backend": "nccl", "device": "cuda:3"}
+[rank 4] communication.broadcast.end {"seconds": 0.007265903055667877, "backend": "nccl", "device": "cuda:4"}
+[rank 5] communication.broadcast.end {"seconds": 0.010459173936396837, "backend": "nccl", "device": "cuda:5"}
+[rank 1] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 6] communication.broadcast.end {"seconds": 0.00900797313079238, "backend": "nccl", "device": "cuda:6"}
+[rank 7] communication.broadcast.end {"seconds": 0.010661772917956114, "backend": "nccl", "device": "cuda:7"}
+[rank 3] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 2] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 5] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 4] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 7] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 6] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 0] model.files.resolve.end {"seconds": 0.5293694846332073, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 0] model.files.wait.end {"seconds": 0.5320347617380321, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 0] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 7] model.files.wait.end {"seconds": 0.5246615731157362, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 1] model.files.wait.end {"seconds": 0.525086771696806, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 5] model.files.wait.end {"seconds": 0.5248413826338947, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}[rank 4] model.files.wait.end {"seconds": 0.524742211215198, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+
+[rank 3] model.files.wait.end {"seconds": 0.5250108577311039, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 7] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 1] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 5] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 6] model.files.wait.end {"seconds": 0.5248456047847867, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 4] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 3] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 2] model.files.wait.end {"seconds": 0.5251359059475362, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 6] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 2] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 7] model.weights.load.end {"seconds": 1.1838783212006092, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 7] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:7"}
+[rank 6] model.weights.load.end {"seconds": 1.1838561561889946, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 5] model.weights.load.end {"seconds": 1.1841064938344061, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 6] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:6"}
+[rank 5] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:5"}
+[rank 4] model.weights.load.end {"seconds": 1.2153120450675488, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 4] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:4"}
+[rank 2] model.weights.load.end {"seconds": 1.2265800437889993, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 1] model.weights.load.end {"seconds": 1.2268760800361633, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 2] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:2"}
+[rank 1] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:1"}
+[rank 0] model.weights.load.end {"seconds": 1.229722775053233, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 0] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:0"}
+[rank 3] model.weights.load.end {"seconds": 1.2309835297055542, "model": "Continuous-Rivals-Discrete/langflow-lm1b"}
+[rank 3] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:3"}
+[rank 6] model.to_device.end {"seconds": 0.11380933597683907, "model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:6"}
+[rank 7] model.to_device.end {"seconds": 0.11902856593951583, "model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:7"}
+[rank 5] model.to_device.end {"seconds": 0.11917535029351711, "model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:5"}
+[rank 4] model.to_device.end {"seconds": 0.11572171887382865, "model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:4"}
+[rank 1] model.to_device.end {"seconds": 0.12519511487334967, "model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:1"}
+[rank 2] model.to_device.end {"seconds": 0.12577536283060908, "model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:2"}
+[rank 0] model.to_device.end {"seconds": 0.12360664317384362, "model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:0"}
+[rank 3] model.to_device.end {"seconds": 0.12368188006803393, "model": "Continuous-Rivals-Discrete/langflow-lm1b", "device": "cuda:3"}
+[rank 7] data.loaders.begin {}
+[rank 1] data.loaders.begin {}[rank 3] data.loaders.begin {}
+
+[rank 4] data.loaders.begin {}
+[rank 5] data.loaders.begin {}
+[rank 2] data.loaders.begin {}
+[rank 6] data.loaders.begin {}
+[rank 7] data.loaders.end {"seconds": 0.0013150651939213276}
+[rank 3] data.loaders.end {"seconds": 0.001316010020673275}
+[rank 1] data.loaders.end {"seconds": 0.0013436051085591316}
+[rank 7] ddp.init.begin {"device": "cuda:7"}
+[rank 1] ddp.init.begin {"device": "cuda:1"}[rank 3] ddp.init.begin {"device": "cuda:3"}
+
+[rank 4] data.loaders.end {"seconds": 0.003029251005500555}
+[rank 2] data.loaders.end {"seconds": 0.002926063258200884}
+[rank 5] data.loaders.end {"seconds": 0.0031483699567615986}
+[rank 0] data.loaders.begin {}
+[rank 6] data.loaders.end {"seconds": 0.0035135820508003235}
+[rank 4] ddp.init.begin {"device": "cuda:4"}
+[rank 2] ddp.init.begin {"device": "cuda:2"}
+[rank 5] ddp.init.begin {"device": "cuda:5"}
+[rank 6] ddp.init.begin {"device": "cuda:6"}
+[rank 0] data.loaders.end {"seconds": 0.0013844291679561138}
+[rank 0] ddp.init.begin {"device": "cuda:0"}
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+[rank 1] ddp.init.end {"seconds": 1.5402949689887464, "device": "cuda:1"}
+[rank 4] ddp.init.end {"seconds": 1.539166482631117, "device": "cuda:4"}
+[rank 1] validation.begin {"step": 0}
+[rank 4] validation.begin {"step": 0}
+[rank 5] ddp.init.end {"seconds": 1.5398306851275265, "device": "cuda:5"}
+[rank 7] ddp.init.end {"seconds": 1.542244371958077, "device": "cuda:7"}
+[rank 3] ddp.init.end {"seconds": 1.5424833106808364, "device": "cuda:3"}
+[rank 0] ddp.init.end {"seconds": 1.539280821569264, "device": "cuda:0"}
+[rank 5] validation.begin {"step": 0}
+[rank 7] validation.begin {"step": 0}
+[rank 3] validation.begin {"step": 0}
+[rank 2] ddp.init.end {"seconds": 1.5419695172458887, "device": "cuda:2"}
+[rank 2] validation.begin {"step": 0}
+[rank 6] ddp.init.end {"seconds": 1.5425522648729384, "device": "cuda:6"}[rank 0] validation.begin {"step": 0}
+
+[rank 6] validation.begin {"step": 0}
+[rank 1] validation.first_batch.begin {"tokens": 1024}
+[rank 1] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] validation.first_batch.begin {"tokens": 1024}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] validation.first_batch.begin {"tokens": 1024}
+[rank 2] validation.first_batch.begin {"tokens": 1024}
+[rank 4] validation.first_batch.begin {"tokens": 1024}
+[rank 3] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 4] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] validation.first_batch.begin {"tokens": 1024}
+[rank 7] validation.first_batch.begin {"tokens": 1024}
+[rank 5] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] validation.first_batch.begin {"tokens": 1024}
+[rank 6] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.rollout.end {"seconds": 1.199996734969318, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] on_policy.rollout.end {"seconds": 1.2109790300019085, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] on_policy.rollout.end {"seconds": 1.2093447297811508, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 4] on_policy.rollout.end {"seconds": 1.2243720819242299, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] validation.first_batch.end {"loss": 4.194118022918701, "ce": 4.194118022918701, "mse": -0.0, "teacher_entropy": 4.100827693939209, "error": 0.09329032897949219}
+[rank 5] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] validation.first_batch.end {"loss": 4.704989433288574, "ce": 4.704989433288574, "mse": -0.0, "teacher_entropy": 4.643673419952393, "error": 0.06131601333618164}
+[rank 1] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] validation.first_batch.end {"loss": 2.9800758361816406, "ce": 2.9800758361816406, "mse": -0.0, "teacher_entropy": 2.866429328918457, "error": 0.1136465072631836}
+[rank 7] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 4] validation.first_batch.end {"loss": 3.398393154144287, "ce": 3.398393154144287, "mse": -0.0, "teacher_entropy": 3.303455352783203, "error": 0.09493780136108398}
+[rank 4] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] on_policy.rollout.end {"seconds": 1.4534289138391614, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] on_policy.rollout.end {"seconds": 1.4961300981231034, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] validation.first_batch.end {"loss": 5.295881748199463, "ce": 5.295881748199463, "mse": -0.0, "teacher_entropy": 5.240300178527832, "error": 0.05558156967163086}
+[rank 6] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] validation.first_batch.end {"loss": 2.713273048400879, "ce": 2.713273048400879, "mse": -0.0, "teacher_entropy": 2.6452465057373047, "error": 0.06802654266357422}
+[rank 3] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] on_policy.rollout.end {"seconds": 1.5441795820370317, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.rollout.end {"seconds": 1.5531693883240223, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] validation.first_batch.end {"loss": 2.5710906982421875, "ce": 2.5710906982421875, "mse": -0.0, "teacher_entropy": 2.4934563636779785, "error": 0.07763433456420898}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] validation.first_batch.end {"loss": 4.731802940368652, "ce": 4.731802940368652, "mse": -0.0, "teacher_entropy": 4.6713714599609375, "error": 0.060431480407714844}
+[rank 2] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.rollout.end {"seconds": 0.9541282299906015, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] on_policy.rollout.end {"seconds": 0.9712859098799527, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] on_policy.rollout.end {"seconds": 0.9829575498588383, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] validation.reduce.begin {"local_tokens": 2048}
+[rank 4] on_policy.rollout.end {"seconds": 0.9793400797061622, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] validation.reduce.begin {"local_tokens": 2048}
+[rank 1] validation.reduce.begin {"local_tokens": 2048}
+[rank 4] validation.reduce.begin {"local_tokens": 2048}
+[rank 6] on_policy.rollout.end {"seconds": 0.9738744460046291, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] validation.reduce.begin {"local_tokens": 2048}
+[rank 3] on_policy.rollout.end {"seconds": 1.1942458292469382, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] validation.reduce.begin {"local_tokens": 2048}
+[rank 0] on_policy.rollout.end {"seconds": 1.198635471984744, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.rollout.end {"seconds": 1.2217709980905056, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] validation.reduce.begin {"local_tokens": 2048}
+[rank 2] validation.reduce.begin {"local_tokens": 2048}
+[rank 0] validation.reduce.end {"seconds": 0.03413744596764445, "local_tokens": 2048}
+[rank 3] validation.reduce.end {"seconds": 0.0833562989719212, "local_tokens": 2048}
+[rank 2] validation.reduce.end {"seconds": 0.000521583016961813, "local_tokens": 2048}
+[rank 7] validation.reduce.end {"seconds": 0.6030593640170991, "local_tokens": 2048}
+[rank 5] validation.reduce.end {"seconds": 0.6301270527765155, "local_tokens": 2048}
+[rank 4] validation.reduce.end {"seconds": 0.5769130461849272, "local_tokens": 2048}
+[train] {'phase': 'valid', 'step': 0, 'ce': 3.5785712003707886, 'error': 0.08635486662387848, 'loss': 3.5785712003707886, 'mse': 0.0, 'teacher_entropy': 3.49221633374691, 'elapsed_seconds': 2.946008911821991}
+[rank 1] validation.reduce.end {"seconds": 0.5947194118052721, "local_tokens": 2048}
+[rank 6] validation.reduce.end {"seconds": 0.3452544640749693, "local_tokens": 2048}
+[rank 5] checkpoint.wait_ready.begin {"step": 0}
+[rank 7] checkpoint.wait_ready.begin {"step": 0}
+[rank 3] checkpoint.wait_ready.begin {"step": 0}
+[rank 1] checkpoint.wait_ready.begin {"step": 0}
+[rank 4] checkpoint.wait_ready.begin {"step": 0}
+[train] {'phase': 'early_stopping', 'step': 0, 'metric': 'error', 'value': 0.08635486662387848, 'new_best': True, 'best_value': 0.08635486662387848, 'best_step': 0, 'bad_checks': 0, 'should_stop': False, 'elapsed_seconds': 2.94784716097638}
+[rank 0] checkpoint.save.begin {"step": 0, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261020_204753_381724_on_policy_langflow_lm1b/checkpoints/best"}
+[rank 2] checkpoint.wait_ready.begin {"step": 0}
+[rank 6] checkpoint.wait_ready.begin {"step": 0}
+[rank 0] checkpoint.save.end {"step": 0}
+[rank 0] checkpoint.wait_ready.begin {"step": 0}
+[rank 0] checkpoint.wait_ready.end {"seconds": 0.0006064870394766331, "step": 0}
+[rank 1] checkpoint.wait_ready.end {"seconds": 0.4117805506102741, "step": 0}
+[rank 5] checkpoint.wait_ready.end {"seconds": 0.41186272306367755, "step": 0}
+[rank 7] checkpoint.wait_ready.end {"seconds": 0.4118584915995598, "step": 0}
+[rank 3] checkpoint.wait_ready.end {"seconds": 0.4118508310057223, "step": 0}[rank 6] checkpoint.wait_ready.end {"seconds": 0.4109410382807255, "step": 0}
+
+[rank 2] checkpoint.wait_ready.end {"seconds": 0.41108436416834593, "step": 0}
+[rank 4] checkpoint.wait_ready.end {"seconds": 0.4121484560891986, "step": 0}
+[rank 0] validation.end {"seconds": 3.3603052822872996, "step": 0}
+[rank 0] train.step.begin {"step": 1}
+[rank 2] validation.end {"seconds": 3.360604321118444, "step": 0}[rank 3] validation.end {"seconds": 3.3621129314415157, "step": 0}[rank 5] validation.end {"seconds": 3.36280126683414, "step": 0}[rank 4] validation.end {"seconds": 3.363806020002812, "step": 0}
+
+
+
+[rank 7] validation.end {"seconds": 3.362664687912911, "step": 0}
+[rank 6] validation.end {"seconds": 3.3592329150997102, "step": 0}
+[rank 1] validation.end {"seconds": 3.3645492852665484, "step": 0}
+[rank 3] train.step.begin {"step": 1}[rank 2] train.step.begin {"step": 1}
+
+[rank 4] train.step.begin {"step": 1}[rank 5] train.step.begin {"step": 1}[rank 7] train.step.begin {"step": 1}
+
+
+[rank 1] train.step.begin {"step": 1}
+[rank 6] train.step.begin {"step": 1}
+[rank 0] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 5] train.micro_batch.begin {"step": 1, "micro_batch": 1}[rank 3] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+
+[rank 7] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 2] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 4] train.micro_batch.begin {"step": 1, "micro_batch": 1}[rank 1] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 3] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}[rank 5] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+
+[rank 7] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 4] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}[rank 1] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+
+[rank 6] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.rollout.end {"seconds": 0.9635545825585723, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.buffer {"states": 16, "micro_batch": 0}
+[rank 7] on_policy.rollout.end {"seconds": 0.9782247915863991, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] on_policy.buffer {"states": 16, "micro_batch": 0}
+[rank 6] on_policy.rollout.end {"seconds": 0.978252774104476, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] on_policy.buffer {"states": 16, "micro_batch": 0}
+[rank 1] on_policy.rollout.end {"seconds": 0.9872164563275874, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] on_policy.buffer {"states": 16, "micro_batch": 0}
+[rank 0] on_policy.rollout.end {"seconds": 0.9899188280105591, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] on_policy.buffer {"states": 16, "micro_batch": 0}
+[rank 4] on_policy.rollout.end {"seconds": 0.9921278478577733, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 4] on_policy.buffer {"states": 16, "micro_batch": 0}
+[rank 2] on_policy.rollout.end {"seconds": 1.0086496979929507, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.buffer {"states": 16, "micro_batch": 0}
+[rank 5] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 7] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 6] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 1] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 0] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 4] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 2] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 5] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 7] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 6] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 0] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 1] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 4] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 2] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 3] on_policy.rollout.end {"seconds": 1.2040646490640938, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] on_policy.buffer {"states": 16, "micro_batch": 0}
+[rank 3] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 3] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 7] train.step.end {"step": 1}[rank 4] train.step.end {"step": 1}[rank 5] train.step.end {"step": 1}
+
+
+[rank 1] train.step.end {"step": 1}
+[rank 6] train.step.end {"step": 1}[rank 2] train.step.end {"step": 1}
+
+[rank 3] train.step.end {"step": 1}
+[train] {'phase': 'train', 'step': 1, 'ce': 3.340479075908661, 'error': 0.09680312871932983, 'loss': 3.340479075908661, 'mse': 0.0, 'teacher_entropy': 3.243675947189331, 'grad_norm': 0.10924116522073746, 'tokens': 8192, 'epoch': 0, 'learning_rate': 1e-05, 'rank0_peak_memory_gib': 2.3126540184020996, 'elapsed_seconds': 4.971148776821792}
+[rank 0] train.step.end {"step": 1}
+[rank 1] train.step.begin {"step": 10}
+[rank 7] train.step.begin {"step": 10}
+[rank 5] train.step.begin {"step": 10}[rank 0] train.step.begin {"step": 10}
+
+[rank 4] train.step.begin {"step": 10}
+[rank 2] train.step.begin {"step": 10}
+[rank 6] train.step.begin {"step": 10}
+[rank 3] train.step.begin {"step": 10}
+[rank 5] train.step.end {"step": 10}[rank 4] train.step.end {"step": 10}[rank 7] train.step.end {"step": 10}
+
+
+[rank 1] train.step.end {"step": 10}[rank 2] train.step.end {"step": 10}
+
+[rank 6] train.step.end {"step": 10}
+[rank 3] train.step.end {"step": 10}
+[train] {'phase': 'train', 'step': 10, 'ce': 3.861649215221405, 'error': 0.08277842402458191, 'loss': 3.861649215221405, 'mse': 0.0, 'teacher_entropy': 3.778870791196823, 'grad_norm': 0.08383830636739731, 'tokens': 8192, 'epoch': 0, 'learning_rate': 9.999928021987399e-06, 'rank0_peak_memory_gib': 2.8543176651000977, 'elapsed_seconds': 6.508278715889901}
+[rank 0] train.step.end {"step": 10}
+[rank 7] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}[rank 5] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}[rank 1] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+
+
+[rank 4] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.rollout.end {"seconds": 0.9581034337170422, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.buffer {"states": 32, "micro_batch": 16}
+[rank 6] on_policy.rollout.end {"seconds": 0.9714968330226839, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] on_policy.buffer {"states": 32, "micro_batch": 16}
+[rank 7] on_policy.rollout.end {"seconds": 0.972532263956964, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] on_policy.buffer {"states": 32, "micro_batch": 16}
+[rank 4] on_policy.rollout.end {"seconds": 0.9840191337279975, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 4] on_policy.buffer {"states": 32, "micro_batch": 16}
+[rank 1] on_policy.rollout.end {"seconds": 0.9876076630316675, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] on_policy.rollout.end {"seconds": 0.987809541169554, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] on_policy.buffer {"states": 32, "micro_batch": 16}
+[rank 0] on_policy.buffer {"states": 32, "micro_batch": 16}
+[rank 2] on_policy.rollout.end {"seconds": 1.0057497969828546, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.buffer {"states": 32, "micro_batch": 16}
+[rank 3] on_policy.rollout.end {"seconds": 1.234381001908332, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] on_policy.buffer {"states": 32, "micro_batch": 16}
+[rank 2] train.step.begin {"step": 20}
+[rank 1] train.step.begin {"step": 20}
+[rank 0] train.step.begin {"step": 20}
+[rank 5] train.step.begin {"step": 20}[rank 7] train.step.begin {"step": 20}
+[rank 4] train.step.begin {"step": 20}
+
+[rank 6] train.step.begin {"step": 20}
+[rank 3] train.step.begin {"step": 20}
+[rank 7] train.step.end {"step": 20}[rank 5] train.step.end {"step": 20}[rank 4] train.step.end {"step": 20}
+
+
+[rank 1] train.step.end {"step": 20}[rank 6] train.step.end {"step": 20}
+
+[rank 3] train.step.end {"step": 20}
+[rank 2] train.step.end {"step": 20}
+[train] {'phase': 'train', 'step': 20, 'ce': 2.800706207752228, 'error': 0.09760722517967224, 'loss': 2.800706207752228, 'mse': 0.0, 'teacher_entropy': 2.7030989825725555, 'grad_norm': 0.07697927951812744, 'tokens': 8192, 'epoch': 0, 'learning_rate': 9.999679212060508e-06, 'rank0_peak_memory_gib': 2.8543176651000977, 'elapsed_seconds': 9.444748155772686}
+[rank 0] train.step.end {"step": 20}
+[rank 1] train.step.begin {"step": 30}
+[rank 7] train.step.begin {"step": 30}
+[rank 5] train.step.begin {"step": 30}[rank 2] train.step.begin {"step": 30}
+
+[rank 4] train.step.begin {"step": 30}
+[rank 6] train.step.begin {"step": 30}
+[rank 0] train.step.begin {"step": 30}
+[rank 3] train.step.begin {"step": 30}
+[rank 7] train.step.end {"step": 30}[rank 5] train.step.end {"step": 30}
+
+[rank 4] train.step.end {"step": 30}
+[rank 1] train.step.end {"step": 30}[rank 6] train.step.end {"step": 30}
+
+[rank 2] train.step.end {"step": 30}
+[rank 3] train.step.end {"step": 30}
+[train] {'phase': 'train', 'step': 30, 'ce': 3.352277785539627, 'error': 0.0963420569896698, 'loss': 3.352277785539627, 'mse': 0.0, 'teacher_entropy': 3.2559357285499573, 'grad_norm': 0.06510519236326218, 'tokens': 8192, 'epoch': 0, 'learning_rate': 9.99925269142607e-06, 'rank0_peak_memory_gib': 2.8543176651000977, 'elapsed_seconds': 11.140659046825022}
+[rank 0] train.step.end {"step": 30}
+[rank 7] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}[rank 4] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+
+[rank 5] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}[rank 1] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+
+[rank 2] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}[rank 3] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+
+[rank 5] on_policy.rollout.end {"seconds": 0.9563119648955762, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.buffer {"states": 48, "micro_batch": 32}
+[rank 6] on_policy.rollout.end {"seconds": 0.9671323988586664, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] on_policy.buffer {"states": 48, "micro_batch": 32}
+[rank 7] on_policy.rollout.end {"seconds": 0.9715646430850029, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] on_policy.buffer {"states": 48, "micro_batch": 32}
+[rank 4] on_policy.rollout.end {"seconds": 0.9855212033726275, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 4] on_policy.buffer {"states": 48, "micro_batch": 32}
+[rank 1] on_policy.rollout.end {"seconds": 0.9882951802574098, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] on_policy.buffer {"states": 48, "micro_batch": 32}
+[rank 2] on_policy.rollout.end {"seconds": 1.0031326059252024, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.buffer {"states": 48, "micro_batch": 32}
+[rank 0] on_policy.rollout.end {"seconds": 1.2174145663157105, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] on_policy.buffer {"states": 48, "micro_batch": 32}
+[rank 3] on_policy.rollout.end {"seconds": 1.2203544252552092, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] on_policy.buffer {"states": 48, "micro_batch": 32}
+[rank 7] train.step.begin {"step": 40}[rank 5] train.step.begin {"step": 40}
+
+[rank 4] train.step.begin {"step": 40}
+[rank 6] train.step.begin {"step": 40}
+[rank 1] train.step.begin {"step": 40}
+[rank 2] train.step.begin {"step": 40}
+[rank 0] train.step.begin {"step": 40}
+[rank 3] train.step.begin {"step": 40}
+[rank 1] train.step.end {"step": 40}[rank 6] train.step.end {"step": 40}
+[rank 5] train.step.end {"step": 40}[rank 7] train.step.end {"step": 40}
+
+
+[rank 4] train.step.end {"step": 40}
+[rank 3] train.step.end {"step": 40}
+[rank 2] train.step.end {"step": 40}
+[train] {'phase': 'train', 'step': 40, 'ce': 3.6627595722675323, 'error': 0.09286731481552124, 'loss': 3.6627595722675323, 'mse': 0.0, 'teacher_entropy': 3.569892257452011, 'grad_norm': 0.05855051055550575, 'tokens': 8192, 'epoch': 0, 'learning_rate': 9.998648476929125e-06, 'rank0_peak_memory_gib': 2.8543176651000977, 'elapsed_seconds': 14.071908704005182}
+[rank 0] train.step.end {"step": 40}
+[rank 4] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}[rank 2] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}[rank 7] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+
+
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.rollout.end {"seconds": 0.9563781591132283, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.buffer {"states": 64, "micro_batch": 48}
+[rank 6] on_policy.rollout.end {"seconds": 0.9712481861934066, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] on_policy.rollout.end {"seconds": 0.9715089304372668, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] on_policy.buffer {"states": 64, "micro_batch": 48}
+[rank 7] on_policy.buffer {"states": 64, "micro_batch": 48}
+[rank 4] on_policy.rollout.end {"seconds": 0.985713719855994, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 4] on_policy.buffer {"states": 64, "micro_batch": 48}
+[rank 2] on_policy.rollout.end {"seconds": 1.003275512252003, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.buffer {"states": 64, "micro_batch": 48}
+[rank 0] on_policy.rollout.end {"seconds": 1.2177198641002178, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] on_policy.buffer {"states": 64, "micro_batch": 48}
+[rank 3] on_policy.rollout.end {"seconds": 1.2258770279586315, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] on_policy.buffer {"states": 64, "micro_batch": 48}
+[rank 1] on_policy.rollout.end {"seconds": 1.228014200925827, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] on_policy.buffer {"states": 64, "micro_batch": 48}
+[rank 7] train.step.begin {"step": 50}
+[rank 5] train.step.begin {"step": 50}
+[rank 1] train.step.begin {"step": 50}
+[rank 4] train.step.begin {"step": 50}
+[rank 3] train.step.begin {"step": 50}
+[rank 6] train.step.begin {"step": 50}
+[rank 0] train.step.begin {"step": 50}
+[rank 2] train.step.begin {"step": 50}
+[rank 4] train.step.end {"step": 50}[rank 7] train.step.end {"step": 50}[rank 5] train.step.end {"step": 50}
+
+
+[rank 2] train.step.end {"step": 50}
+[rank 6] train.step.end {"step": 50}
+[rank 3] train.step.end {"step": 50}
+[rank 1] train.step.end {"step": 50}
+[train] {'phase': 'train', 'step': 50, 'ce': 3.6833739280700684, 'error': 0.07736271619796753, 'loss': 3.6833739280700684, 'mse': 0.0, 'teacher_entropy': 3.606011211872101, 'grad_norm': 0.049719151109457016, 'tokens': 8192, 'epoch': 0, 'learning_rate': 9.99786659243257e-06, 'rank0_peak_memory_gib': 2.8543176651000977, 'elapsed_seconds': 17.014323591720313}
+[rank 0] train.step.end {"step": 50}
+[rank 7] train.step.begin {"step": 60}
+[rank 5] train.step.begin {"step": 60}
+[rank 4] train.step.begin {"step": 60}
+[rank 6] train.step.begin {"step": 60}
+[rank 2] train.step.begin {"step": 60}
+[rank 0] train.step.begin {"step": 60}
+[rank 1] train.step.begin {"step": 60}
+[rank 3] train.step.begin {"step": 60}
+[rank 7] train.step.end {"step": 60}[rank 5] train.step.end {"step": 60}[rank 4] train.step.end {"step": 60}
+
+
+[rank 6] train.step.end {"step": 60}[rank 2] train.step.end {"step": 60}
+
+[rank 1] train.step.end {"step": 60}
+[rank 3] train.step.end {"step": 60}
+[train] {'phase': 'train', 'step': 60, 'ce': 3.186504989862442, 'error': 0.08870257437229156, 'loss': 3.186504989862442, 'mse': 0.0, 'teacher_entropy': 3.0978024154901505, 'grad_norm': 0.054604671895504, 'tokens': 8192, 'epoch': 0, 'learning_rate': 9.99690706881622e-06, 'rank0_peak_memory_gib': 2.8543176651000977, 'elapsed_seconds': 18.736258399672806}
+[rank 0] train.step.end {"step": 60}
+[rank 7] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}[rank 5] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}[rank 4] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+
+
+[rank 2] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}[rank 6] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.rollout.end {"seconds": 0.9539115498773754, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.buffer {"states": 64, "micro_batch": 64}
+[rank 7] on_policy.rollout.end {"seconds": 0.9687657481990755, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] on_policy.rollout.end {"seconds": 0.9686787072569132, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] on_policy.buffer {"states": 64, "micro_batch": 64}
+[rank 6] on_policy.buffer {"states": 64, "micro_batch": 64}
+[rank 4] on_policy.rollout.end {"seconds": 0.9835035703144968, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 4] on_policy.buffer {"states": 64, "micro_batch": 64}
+[rank 2] on_policy.rollout.end {"seconds": 0.9997513187117875, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.buffer {"states": 64, "micro_batch": 64}
+[rank 0] on_policy.rollout.end {"seconds": 1.2098436360247433, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] on_policy.buffer {"states": 64, "micro_batch": 64}
+[rank 1] on_policy.rollout.end {"seconds": 1.2173284338787198, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] on_policy.buffer {"states": 64, "micro_batch": 64}
+[rank 3] on_policy.rollout.end {"seconds": 1.2272247639484704, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] on_policy.buffer {"states": 64, "micro_batch": 64}
+[rank 7] train.step.begin {"step": 70}
+[rank 5] train.step.begin {"step": 70}
+[rank 4] train.step.begin {"step": 70}
+[rank 6] train.step.begin {"step": 70}
+[rank 0] train.step.begin {"step": 70}[rank 1] train.step.begin {"step": 70}
+
+[rank 3] train.step.begin {"step": 70}
+[rank 2] train.step.begin {"step": 70}
+[rank 5] train.step.end {"step": 70}[rank 7] train.step.end {"step": 70}[rank 4] train.step.end {"step": 70}
+
+
+[rank 6] train.step.end {"step": 70}[rank 2] train.step.end {"step": 70}
+
+[rank 1] train.step.end {"step": 70}
+[rank 3] train.step.end {"step": 70}
+[train] {'phase': 'train', 'step': 70, 'ce': 3.2916919589042664, 'error': 0.09542769193649292, 'loss': 3.2916919589042664, 'mse': 0.0, 'teacher_entropy': 3.1962642669677734, 'grad_norm': 0.05988931655883789, 'tokens': 8192, 'epoch': 0, 'learning_rate': 9.995769943975579e-06, 'rank0_peak_memory_gib': 2.8543176651000977, 'elapsed_seconds': 21.679062055889517}
+[rank 0] train.step.end {"step": 70}
+[rank 6] train.step.begin {"step": 80}
+[rank 5] train.step.begin {"step": 80}
+[rank 2] train.step.begin {"step": 80}
+[rank 4] train.step.begin {"step": 80}
+[rank 7] train.step.begin {"step": 80}
+[rank 0] train.step.begin {"step": 80}
+[rank 1] train.step.begin {"step": 80}
+[rank 3] train.step.begin {"step": 80}
+[rank 5] train.step.end {"step": 80}
+[rank 4] train.step.end {"step": 80}
+[rank 7] train.step.end {"step": 80}
+[rank 2] train.step.end {"step": 80}
+[rank 1] train.step.end {"step": 80}[rank 3] train.step.end {"step": 80}[rank 6] train.step.end {"step": 80}
+
+
+[train] {'phase': 'train', 'step': 80, 'ce': 3.30725634098053, 'error': 0.09174415469169617, 'loss': 3.30725634098053, 'mse': 0.0, 'teacher_entropy': 3.2155121862888336, 'grad_norm': 0.05577618256211281, 'tokens': 8192, 'epoch': 0, 'learning_rate': 9.99445526282035e-06, 'rank0_peak_memory_gib': 2.8543176651000977, 'elapsed_seconds': 23.388587021734565}
+[rank 0] train.step.end {"step": 80}
+[rank 5] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 4] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.rollout.end {"seconds": 0.954912330955267, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.buffer {"states": 64, "micro_batch": 80}
+[rank 6] on_policy.rollout.end {"seconds": 0.9668190549127758, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] on_policy.buffer {"states": 64, "micro_batch": 80}
+[rank 4] on_policy.rollout.end {"seconds": 0.9809987563639879, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 4] on_policy.buffer {"states": 64, "micro_batch": 80}
+[rank 2] on_policy.rollout.end {"seconds": 1.0026010288856924, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.buffer {"states": 64, "micro_batch": 80}
+[rank 3] on_policy.rollout.end {"seconds": 1.2000743998214602, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] on_policy.buffer {"states": 64, "micro_batch": 80}
+[rank 0] on_policy.rollout.end {"seconds": 1.2038666070438921, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] on_policy.buffer {"states": 64, "micro_batch": 80}
+[rank 7] on_policy.rollout.end {"seconds": 1.2055068309418857, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] on_policy.buffer {"states": 64, "micro_batch": 80}
+[rank 1] on_policy.rollout.end {"seconds": 1.21640718402341, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] on_policy.buffer {"states": 64, "micro_batch": 80}
+[rank 2] train.step.begin {"step": 90}
+[rank 5] train.step.begin {"step": 90}
+[rank 4] train.step.begin {"step": 90}
+[rank 6] train.step.begin {"step": 90}
+[rank 3] train.step.begin {"step": 90}[rank 1] train.step.begin {"step": 90}
+
+[rank 7] train.step.begin {"step": 90}
+[rank 0] train.step.begin {"step": 90}
+[rank 4] train.step.end {"step": 90}[rank 5] train.step.end {"step": 90}
+
+[rank 2] train.step.end {"step": 90}[rank 6] train.step.end {"step": 90}
+
+[rank 7] train.step.end {"step": 90}
+[rank 1] train.step.end {"step": 90}
+[rank 3] train.step.end {"step": 90}
+[train] {'phase': 'train', 'step': 90, 'ce': 3.0612566471099854, 'error': 0.08485718071460724, 'loss': 3.0612566471099854, 'mse': 0.0, 'teacher_entropy': 2.976399466395378, 'grad_norm': 0.0608043409883976, 'tokens': 8192, 'epoch': 0, 'learning_rate': 9.992963077272659e-06, 'rank0_peak_memory_gib': 2.8543176651000977, 'elapsed_seconds': 26.32411524374038}
+[rank 0] train.step.end {"step": 90}
+[rank 4] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}[rank 5] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+
+[rank 6] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.rollout.end {"seconds": 0.9536564103327692, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.buffer {"states": 64, "micro_batch": 96}
+[rank 6] on_policy.rollout.end {"seconds": 0.9681264539249241, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] on_policy.buffer {"states": 64, "micro_batch": 96}
+[rank 4] on_policy.rollout.end {"seconds": 0.981762879062444, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 4] on_policy.buffer {"states": 64, "micro_batch": 96}
+[rank 2] on_policy.rollout.end {"seconds": 1.000444428063929, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.buffer {"states": 64, "micro_batch": 96}
+[rank 7] on_policy.rollout.end {"seconds": 1.2009274712763727, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] on_policy.buffer {"states": 64, "micro_batch": 96}
+[rank 3] on_policy.rollout.end {"seconds": 1.2017505490221083, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] on_policy.buffer {"states": 64, "micro_batch": 96}
+[rank 0] on_policy.rollout.end {"seconds": 1.2041714019142091, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] on_policy.buffer {"states": 64, "micro_batch": 96}
+[rank 1] on_policy.rollout.end {"seconds": 1.2149159000255167, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] on_policy.buffer {"states": 64, "micro_batch": 96}
+[rank 5] train.step.begin {"step": 100}
+[rank 4] train.step.begin {"step": 100}
+[rank 6] train.step.begin {"step": 100}
+[rank 7] train.step.begin {"step": 100}
+[rank 2] train.step.begin {"step": 100}
+[rank 1] train.step.begin {"step": 100}
+[rank 3] train.step.begin {"step": 100}
+[rank 0] train.step.begin {"step": 100}
+[rank 4] train.step.end {"step": 100}[rank 5] train.step.end {"step": 100}
+
+[rank 6] train.step.end {"step": 100}[rank 7] train.step.end {"step": 100}
+
+[rank 2] train.step.end {"step": 100}
+[rank 3] train.step.end {"step": 100}[rank 1] train.step.end {"step": 100}
+
+[rank 4] validation.begin {"step": 100}[rank 5] validation.begin {"step": 100}
+
+[rank 6] validation.begin {"step": 100}
+[rank 7] validation.begin {"step": 100}
+[rank 2] validation.begin {"step": 100}
+[rank 3] validation.begin {"step": 100}[rank 1] validation.begin {"step": 100}
+
+[train] {'phase': 'train', 'step': 100, 'ce': 3.2800437211990356, 'error': 0.09973756968975067, 'loss': 3.2800437211990356, 'mse': 0.0, 'teacher_entropy': 3.180306151509285, 'grad_norm': 0.06002599745988846, 'tokens': 8192, 'epoch': 0, 'learning_rate': 9.99129344626501e-06, 'rank0_peak_memory_gib': 2.8543176651000977, 'elapsed_seconds': 29.249877005815506}
+[rank 0] train.step.end {"step": 100}
+[rank 0] validation.begin {"step": 100}
+[rank 4] validation.first_batch.begin {"tokens": 1024}
+[rank 5] validation.first_batch.begin {"tokens": 1024}
+[rank 2] validation.first_batch.begin {"tokens": 1024}
+[rank 6] validation.first_batch.begin {"tokens": 1024}
+[rank 7] validation.first_batch.begin {"tokens": 1024}
+[rank 4] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}[rank 1] validation.first_batch.begin {"tokens": 1024}
+
+[rank 2] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] validation.first_batch.begin {"tokens": 1024}
+[rank 7] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] validation.first_batch.begin {"tokens": 1024}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.rollout.end {"seconds": 0.9536235737614334, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] on_policy.rollout.end {"seconds": 0.9671786408871412, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 4] on_policy.rollout.end {"seconds": 0.9827578058466315, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] validation.first_batch.end {"loss": 4.086433410644531, "ce": 4.086433410644531, "mse": -0.0, "teacher_entropy": 4.01611328125, "error": 0.07032012939453125}
+[rank 5] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.rollout.end {"seconds": 0.9989150599576533, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] validation.first_batch.end {"loss": 5.3791961669921875, "ce": 5.3791961669921875, "mse": -0.0, "teacher_entropy": 5.3370184898376465, "error": 0.042177677154541016}
+[rank 6] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 4] validation.first_batch.end {"loss": 3.3652539253234863, "ce": 3.3652539253234863, "mse": -0.0, "teacher_entropy": 3.286440849304199, "error": 0.07881307601928711}
+[rank 4] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] validation.first_batch.end {"loss": 4.707366943359375, "ce": 4.707366943359375, "mse": -0.0, "teacher_entropy": 4.651880264282227, "error": 0.05548667907714844}
+[rank 2] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] on_policy.rollout.end {"seconds": 1.197945835068822, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] on_policy.rollout.end {"seconds": 1.2004756648093462, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] on_policy.rollout.end {"seconds": 1.2075929581187665, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] on_policy.rollout.end {"seconds": 1.2124044932425022, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 7] validation.first_batch.end {"loss": 2.9967803955078125, "ce": 2.9967803955078125, "mse": -0.0, "teacher_entropy": 2.8948769569396973, "error": 0.10190343856811523}
+[rank 7] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 3] validation.first_batch.end {"loss": 2.754026174545288, "ce": 2.754026174545288, "mse": -0.0, "teacher_entropy": 2.700890064239502, "error": 0.05313611030578613}
+[rank 3] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 0] validation.first_batch.end {"loss": 2.636446475982666, "ce": 2.636446475982666, "mse": -0.0, "teacher_entropy": 2.5560245513916016, "error": 0.08042192459106445}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 1] validation.first_batch.end {"loss": 4.724676609039307, "ce": 4.724676609039307, "mse": -0.0, "teacher_entropy": 4.682211399078369, "error": 0.0424652099609375}
+[rank 1] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] on_policy.rollout.end {"seconds": 0.9495750633068383, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 6] on_policy.rollout.end {"seconds": 0.9583069961518049, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 5] validation.reduce.begin {"local_tokens": 2048}
+[rank 6] validation.reduce.begin {"local_tokens": 2048}
+[rank 4] on_policy.rollout.end {"seconds": 0.9788015536032617, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 2] on_policy.rollout.end {"seconds": 0.9946789457462728, "family": "langflow", "trajectories": 2, "steps": 128}
+[rank 4] validation.reduce.begin {"local_tokens": 2048}
+W1020 20:48:30.027000 3599653 site-packages/torch/distributed/elastic/agent/server/api.py:753] Received 15 death signal, shutting down workers
+W1020 20:48:30.029000 3599653 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 3599775 closing signal SIGTERM
+W1020 20:48:30.030000 3599653 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 3599776 closing signal SIGTERM
+W1020 20:48:30.030000 3599653 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 3599777 closing signal SIGTERM
+W1020 20:48:30.030000 3599653 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 3599778 closing signal SIGTERM
+W1020 20:48:30.030000 3599653 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 3599779 closing signal SIGTERM
+W1020 20:48:30.030000 3599653 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 3599780 closing signal SIGTERM
+W1020 20:48:30.030000 3599653 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 3599781 closing signal SIGTERM
+W1020 20:48:30.030000 3599653 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 3599782 closing signal SIGTERM
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1142, in <module>
+    main()
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 380, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1138, in main
+    run(args)
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1129, in run
+    elastic_launch(
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 197, in __call__
+    return launch_agent(
+           ^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 377, in launch_agent
+    result = agent.run()
+             ^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/metrics/api.py", line 134, in wrapper
+    result = f(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/agent/server/api.py", line 745, in run
+    result = self._invoke_run(role)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/agent/server/api.py", line 923, in _invoke_run
+    time.sleep(monitor_interval)
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 86, in _terminate_process_handler
+    raise SignalException(f"Process {os.getpid()} got signal: {sigval}", sigval=sigval)
+torch.distributed.elastic.multiprocessing.api.SignalException: Process 3599653 got signal: 15

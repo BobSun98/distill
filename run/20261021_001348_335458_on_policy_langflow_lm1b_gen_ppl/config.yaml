@@ -1,0 +1,25 @@
+run:
+  name: on_policy_langflow_lm1b_gen_ppl
+  root: run
+protocol:
+  version: gen_ppl_v1
+  seed: 42
+  num_samples: 1024
+  scorer: gpt2-large
+  scorer_max_length: 1024
+runtime:
+  device: cuda:0
+  cache_dir: null
+  generation_batch_size: 8
+  control_timeout_seconds: 7200
+models:
+- name: off_policy_initial
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261020_021521_191614_lm1b_kd_12to6_lr1e-3/checkpoints/best/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261020_021521_191614_lm1b_kd_12to6_lr1e-3/checkpoints/best/model.safetensors
+  generation: &id001
+    num_steps: 128
+    sequence_length: 128
+- name: on_policy_student
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261021_000111_935466_on_policy_langflow_lm1b/checkpoints/best/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261021_000111_935466_on_policy_langflow_lm1b/checkpoints/best/model.safetensors
+  generation: *id001

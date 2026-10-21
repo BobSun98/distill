@@ -1,0 +1,48 @@
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 0] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.end {"seconds": 0.4657656028866768, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.end {"seconds": 0.4660413861274719, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.end {"seconds": 1.595166821964085, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda"}
+[rank 0] model.to_device.end {"seconds": 0.4251293851993978, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda"}
+[rank 0] data.loaders.begin {}
+[rank 0] data.loaders.end {"seconds": 0.0006389720365405083}
+[rank 0] validation.begin {"step": 0}
+[rank 0] validation.first_batch.begin {"tokens": 32768}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 1, "steps": 1024}
+[rank 0] on_policy.rollout.end {"seconds": 17.939885234925896, "family": "langflow", "trajectories": 1, "steps": 1024}
+[rank 0] validation.first_batch.end {"loss": 2.588564395904541, "ce": 2.588564395904541, "mse": -0.0, "teacher_entropy": 2.47287917137146, "error": 0.11568522453308105}
+[rank 0] validation.reduce.begin {"local_tokens": 32768}
+[rank 0] validation.reduce.end {"seconds": 0.00018443120643496513, "local_tokens": 32768}
+[train] {'phase': 'valid', 'step': 0, 'ce': 2.588564395904541, 'error': 0.11568522453308105, 'loss': 2.588564395904541, 'mse': 0.0, 'teacher_entropy': 2.47287917137146, 'elapsed_seconds': 18.91613099211827}
+[rank 0] validation.end {"seconds": 18.915997695643455, "step": 0}
+[rank 0] train.step.begin {"step": 1}
+[rank 0] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 1, "steps": 1024}
+[rank 0] on_policy.rollout.end {"seconds": 17.812980527989566, "family": "langflow", "trajectories": 1, "steps": 1024}
+[rank 0] on_policy.buffer {"states": 8, "micro_batch": 0}
+[W1020 20:50:07.447610784 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 6589251584 bytes (free: 1761017856, total: 50899648512).
+[W1020 20:50:07.848455841 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 6589251584 bytes (free: 1763115008, total: 50899648512).
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/on_policy/pipeline.py", line 266, in <module>
+    main()
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/on_policy/pipeline.py", line 262, in main
+    run_experiment(load_config(args.config, args.overrides), args.command, args.checkpoint, allow_distributed, debug)
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/on_policy/pipeline.py", line 213, in run_experiment
+    checkpoint = train(teacher, student, tokenizer, config, run_dir, loss_fn=OnPolicyLoss(config),
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 203, in train
+    loss, metrics = loss_fn(teacher, student, batch, config)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/on_policy/losses.py", line 50, in __call__
+    values, entropies = teacher_ce(prediction, target, weights["ce_target"])
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/on_policy/losses.py", line 17, in teacher_ce
+    entropy = -(probabilities * log_teacher).sum(-1)
+                ~~~~~~~~~~~~~~^~~~~~~~~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 6.14 GiB. GPU 0 has a total capacity of 47.40 GiB of which 1.64 GiB is free. Including non-PyTorch memory, this process has 45.75 GiB memory in use. Of the allocated memory 41.96 GiB is allocated by PyTorch, and 3.48 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)

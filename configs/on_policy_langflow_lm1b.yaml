@@ -4,8 +4,8 @@ run:
   name: on_policy_langflow_lm1b
 
 model:
-  # TODO: 填写 LM1B off-policy student 目录或 model.safetensors。
-  student_weights: null
+  # LM1B 12→6 off-policy half-student（lr=1e-3 stage-1 best）。
+  student_weights: run/20261020_021521_191614_lm1b_kd_12to6_lr1e-3/checkpoints/best
   student_config: null
   teacher: Continuous-Rivals-Discrete/langflow-lm1b
   tokenizer: bert-base-uncased
@@ -15,11 +15,14 @@ loss:
   mse_weight: 0.0
 
 training:
-  batch_size: 8
+  # 序列 128：bs=256 单卡 ~34 GiB（allocated），bs>=384 OOM；取 64 使全局 512 序列，与 off-policy 一致。
+  batch_size: 64
   grad_accumulation: 1
 
 on_policy:
-  rollout_batch_size: 2
+  # rollout 很便宜（32 条 ~5s）：每次刷新新增 32×8=256 个状态，buffer 容纳 8 次刷新。
+  rollout_batch_size: 32
+  buffer_capacity: 2048
 
 evaluation:
   num_steps: 128

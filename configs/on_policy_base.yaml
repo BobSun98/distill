@@ -44,9 +44,10 @@ on_policy:
 
 training:
   max_steps: 5000
+  # per-GPU batch size 由各模型配置按 8×A6000 实测显存设置；累积固定为 1。
   batch_size: 2
-  grad_accumulation: 2
-  learning_rate: 0.00001
+  grad_accumulation: 1
+  learning_rate: 0.0001
   lr_scheduler:
     name: cosine
     final_ratio: 0.1
@@ -55,10 +56,10 @@ training:
   log_every: 10
   validate_every: 100
   validation_batches: 2
-  save_every: 500
+  save_every: 2500
   plot_loss: true
   ppl_evaluation:
-    enabled: true
+    enabled: false
     interval: 500
     # 使用 eval_gen_ppl.sh 同一协议：正式评测固定全局 1024 条，不设每卡样本数。
     batch_size: 2

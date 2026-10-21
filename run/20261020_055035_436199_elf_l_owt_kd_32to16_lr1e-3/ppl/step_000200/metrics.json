@@ -1,0 +1,41 @@
+{
+  "step": 200,
+  "model": "current_student",
+  "gen_ppl": null,
+  "sample_entropy": null,
+  "num_samples": 256,
+  "num_scored_samples": 0,
+  "score_status": "empty_generation",
+  "directory": "/proj/gpu_mtk53742/CDLM-distillation/run/20261020_055035_436199_elf_l_owt_kd_32to16_lr1e-3/ppl/step_000200",
+  "scores": {
+    "gen_ppl": null,
+    "sample_entropy": null,
+    "per_sample_ppl": [],
+    "num_scored_samples": 0,
+    "score_status": "empty_generation"
+  },
+  "student_depth": 16,
+  "protocol": {
+    "seed": 42,
+    "num_samples": 256,
+    "batch_size": 32,
+    "num_steps": 64,
+    "sequence_length": 1024,
+    "scorer": "gpt2-large",
+    "scorer_batch_size": 8,
+    "scorer_max_length": 1024,
+    "sampling": {
+      "sampling_method": "sde",
+      "time_schedule": "logit_normal",
+      "sde_gamma": 1.0,
+      "cfg_scale": 1.0,
+      "self_cond_cfg_scale": 3.0
+    },
+    "world_size": 8,
+    "nfe_including_decoder": 65,
+    "rank_seed": "seed + rank * 1000003",
+    "scorer_dtype": null,
+    "score_rank": 0,
+    "weight_source": "in_memory_student_after_optimizer_step"
+  }
+}

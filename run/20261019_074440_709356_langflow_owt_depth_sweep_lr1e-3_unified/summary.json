@@ -1,0 +1,195 @@
+{
+  "teacher": "Continuous-Rivals-Discrete/langflow-owt",
+  "teacher_depth": 12,
+  "initialization": "independent_from_teacher",
+  "layer_selection": "uniform_linspace_round_keep_endpoints",
+  "steps_per_student": 5000,
+  "world_size": 8,
+  "evaluation": {
+    "seed": 42,
+    "num_samples": 1024,
+    "batch_size": 8,
+    "num_steps": 1024,
+    "sequence_length": 1024,
+    "scorer": "gpt2-large",
+    "scorer_batch_size": 1,
+    "scorer_max_length": 1024
+  },
+  "unified_evaluation": null,
+  "results": [
+    {
+      "student_depth": 6,
+      "keep_layers": [
+        0,
+        2,
+        4,
+        7,
+        9,
+        11
+      ],
+      "removed_layers": [
+        1,
+        3,
+        5,
+        6,
+        8,
+        10
+      ],
+      "steps": 5000,
+      "parameters": {
+        "total": 124739156,
+        "non_embedding": 86141780,
+        "trainable": 86141777
+      },
+      "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_06_layers/checkpoints/step_005000",
+      "name": "student_06_layers",
+      "role": "student",
+      "depth": 6
+    },
+    {
+      "student_depth": 7,
+      "keep_layers": [
+        0,
+        2,
+        4,
+        6,
+        7,
+        9,
+        11
+      ],
+      "removed_layers": [
+        1,
+        3,
+        5,
+        8,
+        10
+      ],
+      "steps": 5000,
+      "parameters": {
+        "total": 132416852,
+        "non_embedding": 93819476,
+        "trainable": 93819473
+      },
+      "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_07_layers/checkpoints/step_005000",
+      "name": "student_07_layers",
+      "role": "student",
+      "depth": 7
+    },
+    {
+      "student_depth": 8,
+      "keep_layers": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        8,
+        9,
+        11
+      ],
+      "removed_layers": [
+        1,
+        4,
+        7,
+        10
+      ],
+      "steps": 5000,
+      "parameters": {
+        "total": 140094548,
+        "non_embedding": 101497172,
+        "trainable": 101497169
+      },
+      "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_08_layers/checkpoints/step_005000",
+      "name": "student_08_layers",
+      "role": "student",
+      "depth": 8
+    },
+    {
+      "student_depth": 9,
+      "keep_layers": [
+        0,
+        1,
+        3,
+        4,
+        6,
+        7,
+        8,
+        10,
+        11
+      ],
+      "removed_layers": [
+        2,
+        5,
+        9
+      ],
+      "steps": 5000,
+      "parameters": {
+        "total": 147772244,
+        "non_embedding": 109174868,
+        "trainable": 109174865
+      },
+      "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_09_layers/checkpoints/step_005000",
+      "name": "student_09_layers",
+      "role": "student",
+      "depth": 9
+    },
+    {
+      "student_depth": 10,
+      "keep_layers": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11
+      ],
+      "removed_layers": [
+        3,
+        8
+      ],
+      "steps": 5000,
+      "parameters": {
+        "total": 155449940,
+        "non_embedding": 116852564,
+        "trainable": 116852561
+      },
+      "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_10_layers/checkpoints/step_005000",
+      "name": "student_10_layers",
+      "role": "student",
+      "depth": 10
+    },
+    {
+      "student_depth": 11,
+      "keep_layers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "removed_layers": [
+        5
+      ],
+      "steps": 5000,
+      "parameters": {
+        "total": 163127636,
+        "non_embedding": 124530260,
+        "trainable": 124530257
+      },
+      "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_11_layers/checkpoints/step_005000",
+      "name": "student_11_layers",
+      "role": "student",
+      "depth": 11
+    }
+  ]
+}

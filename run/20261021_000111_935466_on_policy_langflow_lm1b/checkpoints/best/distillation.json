@@ -1,0 +1,26 @@
+{
+  "step": 500,
+  "teacher": "Continuous-Rivals-Discrete/langflow-lm1b",
+  "keep_layers": [
+    0,
+    2,
+    4,
+    7,
+    9,
+    11
+  ],
+  "loss": {
+    "ce_weight": 1.0,
+    "mse_weight": 0.0,
+    "ce_target": "soft"
+  },
+  "stage": "on_policy",
+  "off_policy_student": "run/20261020_021521_191614_lm1b_kd_12to6_lr1e-3/checkpoints/best",
+  "on_policy": {
+    "rollout_batch_size": 32,
+    "states_per_rollout": 8,
+    "buffer_capacity": 2048,
+    "refresh_every": 16,
+    "decoder_probability": 0.2
+  }
+}

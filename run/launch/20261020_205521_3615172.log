@@ -1,0 +1,86 @@
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 0] elf.teacher.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-L-owt-torch/snapshots/6a8888cc5cf7d08f0f190956c1896b36325e5a9d/checkpoint_57051", "use_ema": true}
+[rank 0] elf.teacher.load.end {"seconds": 8.641737604979426, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-L-owt-torch/snapshots/6a8888cc5cf7d08f0f190956c1896b36325e5a9d/checkpoint_57051", "use_ema": true}
+[rank 0] elf.teacher.loaded {"ema_used": true, "depth": 32}
+[rank 0] data.loaders.begin {}
+[rank 0] data.loaders.end {"seconds": 0.0007227440364658833}
+[rank 0] validation.begin {"step": 0}
+[rank 0] validation.first_batch.begin {"tokens": 262144}
+[rank 0] on_policy.rollout.begin {"family": "elf", "trajectories": 1, "steps": 64}
+[rank 0] on_policy.rollout.end {"seconds": 1.59902685880661, "family": "elf", "trajectories": 1, "steps": 64}
+[rank 0] validation.first_batch.end {"loss": 0.1400197297334671, "ce": -0.0, "mse": 0.1400197297334671, "teacher_entropy": -0.0, "error": 0.1400197297334671}
+[rank 0] validation.reduce.begin {"local_tokens": 262144}
+[rank 0] validation.reduce.end {"seconds": 0.00020160013809800148, "local_tokens": 262144}
+[train] {'phase': 'valid', 'step': 0, 'ce': 0.0, 'error': 0.1400197297334671, 'loss': 0.1400197297334671, 'mse': 0.1400197297334671, 'teacher_entropy': 0.0, 'elapsed_seconds': 13.678772891871631}
+[rank 0] validation.end {"seconds": 13.678634588606656, "step": 0}
+[rank 0] train.step.begin {"step": 1}
+[rank 0] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 0] on_policy.rollout.begin {"family": "elf", "trajectories": 1, "steps": 64}
+[rank 0] on_policy.rollout.end {"seconds": 1.2616394492797554, "family": "elf", "trajectories": 1, "steps": 64}
+[rank 0] on_policy.buffer {"states": 8, "micro_batch": 0}
+[W1020 20:56:04.911972237 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1811939328 bytes (free: 498532352, total: 50899648512).
+[W1020 20:56:08.616474050 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1811939328 bytes (free: 565641216, total: 50899648512).
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/on_policy/pipeline.py", line 266, in <module>
+    main()
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/on_policy/pipeline.py", line 262, in main
+    run_experiment(load_config(args.config, args.overrides), args.command, args.checkpoint, allow_distributed, debug)
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/on_policy/pipeline.py", line 213, in run_experiment
+    checkpoint = train(teacher, student, tokenizer, config, run_dir, loss_fn=OnPolicyLoss(config),
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 203, in train
+    loss, metrics = loss_fn(teacher, student, batch, config)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/on_policy/losses.py", line 64, in __call__
+    prediction, logits = student(x, **inputs)
+                         ^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/backbones/elf/model.py", line 215, in forward
+    x = checkpoint(_block_forward, x, use_reentrant=False)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 1548, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/utils/checkpoint.py", line 606, in checkpoint
+    return _checkpoint_impl(
+           ^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/utils/checkpoint.py", line 681, in _checkpoint_impl
+    gen.throw(e)
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/utils/checkpoint.py", line 1988, in _checkpoint_without_reentrant_generator_impl
+    yield
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/utils/checkpoint.py", line 678, in _checkpoint_impl
+    ret = function(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/backbones/elf/model.py", line 212, in _block_forward
+    return block(hidden, rope_fn=self.feat_rope, attention_mask=attention_mask,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/backbones/elf/model.py", line 47, in forward
+    mlp_out = self.mlp(x_normed, deterministic=deterministic)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/backbones/elf/layers.py", line 239, in forward
+    hidden = F.silu(x1) * x2
+             ~~~~~~~~~~~^~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.69 GiB. GPU 0 has a total capacity of 47.40 GiB of which 539.44 MiB is free. Including non-PyTorch memory, this process has 46.87 GiB memory in use. Of the allocated memory 35.92 GiB is allocated by PyTorch, and 10.63 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)

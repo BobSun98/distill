@@ -1,0 +1,54 @@
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 0] elf.teacher.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 0] elf.teacher.load.end {"seconds": 1.645947054028511, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 0] elf.teacher.loaded {"ema_used": true, "depth": 12}
+[rank 0] data.loaders.begin {}
+[rank 0] data.loaders.end {"seconds": 0.00024069100618362427}
+[rank 0] validation.begin {"step": 0}
+[rank 0] validation.first_batch.begin {"tokens": 4096}
+[rank 0] on_policy.rollout.begin {"family": "elf", "trajectories": 1, "steps": 32}
+[rank 0] on_policy.rollout.end {"seconds": 0.5691155758686364, "family": "elf", "trajectories": 1, "steps": 32}
+[rank 0] validation.first_batch.end {"loss": 0.08481678366661072, "ce": -0.0, "mse": 0.08481678366661072, "teacher_entropy": -0.0, "error": 0.08481678366661072}
+[rank 0] validation.reduce.begin {"local_tokens": 4096}
+[rank 0] validation.reduce.end {"seconds": 0.00011253077536821365, "local_tokens": 4096}
+[train] {'phase': 'valid', 'step': 0, 'ce': 0.0, 'error': 0.08481678366661072, 'loss': 0.08481678366661072, 'mse': 0.08481678366661072, 'teacher_entropy': 0.0, 'elapsed_seconds': 0.6399660757742822}
+[rank 0] validation.end {"seconds": 0.6398165225982666, "step": 0}
+[rank 0] train.step.begin {"step": 1}
+[rank 0] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 0] on_policy.rollout.begin {"family": "elf", "trajectories": 1, "steps": 32}
+[rank 0] on_policy.rollout.end {"seconds": 0.22236962616443634, "family": "elf", "trajectories": 1, "steps": 32}
+[rank 0] on_policy.buffer {"states": 8, "micro_batch": 0}
+[rank 0] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 0] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[train] {'phase': 'train', 'step': 1, 'ce': 0.0, 'error': 0.12477931380271912, 'loss': 0.12477931380271912, 'mse': 0.12477931380271912, 'teacher_entropy': 0.0, 'grad_norm': 0.3775741457939148, 'tokens': 4096, 'epoch': 0, 'learning_rate': 1e-05, 'rank0_peak_memory_gib': 1.99995756149292, 'elapsed_seconds': 1.1482949289493263}
+[rank 0] train.step.end {"step": 1}
+[rank 0] train.step.begin {"step": 2}
+[train] {'phase': 'train', 'step': 2, 'ce': 0.0, 'error': 0.16439121961593628, 'loss': 0.16439121961593628, 'mse': 0.16439121961593628, 'teacher_entropy': 0.0, 'grad_norm': 0.4482448697090149, 'tokens': 4096, 'epoch': 0, 'learning_rate': 9.140576474687265e-06, 'rank0_peak_memory_gib': 2.3434371948242188, 'elapsed_seconds': 1.2841193405911326}
+[rank 0] train.step.end {"step": 2}
+[rank 0] train.step.begin {"step": 3}
+[train] {'phase': 'train', 'step': 3, 'ce': 0.0, 'error': 0.13408291339874268, 'loss': 0.13408291339874268, 'mse': 0.13408291339874268, 'teacher_entropy': 0.0, 'grad_norm': 0.3388790190219879, 'tokens': 4096, 'epoch': 0, 'learning_rate': 6.8905764746872645e-06, 'rank0_peak_memory_gib': 2.3434371948242188, 'elapsed_seconds': 1.3718806277029216}
+[rank 0] train.step.end {"step": 3}
+[rank 0] train.step.begin {"step": 4}
+[train] {'phase': 'train', 'step': 4, 'ce': 0.0, 'error': 0.196902334690094, 'loss': 0.196902334690094, 'mse': 0.196902334690094, 'teacher_entropy': 0.0, 'grad_norm': 0.3394621014595032, 'tokens': 4096, 'epoch': 0, 'learning_rate': 4.109423525312737e-06, 'rank0_peak_memory_gib': 2.3434371948242188, 'elapsed_seconds': 1.5232199979946017}
+[rank 0] train.step.end {"step": 4}
+[rank 0] train.step.begin {"step": 5}
+[train] {'phase': 'train', 'step': 5, 'ce': 0.0, 'error': 0.07906249165534973, 'loss': 0.07906249165534973, 'mse': 0.07906249165534973, 'teacher_entropy': 0.0, 'grad_norm': 0.12856437265872955, 'tokens': 4096, 'epoch': 0, 'learning_rate': 1.859423525312737e-06, 'rank0_peak_memory_gib': 2.3434371948242188, 'elapsed_seconds': 1.7004758776165545}
+[rank 0] train.step.end {"step": 5}
+[rank 0] train.step.begin {"step": 6}
+[train] {'phase': 'train', 'step': 6, 'ce': 0.0, 'error': 0.09684669971466064, 'loss': 0.09684669971466064, 'mse': 0.09684669971466064, 'teacher_entropy': 0.0, 'grad_norm': 0.14763019979000092, 'tokens': 4096, 'epoch': 0, 'learning_rate': 1.0000000000000002e-06, 'rank0_peak_memory_gib': 2.3434371948242188, 'elapsed_seconds': 2.0293942419812083}
+[rank 0] train.step.end {"step": 6}
+[rank 0] validation.begin {"step": 6}
+[rank 0] validation.first_batch.begin {"tokens": 4096}
+[rank 0] on_policy.rollout.begin {"family": "elf", "trajectories": 1, "steps": 32}
+[rank 0] on_policy.rollout.end {"seconds": 0.3937159110791981, "family": "elf", "trajectories": 1, "steps": 32}
+[rank 0] validation.first_batch.end {"loss": 0.05990065634250641, "ce": -0.0, "mse": 0.05990065634250641, "teacher_entropy": -0.0, "error": 0.05990065634250641}
+[rank 0] validation.reduce.begin {"local_tokens": 4096}
+[rank 0] validation.reduce.end {"seconds": 0.00014316895976662636, "local_tokens": 4096}
+[train] {'phase': 'valid', 'step': 6, 'ce': 0.0, 'error': 0.05990065634250641, 'loss': 0.05990065634250641, 'mse': 0.05990065634250641, 'teacher_entropy': 0.0, 'elapsed_seconds': 2.8245932296849787}
+[rank 0] validation.end {"seconds": 0.7943189619109035, "step": 6}
+[rank 0] elf.checkpoint.save.begin {"step": 6, "path": "/tmp/onp_bs_test/20261020_205316_331956_probe_elfb_4/checkpoints/step_000006"}
+[rank 0] elf.checkpoint.save.end {"seconds": 0.420881574973464, "step": 6, "path": "/tmp/onp_bs_test/20261020_205316_331956_probe_elfb_4/checkpoints/step_000006"}
+[train] stopped at step 6: max_steps
+[train] checkpoint: /tmp/onp_bs_test/20261020_205316_331956_probe_elfb_4/checkpoints/step_000006
+[on-policy] /tmp/onp_bs_test/20261020_205316_331956_probe_elfb_4

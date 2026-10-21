@@ -1,0 +1,57 @@
+run:
+  name: unified_gen_ppl
+  root: /proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified
+protocol:
+  version: gen_ppl_v1
+  seed: 42
+  num_samples: 1024
+  scorer: gpt2-large
+  scorer_max_length: 1024
+runtime:
+  device: cuda
+  cache_dir: null
+  generation_batch_size: 8
+  control_timeout_seconds: 7200
+models:
+- name: teacher_12_layers
+  architecture: /proj/gpu_mtk53742/.cache/huggingface/hub/models--Continuous-Rivals-Discrete--langflow-owt/snapshots/a08f933dd337d52762fec5ef7d60c131896cc341/config.json
+  weights: /proj/gpu_mtk53742/.cache/huggingface/hub/models--Continuous-Rivals-Discrete--langflow-owt/snapshots/a08f933dd337d52762fec5ef7d60c131896cc341/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: student_06_layers
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_06_layers/checkpoints/step_005000/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_06_layers/checkpoints/step_005000/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: student_07_layers
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_07_layers/checkpoints/step_005000/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_07_layers/checkpoints/step_005000/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: student_08_layers
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_08_layers/checkpoints/step_005000/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_08_layers/checkpoints/step_005000/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: student_09_layers
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_09_layers/checkpoints/step_005000/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_09_layers/checkpoints/step_005000/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: student_10_layers
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_10_layers/checkpoints/step_005000/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_10_layers/checkpoints/step_005000/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: student_11_layers
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_11_layers/checkpoints/step_005000/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_11_layers/checkpoints/step_005000/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024

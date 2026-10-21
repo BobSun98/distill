@@ -1,0 +1,746 @@
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 4] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.end {"seconds": 0.08827496692538261, "backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.end {"seconds": 0.04686128511093557, "backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.end {"seconds": 0.014756930992007256, "backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.end {"seconds": 0.12870589597150683, "backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.end {"seconds": 0.04736291617155075, "backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.end {"seconds": 0.0730617749504745, "backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.end {"seconds": 0.13482383592054248, "backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.end {"seconds": 0.020522558828815818, "backend": "gloo", "world_size": 8}
+[rank 1] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 1, "device": "cuda"}
+[rank 5] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 5, "device": "cuda"}
+[rank 1] cuda.runtime {"logical_device": 1, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 1] data.wait_ready.begin {}
+[rank 5] cuda.runtime {"logical_device": 5, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 5] data.wait_ready.begin {}
+[rank 3] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 3, "device": "cuda"}
+[rank 7] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 7, "device": "cuda"}
+[rank 0] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 0, "device": "cuda"}
+[rank 4] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 4, "device": "cuda"}
+[rank 3] cuda.runtime {"logical_device": 3, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 4] cuda.runtime {"logical_device": 4, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 3] data.wait_ready.begin {}
+[rank 0] cuda.runtime {"logical_device": 0, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 7] cuda.runtime {"logical_device": 7, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 2] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 2, "device": "cuda"}
+[run] /proj/gpu_mtk53742/CDLM-distillation/run/20261001_183232_532959_owt_kd_12to6 (world_size=8)
+[rank 4] data.wait_ready.begin {}
+[rank 7] data.wait_ready.begin {}
+[rank 6] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 6, "device": "cuda"}
+[rank 2] cuda.runtime {"logical_device": 2, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 0] data.prepare.begin {}
+[rank 2] data.wait_ready.begin {}
+[rank 6] cuda.runtime {"logical_device": 6, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 6] data.wait_ready.begin {}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[data] 复用 /proj/gpu_mtk53742/CDLM-distillation/run/data/owt_l1024_t20000_v128
+[rank 0] data.prepare.end {"seconds": 1.1321232179179788}
+[rank 0] data.wait_ready.begin {}
+[rank 0] data.wait_ready.end {"seconds": 0.0009315339848399162}
+[rank 4] data.wait_ready.end {"seconds": 1.1338853319175541}
+[rank 2] data.wait_ready.end {"seconds": 1.1333200281951576}[rank 3] data.wait_ready.end {"seconds": 1.1341274010483176}
+
+[rank 0] tensor_group.init.begin {"backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 6] data.wait_ready.end {"seconds": 1.1329437259119004}
+[rank 1] data.wait_ready.end {"seconds": 1.1365274980198592}
+[rank 5] data.wait_ready.end {"seconds": 1.1363230219576508}
+[rank 7] data.wait_ready.end {"seconds": 1.1338565978221595}
+[rank 0] tensor_group.init.end {"seconds": 0.006965148029848933, "backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 0] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 6] tensor_group.init.begin {"backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+[rank 6] tensor_group.init.end {"seconds": 0.006157570984214544, "backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+[rank 6] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 2] tensor_group.init.begin {"backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}
+[rank 2] tensor_group.init.end {"seconds": 0.0061233078595250845, "backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}
+[rank 2] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:2", "bytes": 1048576}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 3] tensor_group.init.begin {"backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 1] tensor_group.init.begin {"backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 3] tensor_group.init.end {"seconds": 0.009884521132335067, "backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}
+[rank 3] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:3", "bytes": 1048576}
+[rank 4] tensor_group.init.begin {"backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}
+[rank 1] tensor_group.init.end {"seconds": 0.008403948973864317, "backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}
+[rank 1] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:1", "bytes": 1048576}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 4] tensor_group.init.end {"seconds": 0.009815710131078959, "backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}
+[rank 4] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+[rank 5] tensor_group.init.begin {"backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 5] tensor_group.init.end {"seconds": 0.00918625807389617, "backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+[rank 5] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+[rank 7] tensor_group.init.begin {"backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}
+[rank 7] tensor_group.init.end {"seconds": 0.009791916003450751, "backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}
+[rank 7] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+[rank 0] communication.all_reduce.end {"seconds": 1.4304656640160829, "backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+[rank 0] communication.broadcast.begin {"backend": "nccl", "device": "cuda:0"}
+[rank 2] communication.all_reduce.end {"seconds": 1.007302355952561, "backend": "nccl", "device": "cuda:2", "bytes": 1048576}
+[rank 2] communication.broadcast.begin {"backend": "nccl", "device": "cuda:2"}
+[rank 0] communication.broadcast.end {"seconds": 0.0005820870865136385, "backend": "nccl", "device": "cuda:0"}
+[rank 0] teacher.load.begin {}
+[rank 0] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] communication.all_reduce.end {"seconds": 0.892666218103841, "backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+[rank 7] communication.broadcast.begin {"backend": "nccl", "device": "cuda:7"}
+[rank 4] communication.all_reduce.end {"seconds": 0.9232201490085572, "backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+[rank 4] communication.broadcast.begin {"backend": "nccl", "device": "cuda:4"}
+[rank 6] communication.all_reduce.end {"seconds": 1.0226426981389523, "backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+[rank 6] communication.broadcast.begin {"backend": "nccl", "device": "cuda:6"}
+[rank 5] communication.all_reduce.end {"seconds": 0.9210488209500909, "backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+[rank 3] communication.all_reduce.end {"seconds": 0.9432532601058483, "backend": "nccl", "device": "cuda:3", "bytes": 1048576}
+[rank 5] communication.broadcast.begin {"backend": "nccl", "device": "cuda:5"}
+[rank 3] communication.broadcast.begin {"backend": "nccl", "device": "cuda:3"}
+[rank 1] communication.all_reduce.end {"seconds": 0.941796766826883, "backend": "nccl", "device": "cuda:1", "bytes": 1048576}
+[rank 1] communication.broadcast.begin {"backend": "nccl", "device": "cuda:1"}
+[rank 2] communication.broadcast.end {"seconds": 0.01677729608491063, "backend": "nccl", "device": "cuda:2"}
+[rank 1] communication.broadcast.end {"seconds": 0.0012275581248104572, "backend": "nccl", "device": "cuda:1"}
+[rank 2] teacher.load.begin {}
+[rank 3] communication.broadcast.end {"seconds": 0.004770962987095118, "backend": "nccl", "device": "cuda:3"}
+[rank 5] communication.broadcast.end {"seconds": 0.0050636928062886, "backend": "nccl", "device": "cuda:5"}[rank 4] communication.broadcast.end {"seconds": 0.01438276399858296, "backend": "nccl", "device": "cuda:4"}
+
+[rank 1] teacher.load.begin {}
+[rank 5] teacher.load.begin {}
+[rank 4] teacher.load.begin {}[rank 7] communication.broadcast.end {"seconds": 0.015365003142505884, "backend": "nccl", "device": "cuda:7"}
+
+[rank 3] teacher.load.begin {}
+[rank 6] communication.broadcast.end {"seconds": 0.012966245179995894, "backend": "nccl", "device": "cuda:6"}
+[rank 7] teacher.load.begin {}
+[rank 6] teacher.load.begin {}
+[rank 2] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}[rank 7] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+
+[rank 6] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}[rank 1] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+
+[rank 0] model.files.resolve.end {"seconds": 0.41764561901800334, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.end {"seconds": 0.4198784679174423, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.files.wait.end {"seconds": 0.4032471899408847, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.files.wait.end {"seconds": 0.4033823208883405, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.files.wait.end {"seconds": 0.40349072008393705, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.files.wait.end {"seconds": 0.40359490597620606, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.files.wait.end {"seconds": 0.40377023397013545, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}[rank 1] model.files.wait.end {"seconds": 0.40387037000618875, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+
+[rank 1] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.files.wait.end {"seconds": 0.403999354923144, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.weights.load.end {"seconds": 1.167906585149467, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:5"}
+[rank 5] model.to_device.end {"seconds": 0.10250474489293993, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:5"}
+[rank 5] teacher.load.end {"seconds": 1.6761792090255767}
+[rank 5] models.wait_teacher.begin {}
+[rank 2] model.weights.load.end {"seconds": 1.4646124390419573, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:2"}
+[rank 7] model.weights.load.end {"seconds": 1.522878834977746, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:7"}
+[rank 2] model.to_device.end {"seconds": 0.12725854199379683, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:2"}
+[rank 2] teacher.load.end {"seconds": 1.9980515339411795}
+[rank 2] models.wait_teacher.begin {}
+[rank 3] model.weights.load.end {"seconds": 1.599822074873373, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:3"}
+[rank 7] model.to_device.end {"seconds": 0.11807436100207269, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:7"}
+[rank 7] teacher.load.end {"seconds": 2.0463985179085284}
+[rank 7] models.wait_teacher.begin {}
+[rank 0] model.weights.load.end {"seconds": 1.7046037570107728, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:0"}
+[rank 3] model.to_device.end {"seconds": 0.10940629197284579, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:3"}
+[rank 3] teacher.load.end {"seconds": 2.114543570904061}
+[rank 3] models.wait_teacher.begin {}
+[rank 0] model.to_device.end {"seconds": 0.10160341719165444, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:0"}
+[rank 0] teacher.load.end {"seconds": 2.2276756789069623}
+[rank 0] models.wait_teacher.begin {}
+[rank 4] model.weights.load.end {"seconds": 1.893119455082342, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:4"}
+[rank 4] model.to_device.end {"seconds": 0.11163817206397653, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:4"}
+[rank 4] teacher.load.end {"seconds": 2.4099685200490057}
+[rank 4] models.wait_teacher.begin {}
+[rank 1] model.weights.load.end {"seconds": 2.0182003451045603, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 1] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:1"}
+[rank 1] model.to_device.end {"seconds": 0.10600544884800911, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:1"}
+[rank 1] teacher.load.end {"seconds": 2.5298870799597353}
+[rank 1] models.wait_teacher.begin {}
+[rank 6] model.weights.load.end {"seconds": 2.1784602529369295, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:6"}
+[rank 6] model.to_device.end {"seconds": 0.09924236009828746, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:6"}
+[rank 6] teacher.load.end {"seconds": 2.6827291001100093}
+[rank 6] models.wait_teacher.begin {}
+[rank 6] models.wait_teacher.end {"seconds": 0.0006485548801720142}
+[rank 4] models.wait_teacher.end {"seconds": 0.27351163304410875}
+[rank 5] models.wait_teacher.end {"seconds": 1.0073935899417847}[rank 2] models.wait_teacher.end {"seconds": 0.6856525160837919}
+
+[rank 3] models.wait_teacher.end {"seconds": 0.5690478761680424}
+[rank 7] models.wait_teacher.end {"seconds": 0.6371118340175599}
+[rank 1] models.wait_teacher.end {"seconds": 0.15370913804508746}
+[rank 0] models.wait_teacher.end {"seconds": 0.47260919492691755}
+[rank 0] student.build.begin {}
+[rank 2] student.build.begin {}
+[rank 6] student.build.begin {}
+[rank 4] student.build.begin {}
+[rank 3] student.build.begin {}
+[rank 7] student.build.begin {}
+[rank 5] student.build.begin {}
+[rank 1] student.build.begin {}
+[rank 1] student.build.end {"seconds": 0.8494682430755347}
+[rank 1] models.wait_student.begin {}
+[rank 3] student.build.end {"seconds": 0.9546217021998018}
+[rank 3] models.wait_student.begin {}
+[rank 2] student.build.end {"seconds": 1.0653543840162456}
+[rank 2] models.wait_student.begin {}
+[rank 6] student.build.end {"seconds": 1.1261244020424783}
+[rank 6] models.wait_student.begin {}
+[rank 0] student.build.end {"seconds": 1.4051744709722698}
+[rank 0] models.wait_student.begin {}
+[rank 4] student.build.end {"seconds": 1.5708172209560871}
+[rank 4] models.wait_student.begin {}
+[rank 5] student.build.end {"seconds": 1.8079820580314845}
+[rank 5] models.wait_student.begin {}
+[rank 7] student.build.end {"seconds": 2.0530941190663725}
+[rank 7] models.wait_student.begin {}
+[rank 7] models.wait_student.end {"seconds": 0.0007109518628567457}
+[rank 2] models.wait_student.end {"seconds": 0.9925210729707032}
+[rank 4] models.wait_student.end {"seconds": 0.4843687820248306}
+[rank 3] models.wait_student.end {"seconds": 1.100472039077431}[rank 6] models.wait_student.end {"seconds": 0.9292335750069469}
+
+[rank 5] models.wait_student.end {"seconds": 0.24522405699826777}
+[rank 0] models.wait_student.end {"seconds": 0.6557394040282816}
+[rank 1] models.wait_student.end {"seconds": 1.2006105571053922}
+[rank 7] data.loaders.begin {}
+[rank 2] data.loaders.begin {}
+[rank 4] data.loaders.begin {}
+[rank 6] data.loaders.begin {}
+[rank 5] data.loaders.begin {}
+[rank 3] data.loaders.begin {}
+[rank 1] data.loaders.begin {}
+[rank 0] data.loaders.begin {}
+[rank 5] data.loaders.end {"seconds": 0.12431364879012108}[rank 4] data.loaders.end {"seconds": 0.12437726813368499}[rank 2] data.loaders.end {"seconds": 0.12437988189049065}
+
+
+[rank 6] data.loaders.end {"seconds": 0.12439978821203113}
+[rank 5] ddp.init.begin {"device": "cuda:5"}[rank 2] ddp.init.begin {"device": "cuda:2"}[rank 4] ddp.init.begin {"device": "cuda:4"}
+
+
+[rank 6] ddp.init.begin {"device": "cuda:6"}
+[rank 3] data.loaders.end {"seconds": 0.13083675899542868}
+[rank 3] ddp.init.begin {"device": "cuda:3"}
+[rank 0] data.loaders.end {"seconds": 0.15227673389017582}
+[rank 7] data.loaders.end {"seconds": 0.1534880679100752}
+[rank 0] ddp.init.begin {"device": "cuda:0"}
+[rank 7] ddp.init.begin {"device": "cuda:7"}
+[rank 1] data.loaders.end {"seconds": 0.15780181298032403}
+[rank 1] ddp.init.begin {"device": "cuda:1"}
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:100: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:100: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:100: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:100: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:100: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:100: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:100: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:100: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+[rank 4] ddp.init.end {"seconds": 1.9796823898795992, "device": "cuda:4"}
+[rank 4] validation.begin {"step": 0}
+[rank 6] ddp.init.end {"seconds": 1.9823156520724297, "device": "cuda:6"}[rank 5] ddp.init.end {"seconds": 1.9823835261631757, "device": "cuda:5"}
+
+[rank 4] validation.first_batch.begin {"tokens": 16384}
+[rank 2] ddp.init.end {"seconds": 1.9827765729278326, "device": "cuda:2"}
+[rank 6] validation.begin {"step": 0}
+[rank 5] validation.begin {"step": 0}
+[rank 3] ddp.init.end {"seconds": 1.977182880975306, "device": "cuda:3"}
+[rank 2] validation.begin {"step": 0}
+[rank 1] ddp.init.end {"seconds": 1.9502266249619424, "device": "cuda:1"}
+[rank 3] validation.begin {"step": 0}
+[rank 1] validation.begin {"step": 0}
+[rank 5] validation.first_batch.begin {"tokens": 16384}[rank 6] validation.first_batch.begin {"tokens": 16384}
+
+[rank 2] validation.first_batch.begin {"tokens": 16384}
+[rank 3] validation.first_batch.begin {"tokens": 16384}
+[rank 1] validation.first_batch.begin {"tokens": 16384}
+[rank 7] ddp.init.end {"seconds": 1.9582563820295036, "device": "cuda:7"}
+[rank 7] validation.begin {"step": 0}
+[rank 0] ddp.init.end {"seconds": 1.9600592979695648, "device": "cuda:0"}
+[rank 7] validation.first_batch.begin {"tokens": 16384}
+[rank 0] validation.begin {"step": 0}
+[rank 0] validation.first_batch.begin {"tokens": 16384}
+[rank 0] validation.first_batch.end {"loss": 1.1349751949310303, "ce": 4.903265953063965, "kl": 1.1349751949310303}
+[rank 0] validation.reduce.begin {"local_tokens": 16384}
+[rank 4] validation.first_batch.end {"loss": 0.9767366647720337, "ce": 4.699949264526367, "kl": 0.9767366647720337}
+[rank 4] validation.reduce.begin {"local_tokens": 16384}
+[rank 2] validation.first_batch.end {"loss": 1.1831640005111694, "ce": 4.608356475830078, "kl": 1.1831640005111694}
+[rank 2] validation.reduce.begin {"local_tokens": 16384}
+[rank 5] validation.first_batch.end {"loss": 1.1227657794952393, "ce": 3.995518684387207, "kl": 1.1227657794952393}
+[rank 5] validation.reduce.begin {"local_tokens": 16384}
+[rank 6] validation.first_batch.end {"loss": 0.7403276562690735, "ce": 5.207318305969238, "kl": 0.7403276562690735}
+[rank 6] validation.reduce.begin {"local_tokens": 16384}
+[rank 3] validation.first_batch.end {"loss": 1.0247416496276855, "ce": 4.585543632507324, "kl": 1.0247416496276855}
+[rank 3] validation.reduce.begin {"local_tokens": 16384}
+[rank 1] validation.first_batch.end {"loss": 0.7292344570159912, "ce": 5.651745796203613, "kl": 0.7292344570159912}
+[rank 1] validation.reduce.begin {"local_tokens": 16384}
+[rank 7] validation.first_batch.end {"loss": 0.9578514099121094, "ce": 4.271737098693848, "kl": 0.9578514099121094}
+[rank 7] validation.reduce.begin {"local_tokens": 16384}
+[rank 7] validation.reduce.end {"seconds": 0.0005905770231038332, "local_tokens": 16384}
+[rank 4] validation.reduce.end {"seconds": 0.27139561902731657, "local_tokens": 16384}
+[rank 1] validation.reduce.end {"seconds": 0.14967893483117223, "local_tokens": 16384}[rank 3] validation.reduce.end {"seconds": 0.15657713916152716, "local_tokens": 16384}[rank 2] validation.reduce.end {"seconds": 0.20765711506828666, "local_tokens": 16384}
+
+
+[rank 5] validation.reduce.end {"seconds": 0.18774008401669562, "local_tokens": 16384}[rank 6] validation.reduce.end {"seconds": 0.1862302899826318, "local_tokens": 16384}
+
+[rank 0] validation.reduce.end {"seconds": 0.2831864161416888, "local_tokens": 16384}
+[train] {'phase': 'valid', 'step': 0, 'ce': 4.740429401397705, 'kl': 0.9837246015667915, 'loss': 0.9837246015667915, 'elapsed_seconds': 1.301291582873091}
+[train] {'phase': 'early_stopping', 'step': 0, 'metric': 'loss', 'value': 0.9837246015667915, 'new_best': True, 'best_value': 0.9837246015667915, 'best_step': 0, 'bad_checks': 0, 'should_stop': False, 'elapsed_seconds': 1.3021443679463118}
+[rank 0] checkpoint.save.begin {"step": 0, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261001_183232_532959_owt_kd_12to6/checkpoints/best"}
+[rank 4] checkpoint.wait_ready.begin {"step": 0}
+[rank 2] checkpoint.wait_ready.begin {"step": 0}[rank 1] checkpoint.wait_ready.begin {"step": 0}
+
+[rank 7] checkpoint.wait_ready.begin {"step": 0}
+[rank 3] checkpoint.wait_ready.begin {"step": 0}
+[rank 6] checkpoint.wait_ready.begin {"step": 0}
+[rank 5] checkpoint.wait_ready.begin {"step": 0}
+[rank 0] checkpoint.save.end {"step": 0}
+[rank 0] checkpoint.wait_ready.begin {"step": 0}
+[rank 0] checkpoint.wait_ready.end {"seconds": 0.0006722370162606239, "step": 0}
+[rank 0] validation.end {"seconds": 2.0035549430176616, "step": 0}
+[rank 0] train.step.begin {"step": 1}
+[rank 6] checkpoint.wait_ready.end {"seconds": 0.7011812999844551, "step": 0}[rank 2] checkpoint.wait_ready.end {"seconds": 0.7012746529653668, "step": 0}[rank 4] checkpoint.wait_ready.end {"seconds": 0.7013686599675566, "step": 0}
+
+
+[rank 3] checkpoint.wait_ready.end {"seconds": 0.7012584330514073, "step": 0}
+[rank 6] validation.end {"seconds": 2.013239188119769, "step": 0}
+[rank 4] validation.end {"seconds": 2.016219516051933, "step": 0}
+[rank 2] validation.end {"seconds": 2.012928836978972, "step": 0}
+[rank 7] checkpoint.wait_ready.end {"seconds": 0.7013188258279115, "step": 0}
+[rank 3] validation.end {"seconds": 2.012185185914859, "step": 0}
+[rank 6] train.step.begin {"step": 1}
+[rank 4] train.step.begin {"step": 1}[rank 2] train.step.begin {"step": 1}
+
+[rank 7] validation.end {"seconds": 2.0081873738672584, "step": 0}
+[rank 3] train.step.begin {"step": 1}
+[rank 7] train.step.begin {"step": 1}
+[rank 5] checkpoint.wait_ready.end {"seconds": 0.7016261969693005, "step": 0}
+[rank 1] checkpoint.wait_ready.end {"seconds": 0.7017709719948471, "step": 0}
+[rank 5] validation.end {"seconds": 2.013663277029991, "step": 0}
+[rank 5] train.step.begin {"step": 1}
+[rank 1] validation.end {"seconds": 2.0121866180561483, "step": 0}
+[rank 1] train.step.begin {"step": 1}
+[rank 5] train.micro_batch.begin {"step": 1, "micro_batch": 1}[rank 4] train.micro_batch.begin {"step": 1, "micro_batch": 1}[rank 6] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+
+[rank 2] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+
+[rank 0] train.micro_batch.begin {"step": 1, "micro_batch": 1}[rank 7] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+
+[rank 1] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 3] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank0]:[W1001 18:32:44.749880502 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4940890112 bytes (free: 1622540288, total: 50899648512).
+[rank5]:[W1001 18:32:44.755628440 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 5 while trying to allocate 4940890112 bytes (free: 1622540288, total: 50899648512).
+[rank4]:[W1001 18:32:44.756830134 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 4 while trying to allocate 4940890112 bytes (free: 1622540288, total: 50899648512).
+[rank6]:[W1001 18:32:44.758569940 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 6 while trying to allocate 4940890112 bytes (free: 1622540288, total: 50899648512).
+[rank7]:[W1001 18:32:44.762014959 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 7 while trying to allocate 4940890112 bytes (free: 1622540288, total: 50899648512).
+[rank2]:[W1001 18:32:44.762034605 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 2 while trying to allocate 4940890112 bytes (free: 1622540288, total: 50899648512).
+[rank1]:[W1001 18:32:44.763428266 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 1 while trying to allocate 4940890112 bytes (free: 1622540288, total: 50899648512).
+[rank3]:[W1001 18:32:44.766709344 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 3 while trying to allocate 4940890112 bytes (free: 1622540288, total: 50899648512).
+[rank 0] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 4] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 5] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 7] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 2] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 3] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 1] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 6] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 5] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 5] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 4] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 4] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 7] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 7] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 0] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 0] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 6] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 6] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 2] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 2] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 3] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 3] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 1] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 1] train.micro_batch.begin {"step": 1, "micro_batch": 2}
+[rank 4] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 5] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 0] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 7] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 5] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 4] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 0] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 7] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 2] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 1] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 3] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 6] train.micro_batch.forward_done {"step": 1, "micro_batch": 2}
+[rank 2] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 1] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 3] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 6] train.micro_batch.backward_done {"step": 1, "micro_batch": 2}
+[rank 6] train.step.end {"step": 1}[rank 4] train.step.end {"step": 1}[rank 3] train.step.end {"step": 1}
+
+
+[rank 2] train.step.end {"step": 1}
+[rank 5] train.step.end {"step": 1}
+[rank 7] train.step.end {"step": 1}
+[rank 1] train.step.end {"step": 1}
+[train] {'phase': 'train', 'step': 1, 'ce': 4.934000223875046, 'kl': 1.1849936842918396, 'loss': 1.1849936842918396, 'grad_norm': 4.123711109161377, 'tokens': 393216, 'epoch': 0, 'rank0_peak_memory_gib': 41.649911403656006, 'elapsed_seconds': 5.374585502780974}
+[rank 0] train.step.end {"step": 1}
+[rank 7] train.step.begin {"step": 10}
+[rank 5] train.step.begin {"step": 10}
+[rank 6] train.step.begin {"step": 10}
+[rank 4] train.step.begin {"step": 10}
+[rank 0] train.step.begin {"step": 10}
+[rank 3] train.step.begin {"step": 10}
+[rank 2] train.step.begin {"step": 10}
+[rank 1] train.step.begin {"step": 10}
+[rank 7] train.step.end {"step": 10}[rank 6] train.step.end {"step": 10}[rank 5] train.step.end {"step": 10}[rank 4] train.step.end {"step": 10}
+
+
+
+[rank 3] train.step.end {"step": 10}
+[rank 2] train.step.end {"step": 10}
+[train] {'phase': 'train', 'step': 10, 'ce': 4.967352032661438, 'kl': 0.9268978536128998, 'loss': 0.9268978536128998, 'grad_norm': 2.141127586364746, 'tokens': 393216, 'epoch': 0, 'rank0_peak_memory_gib': 42.29066276550293, 'elapsed_seconds': 28.096001303987578}
+[rank 0] train.step.end {"step": 10}
+[rank 1] train.step.end {"step": 10}
+[rank 7] train.step.begin {"step": 20}
+[rank 6] train.step.begin {"step": 20}
+[rank 5] train.step.begin {"step": 20}
+[rank 1] train.step.begin {"step": 20}
+[rank 4] train.step.begin {"step": 20}
+[rank 3] train.step.begin {"step": 20}
+[rank 0] train.step.begin {"step": 20}
+[rank 2] train.step.begin {"step": 20}
+[rank 6] train.step.end {"step": 20}[rank 4] train.step.end {"step": 20}[rank 5] train.step.end {"step": 20}[rank 2] train.step.end {"step": 20}
+
+[rank 1] train.step.end {"step": 20}
+
+
+[rank 7] train.step.end {"step": 20}
+[rank 3] train.step.end {"step": 20}
+[train] {'phase': 'train', 'step': 20, 'ce': 4.53065125644207, 'kl': 0.7977942153811455, 'loss': 0.7977942153811455, 'grad_norm': 1.123860239982605, 'tokens': 393216, 'epoch': 0, 'rank0_peak_memory_gib': 42.29066276550293, 'elapsed_seconds': 53.53686527488753}
+[rank 0] train.step.end {"step": 20}
+[rank0]:[W1001 18:33:39.382050168 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4940890112 bytes (free: 3256221696, total: 50899648512).
+[rank7]:[W1001 18:33:39.394371569 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 7 while trying to allocate 4940890112 bytes (free: 3256221696, total: 50899648512).
+[rank3]:[W1001 18:33:39.395058645 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 3 while trying to allocate 4940890112 bytes (free: 3256221696, total: 50899648512).
+[rank4]:[W1001 18:33:39.396251786 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 4 while trying to allocate 4940890112 bytes (free: 3256221696, total: 50899648512).
+[rank5]:[W1001 18:33:39.397798321 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 5 while trying to allocate 4940890112 bytes (free: 3256221696, total: 50899648512).
+[rank6]:[W1001 18:33:39.398403646 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 6 while trying to allocate 4940890112 bytes (free: 3256221696, total: 50899648512).
+[rank1]:[W1001 18:33:39.400381156 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 1 while trying to allocate 4940890112 bytes (free: 3256221696, total: 50899648512).
+[rank2]:[W1001 18:33:39.403769166 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 2 while trying to allocate 4940890112 bytes (free: 3256221696, total: 50899648512).
+[rank0]:[W1001 18:33:39.978664747 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4940890112 bytes (free: 3260416000, total: 50899648512).
+[rank 0] run.failed {"error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 0 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)"}
+[rank3]:[W1001 18:33:39.999278157 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 3 while trying to allocate 4940890112 bytes (free: 3260416000, total: 50899648512).
+[rank7]:[W1001 18:33:39.000466218 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 7 while trying to allocate 4940890112 bytes (free: 3260416000, total: 50899648512).
+[rank4]:[W1001 18:33:39.000467724 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 4 while trying to allocate 4940890112 bytes (free: 3260416000, total: 50899648512).
+[rank 3] run.failed {"error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 3 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)"}
+[rank5]:[W1001 18:33:39.001660162 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 5 while trying to allocate 4940890112 bytes (free: 3260416000, total: 50899648512).
+[rank 4] run.failed {"error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 4 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)"}
+[rank 7] run.failed {"error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 7 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)"}
+[rank6]:[W1001 18:33:39.002537274 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 6 while trying to allocate 4940890112 bytes (free: 3260416000, total: 50899648512).
+[rank 5] run.failed {"error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 5 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)"}
+[rank 6] run.failed {"error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 6 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)"}
+[rank1]:[W1001 18:33:39.009404776 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 1 while trying to allocate 4940890112 bytes (free: 3260416000, total: 50899648512).
+[rank 1] run.failed {"error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 1 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)"}
+[rank2]:[W1001 18:33:39.011781894 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 2 while trying to allocate 4940890112 bytes (free: 3260416000, total: 50899648512).
+[rank 2] run.failed {"error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 2 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)"}
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank3]:   File "<frozen runpy>", line 88, in _run_code
+[rank3]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank3]:     main()
+[rank3]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 110, in main
+[rank3]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank3]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 76, in run_experiment
+[rank3]:     checkpoint = train(teacher, student, tokenizer, config, run_dir)
+[rank3]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 174, in train
+[rank3]:     loss, metrics = batch_loss(teacher, student, batch, config)
+[rank3]:                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 38, in batch_loss
+[rank3]:     return distillation_loss(student_logits, teacher_logits, token_ids, config["loss"])
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/losses.py", line 25, in distillation_loss
+[rank3]:     kd = masked_mean((log_teacher.exp() * (log_teacher - log_student)).sum(-1), mask)
+[rank3]:                       ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[rank3]: torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 3 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+[rank4]: Traceback (most recent call last):
+[rank4]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank4]:   File "<frozen runpy>", line 88, in _run_code
+[rank4]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank4]:     main()
+[rank4]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 110, in main
+[rank4]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank4]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 76, in run_experiment
+[rank4]:     checkpoint = train(teacher, student, tokenizer, config, run_dir)
+[rank4]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank4]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 174, in train
+[rank4]:     loss, metrics = batch_loss(teacher, student, batch, config)
+[rank4]:                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank4]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 38, in batch_loss
+[rank4]:     return distillation_loss(student_logits, teacher_logits, token_ids, config["loss"])
+[rank4]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank4]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/losses.py", line 25, in distillation_loss
+[rank4]:     kd = masked_mean((log_teacher.exp() * (log_teacher - log_student)).sum(-1), mask)
+[rank4]:                       ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[rank4]: torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 4 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+[rank7]: Traceback (most recent call last):
+[rank7]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank7]:   File "<frozen runpy>", line 88, in _run_code
+[rank7]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank7]:     main()
+[rank7]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 110, in main
+[rank7]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank7]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 76, in run_experiment
+[rank7]:     checkpoint = train(teacher, student, tokenizer, config, run_dir)
+[rank7]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank7]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 174, in train
+[rank7]:     loss, metrics = batch_loss(teacher, student, batch, config)
+[rank7]:                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank7]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 38, in batch_loss
+[rank7]:     return distillation_loss(student_logits, teacher_logits, token_ids, config["loss"])
+[rank7]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank7]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/losses.py", line 25, in distillation_loss
+[rank7]:     kd = masked_mean((log_teacher.exp() * (log_teacher - log_student)).sum(-1), mask)
+[rank7]:                       ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[rank7]: torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 7 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+[rank6]: Traceback (most recent call last):
+[rank6]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank6]:   File "<frozen runpy>", line 88, in _run_code
+[rank6]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank6]:     main()
+[rank6]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 110, in main
+[rank6]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank6]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 76, in run_experiment
+[rank6]:     checkpoint = train(teacher, student, tokenizer, config, run_dir)
+[rank6]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 174, in train
+[rank6]:     loss, metrics = batch_loss(teacher, student, batch, config)
+[rank6]:                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 38, in batch_loss
+[rank6]:     return distillation_loss(student_logits, teacher_logits, token_ids, config["loss"])
+[rank6]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/losses.py", line 25, in distillation_loss
+[rank6]:     kd = masked_mean((log_teacher.exp() * (log_teacher - log_student)).sum(-1), mask)
+[rank6]:                       ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[rank6]: torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 6 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank0]:   File "<frozen runpy>", line 88, in _run_code
+[rank0]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank0]:     main()
+[rank0]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 110, in main
+[rank0]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank0]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 76, in run_experiment
+[rank0]:     checkpoint = train(teacher, student, tokenizer, config, run_dir)
+[rank0]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 174, in train
+[rank0]:     loss, metrics = batch_loss(teacher, student, batch, config)
+[rank0]:                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 38, in batch_loss
+[rank0]:     return distillation_loss(student_logits, teacher_logits, token_ids, config["loss"])
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/losses.py", line 25, in distillation_loss
+[rank0]:     kd = masked_mean((log_teacher.exp() * (log_teacher - log_student)).sum(-1), mask)
+[rank0]:                       ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[rank0]: torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 0 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+[rank2]: Traceback (most recent call last):
+[rank2]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank2]:   File "<frozen runpy>", line 88, in _run_code
+[rank2]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank2]:     main()
+[rank2]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 110, in main
+[rank2]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank2]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 76, in run_experiment
+[rank2]:     checkpoint = train(teacher, student, tokenizer, config, run_dir)
+[rank2]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 174, in train
+[rank2]:     loss, metrics = batch_loss(teacher, student, batch, config)
+[rank2]:                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 38, in batch_loss
+[rank2]:     return distillation_loss(student_logits, teacher_logits, token_ids, config["loss"])
+[rank2]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/losses.py", line 25, in distillation_loss
+[rank2]:     kd = masked_mean((log_teacher.exp() * (log_teacher - log_student)).sum(-1), mask)
+[rank2]:                       ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[rank2]: torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 2 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+[rank5]: Traceback (most recent call last):
+[rank5]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank5]:   File "<frozen runpy>", line 88, in _run_code
+[rank5]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank5]:     main()
+[rank5]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 110, in main
+[rank5]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank5]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 76, in run_experiment
+[rank5]:     checkpoint = train(teacher, student, tokenizer, config, run_dir)
+[rank5]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank5]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 174, in train
+[rank5]:     loss, metrics = batch_loss(teacher, student, batch, config)
+[rank5]:                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank5]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 38, in batch_loss
+[rank5]:     return distillation_loss(student_logits, teacher_logits, token_ids, config["loss"])
+[rank5]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank5]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/losses.py", line 25, in distillation_loss
+[rank5]:     kd = masked_mean((log_teacher.exp() * (log_teacher - log_student)).sum(-1), mask)
+[rank5]:                       ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[rank5]: torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 5 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank1]:   File "<frozen runpy>", line 88, in _run_code
+[rank1]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py", line 4, in <module>
+[rank1]:     main()
+[rank1]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 110, in main
+[rank1]:     run_experiment(config, args.command, args.checkpoint, allow_distributed)
+[rank1]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py", line 76, in run_experiment
+[rank1]:     checkpoint = train(teacher, student, tokenizer, config, run_dir)
+[rank1]:                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 174, in train
+[rank1]:     loss, metrics = batch_loss(teacher, student, batch, config)
+[rank1]:                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py", line 38, in batch_loss
+[rank1]:     return distillation_loss(student_logits, teacher_logits, token_ids, config["loss"])
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/losses.py", line 25, in distillation_loss
+[rank1]:     kd = masked_mean((log_teacher.exp() * (log_teacher - log_student)).sum(-1), mask)
+[rank1]:                       ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[rank1]: torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 1 has a total capacity of 47.40 GiB of which 3.04 GiB is free. Including non-PyTorch memory, this process has 44.36 GiB memory in use. Of the allocated memory 37.69 GiB is allocated by PyTorch, and 6.22 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+W1001 18:33:41.167000 1751407 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 1752444 closing signal SIGTERM
+W1001 18:33:41.168000 1751407 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 1752445 closing signal SIGTERM
+W1001 18:33:41.168000 1751407 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 1752446 closing signal SIGTERM
+W1001 18:33:41.168000 1751407 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 1752448 closing signal SIGTERM
+W1001 18:33:41.168000 1751407 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 1752449 closing signal SIGTERM
+W1001 18:33:41.168000 1751407 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 1752450 closing signal SIGTERM
+W1001 18:33:41.168000 1751407 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 1752451 closing signal SIGTERM
+E1001 18:33:41.912000 1751407 site-packages/torch/distributed/elastic/multiprocessing/api.py:1002] failed (exitcode: 1) local_rank: 3 (pid: 1752447) of binary: /proj/gpu_mtk53742/.conda/envs/distill/bin/python
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1142, in <module>
+    main()
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 380, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1138, in main
+    run(args)
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1129, in run
+    elastic_launch(
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 197, in __call__
+    return launch_agent(
+           ^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 386, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+distill FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2026-10-01_18:33:41
+  host      : colglx2002
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 1752444) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[2]:
+  time      : 2026-10-01_18:33:41
+  host      : colglx2002
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 1752445) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[3]:
+  time      : 2026-10-01_18:33:41
+  host      : colglx2002
+  rank      : 2 (local_rank: 2)
+  exitcode  : 1 (pid: 1752446) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[4]:
+  time      : 2026-10-01_18:33:41
+  host      : colglx2002
+  rank      : 4 (local_rank: 4)
+  exitcode  : 1 (pid: 1752448) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[5]:
+  time      : 2026-10-01_18:33:41
+  host      : colglx2002
+  rank      : 5 (local_rank: 5)
+  exitcode  : 1 (pid: 1752449) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[6]:
+  time      : 2026-10-01_18:33:41
+  host      : colglx2002
+  rank      : 6 (local_rank: 6)
+  exitcode  : 1 (pid: 1752450) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[7]:
+  time      : 2026-10-01_18:33:41
+  host      : colglx2002
+  rank      : 7 (local_rank: 7)
+  exitcode  : 1 (pid: 1752451) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-10-01_18:33:41
+  host      : colglx2002
+  rank      : 3 (local_rank: 3)
+  exitcode  : 1 (pid: 1752447) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

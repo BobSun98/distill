@@ -1,0 +1,31 @@
+{
+  "preprocessing": {
+    "dataset": "dvruette/lm1b",
+    "dataset_config": "default",
+    "revision": "refs/convert/parquet",
+    "local_dataset": null,
+    "sequence_length": 128,
+    "validation_documents": 100000,
+    "train_documents": 200000,
+    "valid_documents": 1024,
+    "tokenizer": "bert-base-uncased",
+    "packing": "lm1b_legacy_encoded_boundary_ids",
+    "bos_token_id": 101,
+    "eos_token_id": 101,
+    "corpus": "lm1b",
+    "detokenizer": "LangFlow.lm1b_detokenizer"
+  },
+  "source_documents": 30301028,
+  "splits": {
+    "train": {
+      "document_start": 0,
+      "documents": 200000,
+      "blocks": 46840
+    },
+    "valid": {
+      "document_start": 30201028,
+      "documents": 1024,
+      "blocks": 238
+    }
+  }
+}

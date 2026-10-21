@@ -1,0 +1,31 @@
+run:
+  name: unified_gen_ppl
+  root: run
+protocol:
+  version: gen_ppl_v1
+  seed: 42
+  num_samples: 1024
+  scorer: gpt2-large
+  scorer_max_length: 1024
+runtime:
+  device: cuda
+  cache_dir: null
+  generation_batch_size: 8
+  control_timeout_seconds: 7200
+models:
+- name: off_policy_initial
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261020_055035_436199_elf_l_owt_kd_32to16_lr1e-3/checkpoints/best/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261020_055035_436199_elf_l_owt_kd_32to16_lr1e-3/checkpoints/best/model.safetensors
+  generation: &id001
+    num_steps: 64
+    sequence_length: 1024
+    sampling:
+      sampling_method: sde
+      time_schedule: logit_normal
+      sde_gamma: 1.0
+      cfg_scale: 1.0
+      self_cond_cfg_scale: 3.0
+- name: on_policy_student
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261021_002915_169741_on_policy_elf_l/checkpoints/best/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261021_002915_169741_on_policy_elf_l/checkpoints/best/model.safetensors
+  generation: *id001

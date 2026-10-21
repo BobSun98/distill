@@ -1,0 +1,119 @@
+run:
+  name: on_policy_elf_l
+  root: run
+  seed: 42
+model:
+  family: elf
+  device: cuda
+  cache_dir: null
+  student_weights: run/20261020_055035_436199_elf_l_owt_kd_32to16_lr1e-3/checkpoints/best
+  student_config: null
+  teacher: embedded-language-flows/ELF-L-owt-torch
+  teacher_config: null
+  tokenizer: t5-small
+  architecture_config: configs/architectures/elf_l.json
+  checkpoint_file: null
+  use_ema: true
+  use_bf16: true
+  gradient_checkpointing: true
+  keep_layers:
+  - 0
+  - 2
+  - 4
+  - 6
+  - 8
+  - 10
+  - 12
+  - 14
+  - 17
+  - 19
+  - 21
+  - 23
+  - 25
+  - 27
+  - 29
+  - 31
+  architecture:
+    text_encoder_dim: 512
+    max_length: 1024
+    hidden_size: 1280
+    depth: 32
+    num_heads: 16
+    mlp_ratio: 4.0
+    attn_drop: 0.0
+    proj_drop: 0.0
+    bottleneck_dim: 128
+    num_time_tokens: 4
+    num_self_cond_cfg_tokens: 4
+    num_model_mode_tokens: 4
+    vocab_size: 32100
+    gradient_checkpointing: false
+  encoder: t5-small
+distributed:
+  control_timeout_seconds: 7200
+  tensor_timeout_seconds: 180
+loss:
+  ce_weight: 0.0
+  mse_weight: 1.0
+  ce_target: soft
+on_policy:
+  rollout_batch_size: 4
+  states_per_rollout: 8
+  buffer_capacity: 256
+  refresh_every: 16
+  decoder_probability: 0.2
+training:
+  max_steps: 5000
+  batch_size: 8
+  grad_accumulation: 1
+  learning_rate: 0.0001
+  lr_scheduler:
+    name: cosine
+    final_ratio: 0.1
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  log_every: 10
+  validate_every: 100
+  validation_batches: 2
+  save_every: 2500
+  plot_loss: true
+  ppl_evaluation:
+    enabled: false
+    interval: 500
+    batch_size: 2
+  early_stopping:
+    enabled: true
+    metric: error
+    min_steps: 500
+    patience: 5
+    min_delta: 0.001
+  self_condition_probability: 0.5
+evaluation:
+  seed: 42
+  num_steps: 64
+  sequence_length: 1024
+  batch_size: 1
+  num_samples: 1024
+  scorer: gpt2-large
+  scorer_batch_size: 4
+  scorer_max_length: 1024
+  sampling:
+    sampling_method: sde
+    time_schedule: logit_normal
+    sde_gamma: 1.0
+    cfg_scale: 1.0
+    self_cond_cfg_scale: 3.0
+diffusion:
+  latent_mean: 0.0
+  latent_std: 0.2
+  denoiser_p_mean: -1.5
+  denoiser_p_std: 0.8
+  denoiser_noise_scale: 2.0
+  time_schedule: logit_normal
+  t_eps: 0.05
+  decoder_probability: 0.2
+  decoder_p_mean: 0.8
+  decoder_p_std: 0.8
+  decoder_noise_scale: 5.0
+  self_cond_cfg_min: 0.5
+  self_cond_cfg_max: 5.0

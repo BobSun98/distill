@@ -1,0 +1,207 @@
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 6] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.end {"seconds": 0.019158747978508472, "backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.end {"seconds": 0.024711486883461475, "backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.end {"seconds": 0.04190858593210578, "backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.end {"seconds": 0.011315548093989491, "backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.end {"seconds": 0.07769195502623916, "backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.end {"seconds": 0.22345900302752852, "backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.end {"seconds": 0.22849588189274073, "backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.end {"seconds": 0.06883767596445978, "backend": "gloo", "world_size": 8}
+[run] /proj/gpu_mtk53742/CDLM-distillation/run/20261006_184455_962873_elf_b_owt_kd_12to6 (ELF, world_size=8)
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 1004.19it/s]
+[rank 0] elf.data.prepare.begin {}
+[rank 0] elf.data.cached {"path": "/proj/gpu_mtk53742/CDLM-distillation/run/data/elf_t5_l1024_t20000_v128"}
+[rank 0] elf.data.prepare.end {"seconds": 0.51605000696145}
+[rank 0] tensor_group.init.begin {"backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 4] tensor_group.init.begin {"backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}
+[rank 1] tensor_group.init.begin {"backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}
+[rank 2] tensor_group.init.begin {"backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}
+[rank 5] tensor_group.init.begin {"backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+[rank 6] tensor_group.init.begin {"backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+[rank 7] tensor_group.init.begin {"backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}
+[rank 3] tensor_group.init.begin {"backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}
+[rank 0] tensor_group.init.end {"seconds": 0.005182575900107622, "backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 0] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+[rank 4] tensor_group.init.end {"seconds": 0.013161933980882168, "backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}
+[rank 4] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:4", "bytes": 1048576}[rank 2] tensor_group.init.end {"seconds": 0.013189621036872268, "backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}
+
+[rank 5] tensor_group.init.end {"seconds": 0.013107869075611234, "backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+[rank 1] tensor_group.init.end {"seconds": 0.013226717012003064, "backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}
+[rank 2] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:2", "bytes": 1048576}
+[rank 1] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:1", "bytes": 1048576}[rank 5] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+
+[rank 3] tensor_group.init.end {"seconds": 0.013169914949685335, "backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}[rank 6] tensor_group.init.end {"seconds": 0.013301016064360738, "backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+
+[rank 7] tensor_group.init.end {"seconds": 0.013290501199662685, "backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}
+[rank 6] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:6", "bytes": 1048576}[rank 3] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:3", "bytes": 1048576}
+
+[rank 7] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+[rank 4] communication.all_reduce.end {"seconds": 1.0708352781366557, "backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+[rank 7] communication.all_reduce.end {"seconds": 1.0704120360314846, "backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+[rank 4] communication.broadcast.begin {"backend": "nccl", "device": "cuda:4"}
+[rank 5] communication.all_reduce.end {"seconds": 1.0709699688013643, "backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+[rank 7] communication.broadcast.begin {"backend": "nccl", "device": "cuda:7"}
+[rank 5] communication.broadcast.begin {"backend": "nccl", "device": "cuda:5"}
+[rank 6] communication.all_reduce.end {"seconds": 1.0708158938214183, "backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+[rank 6] communication.broadcast.begin {"backend": "nccl", "device": "cuda:6"}
+[rank 2] communication.all_reduce.end {"seconds": 1.0725673520937562, "backend": "nccl", "device": "cuda:2", "bytes": 1048576}
+[rank 2] communication.broadcast.begin {"backend": "nccl", "device": "cuda:2"}
+[rank 1] communication.all_reduce.end {"seconds": 1.0868821640033275, "backend": "nccl", "device": "cuda:1", "bytes": 1048576}
+[rank 1] communication.broadcast.begin {"backend": "nccl", "device": "cuda:1"}
+[rank 0] communication.all_reduce.end {"seconds": 1.0958129451610148, "backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+[rank 0] communication.broadcast.begin {"backend": "nccl", "device": "cuda:0"}
+[rank 3] communication.all_reduce.end {"seconds": 1.0876177209429443, "backend": "nccl", "device": "cuda:3", "bytes": 1048576}
+[rank 3] communication.broadcast.begin {"backend": "nccl", "device": "cuda:3"}
+[rank 1] communication.broadcast.end {"seconds": 0.0013088388368487358, "backend": "nccl", "device": "cuda:1"}
+[rank 1] elf.encoder.load.begin {"model": "t5-small"}[rank 2] communication.broadcast.end {"seconds": 0.015485875075682998, "backend": "nccl", "device": "cuda:2"}
+
+[rank 3] communication.broadcast.end {"seconds": 0.0005490940529853106, "backend": "nccl", "device": "cuda:3"}
+[rank 0] communication.broadcast.end {"seconds": 0.0010465930681675673, "backend": "nccl", "device": "cuda:0"}
+[rank 4] communication.broadcast.end {"seconds": 0.017643423983827233, "backend": "nccl", "device": "cuda:4"}
+[rank 2] elf.encoder.load.begin {"model": "t5-small"}
+[rank 3] elf.encoder.load.begin {"model": "t5-small"}
+[rank 5] communication.broadcast.end {"seconds": 0.01756819593720138, "backend": "nccl", "device": "cuda:5"}
+[rank 4] elf.encoder.load.begin {"model": "t5-small"}
+[rank 6] communication.broadcast.end {"seconds": 0.017311385134235024, "backend": "nccl", "device": "cuda:6"}
+[rank 5] elf.encoder.load.begin {"model": "t5-small"}[rank 0] elf.encoder.load.begin {"model": "t5-small"}
+
+[rank 7] communication.broadcast.end {"seconds": 0.01771588809788227, "backend": "nccl", "device": "cuda:7"}
+[rank 6] elf.encoder.load.begin {"model": "t5-small"}
+[rank 7] elf.encoder.load.begin {"model": "t5-small"}
+[rank 2] elf.encoder.load.end {"seconds": 0.19273505499586463, "model": "t5-small"}
+[rank 4] elf.encoder.load.end {"seconds": 0.19499460514634848, "model": "t5-small"}
+[rank 7] elf.encoder.load.end {"seconds": 0.19483194290660322, "model": "t5-small"}
+[rank 5] elf.encoder.load.end {"seconds": 0.19511267892085016, "model": "t5-small"}
+[rank 1] elf.encoder.load.end {"seconds": 0.19541437085717916, "model": "t5-small"}
+[rank 0] elf.encoder.load.end {"seconds": 0.19513597921468318, "model": "t5-small"}[rank 3] elf.encoder.load.end {"seconds": 0.1952758019324392, "model": "t5-small"}
+
+[rank 6] elf.encoder.load.end {"seconds": 0.19502282980829477, "model": "t5-small"}
+[rank 0] elf.teacher.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 5] elf.teacher.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}[rank 4] elf.teacher.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+
+[rank 1] elf.teacher.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 6] elf.teacher.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 3] elf.teacher.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 7] elf.teacher.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 2] elf.teacher.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 0] elf.teacher.load.end {"seconds": 1.4455201679375023, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 0] elf.teacher.loaded {"ema_used": true, "depth": 12}
+[rank 4] elf.teacher.load.end {"seconds": 1.4507304599974304, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 5] elf.teacher.load.end {"seconds": 1.4522094430867583, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 6] elf.teacher.load.end {"seconds": 1.4524444290436804, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 1] elf.teacher.load.end {"seconds": 1.4571697020437568, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 7] elf.teacher.load.end {"seconds": 1.4718736330978572, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 3] elf.teacher.load.end {"seconds": 1.4731332079973072, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 2] elf.teacher.load.end {"seconds": 1.6899939880240709, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--embedded-language-flows--ELF-B-owt-torch/snapshots/146f84133c1389bfd4ef47f14ec7a955da22faa7/checkpoint_95085", "use_ema": true}
+[rank 3] data.loaders.begin {}
+[rank 1] data.loaders.begin {}
+[rank 7] data.loaders.begin {}
+[rank 4] data.loaders.begin {}[rank 5] data.loaders.begin {}
+
+[rank 6] data.loaders.begin {}
+[rank 2] data.loaders.begin {}
+[rank 0] data.loaders.begin {}
+[rank 1] data.loaders.end {"seconds": 0.19037902308627963}[rank 6] data.loaders.end {"seconds": 0.19018074194900692}[rank 0] data.loaders.end {"seconds": 0.18986879708245397}
+
+
+[rank 3] data.loaders.end {"seconds": 0.19049479207023978}
+[rank 5] data.loaders.end {"seconds": 0.1904498420190066}
+[rank 4] data.loaders.end {"seconds": 0.19048408488743007}
+[rank 1] ddp.init.begin {"device": "cuda:1"}[rank 0] ddp.init.begin {"device": "cuda:0"}
+
+[rank 6] ddp.init.begin {"device": "cuda:6"}
+[rank 3] ddp.init.begin {"device": "cuda:3"}
+[rank 7] data.loaders.end {"seconds": 0.19090116396546364}
+[rank 5] ddp.init.begin {"device": "cuda:5"}
+[rank 4] ddp.init.begin {"device": "cuda:4"}
+[rank 7] ddp.init.begin {"device": "cuda:7"}
+[rank 2] data.loaders.end {"seconds": 0.19460835703648627}
+[rank 2] ddp.init.begin {"device": "cuda:2"}
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:114: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:114: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:114: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:114: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:114: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:114: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:114: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:114: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+[rank 1] ddp.init.end {"seconds": 1.3491692570969462, "device": "cuda:1"}
+[rank 7] ddp.init.end {"seconds": 1.3494187770411372, "device": "cuda:7"}
+[rank 1] validation.begin {"step": 0}
+[rank 0] ddp.init.end {"seconds": 1.3502193239983171, "device": "cuda:0"}
+[rank 6] ddp.init.end {"seconds": 1.3502538229804486, "device": "cuda:6"}
+[rank 5] ddp.init.end {"seconds": 1.3502149789128453, "device": "cuda:5"}
+[rank 3] ddp.init.end {"seconds": 1.3504761790391058, "device": "cuda:3"}
+[rank 2] ddp.init.end {"seconds": 1.3464426030404866, "device": "cuda:2"}
+[rank 4] ddp.init.end {"seconds": 1.3507185210473835, "device": "cuda:4"}
+[rank 7] validation.begin {"step": 0}
+[rank 6] validation.begin {"step": 0}
+[rank 5] validation.begin {"step": 0}
+[rank 3] validation.begin {"step": 0}
+[rank 2] validation.begin {"step": 0}
+[rank 4] validation.begin {"step": 0}
+[rank 0] validation.begin {"step": 0}
+[rank 0] validation.first_batch.begin {"tokens": 13540}
+[rank 1] validation.first_batch.begin {"tokens": 13339}
+[rank 2] validation.first_batch.begin {"tokens": 13552}
+[rank 3] validation.first_batch.begin {"tokens": 13587}
+[rank 5] validation.first_batch.begin {"tokens": 13904}
+[rank 6] validation.first_batch.begin {"tokens": 12777}
+[rank 4] validation.first_batch.begin {"tokens": 13596}
+[rank 7] validation.first_batch.begin {"tokens": 13710}
+[rank4]:[W1006 18:45:03.022674611 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 4 while trying to allocate 1841299456 bytes (free: 933298176, total: 50899648512).
+[rank0]:[W1006 18:45:03.027258642 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1841299456 bytes (free: 536936448, total: 50899648512).
+[rank 1] validation.first_batch.end {"loss": 7.281915187835693, "flow_mse": 3.7429921627044678, "native_flow_mse": 4.410613536834717, "decoder_kl": 3.5389230251312256, "decoder_ce": 3.5691328048706055}
+[rank 2] validation.first_batch.end {"loss": 6.670821666717529, "flow_mse": 2.566842555999756, "native_flow_mse": 3.2826333045959473, "decoder_kl": 4.103979110717773, "decoder_ce": 4.12225341796875}
+[rank 5] validation.first_batch.end {"loss": 5.493198394775391, "flow_mse": 2.9222633838653564, "native_flow_mse": 3.6034648418426514, "decoder_kl": 2.570935010910034, "decoder_ce": 2.583064556121826}
+[rank 7] validation.first_batch.end {"loss": 8.655094146728516, "flow_mse": 2.9354472160339355, "native_flow_mse": 3.646345376968384, "decoder_kl": 5.71964693069458, "decoder_ce": 5.740358352661133}
+[rank 6] validation.first_batch.end {"loss": 5.796001434326172, "flow_mse": 3.2377452850341797, "native_flow_mse": 4.173755168914795, "decoder_kl": 2.5582563877105713, "decoder_ce": 2.5730113983154297}
+[rank4]:[W1006 18:45:04.155142190 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 4 while trying to allocate 1841299456 bytes (free: 119603200, total: 50899648512).
+[rank4]:[W1006 18:45:04.155322321 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 4 while trying to allocate 1841299456 bytes (free: 119603200, total: 50899648512).
+[rank 3] validation.first_batch.end {"loss": 10.829229354858398, "flow_mse": 1.7595891952514648, "native_flow_mse": 2.2957687377929688, "decoder_kl": 9.069640159606934, "decoder_ce": 9.120241165161133}
+[rank 4] validation.failed {"error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.71 GiB. GPU 4 has a total capacity of 47.40 GiB of which 114.06 MiB is free. Process 3702954 has 5.17 GiB memory in use. Process 3702953 has 5.16 GiB memory in use. Process 3702969 has 5.16 GiB memory in use. Process 3702960 has 5.17 GiB memory in use. Process 3702955 has 5.47 GiB memory in use. Process 3702980 has 5.16 GiB memory in use. Process 3702986 has 5.16 GiB memory in use. Including non-PyTorch memory, this process has 10.80 GiB memory in use. Of the allocated memory 9.93 GiB is allocated by PyTorch, and 449.75 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)", "step": 0}
+[rank 4] elf.run.failed {"error": "CUDA out of memory. Tried to allocate 1.71 GiB. GPU 4 has a total capacity of 47.40 GiB of which 114.06 MiB is free. Process 3702954 has 5.17 GiB memory in use. Process 3702953 has 5.16 GiB memory in use. Process 3702969 has 5.16 GiB memory in use. Process 3702960 has 5.17 GiB memory in use. Process 3702955 has 5.47 GiB memory in use. Process 3702980 has 5.16 GiB memory in use. Process 3702986 has 5.16 GiB memory in use. Including non-PyTorch memory, this process has 10.80 GiB memory in use. Of the allocated memory 9.93 GiB is allocated by PyTorch, and 449.75 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)"}
+[rank0]:[W1006 18:45:04.182664974 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1841299456 bytes (free: 1562443776, total: 50899648512).
+[rank 1] validation.reduce.begin {"local_tokens": 15309}
+[rank 0] validation.failed {"error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.71 GiB. GPU 0 has a total capacity of 47.40 GiB of which 1.46 GiB is free. Process 3701343 has 5.17 GiB memory in use. Process 3701347 has 5.17 GiB memory in use. Process 3701346 has 5.17 GiB memory in use. Process 3701349 has 5.18 GiB memory in use. Process 3701352 has 5.31 GiB memory in use. Process 3701357 has 5.41 GiB memory in use. Process 3701350 has 5.41 GiB memory in use. Including non-PyTorch memory, this process has 9.09 GiB memory in use. Of the allocated memory 8.21 GiB is allocated by PyTorch, and 449.75 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)", "step": 0}
+[rank 0] elf.run.failed {"error": "CUDA out of memory. Tried to allocate 1.71 GiB. GPU 0 has a total capacity of 47.40 GiB of which 1.46 GiB is free. Process 3701343 has 5.17 GiB memory in use. Process 3701347 has 5.17 GiB memory in use. Process 3701346 has 5.17 GiB memory in use. Process 3701349 has 5.18 GiB memory in use. Process 3701352 has 5.31 GiB memory in use. Process 3701357 has 5.41 GiB memory in use. Process 3701350 has 5.41 GiB memory in use. Including non-PyTorch memory, this process has 9.09 GiB memory in use. Of the allocated memory 8.21 GiB is allocated by PyTorch, and 449.75 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)"}
+[rank 2] validation.reduce.begin {"local_tokens": 15510}
+[rank 7] validation.reduce.begin {"local_tokens": 15608}
+[rank 6] validation.reduce.begin {"local_tokens": 14729}
+[rank 3] validation.reduce.begin {"local_tokens": 15392}
+[rank 5] validation.reduce.begin {"local_tokens": 15918}

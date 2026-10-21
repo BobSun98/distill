@@ -1,0 +1,37 @@
+run:
+  name: langflow_lm1b_eval
+  root: run
+model:
+  device: cuda
+  tokenizer: bert-base-uncased
+  cache_dir: null
+distributed:
+  control_timeout_seconds: 7200
+metrics:
+- gen_ppl
+flow_ppl:
+  corpus: lm1b
+  seed: 1
+  sequence_length: 128
+  num_steps: 128
+  ode_method: heun2
+  batch_size: 1
+  use_self_cond: true
+  first_n: 0
+  validation_cache: null
+  data_cache: null
+  data_workers: 2
+  dataset: dvruette/lm1b
+  dataset_config: default
+  revision: refs/convert/parquet
+  validation_documents: null
+gen_ppl:
+  seed: 42
+  num_samples: 512
+  sequence_length: 128
+  num_steps: 128
+  batch_size: 8
+  scorer: gpt2-large
+  scorer_batch_size: 8
+  scorer_max_length: 1024
+  reference: 'run_all_eval_8gpu.sh: lm1b_gen / LangFlow/gen_ppl.py / merge_gen_ppl.py'

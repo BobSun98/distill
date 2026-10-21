@@ -1,0 +1,477 @@
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 2] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.end {"seconds": 0.07799888006411493, "backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.end {"seconds": 0.012853487860411406, "backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.end {"seconds": 0.02983095310628414, "backend": "gloo", "world_size": 8}[rank 5] control_group.init.end {"seconds": 0.10480303899385035, "backend": "gloo", "world_size": 8}
+
+[rank 1] control_group.init.end {"seconds": 0.02579563413746655, "backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.end {"seconds": 0.07320668688043952, "backend": "gloo", "world_size": 8}[rank 3] control_group.init.end {"seconds": 0.12168143107555807, "backend": "gloo", "world_size": 8}
+
+[rank 2] control_group.init.end {"seconds": 0.1430496689863503, "backend": "gloo", "world_size": 8}
+[rank 4] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 4, "device": "cuda"}
+[rank 4] cuda.runtime {"logical_device": 4, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 4] tensor_group.init.begin {"backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}
+[rank 4] tensor_group.init.end {"seconds": 0.006447728956118226, "backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}
+[rank 4] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+[rank 7] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 7, "device": "cuda"}
+[rank 5] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 5, "device": "cuda"}
+[rank 0] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 0, "device": "cuda"}
+[rank 7] cuda.runtime {"logical_device": 7, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 5] cuda.runtime {"logical_device": 5, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 7] tensor_group.init.begin {"backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}
+[rank 0] cuda.runtime {"logical_device": 0, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 5] tensor_group.init.begin {"backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+[run] /proj/gpu_mtk53742/CDLM-distillation/run/20261001_163031_726004_owt_kd_12to6 (world_size=8)
+[rank 6] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 6, "device": "cuda"}
+[rank 3] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 3, "device": "cuda"}
+[rank 0] tensor_group.init.begin {"backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 6] cuda.runtime {"logical_device": 6, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 3] cuda.runtime {"logical_device": 3, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+[rank 1] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 1, "device": "cuda"}
+[rank 2] run.start {"world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 2, "device": "cuda"}
+[rank 6] tensor_group.init.begin {"backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+[rank 3] tensor_group.init.begin {"backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}
+[rank 2] cuda.runtime {"logical_device": 2, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}[rank 1] cuda.runtime {"logical_device": 1, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+
+[rank 2] tensor_group.init.begin {"backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}[rank 1] tensor_group.init.begin {"backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}
+
+[rank 7] tensor_group.init.end {"seconds": 0.010503594996407628, "backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}
+[rank 7] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+[rank 5] tensor_group.init.end {"seconds": 0.011024538893252611, "backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+[rank 5] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+[rank 0] tensor_group.init.end {"seconds": 0.012298515997827053, "backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 6] tensor_group.init.end {"seconds": 0.011879844823852181, "backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+[rank 6] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:6", "bytes": 1048576}[rank 0] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+
+[rank 3] tensor_group.init.end {"seconds": 0.012724356027320027, "backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}
+[rank 3] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:3", "bytes": 1048576}
+[rank 1] tensor_group.init.end {"seconds": 0.014135912992060184, "backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}[rank 2] tensor_group.init.end {"seconds": 0.014149728929623961, "backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}
+
+[rank 2] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:2", "bytes": 1048576}[rank 1] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:1", "bytes": 1048576}
+
+[rank5]:[E1001 16:33:32.580909353 ProcessGroupNCCL.cpp:741] [PG GUID 1 Rank 5] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180011 milliseconds before timing out.
+[rank5]:[E1001 16:33:32.582946332 ProcessGroupNCCL.cpp:2390] [PG ID 0 PG GUID 1 Rank 5]  failure detected by watchdog at work sequence id: 1 PG status: last enqueued work: 1, last started work: -1 (), last completed work: -1
+[rank3]:[E1001 16:33:32.585411218 ProcessGroupNCCL.cpp:741] [PG GUID 1 Rank 3] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180016 milliseconds before timing out.
+[rank3]:[E1001 16:33:32.586166644 ProcessGroupNCCL.cpp:2390] [PG ID 0 PG GUID 1 Rank 3]  failure detected by watchdog at work sequence id: 1 PG status: last enqueued work: 1, last started work: -1 (), last completed work: -1
+[rank7]:[E1001 16:33:32.586646904 ProcessGroupNCCL.cpp:741] [PG GUID 1 Rank 7] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180017 milliseconds before timing out.
+[rank7]:[E1001 16:33:32.587755399 ProcessGroupNCCL.cpp:2390] [PG ID 0 PG GUID 1 Rank 7]  failure detected by watchdog at work sequence id: 1 PG status: last enqueued work: 1, last started work: -1 (), last completed work: -1
+[rank6]:[E1001 16:33:32.588676965 ProcessGroupNCCL.cpp:741] [PG GUID 1 Rank 6] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180019 milliseconds before timing out.
+[rank0]:[E1001 16:33:32.589016265 ProcessGroupNCCL.cpp:741] [PG GUID 1 Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180019 milliseconds before timing out.
+[rank6]:[E1001 16:33:32.589786600 ProcessGroupNCCL.cpp:2390] [PG ID 0 PG GUID 1 Rank 6]  failure detected by watchdog at work sequence id: 1 PG status: last enqueued work: 1, last started work: -1 (), last completed work: -1
+[rank0]:[E1001 16:33:32.589792400 ProcessGroupNCCL.cpp:2390] [PG ID 0 PG GUID 1 Rank 0]  failure detected by watchdog at work sequence id: 1 PG status: last enqueued work: 1, last started work: -1 (), last completed work: -1
+[rank2]:[E1001 16:33:32.590802100 ProcessGroupNCCL.cpp:741] [PG GUID 1 Rank 2] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180010 milliseconds before timing out.
+[rank2]:[E1001 16:33:32.591560276 ProcessGroupNCCL.cpp:2390] [PG ID 0 PG GUID 1 Rank 2]  failure detected by watchdog at work sequence id: 1 PG status: last enqueued work: 1, last started work: -1 (), last completed work: -1
+[rank1]:[E1001 16:33:32.594496952 ProcessGroupNCCL.cpp:741] [PG GUID 1 Rank 1] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180020 milliseconds before timing out.
+[rank1]:[E1001 16:33:32.595253909 ProcessGroupNCCL.cpp:2390] [PG ID 0 PG GUID 1 Rank 1]  failure detected by watchdog at work sequence id: 1 PG status: last enqueued work: 1, last started work: -1 (), last completed work: -1
+[rank4]:[E1001 16:33:32.669197185 ProcessGroupNCCL.cpp:741] [PG GUID 1 Rank 4] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180095 milliseconds before timing out.
+[rank4]:[E1001 16:33:32.670800027 ProcessGroupNCCL.cpp:2390] [PG ID 0 PG GUID 1 Rank 4]  failure detected by watchdog at work sequence id: 1 PG status: last enqueued work: 1, last started work: -1 (), last completed work: -1
+[rank6]:[E1001 16:33:33.863478915 ProcessGroupNCCL.cpp:785] Stack trace of the failed collective: 
+#0 all_reduce from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py:3906
+#1 wrapper from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/c10d_logger.py:83
+#2 setup_tensor_group from /proj/gpu_mtk53742/CDLM-distillation/src/distill/distributed.py:72
+#3 run_experiment from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:44
+#4 main from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:110
+#5 <module> from /proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py:4
+#6 _run_code from <frozen runpy>:88
+#7 _run_module_as_main from <frozen runpy>:198
+
+[rank6]:[E1001 16:33:33.863595141 ProcessGroupNCCL.cpp:2732] [PG ID 0 PG GUID 1 Rank 6] First PG on this rank to signal dumping.
+[rank7]:[E1001 16:33:33.867397408 ProcessGroupNCCL.cpp:1917] [PG ID 0 PG GUID 1 Rank 7] Observed flight recorder dump signal from another rank via TCPStore.
+[rank7]:[E1001 16:33:33.867645236 ProcessGroupNCCL.cpp:1982] [PG ID 0 PG GUID 1 Rank 7] Received a dump signal due to a collective timeout from  rank 6 and we will try our best to dump the debug info. Last enqueued NCCL work: 1, last completed NCCL work: -1.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank5]:[E1001 16:33:33.867904063 ProcessGroupNCCL.cpp:1917] [PG ID 0 PG GUID 1 Rank 5] Observed flight recorder dump signal from another rank via TCPStore.
+[rank7]:[E1001 16:33:33.868127561 ProcessGroupNCCL.cpp:1694] [PG ID 0 PG GUID 1 Rank 7] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+[rank5]:[E1001 16:33:33.868146577 ProcessGroupNCCL.cpp:1982] [PG ID 0 PG GUID 1 Rank 5] Received a dump signal due to a collective timeout from  rank 6 and we will try our best to dump the debug info. Last enqueued NCCL work: 1, last completed NCCL work: -1.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank3]:[E1001 16:33:33.868453198 ProcessGroupNCCL.cpp:1917] [PG ID 0 PG GUID 1 Rank 3] Observed flight recorder dump signal from another rank via TCPStore.
+[rank5]:[E1001 16:33:33.868566973 ProcessGroupNCCL.cpp:1694] [PG ID 0 PG GUID 1 Rank 5] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+[rank3]:[E1001 16:33:33.868672378 ProcessGroupNCCL.cpp:1982] [PG ID 0 PG GUID 1 Rank 3] Received a dump signal due to a collective timeout from  rank 6 and we will try our best to dump the debug info. Last enqueued NCCL work: 1, last completed NCCL work: -1.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank3]:[E1001 16:33:33.868724677 ProcessGroupNCCL.cpp:785] Stack trace of the failed collective: 
+#0 all_reduce from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py:3906
+#1 wrapper from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/c10d_logger.py:83
+#2 setup_tensor_group from /proj/gpu_mtk53742/CDLM-distillation/src/distill/distributed.py:72
+#3 run_experiment from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:44
+#4 main from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:110
+#5 <module> from /proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py:4
+#6 _run_code from <frozen runpy>:88
+#7 _run_module_as_main from <frozen runpy>:198
+
+[rank6]:[E1001 16:33:33.868855612 ProcessGroupNCCL.cpp:1982] [PG ID 0 PG GUID 1 Rank 6] Received a dump signal due to a collective timeout from this local rank and we will try our best to dump the debug info. Last enqueued NCCL work: 1, last completed NCCL work: -1.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank3]:[E1001 16:33:33.869046718 ProcessGroupNCCL.cpp:1694] [PG ID 0 PG GUID 1 Rank 3] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+[rank0]:[E1001 16:33:33.869077758 ProcessGroupNCCL.cpp:1917] [PG ID 0 PG GUID 1 Rank 0] Observed flight recorder dump signal from another rank via TCPStore.
+[rank6]:[E1001 16:33:33.869226817 ProcessGroupNCCL.cpp:1694] [PG ID 0 PG GUID 1 Rank 6] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+[rank0]:[E1001 16:33:33.869276097 ProcessGroupNCCL.cpp:1982] [PG ID 0 PG GUID 1 Rank 0] Received a dump signal due to a collective timeout from  rank 3 and we will try our best to dump the debug info. Last enqueued NCCL work: 1, last completed NCCL work: -1.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank0]:[E1001 16:33:33.869669529 ProcessGroupNCCL.cpp:1694] [PG ID 0 PG GUID 1 Rank 0] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+[rank2]:[E1001 16:33:33.870558884 ProcessGroupNCCL.cpp:785] Stack trace of the failed collective: 
+#0 all_reduce from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py:3906
+#1 wrapper from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/c10d_logger.py:83
+#2 setup_tensor_group from /proj/gpu_mtk53742/CDLM-distillation/src/distill/distributed.py:72
+#3 run_experiment from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:44
+#4 main from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:110
+#5 <module> from /proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py:4
+#6 _run_code from <frozen runpy>:88
+#7 _run_module_as_main from <frozen runpy>:198
+
+[rank2]:[E1001 16:33:33.870677814 ProcessGroupNCCL.cpp:2732] [PG ID 0 PG GUID 1 Rank 2] First PG on this rank to signal dumping.
+[rank2]:[E1001 16:33:33.870756813 ProcessGroupNCCL.cpp:1982] [PG ID 0 PG GUID 1 Rank 2] Received a dump signal due to a collective timeout from this local rank and we will try our best to dump the debug info. Last enqueued NCCL work: 1, last completed NCCL work: -1.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank2]:[E1001 16:33:33.871134179 ProcessGroupNCCL.cpp:1694] [PG ID 0 PG GUID 1 Rank 2] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+[rank1]:[E1001 16:33:33.872178293 ProcessGroupNCCL.cpp:1917] [PG ID 0 PG GUID 1 Rank 1] Observed flight recorder dump signal from another rank via TCPStore.
+[rank1]:[E1001 16:33:33.872496133 ProcessGroupNCCL.cpp:1982] [PG ID 0 PG GUID 1 Rank 1] Received a dump signal due to a collective timeout from  rank 2 and we will try our best to dump the debug info. Last enqueued NCCL work: 1, last completed NCCL work: -1.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank1]:[E1001 16:33:33.872984123 ProcessGroupNCCL.cpp:1694] [PG ID 0 PG GUID 1 Rank 1] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+[rank1]:[E1001 16:33:33.889086090 ProcessGroupNCCL.cpp:785] Stack trace of the failed collective: 
+#0 all_reduce from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py:3906
+#1 wrapper from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/c10d_logger.py:83
+#2 setup_tensor_group from /proj/gpu_mtk53742/CDLM-distillation/src/distill/distributed.py:72
+#3 run_experiment from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:44
+#4 main from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:110
+#5 <module> from /proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py:4
+#6 _run_code from <frozen runpy>:88
+#7 _run_module_as_main from <frozen runpy>:198
+
+[rank7]:[E1001 16:33:33.922393177 ProcessGroupNCCL.cpp:785] Stack trace of the failed collective: 
+#0 all_reduce from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py:3906
+#1 wrapper from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/c10d_logger.py:83
+#2 setup_tensor_group from /proj/gpu_mtk53742/CDLM-distillation/src/distill/distributed.py:72
+#3 run_experiment from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:44
+#4 main from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:110
+#5 <module> from /proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py:4
+#6 _run_code from <frozen runpy>:88
+#7 _run_module_as_main from <frozen runpy>:198
+
+[rank5]:[E1001 16:33:33.922736787 ProcessGroupNCCL.cpp:785] Stack trace of the failed collective: 
+#0 all_reduce from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py:3906
+#1 wrapper from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/c10d_logger.py:83
+#2 setup_tensor_group from /proj/gpu_mtk53742/CDLM-distillation/src/distill/distributed.py:72
+#3 run_experiment from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:44
+#4 main from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:110
+#5 <module> from /proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py:4
+#6 _run_code from <frozen runpy>:88
+#7 _run_module_as_main from <frozen runpy>:198
+
+[rank0]:[E1001 16:33:33.947887637 ProcessGroupNCCL.cpp:785] Stack trace of the failed collective: 
+#0 all_reduce from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py:3906
+#1 wrapper from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/c10d_logger.py:83
+#2 setup_tensor_group from /proj/gpu_mtk53742/CDLM-distillation/src/distill/distributed.py:72
+#3 run_experiment from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:44
+#4 main from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:110
+#5 <module> from /proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py:4
+#6 _run_code from <frozen runpy>:88
+#7 _run_module_as_main from <frozen runpy>:198
+
+[rank4]:[E1001 16:33:33.988809162 ProcessGroupNCCL.cpp:785] Stack trace of the failed collective: 
+#0 all_reduce from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py:3906
+#1 wrapper from /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/c10d_logger.py:83
+#2 setup_tensor_group from /proj/gpu_mtk53742/CDLM-distillation/src/distill/distributed.py:72
+#3 run_experiment from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:44
+#4 main from /proj/gpu_mtk53742/CDLM-distillation/src/distill/pipeline.py:110
+#5 <module> from /proj/gpu_mtk53742/CDLM-distillation/src/distill/__main__.py:4
+#6 _run_code from <frozen runpy>:88
+#7 _run_module_as_main from <frozen runpy>:198
+
+[rank4]:[E1001 16:33:33.988915322 ProcessGroupNCCL.cpp:2732] [PG ID 0 PG GUID 1 Rank 4] First PG on this rank to signal dumping.
+[rank4]:[E1001 16:33:34.860312875 ProcessGroupNCCL.cpp:1982] [PG ID 0 PG GUID 1 Rank 4] Received a dump signal due to a collective timeout from this local rank and we will try our best to dump the debug info. Last enqueued NCCL work: 1, last completed NCCL work: -1.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank4]:[E1001 16:33:34.860711837 ProcessGroupNCCL.cpp:1694] [PG ID 0 PG GUID 1 Rank 4] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+[rank 6] communication.all_reduce.failed {"error": "RuntimeError: 通信检查的 all_reduce 结果不正确", "backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+[rank 6] run.failed {"error": "RuntimeError: 通信检查的 all_reduce 结果不正确"}
+[rank2]:[E1001 16:34:33.928736260 ProcessGroupNCCL.cpp:802] [PG GUID 1 Rank 2] Some NCCL operations have failed or timed out. Due to the asynchronous nature of CUDA kernels, subsequent GPU operations might run on corrupted/incomplete data.
+[rank2]:[E1001 16:34:33.928754616 ProcessGroupNCCL.cpp:816] [PG GUID 1 Rank 2] To avoid data inconsistency, we are taking the entire process down.
+[rank6]:[E1001 16:34:33.930570108 ProcessGroupNCCL.cpp:802] [PG GUID 1 Rank 6] Some NCCL operations have failed or timed out. Due to the asynchronous nature of CUDA kernels, subsequent GPU operations might run on corrupted/incomplete data.
+[rank6]:[E1001 16:34:33.930585324 ProcessGroupNCCL.cpp:816] [PG GUID 1 Rank 6] To avoid data inconsistency, we are taking the entire process down.
+[rank2]:[E1001 16:34:33.930685386 ProcessGroupNCCL.cpp:2192] [PG ID 0 PG GUID 1 Rank 2] Process group watchdog thread terminated with exception: [PG GUID 1 Rank 2] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180010 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x78d1dd0b460d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x78d1dd0b55e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x78d1dd0b5712 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x78d123fc5847 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x78d123fd17e1 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x78d123fd2a57 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x78d1dd5c60e6 in /proj/gpu_mtk53742/.conda/envs/distill/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x78d1de09caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x78d1de129c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+terminate called after throwing an instance of 'c10::DistBackendError'
+  what():  [PG ID 0 PG GUID 1 Rank 2] Process group watchdog thread terminated with exception: [PG GUID 1 Rank 2] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180010 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x78d1dd0b460d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x78d1dd0b55e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x78d1dd0b5712 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x78d123fc5847 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x78d123fd17e1 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x78d123fd2a57 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x78d1dd5c60e6 in /proj/gpu_mtk53742/.conda/envs/distill/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x78d1de09caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x78d1de129c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+Exception raised from run at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2198 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x78d1dd0b460d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x78d1dd0b55e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x78d1dd0b5712 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: <unknown function> + 0x6cf968 (0x78d1236cf968 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xdf0e6 (0x78d1dd5c60e6 in /proj/gpu_mtk53742/.conda/envs/distill/bin/../lib/libstdc++.so.6)
+frame #5: <unknown function> + 0x9caa4 (0x78d1de09caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #6: <unknown function> + 0x129c6c (0x78d1de129c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+[rank6]:[E1001 16:34:33.931701238 ProcessGroupNCCL.cpp:2192] [PG ID 0 PG GUID 1 Rank 6] Process group watchdog thread terminated with exception: [PG GUID 1 Rank 6] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180019 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x75f2d30b460d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x75f2d30b55e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x75f2d30b5712 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x75f219fc5847 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x75f219fd17e1 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x75f219fd2a57 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x75f2d35b60e6 in /proj/gpu_mtk53742/.conda/envs/distill/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x75f2d409caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x75f2d4129c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+terminate called after throwing an instance of 'c10::DistBackendError'
+  what():  [PG ID 0 PG GUID 1 Rank 6] Process group watchdog thread terminated with exception: [PG GUID 1 Rank 6] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180019 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x75f2d30b460d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x75f2d30b55e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x75f2d30b5712 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x75f219fc5847 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x75f219fd17e1 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x75f219fd2a57 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x75f2d35b60e6 in /proj/gpu_mtk53742/.conda/envs/distill/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x75f2d409caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x75f2d4129c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+Exception raised from run at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2198 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x75f2d30b460d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x75f2d30b55e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x75f2d30b5712 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: <unknown function> + 0x6cf968 (0x75f2196cf968 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xdf0e6 (0x75f2d35b60e6 in /proj/gpu_mtk53742/.conda/envs/distill/bin/../lib/libstdc++.so.6)
+frame #5: <unknown function> + 0x9caa4 (0x75f2d409caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #6: <unknown function> + 0x129c6c (0x75f2d4129c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+[rank3]:[E1001 16:34:33.935978806 ProcessGroupNCCL.cpp:802] [PG GUID 1 Rank 3] Some NCCL operations have failed or timed out. Due to the asynchronous nature of CUDA kernels, subsequent GPU operations might run on corrupted/incomplete data.
+[rank3]:[E1001 16:34:33.935992555 ProcessGroupNCCL.cpp:816] [PG GUID 1 Rank 3] To avoid data inconsistency, we are taking the entire process down.
+[rank3]:[E1001 16:34:33.937089776 ProcessGroupNCCL.cpp:2192] [PG ID 0 PG GUID 1 Rank 3] Process group watchdog thread terminated with exception: [PG GUID 1 Rank 3] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180016 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7e3024cb460d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x7e3024cb55e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x7e3024cb5712 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x7e2f6bbc5847 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x7e2f6bbd17e1 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x7e2f6bbd2a57 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x7e30251fc0e6 in /proj/gpu_mtk53742/.conda/envs/distill/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x7e3025c9caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x7e3025d29c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+terminate called after throwing an instance of 'c10::DistBackendError'
+  what():  [PG ID 0 PG GUID 1 Rank 3] Process group watchdog thread terminated with exception: [PG GUID 1 Rank 3] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180016 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7e3024cb460d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x7e3024cb55e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x7e3024cb5712 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x7e2f6bbc5847 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x7e2f6bbd17e1 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x7e2f6bbd2a57 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x7e30251fc0e6 in /proj/gpu_mtk53742/.conda/envs/distill/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x7e3025c9caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x7e3025d29c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+Exception raised from run at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2198 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7e3024cb460d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x7e3024cb55e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x7e3024cb5712 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: <unknown function> + 0x6cf968 (0x7e2f6b2cf968 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xdf0e6 (0x7e30251fc0e6 in /proj/gpu_mtk53742/.conda/envs/distill/bin/../lib/libstdc++.so.6)
+frame #5: <unknown function> + 0x9caa4 (0x7e3025c9caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #6: <unknown function> + 0x129c6c (0x7e3025d29c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+[rank 5] communication.all_reduce.failed {"error": "RuntimeError: 通信检查的 all_reduce 结果不正确", "backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+[rank 5] run.failed {"error": "RuntimeError: 通信检查的 all_reduce 结果不正确"}
+[rank 7] communication.all_reduce.failed {"error": "RuntimeError: 通信检查的 all_reduce 结果不正确", "backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+[rank 7] run.failed {"error": "RuntimeError: 通信检查的 all_reduce 结果不正确"}
+[rank 0] communication.all_reduce.failed {"error": "RuntimeError: 通信检查的 all_reduce 结果不正确", "backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+[rank 0] run.failed {"error": "RuntimeError: 通信检查的 all_reduce 结果不正确"}
+[rank7]:[E1001 16:34:33.029082293 ProcessGroupNCCL.cpp:802] [PG GUID 1 Rank 7] Some NCCL operations have failed or timed out. Due to the asynchronous nature of CUDA kernels, subsequent GPU operations might run on corrupted/incomplete data.
+[rank7]:[E1001 16:34:33.029107359 ProcessGroupNCCL.cpp:816] [PG GUID 1 Rank 7] To avoid data inconsistency, we are taking the entire process down.
+[rank7]:[E1001 16:34:33.031282561 ProcessGroupNCCL.cpp:2192] [PG ID 0 PG GUID 1 Rank 7] Process group watchdog thread terminated with exception: [PG GUID 1 Rank 7] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180017 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7692e4cb460d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x7692e4cb55e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x7692e4cb5712 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x76922bbc5847 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x76922bbd17e1 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x76922bbd2a57 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x7692e51d10e6 in /proj/gpu_mtk53742/.conda/envs/distill/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x7692e5c9caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x7692e5d29c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+terminate called after throwing an instance of 'c10::DistBackendError'
+  what():  [PG ID 0 PG GUID 1 Rank 7] Process group watchdog thread terminated with exception: [PG GUID 1 Rank 7] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180017 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7692e4cb460d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x7692e4cb55e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x7692e4cb5712 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x76922bbc5847 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x76922bbd17e1 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x76922bbd2a57 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x7692e51d10e6 in /proj/gpu_mtk53742/.conda/envs/distill/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x7692e5c9caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x7692e5d29c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+Exception raised from run at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2198 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7692e4cb460d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x7692e4cb55e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x7692e4cb5712 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: <unknown function> + 0x6cf968 (0x76922b2cf968 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xdf0e6 (0x7692e51d10e6 in /proj/gpu_mtk53742/.conda/envs/distill/bin/../lib/libstdc++.so.6)
+frame #5: <unknown function> + 0x9caa4 (0x7692e5c9caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #6: <unknown function> + 0x129c6c (0x7692e5d29c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+[rank 4] communication.all_reduce.failed {"error": "RuntimeError: 通信检查的 all_reduce 结果不正确", "backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+[rank 4] run.failed {"error": "RuntimeError: 通信检查的 all_reduce 结果不正确"}
+[rank 1] communication.all_reduce.failed {"error": "RuntimeError: 通信检查的 all_reduce 结果不正确", "backend": "nccl", "device": "cuda:1", "bytes": 1048576}
+[rank 1] run.failed {"error": "RuntimeError: 通信检查的 all_reduce 结果不正确"}
+[rank1]:[E1001 16:34:34.267805778 ProcessGroupNCCL.cpp:802] [PG GUID 1 Rank 1] Some NCCL operations have failed or timed out. Due to the asynchronous nature of CUDA kernels, subsequent GPU operations might run on corrupted/incomplete data.
+[rank1]:[E1001 16:34:34.267835472 ProcessGroupNCCL.cpp:816] [PG GUID 1 Rank 1] To avoid data inconsistency, we are taking the entire process down.
+[rank1]:[E1001 16:34:34.270956514 ProcessGroupNCCL.cpp:2192] [PG ID 0 PG GUID 1 Rank 1] Process group watchdog thread terminated with exception: [PG GUID 1 Rank 1] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180020 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x791f2015e60d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x791f2015f5e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x791f2015f712 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x791e66fc5847 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x791e66fd17e1 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x791e66fd2a57 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x791f206fc0e6 in /proj/gpu_mtk53742/.conda/envs/distill/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x791f2109caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x791f21129c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+terminate called after throwing an instance of 'c10::DistBackendError'
+  what():  [PG ID 0 PG GUID 1 Rank 1] Process group watchdog thread terminated with exception: [PG GUID 1 Rank 1] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=1, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=180000) ran for 180020 milliseconds before timing out.
+Exception raised from checkTimeout at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:744 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x791f2015e60d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x791f2015f5e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x791f2015f712 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2a7 (0x791e66fc5847 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x15b1 (0x791e66fd17e1 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #5: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x791e66fd2a57 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xdf0e6 (0x791f206fc0e6 in /proj/gpu_mtk53742/.conda/envs/distill/bin/../lib/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x791f2109caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x791f21129c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+Exception raised from run at /__w/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2198 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x791f2015e60d in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::DistError::DistError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x791f2015f5e2 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: c10::DistBackendError::DistBackendError(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x72 (0x791f2015f712 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #3: <unknown function> + 0x6cf968 (0x791e666cf968 in /proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xdf0e6 (0x791f206fc0e6 in /proj/gpu_mtk53742/.conda/envs/distill/bin/../lib/libstdc++.so.6)
+frame #5: <unknown function> + 0x9caa4 (0x791f2109caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #6: <unknown function> + 0x129c6c (0x791f21129c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+W1001 16:34:34.200000 1570777 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 1570925 closing signal SIGTERM
+W1001 16:34:34.200000 1570777 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 1570926 closing signal SIGTERM
+W1001 16:34:34.201000 1570777 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 1570927 closing signal SIGTERM
+W1001 16:34:34.201000 1570777 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 1570929 closing signal SIGTERM
+W1001 16:34:34.201000 1570777 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 1570930 closing signal SIGTERM
+W1001 16:34:34.202000 1570777 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 1570932 closing signal SIGTERM
+E1001 16:34:34.668000 1570777 site-packages/torch/distributed/elastic/multiprocessing/api.py:1002] failed (exitcode: -6) local_rank: 3 (pid: 1570928) of binary: /proj/gpu_mtk53742/.conda/envs/distill/bin/python
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1142, in <module>
+    main()
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 380, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1138, in main
+    run(args)
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1129, in run
+    elastic_launch(
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 197, in __call__
+    return launch_agent(
+           ^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 386, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+=========================================================
+distill FAILED
+---------------------------------------------------------
+Failures:
+[1]:
+  time      : 2026-10-01_16:34:34
+  host      : colglx2002
+  rank      : 6 (local_rank: 6)
+  exitcode  : -6 (pid: 1570931)  (SIGABRT)
+  error_file: <N/A>
+  traceback : Signal 6 (SIGABRT) received by PID 1570931
+[2]:
+  time      : 2026-10-01_16:34:34
+  host      : colglx2002
+  rank      : 0 (local_rank: 0)
+  exitcode  : -15 (pid: 1570925)  (SIGTERM)
+  error_file: <N/A>
+  traceback : Signal 15 (SIGTERM) received by PID 1570925
+[3]:
+  time      : 2026-10-01_16:34:34
+  host      : colglx2002
+  rank      : 1 (local_rank: 1)
+  exitcode  : -6 (pid: 1570926)  (SIGABRT)
+  error_file: <N/A>
+  traceback : Signal 6 (SIGABRT) received by PID 1570926
+[4]:
+  time      : 2026-10-01_16:34:34
+  host      : colglx2002
+  rank      : 2 (local_rank: 2)
+  exitcode  : -6 (pid: 1570927)  (SIGABRT)
+  error_file: <N/A>
+  traceback : Signal 6 (SIGABRT) received by PID 1570927
+[5]:
+  time      : 2026-10-01_16:34:34
+  host      : colglx2002
+  rank      : 4 (local_rank: 4)
+  exitcode  : -15 (pid: 1570929)  (SIGTERM)
+  error_file: <N/A>
+  traceback : Signal 15 (SIGTERM) received by PID 1570929
+[6]:
+  time      : 2026-10-01_16:34:34
+  host      : colglx2002
+  rank      : 5 (local_rank: 5)
+  exitcode  : -15 (pid: 1570930)  (SIGTERM)
+  error_file: <N/A>
+  traceback : Signal 15 (SIGTERM) received by PID 1570930
+[7]:
+  time      : 2026-10-01_16:34:34
+  host      : colglx2002
+  rank      : 7 (local_rank: 7)
+  exitcode  : -6 (pid: 1570932)  (SIGABRT)
+  error_file: <N/A>
+  traceback : Signal 6 (SIGABRT) received by PID 1570932
+---------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-10-01_16:34:34
+  host      : colglx2002
+  rank      : 3 (local_rank: 3)
+  exitcode  : -6 (pid: 1570928)  (SIGABRT)
+  error_file: <N/A>
+  traceback : Signal 6 (SIGABRT) received by PID 1570928
+=========================================================

@@ -1,0 +1,456 @@
+{
+  "protocol": {
+    "seed": 2026,
+    "nfe": 1024,
+    "sequence_length": 1024,
+    "num_samples": 32,
+    "scorer": "gpt2-large",
+    "sampler": "LangFlow Euler-EDM",
+    "world_size": 8,
+    "generation_batch_size_per_device": 4,
+    "rank_seed": "seed + rank"
+  },
+  "models": {
+    "teacher": {
+      "parameters": {
+        "total": 170805332,
+        "non_embedding": 132207956,
+        "trainable": 0
+      },
+      "denoising": {
+        "ce": 3.7558316215872765,
+        "kl": 0.0,
+        "loss": 0.0
+      },
+      "distinct_2": 0.5897177419354839,
+      "sample_entropy": 5.162949946837967,
+      "gen_ppl": 32.175811484060084,
+      "nll_per_token": 3.471214974113956,
+      "scored_tokens": 32631,
+      "per_sample": [
+        {
+          "nll_per_token": 3.9810702280820234,
+          "tokens": 1018
+        },
+        {
+          "nll_per_token": 4.091214565004887,
+          "tokens": 1023
+        },
+        {
+          "nll_per_token": 3.529925075901619,
+          "tokens": 1019
+        },
+        {
+          "nll_per_token": 3.184118819563356,
+          "tokens": 1022
+        },
+        {
+          "nll_per_token": 3.1386802605955593,
+          "tokens": 1019
+        },
+        {
+          "nll_per_token": 3.5892514166361194,
+          "tokens": 1023
+        },
+        {
+          "nll_per_token": 3.6278936785582596,
+          "tokens": 1017
+        },
+        {
+          "nll_per_token": 3.0304186280973995,
+          "tokens": 1019
+        },
+        {
+          "nll_per_token": 2.0039982537330663,
+          "tokens": 1015
+        },
+        {
+          "nll_per_token": 3.9734842051630435,
+          "tokens": 1012
+        },
+        {
+          "nll_per_token": 3.6931396006604698,
+          "tokens": 1022
+        },
+        {
+          "nll_per_token": 3.6639179744832435,
+          "tokens": 1022
+        },
+        {
+          "nll_per_token": 3.324570494230534,
+          "tokens": 1021
+        },
+        {
+          "nll_per_token": 3.4681291168811272,
+          "tokens": 1020
+        },
+        {
+          "nll_per_token": 3.3216549133480826,
+          "tokens": 1017
+        },
+        {
+          "nll_per_token": 1.5072514782213184,
+          "tokens": 1022
+        },
+        {
+          "nll_per_token": 3.639306204659598,
+          "tokens": 1008
+        },
+        {
+          "nll_per_token": 3.5759766584295187,
+          "tokens": 1018
+        },
+        {
+          "nll_per_token": 3.5759796232247796,
+          "tokens": 1021
+        },
+        {
+          "nll_per_token": 3.057623410692402,
+          "tokens": 1020
+        },
+        {
+          "nll_per_token": 3.9800680539009043,
+          "tokens": 1023
+        },
+        {
+          "nll_per_token": 3.503989463454946,
+          "tokens": 1021
+        },
+        {
+          "nll_per_token": 3.6956273506298922,
+          "tokens": 1022
+        },
+        {
+          "nll_per_token": 4.011117237188111,
+          "tokens": 1022
+        },
+        {
+          "nll_per_token": 3.646861444586999,
+          "tokens": 1023
+        },
+        {
+          "nll_per_token": 3.791695097828754,
+          "tokens": 1019
+        },
+        {
+          "nll_per_token": 3.4649883728922286,
+          "tokens": 1023
+        },
+        {
+          "nll_per_token": 3.998017520848607,
+          "tokens": 1023
+        },
+        {
+          "nll_per_token": 3.6878131784338306,
+          "tokens": 1022
+        },
+        {
+          "nll_per_token": 2.6501696789299705,
+          "tokens": 1021
+        },
+        {
+          "nll_per_token": 3.6682360273476062,
+          "tokens": 1013
+        },
+        {
+          "nll_per_token": 3.9998660932908914,
+          "tokens": 1021
+        }
+      ]
+    },
+    "pruned": {
+      "parameters": {
+        "total": 124739156,
+        "non_embedding": 86141780,
+        "trainable": 86141777
+      },
+      "denoising": {
+        "ce": 4.7610558196902275,
+        "kl": 1.0394455818459392,
+        "loss": 1.0394455818459392
+      },
+      "distinct_2": 0.9405241935483871,
+      "sample_entropy": 6.155110344023961,
+      "gen_ppl": 3752.788222376242,
+      "nll_per_token": 8.230254368652961,
+      "scored_tokens": 32397,
+      "per_sample": [
+        {
+          "nll_per_token": 8.193958695382324,
+          "tokens": 1007
+        },
+        {
+          "nll_per_token": 8.128201653865213,
+          "tokens": 1009
+        },
+        {
+          "nll_per_token": 8.142443293885602,
+          "tokens": 1014
+        },
+        {
+          "nll_per_token": 7.909020935960591,
+          "tokens": 1015
+        },
+        {
+          "nll_per_token": 8.11434894554273,
+          "tokens": 1018
+        },
+        {
+          "nll_per_token": 7.792430190284653,
+          "tokens": 1010
+        },
+        {
+          "nll_per_token": 8.163868729948174,
+          "tokens": 1013
+        },
+        {
+          "nll_per_token": 8.410434445604126,
+          "tokens": 1018
+        },
+        {
+          "nll_per_token": 8.175167855807578,
+          "tokens": 1003
+        },
+        {
+          "nll_per_token": 8.136500145100195,
+          "tokens": 1023
+        },
+        {
+          "nll_per_token": 7.768763259570119,
+          "tokens": 1009
+        },
+        {
+          "nll_per_token": 8.038116514799412,
+          "tokens": 1022
+        },
+        {
+          "nll_per_token": 8.441668466189537,
+          "tokens": 1013
+        },
+        {
+          "nll_per_token": 8.444995932588409,
+          "tokens": 1018
+        },
+        {
+          "nll_per_token": 8.30270722132572,
+          "tokens": 1007
+        },
+        {
+          "nll_per_token": 8.17703876798115,
+          "tokens": 1008
+        },
+        {
+          "nll_per_token": 8.525334545173267,
+          "tokens": 1010
+        },
+        {
+          "nll_per_token": 8.320174928695437,
+          "tokens": 1008
+        },
+        {
+          "nll_per_token": 8.4890571226647,
+          "tokens": 1017
+        },
+        {
+          "nll_per_token": 8.19149856187811,
+          "tokens": 1005
+        },
+        {
+          "nll_per_token": 8.298475557925322,
+          "tokens": 1011
+        },
+        {
+          "nll_per_token": 8.459538562192119,
+          "tokens": 1015
+        },
+        {
+          "nll_per_token": 8.3193359375,
+          "tokens": 1000
+        },
+        {
+          "nll_per_token": 7.934082995280108,
+          "tokens": 1013
+        },
+        {
+          "nll_per_token": 8.321442744646415,
+          "tokens": 1004
+        },
+        {
+          "nll_per_token": 8.355448584992626,
+          "tokens": 1017
+        },
+        {
+          "nll_per_token": 8.203352129845436,
+          "tokens": 1019
+        },
+        {
+          "nll_per_token": 8.104956486370334,
+          "tokens": 1018
+        },
+        {
+          "nll_per_token": 8.60853217364532,
+          "tokens": 1015
+        },
+        {
+          "nll_per_token": 8.301279673590505,
+          "tokens": 1011
+        },
+        {
+          "nll_per_token": 8.138762493830207,
+          "tokens": 1013
+        },
+        {
+          "nll_per_token": 8.456152921597633,
+          "tokens": 1014
+        }
+      ]
+    },
+    "trained": {
+      "parameters": {
+        "total": 124739156,
+        "non_embedding": 86141780,
+        "trainable": 86141777
+      },
+      "denoising": {
+        "ce": 4.040811154991388,
+        "kl": 0.287276545772329,
+        "loss": 0.287276545772329
+      },
+      "distinct_2": 0.6595491202346041,
+      "sample_entropy": 5.31960195468554,
+      "gen_ppl": 75.83682917013255,
+      "nll_per_token": 4.328584047607174,
+      "scored_tokens": 32587,
+      "per_sample": [
+        {
+          "nll_per_token": 4.544188250461823,
+          "tokens": 1015
+        },
+        {
+          "nll_per_token": 4.679950088935231,
+          "tokens": 1019
+        },
+        {
+          "nll_per_token": 4.315038679158489,
+          "tokens": 1019
+        },
+        {
+          "nll_per_token": 3.922683700875367,
+          "tokens": 1021
+        },
+        {
+          "nll_per_token": 4.429741912573314,
+          "tokens": 1023
+        },
+        {
+          "nll_per_token": 3.9212361653645833,
+          "tokens": 1020
+        },
+        {
+          "nll_per_token": 4.521939146752451,
+          "tokens": 1020
+        },
+        {
+          "nll_per_token": 5.088393789945919,
+          "tokens": 1017
+        },
+        {
+          "nll_per_token": 4.4853238585992905,
+          "tokens": 987
+        },
+        {
+          "nll_per_token": 5.117016433850589,
+          "tokens": 1019
+        },
+        {
+          "nll_per_token": 4.316454073824682,
+          "tokens": 1021
+        },
+        {
+          "nll_per_token": 4.517936452727495,
+          "tokens": 1022
+        },
+        {
+          "nll_per_token": 3.950945155944526,
+          "tokens": 1023
+        },
+        {
+          "nll_per_token": 3.9601477602375983,
+          "tokens": 1018
+        },
+        {
+          "nll_per_token": 4.405169653023785,
+          "tokens": 988
+        },
+        {
+          "nll_per_token": 4.303356084720862,
+          "tokens": 1021
+        },
+        {
+          "nll_per_token": 4.427608830655054,
+          "tokens": 1019
+        },
+        {
+          "nll_per_token": 4.519109378822162,
+          "tokens": 1022
+        },
+        {
+          "nll_per_token": 4.315769090839461,
+          "tokens": 1020
+        },
+        {
+          "nll_per_token": 4.863568530972359,
+          "tokens": 1013
+        },
+        {
+          "nll_per_token": 3.7339086747006354,
+          "tokens": 1023
+        },
+        {
+          "nll_per_token": 4.518381087016405,
+          "tokens": 1021
+        },
+        {
+          "nll_per_token": 3.9789501570908756,
+          "tokens": 1022
+        },
+        {
+          "nll_per_token": 3.805390061231042,
+          "tokens": 1022
+        },
+        {
+          "nll_per_token": 3.9385622384378056,
+          "tokens": 1023
+        },
+        {
+          "nll_per_token": 4.4508099724264705,
+          "tokens": 1020
+        },
+        {
+          "nll_per_token": 3.814315184353617,
+          "tokens": 1023
+        },
+        {
+          "nll_per_token": 4.6231384876903245,
+          "tokens": 1018
+        },
+        {
+          "nll_per_token": 4.3502145955522975,
+          "tokens": 1023
+        },
+        {
+          "nll_per_token": 3.9154612372464563,
+          "tokens": 1023
+        },
+        {
+          "nll_per_token": 4.382767067366553,
+          "tokens": 1021
+        },
+        {
+          "nll_per_token": 4.420152385834966,
+          "tokens": 1021
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,745 @@
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 0] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.end {"seconds": 0.021475765854120255, "backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.end {"seconds": 0.04165901895612478, "backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.end {"seconds": 0.20682615414261818, "backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.end {"seconds": 0.23018961818888783, "backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.end {"seconds": 0.07632784685119987, "backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.end {"seconds": 0.1765308352187276, "backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.end {"seconds": 0.08125681895762682, "backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.end {"seconds": 0.052309874910861254, "backend": "gloo", "world_size": 8}
+[rank 0] tensor_group.init.begin {"backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 0] tensor_group.init.end {"seconds": 0.005577875301241875, "backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 0] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+[rank 6] tensor_group.init.begin {"backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+[rank 3] tensor_group.init.begin {"backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}
+[rank 2] tensor_group.init.begin {"backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}
+[rank 4] tensor_group.init.begin {"backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}
+[rank 7] tensor_group.init.begin {"backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}
+[rank 5] tensor_group.init.begin {"backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+[rank 1] tensor_group.init.begin {"backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}
+[rank 6] tensor_group.init.end {"seconds": 0.005597174167633057, "backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+[rank 6] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+[rank 3] tensor_group.init.end {"seconds": 0.005433705169707537, "backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}
+[rank 3] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:3", "bytes": 1048576}
+[rank 2] tensor_group.init.end {"seconds": 0.005446307826787233, "backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}
+[rank 2] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:2", "bytes": 1048576}
+[rank 4] tensor_group.init.end {"seconds": 0.005470822099596262, "backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}
+[rank 4] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+[rank 7] tensor_group.init.end {"seconds": 0.00547267310321331, "backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}
+[rank 5] tensor_group.init.end {"seconds": 0.005399093963205814, "backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+[rank 7] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+[rank 5] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+[rank 1] tensor_group.init.end {"seconds": 0.0054803998209536076, "backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}
+[rank 1] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:1", "bytes": 1048576}
+[rank 5] communication.all_reduce.end {"seconds": 0.8533173082396388, "backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+[rank 5] communication.broadcast.begin {"backend": "nccl", "device": "cuda:5"}
+[rank 4] communication.all_reduce.end {"seconds": 0.8543173549696803, "backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+[rank 4] communication.broadcast.begin {"backend": "nccl", "device": "cuda:4"}
+[rank 6] communication.all_reduce.end {"seconds": 0.8556078118272126, "backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+[rank 6] communication.broadcast.begin {"backend": "nccl", "device": "cuda:6"}
+[rank 0] communication.all_reduce.end {"seconds": 0.8875241759233177, "backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+[rank 0] communication.broadcast.begin {"backend": "nccl", "device": "cuda:0"}
+[rank 7] communication.all_reduce.end {"seconds": 0.8562613427639008, "backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+[rank 7] communication.broadcast.begin {"backend": "nccl", "device": "cuda:7"}
+[rank 0] communication.broadcast.end {"seconds": 0.0007158429361879826, "backend": "nccl", "device": "cuda:0"}
+[rank 2] communication.all_reduce.end {"seconds": 0.8575203558430076, "backend": "nccl", "device": "cuda:2", "bytes": 1048576}
+[rank 2] communication.broadcast.begin {"backend": "nccl", "device": "cuda:2"}
+[rank 0] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] communication.all_reduce.end {"seconds": 0.8593503101728857, "backend": "nccl", "device": "cuda:3", "bytes": 1048576}
+[rank 3] communication.broadcast.begin {"backend": "nccl", "device": "cuda:3"}
+[rank 1] communication.all_reduce.end {"seconds": 0.8590258718468249, "backend": "nccl", "device": "cuda:1", "bytes": 1048576}
+[rank 1] communication.broadcast.begin {"backend": "nccl", "device": "cuda:1"}
+[rank 2] communication.broadcast.end {"seconds": 0.0030007031746208668, "backend": "nccl", "device": "cuda:2"}
+[rank 1] communication.broadcast.end {"seconds": 0.0007427078671753407, "backend": "nccl", "device": "cuda:1"}
+[rank 3] communication.broadcast.end {"seconds": 0.0013382909819483757, "backend": "nccl", "device": "cuda:3"}
+[rank 4] communication.broadcast.end {"seconds": 0.005951970815658569, "backend": "nccl", "device": "cuda:4"}
+[rank 5] communication.broadcast.end {"seconds": 0.007027060259133577, "backend": "nccl", "device": "cuda:5"}
+[rank 2] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] communication.broadcast.end {"seconds": 0.00556572899222374, "backend": "nccl", "device": "cuda:6"}
+[rank 7] communication.broadcast.end {"seconds": 0.004035812336951494, "backend": "nccl", "device": "cuda:7"}
+[rank 1] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.end {"seconds": 3.8991156429983675, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.end {"seconds": 3.9017987586557865, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.files.wait.end {"seconds": 3.898865313269198, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.files.wait.end {"seconds": 3.8988244142383337, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.files.wait.end {"seconds": 3.8987827571108937, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.files.wait.end {"seconds": 3.8993757250718772, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 1] model.files.wait.end {"seconds": 3.899390382692218, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.files.wait.end {"seconds": 3.8991087772883475, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}[rank 3] model.files.wait.end {"seconds": 3.8991257809102535, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+
+[rank 1] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.weights.load.end {"seconds": 1.4363830504007638, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:6"}
+[rank 4] model.weights.load.end {"seconds": 1.438501968048513, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:4"}
+[rank 2] model.weights.load.end {"seconds": 1.4385392097756267, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:2"}
+[rank 1] model.weights.load.end {"seconds": 1.4392479662783444, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 1] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:1"}
+[rank 0] model.weights.load.end {"seconds": 1.4588584136217833, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:0"}
+[rank 5] model.weights.load.end {"seconds": 1.4801376461982727, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.weights.load.end {"seconds": 1.4795182538218796, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:5"}
+[rank 7] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:7"}
+[rank 3] model.weights.load.end {"seconds": 1.4974272516556084, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:3"}
+[rank 6] model.to_device.end {"seconds": 0.11700093606486917, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:6"}
+[rank 4] model.to_device.end {"seconds": 0.1237006732262671, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:4"}
+[rank 1] model.to_device.end {"seconds": 0.12781209778040648, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:1"}
+[rank 0] model.to_device.end {"seconds": 0.13011415489017963, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:0"}
+[rank 2] model.to_device.end {"seconds": 0.15005490323528647, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:2"}
+[rank 5] model.to_device.end {"seconds": 0.12335960427299142, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:5"}
+[rank 7] model.to_device.end {"seconds": 0.13829920534044504, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:7"}
+[rank 3] model.to_device.end {"seconds": 0.14000879600644112, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:3"}
+[rank 7] data.loaders.begin {}
+[rank 2] data.loaders.begin {}
+[rank 5] data.loaders.begin {}
+[rank 4] data.loaders.begin {}
+[rank 7] data.loaders.end {"seconds": 0.0002638041041791439}
+[rank 1] data.loaders.begin {}[rank 3] data.loaders.begin {}[rank 6] data.loaders.begin {}
+
+
+[rank 7] ddp.init.begin {"device": "cuda:7"}
+[rank 5] data.loaders.end {"seconds": 0.000509290024638176}
+[rank 4] data.loaders.end {"seconds": 0.0005077910609543324}[rank 2] data.loaders.end {"seconds": 0.0005572279915213585}
+
+[rank 1] data.loaders.end {"seconds": 0.0005382453091442585}
+[rank 6] data.loaders.end {"seconds": 0.0005545490421354771}
+[rank 3] data.loaders.end {"seconds": 0.0005947509780526161}
+[rank 5] ddp.init.begin {"device": "cuda:5"}
+[rank 4] ddp.init.begin {"device": "cuda:4"}
+[rank 2] ddp.init.begin {"device": "cuda:2"}
+[rank 1] ddp.init.begin {"device": "cuda:1"}
+[rank 6] ddp.init.begin {"device": "cuda:6"}
+[rank 3] ddp.init.begin {"device": "cuda:3"}
+[rank 0] data.loaders.begin {}
+[rank 0] data.loaders.end {"seconds": 0.0009348406456410885}
+[rank 0] ddp.init.begin {"device": "cuda:0"}
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+/proj/gpu_mtk53742/CDLM-distillation/src/distill/train.py:128: FutureWarning: `broadcast_buffers` is deprecated. Use `forward_sync_buffers` instead. IMPORTANT: unlike `broadcast_buffers=False`, `forward_sync_buffers=False` still syncs buffers at init. If you rely on buffers NOT being synced at init (e.g. rank-local buffers), keep using `broadcast_buffers=False` until `init_sync_buffers` is available.
+  student = DistributedDataParallel(
+[rank 0] ddp.init.end {"seconds": 1.2647373313084245, "device": "cuda:0"}
+[rank 4] ddp.init.end {"seconds": 1.2767896670848131, "device": "cuda:4"}
+[rank 7] ddp.init.end {"seconds": 1.2791029531508684, "device": "cuda:7"}
+[rank 4] validation.begin {"step": 0}
+[rank 5] ddp.init.end {"seconds": 1.2779312739148736, "device": "cuda:5"}
+[rank 2] ddp.init.end {"seconds": 1.2779887411743402, "device": "cuda:2"}[rank 6] ddp.init.end {"seconds": 1.2779287393204868, "device": "cuda:6"}
+
+[rank 0] validation.begin {"step": 0}
+[rank 3] ddp.init.end {"seconds": 1.2781979711726308, "device": "cuda:3"}
+[rank 7] validation.begin {"step": 0}
+[rank 1] ddp.init.end {"seconds": 1.2785538602620363, "device": "cuda:1"}
+[rank 5] validation.begin {"step": 0}
+[rank 2] validation.begin {"step": 0}
+[rank 6] validation.begin {"step": 0}
+[rank 3] validation.begin {"step": 0}
+[rank 1] validation.begin {"step": 0}
+[rank 0] validation.first_batch.begin {"tokens": 24576}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 2] validation.first_batch.begin {"tokens": 24576}
+[rank 2] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 1] validation.first_batch.begin {"tokens": 24576}
+[rank 1] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 3] validation.first_batch.begin {"tokens": 24576}
+[rank 4] validation.first_batch.begin {"tokens": 24576}
+[rank 3] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 5] validation.first_batch.begin {"tokens": 24576}
+[rank 4] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 5] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 7] validation.first_batch.begin {"tokens": 24576}
+[rank 7] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 6] validation.first_batch.begin {"tokens": 24576}
+[rank 6] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 0] on_policy.rollout.end {"seconds": 32.80202271975577, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 4] on_policy.rollout.end {"seconds": 33.243699042126536, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 7] on_policy.rollout.end {"seconds": 33.25981140509248, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 5] on_policy.rollout.end {"seconds": 33.26625179918483, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 3] on_policy.rollout.end {"seconds": 33.31965052522719, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 6] on_policy.rollout.end {"seconds": 33.342494640965015, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 2] on_policy.rollout.end {"seconds": 33.36178425094113, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 1] on_policy.rollout.end {"seconds": 33.45881426008418, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 0] validation.first_batch.end {"loss": 3.4061572551727295, "ce": 3.4061572551727295, "mse": -0.0, "teacher_entropy": 3.2799034118652344, "error": 0.12625384330749512}
+[rank 0] validation.reduce.begin {"local_tokens": 24576}
+[rank 4] validation.first_batch.end {"loss": 3.7003533840179443, "ce": 3.7003533840179443, "mse": -0.0, "teacher_entropy": 3.587505340576172, "error": 0.11284804344177246}
+[rank 4] validation.reduce.begin {"local_tokens": 24576}
+[rank 7] validation.first_batch.end {"loss": 3.241933822631836, "ce": 3.241933822631836, "mse": -0.0, "teacher_entropy": 3.100458860397339, "error": 0.14147496223449707}
+[rank 7] validation.reduce.begin {"local_tokens": 24576}
+[rank 5] validation.first_batch.end {"loss": 3.0270214080810547, "ce": 3.0270214080810547, "mse": -0.0, "teacher_entropy": 2.8790335655212402, "error": 0.14798784255981445}
+[rank 5] validation.reduce.begin {"local_tokens": 24576}
+[rank 3] validation.first_batch.end {"loss": 3.772526502609253, "ce": 3.772526502609253, "mse": -0.0, "teacher_entropy": 3.6256327629089355, "error": 0.14689373970031738}
+[rank 3] validation.reduce.begin {"local_tokens": 24576}
+[rank 6] validation.first_batch.end {"loss": 3.0140838623046875, "ce": 3.0140838623046875, "mse": -0.0, "teacher_entropy": 2.859761953353882, "error": 0.15432190895080566}
+[rank 6] validation.reduce.begin {"local_tokens": 24576}
+[rank 2] validation.first_batch.end {"loss": 3.3649394512176514, "ce": 3.3649394512176514, "mse": -0.0, "teacher_entropy": 3.204637289047241, "error": 0.16030216217041016}
+[rank 2] validation.reduce.begin {"local_tokens": 24576}
+[rank 1] validation.first_batch.end {"loss": 2.594712018966675, "ce": 2.594712018966675, "mse": -0.0, "teacher_entropy": 2.4696714878082275, "error": 0.12504053115844727}
+[rank 1] validation.reduce.begin {"local_tokens": 24576}
+[rank 5] validation.reduce.end {"seconds": 0.1915360540151596, "local_tokens": 24576}[rank 6] validation.reduce.end {"seconds": 0.10390652343630791, "local_tokens": 24576}
+
+[rank 4] validation.reduce.end {"seconds": 0.21754697524011135, "local_tokens": 24576}
+[rank 1] validation.reduce.end {"seconds": 0.0005329130217432976, "local_tokens": 24576}
+[rank 3] validation.reduce.end {"seconds": 0.12790995184332132, "local_tokens": 24576}[rank 7] validation.reduce.end {"seconds": 0.19371849717572331, "local_tokens": 24576}[rank 2] validation.reduce.end {"seconds": 0.08304841630160809, "local_tokens": 24576}
+
+
+[rank 0] validation.reduce.end {"seconds": 0.6775179761461914, "local_tokens": 24576}
+[rank 5] validation.end {"seconds": 34.36392716411501, "step": 0}[rank 4] validation.end {"seconds": 34.364963619969785, "step": 0}
+
+[rank 1] validation.end {"seconds": 34.36307233106345, "step": 0}
+[rank 6] validation.end {"seconds": 34.36367647070438, "step": 0}
+[train] {'phase': 'valid', 'step': 0, 'ce': 3.265215963125229, 'error': 0.13939037919044495, 'loss': 3.265215963125229, 'mse': 0.0, 'teacher_entropy': 3.125825583934784, 'elapsed_seconds': 34.36472432408482}
+[rank 7] validation.end {"seconds": 34.3641384691, "step": 0}
+[rank 5] train.step.begin {"step": 1}[rank 3] validation.end {"seconds": 34.363283067941666, "step": 0}
+
+[rank 4] train.step.begin {"step": 1}
+[rank 2] validation.end {"seconds": 34.36374864727259, "step": 0}[rank 1] train.step.begin {"step": 1}
+
+[rank 6] train.step.begin {"step": 1}
+[rank 7] train.step.begin {"step": 1}
+[rank 3] train.step.begin {"step": 1}
+[rank 0] validation.end {"seconds": 34.364616008941084, "step": 0}
+[rank 2] train.step.begin {"step": 1}
+[rank 0] train.step.begin {"step": 1}
+[rank 1] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 4] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 7] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 5] train.micro_batch.begin {"step": 1, "micro_batch": 1}[rank 6] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+
+[rank 2] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 3] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 0] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 1] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 5] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 4] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 7] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 6] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 2] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}[rank 3] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 0] on_policy.rollout.end {"seconds": 32.50794634176418, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 0] on_policy.buffer {"states": 96, "micro_batch": 0}
+[rank 6] on_policy.rollout.end {"seconds": 33.09737018402666, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 6] on_policy.buffer {"states": 96, "micro_batch": 0}
+[rank 7] on_policy.rollout.end {"seconds": 33.18208936881274, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 7] on_policy.buffer {"states": 96, "micro_batch": 0}
+[rank 5] on_policy.rollout.end {"seconds": 33.18580563599244, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 5] on_policy.buffer {"states": 96, "micro_batch": 0}
+[rank 3] on_policy.rollout.end {"seconds": 33.207428003661335, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 3] on_policy.buffer {"states": 96, "micro_batch": 0}
+[rank 4] on_policy.rollout.end {"seconds": 33.23575184494257, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 4] on_policy.buffer {"states": 96, "micro_batch": 0}
+[rank 1] on_policy.rollout.end {"seconds": 33.26543409889564, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 1] on_policy.buffer {"states": 96, "micro_batch": 0}
+[rank 0] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 2] on_policy.rollout.end {"seconds": 33.320579952094704, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 2] on_policy.buffer {"states": 96, "micro_batch": 0}
+[rank 0] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 6] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 7] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 5] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 3] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 4] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 6] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 1] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 2] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 7] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 5] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 3] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 4] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 1] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 2] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[rank 5] train.step.end {"step": 1}[rank 7] train.step.end {"step": 1}[rank 4] train.step.end {"step": 1}[rank 6] train.step.end {"step": 1}[rank 3] train.step.end {"step": 1}[rank 1] train.step.end {"step": 1}
+
+
+
+
+
+[rank 2] train.step.end {"step": 1}
+[rank 3] train.step.begin {"step": 2}[rank 4] train.step.begin {"step": 2}[rank 5] train.step.begin {"step": 2}
+
+[rank 1] train.step.begin {"step": 2}
+
+[rank 7] train.step.begin {"step": 2}
+[rank 6] train.step.begin {"step": 2}
+[rank 2] train.step.begin {"step": 2}
+[train] {'phase': 'train', 'step': 1, 'ce': 3.4154447615146637, 'error': 0.1441170573234558, 'loss': 3.4154447615146637, 'mse': 0.0, 'teacher_entropy': 3.271327704191208, 'grad_norm': 0.3359801769256592, 'tokens': 196608, 'epoch': 0, 'learning_rate': 1e-05, 'rank0_peak_memory_gib': 36.72135877609253, 'elapsed_seconds': 68.99804375693202}
+[rank 0] train.step.end {"step": 1}
+[rank 0] train.step.begin {"step": 2}
+[rank 6] train.step.end {"step": 2}[rank 7] train.step.end {"step": 2}[rank 2] train.step.end {"step": 2}[rank 5] train.step.end {"step": 2}[rank 1] train.step.end {"step": 2}
+
+
+
+
+[rank 3] train.step.end {"step": 2}[rank 4] train.step.end {"step": 2}
+
+[rank 5] train.step.begin {"step": 3}[rank 1] train.step.begin {"step": 3}
+
+[rank 2] train.step.begin {"step": 3}[rank 6] train.step.begin {"step": 3}[rank 7] train.step.begin {"step": 3}[rank 4] train.step.begin {"step": 3}
+
+
+
+[rank 3] train.step.begin {"step": 3}
+[train] {'phase': 'train', 'step': 2, 'ce': 3.527447998523712, 'error': 0.14317065477371216, 'loss': 3.527447998523712, 'mse': 0.0, 'teacher_entropy': 3.38427734375, 'grad_norm': 0.31609591841697693, 'tokens': 196608, 'epoch': 0, 'learning_rate': 9.938625865312252e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 70.0819997782819}
+[rank 0] train.step.end {"step": 2}
+[rank 0] train.step.begin {"step": 3}
+[rank 4] train.step.end {"step": 3}[rank 2] train.step.end {"step": 3}[rank 5] train.step.end {"step": 3}
+
+[rank 7] train.step.end {"step": 3}[rank 3] train.step.end {"step": 3}
+
+
+[rank 6] train.step.end {"step": 3}
+[rank 1] train.step.end {"step": 3}
+[rank 2] train.step.begin {"step": 4}[rank 5] train.step.begin {"step": 4}
+
+[rank 4] train.step.begin {"step": 4}[rank 3] train.step.begin {"step": 4}
+
+[rank 7] train.step.begin {"step": 4}
+[train] {'phase': 'train', 'step': 3, 'ce': 3.4389889538288116, 'error': 0.14284220337867737, 'loss': 3.4389889538288116, 'mse': 0.0, 'teacher_entropy': 3.2961467504501343, 'grad_norm': 0.3049641251564026, 'tokens': 196608, 'epoch': 0, 'learning_rate': 9.756177587652857e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 71.1620245501399}
+[rank 6] train.step.begin {"step": 4}
+[rank 1] train.step.begin {"step": 4}
+[rank 0] train.step.end {"step": 3}
+[rank 0] train.step.begin {"step": 4}
+[rank 5] train.step.end {"step": 4}
+[rank 1] train.step.end {"step": 4}[rank 7] train.step.end {"step": 4}[rank 4] train.step.end {"step": 4}[rank 6] train.step.end {"step": 4}
+[rank 3] train.step.end {"step": 4}
+
+
+
+[rank 2] train.step.end {"step": 4}
+[rank 5] train.step.begin {"step": 5}
+[rank 7] train.step.begin {"step": 5}
+[rank 6] train.step.begin {"step": 5}
+[rank 1] train.step.begin {"step": 5}[rank 3] train.step.begin {"step": 5}
+
+[rank 4] train.step.begin {"step": 5}
+[rank 2] train.step.begin {"step": 5}
+[train] {'phase': 'train', 'step': 4, 'ce': 3.5272791981697083, 'error': 0.1366099715232849, 'loss': 3.5272791981697083, 'mse': 0.0, 'teacher_entropy': 3.3906692266464233, 'grad_norm': 0.2701099216938019, 'tokens': 196608, 'epoch': 0, 'learning_rate': 9.4576318804292e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 72.24098604917526}
+[rank 0] train.step.end {"step": 4}
+[rank 0] train.step.begin {"step": 5}
+[rank 5] train.step.end {"step": 5}[rank 2] train.step.end {"step": 5}[rank 7] train.step.end {"step": 5}[rank 6] train.step.end {"step": 5}[rank 1] train.step.end {"step": 5}[rank 4] train.step.end {"step": 5}[rank 3] train.step.end {"step": 5}
+
+
+
+
+
+
+[rank 7] train.step.begin {"step": 6}[rank 6] train.step.begin {"step": 6}[rank 3] train.step.begin {"step": 6}
+[rank 4] train.step.begin {"step": 6}
+
+
+[rank 1] train.step.begin {"step": 6}
+[rank 5] train.step.begin {"step": 6}
+[train] {'phase': 'train', 'step': 5, 'ce': 3.5218096673488617, 'error': 0.14620763063430786, 'loss': 3.5218096673488617, 'mse': 0.0, 'teacher_entropy': 3.375602036714554, 'grad_norm': 0.27114173769950867, 'tokens': 196608, 'epoch': 0, 'learning_rate': 9.051132292283772e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 73.31975242914632}
+[rank 0] train.step.end {"step": 5}
+[rank 0] train.step.begin {"step": 6}
+[rank 2] train.step.begin {"step": 6}
+[rank 2] train.step.end {"step": 6}[rank 7] train.step.end {"step": 6}[rank 6] train.step.end {"step": 6}[rank 5] train.step.end {"step": 6}[rank 4] train.step.end {"step": 6}
+
+
+
+
+[rank 3] train.step.end {"step": 6}[rank 1] train.step.end {"step": 6}
+
+[rank 7] train.step.begin {"step": 7}[rank 5] train.step.begin {"step": 7}[rank 4] train.step.begin {"step": 7}
+
+
+[rank 6] train.step.begin {"step": 7}
+[rank 2] train.step.begin {"step": 7}
+[rank 1] train.step.begin {"step": 7}[rank 3] train.step.begin {"step": 7}
+
+[train] {'phase': 'train', 'step': 6, 'ce': 3.3511786460876465, 'error': 0.14101296663284302, 'loss': 3.3511786460876465, 'mse': 0.0, 'teacher_entropy': 3.2101656794548035, 'grad_norm': 0.23847976326942444, 'tokens': 196608, 'epoch': 0, 'learning_rate': 8.547767072315835e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 74.4140874040313}
+[rank 0] train.step.end {"step": 6}
+[rank 0] train.step.begin {"step": 7}
+[rank 6] train.step.end {"step": 7}[rank 7] train.step.end {"step": 7}
+
+[rank 1] train.step.end {"step": 7}
+[rank 2] train.step.end {"step": 7}
+[rank 4] train.step.end {"step": 7}
+[rank 5] train.step.end {"step": 7}
+[rank 7] train.step.begin {"step": 8}
+[rank 6] train.step.begin {"step": 8}
+[rank 3] train.step.end {"step": 7}
+[rank 1] train.step.begin {"step": 8}
+[rank 2] train.step.begin {"step": 8}[rank 4] train.step.begin {"step": 8}
+
+[rank 5] train.step.begin {"step": 8}
+[train] {'phase': 'train', 'step': 7, 'ce': 3.4585151970386505, 'error': 0.14354750514030457, 'loss': 3.4585151970386505, 'mse': 0.0, 'teacher_entropy': 3.314967691898346, 'grad_norm': 0.23740126192569733, 'tokens': 196608, 'epoch': 0, 'learning_rate': 7.96126671155092e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 75.49428990995511}
+[rank 3] train.step.begin {"step": 8}
+[rank 0] train.step.end {"step": 7}
+[rank 0] train.step.begin {"step": 8}
+[rank 7] train.step.end {"step": 8}[rank 4] train.step.end {"step": 8}[rank 5] train.step.end {"step": 8}
+
+[rank 6] train.step.end {"step": 8}
+
+[rank 3] train.step.end {"step": 8}[rank 1] train.step.end {"step": 8}
+
+[rank 2] train.step.end {"step": 8}
+[rank 5] train.step.begin {"step": 9}[rank 4] train.step.begin {"step": 9}[rank 6] train.step.begin {"step": 9}
+
+
+[rank 7] train.step.begin {"step": 9}
+[rank 3] train.step.begin {"step": 9}
+[rank 1] train.step.begin {"step": 9}
+[rank 2] train.step.begin {"step": 9}
+[train] {'phase': 'train', 'step': 8, 'ce': 3.5451103150844574, 'error': 0.13239428400993347, 'loss': 3.5451103150844574, 'mse': 0.0, 'teacher_entropy': 3.412716031074524, 'grad_norm': 0.19258509576320648, 'tokens': 196608, 'epoch': 0, 'learning_rate': 7.307629410938362e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 76.57319067697972}
+[rank 0] train.step.end {"step": 8}
+[rank 0] train.step.begin {"step": 9}
+[rank 5] train.step.end {"step": 9}[rank 4] train.step.end {"step": 9}[rank 2] train.step.end {"step": 9}
+[rank 1] train.step.end {"step": 9}[rank 6] train.step.end {"step": 9}
+
+
+
+[rank 7] train.step.end {"step": 9}
+[rank 3] train.step.end {"step": 9}[rank 4] train.step.begin {"step": 10}[rank 2] train.step.begin {"step": 10}[rank 5] train.step.begin {"step": 10}[rank 6] train.step.begin {"step": 10}
+[rank 1] train.step.begin {"step": 10}
+
+
+
+
+[rank 7] train.step.begin {"step": 10}
+[train] {'phase': 'train', 'step': 9, 'ce': 3.214484602212906, 'error': 0.14527392387390137, 'loss': 3.214484602212906, 'mse': 0.0, 'teacher_entropy': 3.0692106783390045, 'grad_norm': 0.19485169649124146, 'tokens': 196608, 'epoch': 0, 'learning_rate': 6.604684692133595e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 77.65315017616376}
+[rank 3] train.step.begin {"step": 10}
+[rank 0] train.step.end {"step": 9}
+[rank 0] train.step.begin {"step": 10}
+[rank 6] train.step.end {"step": 10}[rank 4] train.step.end {"step": 10}[rank 5] train.step.end {"step": 10}
+
+
+[rank 1] train.step.end {"step": 10}[rank 3] train.step.end {"step": 10}
+
+[rank 2] train.step.end {"step": 10}
+[rank 4] train.step.begin {"step": 11}[rank 6] train.step.begin {"step": 11}
+[rank 5] train.step.begin {"step": 11}
+
+[rank 1] train.step.begin {"step": 11}[rank 3] train.step.begin {"step": 11}
+
+[rank 7] train.step.end {"step": 10}
+[train] {'phase': 'train', 'step': 10, 'ce': 3.503746271133423, 'error': 0.13278073072433472, 'loss': 3.503746271133423, 'mse': 0.0, 'teacher_entropy': 3.370965540409088, 'grad_norm': 0.1704978048801422, 'tokens': 196608, 'epoch': 0, 'learning_rate': 5.871607054625494e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 78.72801558533683}[rank 2] train.step.begin {"step": 11}
+
+[rank 7] train.step.begin {"step": 11}
+[rank 0] train.step.end {"step": 10}
+[rank 0] train.step.begin {"step": 11}
+[rank 6] train.step.end {"step": 11}[rank 5] train.step.end {"step": 11}[rank 2] train.step.end {"step": 11}[rank 4] train.step.end {"step": 11}[rank 7] train.step.end {"step": 11}
+
+
+
+
+[rank 1] train.step.end {"step": 11}
+[rank 3] train.step.end {"step": 11}
+[rank 5] train.step.begin {"step": 12}[rank 7] train.step.begin {"step": 12}[rank 6] train.step.begin {"step": 12}
+
+[rank 4] train.step.begin {"step": 12}
+[rank 2] train.step.begin {"step": 12}
+
+[rank 1] train.step.begin {"step": 12}
+[rank 3] train.step.begin {"step": 12}[train] {'phase': 'train', 'step': 11, 'ce': 3.5866436660289764, 'error': 0.142960786819458, 'loss': 3.5866436660289764, 'mse': 0.0, 'teacher_entropy': 3.4436828792095184, 'grad_norm': 0.1848701536655426, 'tokens': 196608, 'epoch': 0, 'learning_rate': 5.128392945374502e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 79.80333104217425}
+
+[rank 0] train.step.end {"step": 11}
+[rank 0] train.step.begin {"step": 12}
+[rank 6] train.step.end {"step": 12}[rank 2] train.step.end {"step": 12}[rank 5] train.step.end {"step": 12}[rank 4] train.step.end {"step": 12}
+
+
+[rank 1] train.step.end {"step": 12}
+[rank 3] train.step.end {"step": 12}
+
+[rank 7] train.step.end {"step": 12}
+[rank 5] train.step.begin {"step": 13}[rank 2] train.step.begin {"step": 13}
+[rank 6] train.step.begin {"step": 13}
+[rank 4] train.step.begin {"step": 13}
+
+[rank 1] train.step.begin {"step": 13}
+[rank 3] train.step.begin {"step": 13}
+[rank 7] train.step.begin {"step": 13}
+[train] {'phase': 'train', 'step': 12, 'ce': 3.4035149812698364, 'error': 0.14006978273391724, 'loss': 3.4035149812698364, 'mse': 0.0, 'teacher_entropy': 3.263445198535919, 'grad_norm': 0.16853076219558716, 'tokens': 196608, 'epoch': 0, 'learning_rate': 4.395315307866403e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 80.88086661696434}
+[rank 0] train.step.end {"step": 12}
+[rank 0] train.step.begin {"step": 13}
+[rank 5] train.step.end {"step": 13}
+[rank 1] train.step.end {"step": 13}[rank 4] train.step.end {"step": 13}
+[rank 6] train.step.end {"step": 13}[rank 3] train.step.end {"step": 13}
+
+
+[rank 2] train.step.end {"step": 13}
+[rank 7] train.step.end {"step": 13}
+[rank 1] train.step.begin {"step": 14}[rank 5] train.step.begin {"step": 14}
+
+[rank 3] train.step.begin {"step": 14}[rank 4] train.step.begin {"step": 14}[rank 6] train.step.begin {"step": 14}
+[rank 2] train.step.begin {"step": 14}
+
+
+[rank 7] train.step.begin {"step": 14}
+[train] {'phase': 'train', 'step': 13, 'ce': 3.5703606009483337, 'error': 0.13900965452194214, 'loss': 3.5703606009483337, 'mse': 0.0, 'teacher_entropy': 3.4313509464263916, 'grad_norm': 0.16283567249774933, 'tokens': 196608, 'epoch': 0, 'learning_rate': 3.692370589061636e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 81.95952863106504}
+[rank 0] train.step.end {"step": 13}
+[rank 0] train.step.begin {"step": 14}
+[rank 5] train.step.end {"step": 14}[rank 4] train.step.end {"step": 14}[rank 7] train.step.end {"step": 14}[rank 1] train.step.end {"step": 14}
+
+
+
+[rank 3] train.step.end {"step": 14}[rank 2] train.step.end {"step": 14}
+
+[rank 6] train.step.end {"step": 14}
+[rank 4] train.step.begin {"step": 15}[rank 1] train.step.begin {"step": 15}[rank 7] train.step.begin {"step": 15}
+
+[rank 5] train.step.begin {"step": 15}
+
+[rank 2] train.step.begin {"step": 15}
+[rank 3] train.step.begin {"step": 15}
+[rank 6] train.step.begin {"step": 15}
+[train] {'phase': 'train', 'step': 14, 'ce': 3.548722207546234, 'error': 0.1293589472770691, 'loss': 3.548722207546234, 'mse': 0.0, 'teacher_entropy': 3.419363260269165, 'grad_norm': 0.13821063935756683, 'tokens': 196608, 'epoch': 0, 'learning_rate': 3.038733288449077e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 83.0394913572818}
+[rank 0] train.step.end {"step": 14}
+[rank 0] train.step.begin {"step": 15}
+[rank 6] train.step.end {"step": 15}[rank 2] train.step.end {"step": 15}[rank 4] train.step.end {"step": 15}[rank 5] train.step.end {"step": 15}
+
+
+
+[rank 3] train.step.end {"step": 15}
+[rank 1] train.step.end {"step": 15}
+[rank 7] train.step.end {"step": 15}
+[rank 4] train.step.begin {"step": 16}[rank 6] train.step.begin {"step": 16}[rank 2] train.step.begin {"step": 16}[rank 5] train.step.begin {"step": 16}
+
+
+
+[rank 3] train.step.begin {"step": 16}
+[rank 1] train.step.begin {"step": 16}
+[rank 7] train.step.begin {"step": 16}
+[train] {'phase': 'train', 'step': 15, 'ce': 3.319097548723221, 'error': 0.13085085153579712, 'loss': 3.319097548723221, 'mse': 0.0, 'teacher_entropy': 3.1882466971874237, 'grad_norm': 0.1298503279685974, 'tokens': 196608, 'epoch': 0, 'learning_rate': 2.452232927684165e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 84.11768200993538}
+[rank 0] train.step.end {"step": 15}
+[rank 0] train.step.begin {"step": 16}
+[rank 5] train.step.end {"step": 16}[rank 3] train.step.end {"step": 16}[rank 4] train.step.end {"step": 16}[rank 1] train.step.end {"step": 16}
+[rank 2] train.step.end {"step": 16}
+
+
+
+[rank 7] train.step.end {"step": 16}
+[rank 6] train.step.end {"step": 16}
+[rank 4] train.step.begin {"step": 17}
+[rank 2] train.step.begin {"step": 17}[rank 5] train.step.begin {"step": 17}
+
+[rank 1] train.step.begin {"step": 17}[rank 3] train.step.begin {"step": 17}
+[rank 7] train.step.begin {"step": 17}
+
+[rank 6] train.step.begin {"step": 17}
+[train] {'phase': 'train', 'step': 16, 'ce': 3.4702033400535583, 'error': 0.13648122549057007, 'loss': 3.4702033400535583, 'mse': 0.0, 'teacher_entropy': 3.3337221145629883, 'grad_norm': 0.1464962512254715, 'tokens': 196608, 'epoch': 0, 'learning_rate': 1.948867707716229e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 85.20002575125545}
+[rank 0] train.step.end {"step": 16}
+[rank 0] train.step.begin {"step": 17}
+[rank 5] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}[rank 4] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+
+[rank 1] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 7] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 6] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 2] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 3] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 0] on_policy.rollout.end {"seconds": 32.89297422906384, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 0] on_policy.buffer {"states": 192, "micro_batch": 16}
+[rank 6] on_policy.rollout.end {"seconds": 33.38773196004331, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 6] on_policy.buffer {"states": 192, "micro_batch": 16}
+[rank 7] on_policy.rollout.end {"seconds": 33.43897788133472, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 7] on_policy.buffer {"states": 192, "micro_batch": 16}
+[rank 3] on_policy.rollout.end {"seconds": 33.443843610119075, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 3] on_policy.buffer {"states": 192, "micro_batch": 16}
+[rank 5] on_policy.rollout.end {"seconds": 33.51485579460859, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 5] on_policy.buffer {"states": 192, "micro_batch": 16}
+[rank 1] on_policy.rollout.end {"seconds": 33.51977620366961, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 1] on_policy.buffer {"states": 192, "micro_batch": 16}
+[rank 2] on_policy.rollout.end {"seconds": 33.566815241239965, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 2] on_policy.buffer {"states": 192, "micro_batch": 16}
+[rank 4] on_policy.rollout.end {"seconds": 33.57823780877516, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 4] on_policy.buffer {"states": 192, "micro_batch": 16}
+[rank 5] train.step.end {"step": 17}[rank 4] train.step.end {"step": 17}
+[rank 7] train.step.end {"step": 17}[rank 1] train.step.end {"step": 17}[rank 3] train.step.end {"step": 17}
+
+[rank 6] train.step.end {"step": 17}
+
+
+[rank 2] train.step.end {"step": 17}
+[rank 5] train.step.begin {"step": 18}[rank 6] train.step.begin {"step": 18}
+
+[rank 4] train.step.begin {"step": 18}[rank 1] train.step.begin {"step": 18}[rank 7] train.step.begin {"step": 18}
+[rank 3] train.step.begin {"step": 18}
+
+
+[rank 2] train.step.begin {"step": 18}
+[train] {'phase': 'train', 'step': 17, 'ce': 3.619550049304962, 'error': 0.1423274278640747, 'loss': 3.619550049304962, 'mse': 0.0, 'teacher_entropy': 3.4772226214408875, 'grad_norm': 0.15426090359687805, 'tokens': 196608, 'epoch': 0, 'learning_rate': 1.5423681195707995e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 119.86626808810979}
+[rank 0] train.step.end {"step": 17}
+[rank 0] train.step.begin {"step": 18}
+[rank 6] train.step.end {"step": 18}[rank 2] train.step.end {"step": 18}[rank 5] train.step.end {"step": 18}[rank 4] train.step.end {"step": 18}
+
+
+
+[rank 3] train.step.end {"step": 18}[rank 1] train.step.end {"step": 18}
+
+[rank 7] train.step.end {"step": 18}
+[rank 4] train.step.begin {"step": 19}[rank 5] train.step.begin {"step": 19}
+[rank 6] train.step.begin {"step": 19}
+
+[rank 2] train.step.begin {"step": 19}
+[rank 3] train.step.begin {"step": 19}
+[rank 1] train.step.begin {"step": 19}
+[rank 7] train.step.begin {"step": 19}
+[train] {'phase': 'train', 'step': 18, 'ce': 3.599943369626999, 'error': 0.12919577956199646, 'loss': 3.599943369626999, 'mse': 0.0, 'teacher_entropy': 3.4707475900650024, 'grad_norm': 0.12351598590612411, 'tokens': 196608, 'epoch': 0, 'learning_rate': 1.2438224123471436e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 120.95925203617662}
+[rank 0] train.step.end {"step": 18}
+[rank 0] train.step.begin {"step": 19}
+[rank 5] train.step.end {"step": 19}[rank 2] train.step.end {"step": 19}[rank 6] train.step.end {"step": 19}[rank 7] train.step.end {"step": 19}[rank 4] train.step.end {"step": 19}
+
+
+
+
+[rank 1] train.step.end {"step": 19}[rank 3] train.step.end {"step": 19}
+
+[rank 6] train.step.begin {"step": 20}[rank 2] train.step.begin {"step": 20}[rank 7] train.step.begin {"step": 20}[rank 5] train.step.begin {"step": 20}
+
+
+
+[rank 4] train.step.begin {"step": 20}
+[rank 1] train.step.begin {"step": 20}[rank 3] train.step.begin {"step": 20}
+
+[train] {'phase': 'train', 'step': 19, 'ce': 3.777540862560272, 'error': 0.13174480199813843, 'loss': 3.777540862560272, 'mse': 0.0, 'teacher_entropy': 3.645796060562134, 'grad_norm': 0.13170932233333588, 'tokens': 196608, 'epoch': 0, 'learning_rate': 1.0613741346877496e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 122.04934730008245}
+[rank 0] train.step.end {"step": 19}
+[rank 0] train.step.begin {"step": 20}
+[rank 6] train.step.end {"step": 20}[rank 2] train.step.end {"step": 20}[rank 5] train.step.end {"step": 20}[rank 4] train.step.end {"step": 20}
+
+
+
+[rank 1] train.step.end {"step": 20}[rank 3] train.step.end {"step": 20}
+
+[rank 7] train.step.end {"step": 20}
+[rank 2] validation.begin {"step": 20}[rank 4] validation.begin {"step": 20}
+[rank 6] validation.begin {"step": 20}
+[rank 5] validation.begin {"step": 20}
+
+[rank 3] validation.begin {"step": 20}
+[rank 1] validation.begin {"step": 20}
+[rank 7] validation.begin {"step": 20}
+[train] {'phase': 'train', 'step': 20, 'ce': 3.655445843935013, 'error': 0.13389453291893005, 'loss': 3.655445843935013, 'mse': 0.0, 'teacher_entropy': 3.5215513110160828, 'grad_norm': 0.13310123980045319, 'tokens': 196608, 'epoch': 0, 'learning_rate': 1.0000000000000002e-06, 'rank0_peak_memory_gib': 37.3696608543396, 'elapsed_seconds': 123.14253758313134}
+[rank 0] train.step.end {"step": 20}
+[rank 0] validation.begin {"step": 20}
+[rank 4] validation.first_batch.begin {"tokens": 24576}
+[rank 5] validation.first_batch.begin {"tokens": 24576}
+[rank 1] validation.first_batch.begin {"tokens": 24576}
+[rank 7] validation.first_batch.begin {"tokens": 24576}
+[rank 6] validation.first_batch.begin {"tokens": 24576}
+[rank 2] validation.first_batch.begin {"tokens": 24576}
+[rank 3] validation.first_batch.begin {"tokens": 24576}
+[rank 0] validation.first_batch.begin {"tokens": 24576}
+[rank 4] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 5] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 1] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 6] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 7] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 2] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 3] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 0] on_policy.rollout.begin {"family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 0] on_policy.rollout.end {"seconds": 32.890098348259926, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 6] on_policy.rollout.end {"seconds": 33.33722922299057, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 7] on_policy.rollout.end {"seconds": 33.4866066579707, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 3] on_policy.rollout.end {"seconds": 33.495523686055094, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 5] on_policy.rollout.end {"seconds": 33.505160759203136, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 2] on_policy.rollout.end {"seconds": 33.563536019064486, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 1] on_policy.rollout.end {"seconds": 33.56777714332566, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 4] on_policy.rollout.end {"seconds": 33.60280778305605, "family": "langflow", "trajectories": 2, "steps": 1024}
+[rank 0] validation.first_batch.end {"loss": 3.6693437099456787, "ce": 3.6693437099456787, "mse": -0.0, "teacher_entropy": 3.5721983909606934, "error": 0.09714531898498535}
+[rank 0] validation.reduce.begin {"local_tokens": 24576}
+[rank 6] validation.first_batch.end {"loss": 3.2877891063690186, "ce": 3.2877891063690186, "mse": -0.0, "teacher_entropy": 3.1610658168792725, "error": 0.1267232894897461}
+[rank 6] validation.reduce.begin {"local_tokens": 24576}
+[rank 3] validation.first_batch.end {"loss": 3.954292058944702, "ce": 3.954292058944702, "mse": -0.0, "teacher_entropy": 3.8381059169769287, "error": 0.11618614196777344}
+[rank 3] validation.reduce.begin {"local_tokens": 24576}
+[rank 5] validation.first_batch.end {"loss": 3.2170474529266357, "ce": 3.2170474529266357, "mse": -0.0, "teacher_entropy": 3.093975782394409, "error": 0.12307167053222656}
+[rank 5] validation.reduce.begin {"local_tokens": 24576}
+[rank 7] validation.first_batch.end {"loss": 3.4944701194763184, "ce": 3.4944701194763184, "mse": -0.0, "teacher_entropy": 3.3681387901306152, "error": 0.12633132934570312}
+[rank 7] validation.reduce.begin {"local_tokens": 24576}
+[rank 1] validation.first_batch.end {"loss": 2.7816319465637207, "ce": 2.7816319465637207, "mse": -0.0, "teacher_entropy": 2.6809604167938232, "error": 0.10067152976989746}
+[rank 1] validation.reduce.begin {"local_tokens": 24576}
+[rank 2] validation.first_batch.end {"loss": 3.6984221935272217, "ce": 3.6984221935272217, "mse": -0.0, "teacher_entropy": 3.577918529510498, "error": 0.12050366401672363}
+[rank 2] validation.reduce.begin {"local_tokens": 24576}
+[rank 4] validation.first_batch.end {"loss": 3.847994565963745, "ce": 3.847994565963745, "mse": -0.0, "teacher_entropy": 3.7570743560791016, "error": 0.09092020988464355}
+[rank 4] validation.reduce.begin {"local_tokens": 24576}
+[rank 2] validation.reduce.end {"seconds": 0.0021185637451708317, "local_tokens": 24576}[rank 5] validation.reduce.end {"seconds": 0.09805332170799375, "local_tokens": 24576}
+
+[rank 3] validation.reduce.end {"seconds": 0.09901727689430118, "local_tokens": 24576}[rank 1] validation.reduce.end {"seconds": 0.008214819710701704, "local_tokens": 24576}
+[rank 7] validation.reduce.end {"seconds": 0.0906152673996985, "local_tokens": 24576}
+
+[rank 6] validation.reduce.end {"seconds": 0.24443974904716015, "local_tokens": 24576}
+[rank 4] validation.reduce.end {"seconds": 0.0002598320133984089, "local_tokens": 24576}
+[rank 0] validation.reduce.end {"seconds": 0.7291052378714085, "local_tokens": 24576}
+[rank 4] validation.end {"seconds": 34.374047819990665, "step": 20}
+[rank 5] validation.end {"seconds": 34.3740472830832, "step": 20}
+[rank 2] validation.end {"seconds": 34.37407030025497, "step": 20}[rank 3] validation.end {"seconds": 34.37407357664779, "step": 20}
+
+[rank 6] validation.end {"seconds": 34.37407936761156, "step": 20}[rank 7] validation.end {"seconds": 34.3740737172775, "step": 20}[rank 1] validation.end {"seconds": 34.37407268304378, "step": 20}
+
+
+[train] {'phase': 'valid', 'step': 20, 'ce': 3.49387389421463, 'error': 0.1126941442489624, 'loss': 3.49387389421463, 'mse': 0.0, 'teacher_entropy': 3.3811797499656677, 'elapsed_seconds': 157.51670705294237}
+[rank 0] validation.end {"seconds": 34.37398264138028, "step": 20}
+[rank 4] checkpoint.wait_ready.begin {"step": 20}
+[rank 5] checkpoint.wait_ready.begin {"step": 20}
+[rank 1] checkpoint.wait_ready.begin {"step": 20}
+[rank 2] checkpoint.wait_ready.begin {"step": 20}
+[rank 6] checkpoint.wait_ready.begin {"step": 20}
+[rank 3] checkpoint.wait_ready.begin {"step": 20}
+[rank 7] checkpoint.wait_ready.begin {"step": 20}
+[rank 0] checkpoint.save.begin {"step": 20, "path": "/tmp/onp_bs_test/20261020_211735_977153_ddp3_owt/checkpoints/step_000020"}
+[rank 0] checkpoint.save.end {"step": 20}
+[rank 0] checkpoint.wait_ready.begin {"step": 20}
+[rank 0] checkpoint.wait_ready.end {"seconds": 0.0006955959834158421, "step": 20}
+[rank 4] checkpoint.wait_ready.end {"seconds": 0.4576816842891276, "step": 20}
+[rank 7] checkpoint.wait_ready.end {"seconds": 0.45764891104772687, "step": 20}
+[rank 6] checkpoint.wait_ready.end {"seconds": 0.45768125681206584, "step": 20}
+[rank 2] checkpoint.wait_ready.end {"seconds": 0.45770339062437415, "step": 20}
+[rank 3] checkpoint.wait_ready.end {"seconds": 0.45768673438578844, "step": 20}
+[rank 5] checkpoint.wait_ready.end {"seconds": 0.4578143539838493, "step": 20}
+[rank 1] checkpoint.wait_ready.end {"seconds": 0.4577636672183871, "step": 20}
+[train] stopped at step 20: max_steps
+[train] checkpoint: /tmp/onp_bs_test/20261020_211735_977153_ddp3_owt/checkpoints/step_000020
+[on-policy] /tmp/onp_bs_test/20261020_211735_977153_ddp3_owt

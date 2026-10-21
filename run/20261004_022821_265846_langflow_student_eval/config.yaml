@@ -1,0 +1,35 @@
+run:
+  name: langflow_student_eval
+  root: run
+model:
+  device: cuda
+  tokenizer: gpt2
+  cache_dir: null
+distributed:
+  control_timeout_seconds: 7200
+metrics:
+- gen_ppl
+flow_ppl:
+  seed: 1
+  sequence_length: 1024
+  num_steps: 128
+  ode_method: heun2
+  batch_size: 1
+  use_self_cond: true
+  first_n: 0
+  validation_cache: null
+  data_cache: null
+  data_workers: 2
+  dataset: Skylion007/openwebtext
+  dataset_config: default
+  revision: refs/convert/parquet
+  validation_documents: 100000
+gen_ppl:
+  seed: 42
+  num_samples: 512
+  sequence_length: 1024
+  num_steps: 1024
+  batch_size: 8
+  scorer: gpt2-large
+  scorer_batch_size: 8
+  scorer_max_length: 1024

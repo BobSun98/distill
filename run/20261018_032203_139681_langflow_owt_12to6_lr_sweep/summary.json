@@ -1,0 +1,128 @@
+{
+  "teacher": "Continuous-Rivals-Discrete/langflow-owt",
+  "student_keep_layers": [
+    0,
+    2,
+    4,
+    7,
+    9,
+    11
+  ],
+  "initialization": "independent_from_teacher",
+  "learning_rates": [
+    1e-05,
+    3e-05,
+    0.0001,
+    0.0003,
+    0.001,
+    0.005,
+    0.01
+  ],
+  "training": {
+    "plot_loss": true,
+    "ppl_evaluation": {
+      "enabled": true,
+      "interval": 1000,
+      "num_samples_per_rank": 32,
+      "batch_size": 32
+    },
+    "max_steps": 5000,
+    "batch_size": 4,
+    "grad_accumulation": 2,
+    "learning_rate": 3e-05,
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "self_condition_probability": 0.25,
+    "log_every": 100,
+    "validate_every": 100,
+    "validation_batches": 8,
+    "save_every": 0,
+    "early_stopping": {
+      "enabled": false,
+      "metric": "loss",
+      "min_steps": 500,
+      "patience": 5,
+      "min_delta": 0.001
+    },
+    "lr_scheduler": {
+      "name": "cosine",
+      "final_ratio": 0.1
+    }
+  },
+  "evaluation": {
+    "seed": 2026,
+    "num_samples": 512,
+    "batch_size": 32,
+    "num_steps": 1024,
+    "sequence_length": 1024,
+    "scorer": "gpt2-large",
+    "scorer_batch_size": 4,
+    "scorer_max_length": 1024
+  },
+  "world_size": 8,
+  "results": [
+    {
+      "learning_rate": 1e-05,
+      "final_learning_rate": 1.0000000000000002e-06,
+      "steps": 5000,
+      "gen_ppl": 131.20782824495888,
+      "sample_entropy": 5.440252417254535,
+      "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261018_032203_139681_langflow_owt_12to6_lr_sweep/lr_1e-05/checkpoints/step_005000",
+      "directory": "/proj/gpu_mtk53742/CDLM-distillation/run/20261018_032203_139681_langflow_owt_12to6_lr_sweep/lr_1e-05"
+    },
+    {
+      "learning_rate": 3e-05,
+      "final_learning_rate": 3e-06,
+      "steps": 5000,
+      "gen_ppl": 98.13501985099883,
+      "sample_entropy": 5.3742154024660485,
+      "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261018_032203_139681_langflow_owt_12to6_lr_sweep/lr_3e-05/checkpoints/step_005000",
+      "directory": "/proj/gpu_mtk53742/CDLM-distillation/run/20261018_032203_139681_langflow_owt_12to6_lr_sweep/lr_3e-05"
+    },
+    {
+      "learning_rate": 0.0001,
+      "final_learning_rate": 1e-05,
+      "steps": 5000,
+      "gen_ppl": 82.1937350242797,
+      "sample_entropy": 5.343360346375678,
+      "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261018_032203_139681_langflow_owt_12to6_lr_sweep/lr_0.0001/checkpoints/step_005000",
+      "directory": "/proj/gpu_mtk53742/CDLM-distillation/run/20261018_032203_139681_langflow_owt_12to6_lr_sweep/lr_0.0001"
+    },
+    {
+      "learning_rate": 0.0003,
+      "final_learning_rate": 2.9999999999999997e-05,
+      "steps": 5000,
+      "gen_ppl": 74.41746299969009,
+      "sample_entropy": 5.33787464602586,
+      "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261018_032203_139681_langflow_owt_12to6_lr_sweep/lr_0.0003/checkpoints/step_005000",
+      "directory": "/proj/gpu_mtk53742/CDLM-distillation/run/20261018_032203_139681_langflow_owt_12to6_lr_sweep/lr_0.0003"
+    },
+    {
+      "learning_rate": 0.001,
+      "final_learning_rate": 0.0001,
+      "steps": 5000,
+      "gen_ppl": 67.31283370016462,
+      "sample_entropy": 5.341942937072561,
+      "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261018_032203_139681_langflow_owt_12to6_lr_sweep/lr_0.001/checkpoints/step_005000",
+      "directory": "/proj/gpu_mtk53742/CDLM-distillation/run/20261018_032203_139681_langflow_owt_12to6_lr_sweep/lr_0.001"
+    },
+    {
+      "learning_rate": 0.005,
+      "final_learning_rate": 0.0005,
+      "steps": 5000,
+      "gen_ppl": 72.37430615863582,
+      "sample_entropy": 5.335579356721691,
+      "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261018_032203_139681_langflow_owt_12to6_lr_sweep/lr_0.005/checkpoints/step_005000",
+      "directory": "/proj/gpu_mtk53742/CDLM-distillation/run/20261018_032203_139681_langflow_owt_12to6_lr_sweep/lr_0.005"
+    },
+    {
+      "learning_rate": 0.01,
+      "final_learning_rate": 0.001,
+      "steps": 5000,
+      "gen_ppl": 107.33927638568159,
+      "sample_entropy": 5.403604530695142,
+      "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261018_032203_139681_langflow_owt_12to6_lr_sweep/lr_0.01/checkpoints/step_005000",
+      "directory": "/proj/gpu_mtk53742/CDLM-distillation/run/20261018_032203_139681_langflow_owt_12to6_lr_sweep/lr_0.01"
+    }
+  ]
+}

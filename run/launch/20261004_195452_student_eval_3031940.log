@@ -1,0 +1,187 @@
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 1] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.end {"seconds": 1.898172063054517, "backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.end {"seconds": 0.031522362027317286, "backend": "gloo", "world_size": 8}[rank 2] control_group.init.end {"seconds": 0.09853415191173553, "backend": "gloo", "world_size": 8}
+
+[rank 3] control_group.init.end {"seconds": 1.5945169280748814, "backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.end {"seconds": 0.014780141180381179, "backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.end {"seconds": 0.014886638848111033, "backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.end {"seconds": 0.07040436891838908, "backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.end {"seconds": 0.2234205841086805, "backend": "gloo", "world_size": 8}
+[eval] /proj/gpu_mtk53742/CDLM-distillation/run/20261004_195459_065982_langflow_lm1b_eval (world_size=8, metrics=['gen_ppl'])
+[rank 0] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 7] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 0] model.files.resolve.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 2] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 1] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 6] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 4] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 0] model.files.resolve.end {"seconds": 0.00012691807933151722, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 3] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 5] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 2] model.files.wait.end {"seconds": 0.0014676570426672697, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 0] model.files.wait.end {"seconds": 0.0018049099016934633, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 1] model.files.wait.end {"seconds": 0.0014450789894908667, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}[rank 2] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+
+[rank 4] model.files.wait.end {"seconds": 0.0013333610258996487, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 3] model.files.wait.end {"seconds": 0.0012685391120612621, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 6] model.files.wait.end {"seconds": 0.0014749581459909678, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 5] model.files.wait.end {"seconds": 0.0011746259406208992, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 0] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 7] model.files.wait.end {"seconds": 0.0021443660371005535, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 1] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 6] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 4] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 3] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 0] model.files.resolve.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 5] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 7] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 0] model.files.resolve.end {"seconds": 0.00013342290185391903, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 2] model.files.wait.end {"seconds": 0.0017199758440256119, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 0] model.files.wait.end {"seconds": 0.001469240989536047, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 2] model.weights.load.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 6] model.files.wait.end {"seconds": 0.0015164569485932589, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 0] model.weights.load.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 5] model.files.wait.end {"seconds": 0.0014277370646595955, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 6] model.weights.load.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 4] model.files.wait.end {"seconds": 0.0016786549240350723, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 5] model.weights.load.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 1] model.files.wait.end {"seconds": 0.001941510010510683, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 4] model.weights.load.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 7] model.files.wait.end {"seconds": 0.001816358184441924, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 1] model.weights.load.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 7] model.weights.load.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 3] model.files.wait.end {"seconds": 0.0020912361796945333, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 3] model.weights.load.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 6] model.weights.load.end {"seconds": 0.6610705219209194, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 6] model.to_device.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:6"}
+[rank 6] model.to_device.end {"seconds": 0.06582688493654132, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:6"}
+[rank 2] model.weights.load.end {"seconds": 0.8083550778683275, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 2] model.to_device.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:2"}
+[rank 0] model.weights.load.end {"seconds": 0.8189001169521362, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 7] model.weights.load.end {"seconds": 0.8181923360098153, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 0] model.to_device.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:0"}
+[rank 7] model.to_device.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:7"}
+[rank 5] model.weights.load.end {"seconds": 0.8190814019180834, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 4] model.weights.load.end {"seconds": 0.8189048760104924, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 5] model.to_device.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:5"}
+[rank 4] model.to_device.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:4"}
+[rank 3] model.weights.load.end {"seconds": 0.8187931280117482, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 3] model.to_device.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:3"}
+[rank 1] model.weights.load.end {"seconds": 0.8225857049692422, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors"}
+[rank 1] model.to_device.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:1"}
+[rank 2] model.to_device.end {"seconds": 0.08282196498475969, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:2"}
+[rank 3] model.to_device.end {"seconds": 0.08153911796398461, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:3"}
+[rank 0] model.to_device.end {"seconds": 0.08726610406301916, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:0"}
+[rank 4] model.to_device.end {"seconds": 0.09055217914283276, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:4"}
+[rank 7] model.to_device.end {"seconds": 0.09258953388780355, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:7"}
+[rank 5] model.to_device.end {"seconds": 0.09284741198644042, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:5"}
+[rank 1] model.to_device.end {"seconds": 0.09802478994242847, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261004_191646_955703_lm1b_kd_12to6/checkpoints/best/model.safetensors", "device": "cuda:1"}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 6] gen.generate.begin {"samples": 64}
+Generating 64 sample(s) (batch_size=8, steps=128, length=128)
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 3] gen.generate.begin {"samples": 64}
+Generating 64 sample(s) (batch_size=8, steps=128, length=128)
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 2] gen.generate.begin {"samples": 64}
+Generating 64 sample(s) (batch_size=8, steps=128, length=128)
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 7] gen.generate.begin {"samples": 64}
+Generating 64 sample(s) (batch_size=8, steps=128, length=128)
+[rank 1] gen.generate.begin {"samples": 64}
+[rank 0] gen.generate.begin {"samples": 64}
+Generating 64 sample(s) (batch_size=8, steps=128, length=128)
+Generating 64 sample(s) (batch_size=8, steps=128, length=128)
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 4] gen.generate.begin {"samples": 64}
+Generating 64 sample(s) (batch_size=8, steps=128, length=128)
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 5] gen.generate.begin {"samples": 64}
+Generating 64 sample(s) (batch_size=8, steps=128, length=128)
+[rank 6] gen.generate.end {"seconds": 13.136602917220443, "samples": 64}
+[rank 0] gen.generate.end {"seconds": 12.98649742314592, "samples": 64}
+[rank 3] gen.generate.end {"seconds": 13.068638883996755, "samples": 64}
+[rank 2] gen.generate.end {"seconds": 13.086776057025418, "samples": 64}
+[rank 5] gen.generate.end {"seconds": 13.066440526163206, "samples": 64}
+[rank 4] gen.generate.end {"seconds": 13.076437869807705, "samples": 64}
+[rank 7] gen.generate.end {"seconds": 13.09154069982469, "samples": 64}
+[rank 1] gen.generate.end {"seconds": 13.11687572603114, "samples": 64}
+[rank 7] gen.score.begin {"samples": 64}
+Loading PPL scorer: gpt2-large
+[rank 1] gen.score.begin {"samples": 64}[rank 2] gen.score.begin {"samples": 64}
+
+[rank 5] gen.score.begin {"samples": 64}
+[rank 6] gen.score.begin {"samples": 64}Loading PPL scorer: gpt2-large
+
+[rank 4] gen.score.begin {"samples": 64}
+Loading PPL scorer: gpt2-large
+[rank 3] gen.score.begin {"samples": 64}
+Loading PPL scorer: gpt2-large
+Loading PPL scorer: gpt2-large
+Loading PPL scorer: gpt2-large
+Loading PPL scorer: gpt2-large
+[rank 0] gen.score.begin {"samples": 64}
+Loading PPL scorer: gpt2-large
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 6] gen.score.end {"seconds": 5.054336892906576, "samples": 64}
+[rank 5] gen.score.end {"seconds": 5.0999216958880424, "samples": 64}
+[rank 4] gen.score.end {"seconds": 5.256188047118485, "samples": 64}
+[rank 3] gen.score.end {"seconds": 5.303460534196347, "samples": 64}
+[rank 0] gen.score.end {"seconds": 5.283756128977984, "samples": 64}
+[rank 1] gen.score.end {"seconds": 5.371973359026015, "samples": 64}
+[rank 2] gen.score.end {"seconds": 5.414628905011341, "samples": 64}
+[rank 7] gen.score.end {"seconds": 5.450942615047097, "samples": 64}
+[eval] Gen. PPL: 115.4883
+[eval] results: /proj/gpu_mtk53742/CDLM-distillation/run/20261004_195459_065982_langflow_lm1b_eval/metrics.json
