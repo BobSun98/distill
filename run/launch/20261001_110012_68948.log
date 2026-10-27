@@ -1,0 +1,81 @@
+[rank 0] run.start {"world_size": 1, "torch_version": "2.5.1", "local_rank": 0, "device": "cpu"}
+[run] /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap (world_size=1)
+[rank 0] data.prepare.begin {}
+[data] 复用 /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/data_ddp_checks/owt_l16_t4_v4
+[rank 0] data.prepare.end {"seconds": 0.73141195892822}
+[rank 0] data.wait_ready.begin {}
+[rank 0] data.wait_ready.end {"seconds": 5.792011506855488e-06}
+[rank 0] teacher.load.begin {}
+[rank 0] model.files.wait.begin {"model": "run/local_assets/langflow-owt"}
+[rank 0] model.files.resolve.begin {"model": "run/local_assets/langflow-owt"}
+[rank 0] model.files.resolve.end {"seconds": 2.7333968318998814e-05, "model": "run/local_assets/langflow-owt"}
+[rank 0] model.files.wait.end {"seconds": 0.0009354579960927367, "model": "run/local_assets/langflow-owt"}
+[rank 0] model.weights.load.begin {"model": "run/local_assets/langflow-owt"}
+[rank 0] model.weights.load.end {"seconds": 1.3334286250174046, "model": "run/local_assets/langflow-owt"}
+[rank 0] model.to_device.begin {"model": "run/local_assets/langflow-owt", "device": "cpu"}
+[rank 0] model.to_device.end {"seconds": 0.0011982090072706342, "model": "run/local_assets/langflow-owt", "device": "cpu"}
+[rank 0] teacher.load.end {"seconds": 1.3389241669792682}
+[rank 0] models.wait_teacher.begin {}
+[rank 0] models.wait_teacher.end {"seconds": 1.8415972590446472e-05}
+[rank 0] student.build.begin {}
+[rank 0] student.build.end {"seconds": 0.2598355000372976}
+[rank 0] models.wait_student.begin {}
+[rank 0] models.wait_student.end {"seconds": 2.3417058400809765e-05}
+[rank 0] data.loaders.begin {}
+[rank 0] data.loaders.end {"seconds": 0.015068624983541667}
+[rank 0] validation.begin {"step": 0}
+[rank 0] validation.first_batch.begin {"tokens": 16}
+[rank 0] validation.first_batch.end {"loss": 1.3231263160705566, "ce": 5.618507385253906, "kl": 1.3231263160705566}
+[rank 0] validation.reduce.begin {"local_tokens": 16}
+[rank 0] validation.reduce.end {"seconds": 0.000124832964502275, "local_tokens": 16}
+[train] {'phase': 'valid', 'step': 0, 'ce': 5.618507385253906, 'kl': 1.3231263160705566, 'loss': 1.3231263160705566, 'elapsed_seconds': 1.8642933750525117}
+[train] {'phase': 'early_stopping', 'step': 0, 'metric': 'loss', 'value': 1.3231263160705566, 'new_best': True, 'best_value': 1.3231263160705566, 'best_step': 0, 'bad_checks': 0, 'should_stop': False, 'elapsed_seconds': 1.8643934590509161}
+[rank 0] checkpoint.save.begin {"step": 0, "path": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best"}
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  9.81it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  9.77it/s]
+[rank 0] checkpoint.save.end {"step": 0}
+[rank 0] checkpoint.wait_ready.begin {"step": 0}
+[rank 0] checkpoint.wait_ready.end {"seconds": 2.9000104404985905e-05, "step": 0}
+[rank 0] validation.end {"seconds": 2.0080967500107363, "step": 0}
+[rank 0] train.step.begin {"step": 1}
+[rank 0] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 0] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 0] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[train] {'phase': 'train', 'step': 1, 'ce': 8.94815444946289, 'kl': 3.277015209197998, 'loss': 3.277015209197998, 'grad_norm': 23.07705307006836, 'tokens': 16, 'epoch': 0, 'elapsed_seconds': 6.377736584050581}
+[rank 0] train.step.end {"step": 1}
+[rank 0] validation.begin {"step": 1}
+[rank 0] validation.first_batch.begin {"tokens": 16}
+[rank 0] validation.first_batch.end {"loss": 1.3191249370574951, "ce": 5.6025848388671875, "kl": 1.3191249370574951}
+[rank 0] validation.reduce.begin {"local_tokens": 16}
+[rank 0] validation.reduce.end {"seconds": 3.350002225488424e-05, "local_tokens": 16}
+[train] {'phase': 'valid', 'step': 1, 'ce': 5.6025848388671875, 'kl': 1.3191249370574951, 'loss': 1.3191249370574951, 'elapsed_seconds': 8.38958762504626}
+[train] {'phase': 'early_stopping', 'step': 1, 'metric': 'loss', 'value': 1.3191249370574951, 'new_best': True, 'best_value': 1.3191249370574951, 'best_step': 1, 'bad_checks': 0, 'should_stop': False, 'elapsed_seconds': 8.389878708985634}
+[rank 0] checkpoint.save.begin {"step": 1, "path": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best"}
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00, 11.74it/s]
+[rank 0] checkpoint.save.end {"step": 1}
+[rank 0] checkpoint.wait_ready.begin {"step": 1}
+[rank 0] checkpoint.wait_ready.end {"seconds": 9.332899935543537e-06, "step": 1}
+[rank 0] validation.end {"seconds": 2.118036541971378, "step": 1}
+[rank 0] train.step.begin {"step": 2}
+[train] {'phase': 'train', 'step': 2, 'ce': 5.787411689758301, 'kl': 2.8914215564727783, 'loss': 2.8914215564727783, 'grad_norm': 24.868927001953125, 'tokens': 16, 'epoch': 0, 'elapsed_seconds': 10.870205917046405}
+[rank 0] train.step.end {"step": 2}
+[rank 0] validation.begin {"step": 2}
+[rank 0] validation.first_batch.begin {"tokens": 16}
+[rank 0] validation.first_batch.end {"loss": 1.3156366348266602, "ce": 5.573824405670166, "kl": 1.3156366348266602}
+[rank 0] validation.reduce.begin {"local_tokens": 16}
+[rank 0] validation.reduce.end {"seconds": 3.195810131728649e-05, "local_tokens": 16}
+[train] {'phase': 'valid', 'step': 2, 'ce': 5.573824405670166, 'kl': 1.3156366348266602, 'loss': 1.3156366348266602, 'elapsed_seconds': 11.94137704197783}
+[train] {'phase': 'early_stopping', 'step': 2, 'metric': 'loss', 'value': 1.3156366348266602, 'new_best': True, 'best_value': 1.3156366348266602, 'best_step': 2, 'bad_checks': 0, 'should_stop': False, 'elapsed_seconds': 11.941416208981536}
+[rank 0] checkpoint.save.begin {"step": 2, "path": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best"}
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00, 14.20it/s]
+[rank 0] checkpoint.save.end {"step": 2}
+[rank 0] checkpoint.wait_ready.begin {"step": 2}
+[rank 0] checkpoint.wait_ready.end {"seconds": 1.9875005818903446e-05, "step": 2}
+[rank 0] validation.end {"seconds": 1.1590057919966057, "step": 2}
+[rank 0] checkpoint.save.begin {"step": 2, "path": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/step_000002"}
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00, 15.14it/s]
+[rank 0] checkpoint.save.end {"step": 2}
+[rank 0] checkpoint.wait_ready.begin {"step": 2}
+[rank 0] checkpoint.wait_ready.end {"seconds": 7.999944500625134e-06, "step": 2}
+[train] stopped at step 2: max_steps
+[train] checkpoint: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best
+[rank 0] run.completed {}

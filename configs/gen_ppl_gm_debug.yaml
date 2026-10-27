@@ -1,0 +1,8 @@
+extends: gen_ppl_debug.yaml
+
+run:
+  name: unified_gen_ppl_gm_debug
+
+# 真实模型与同进程反向传播；仅减少到 4 条生成/真实参考，组成 2 个梯度对。
+gradient_moment:
+  enabled: true

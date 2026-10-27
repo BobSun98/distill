@@ -1,0 +1,22 @@
+extends: elf_b_kd.yaml
+
+run:
+  name: off_policy_random_elf_b_12to6
+
+model:
+  block_initialization: random
+
+gradient_moment:
+  enabled: true
+  reference_config: configs/gpt2_corpus_ppl.yaml
+
+training:
+  # 保留原 KL + velocity MSE、decoder 比例、batch、恒定 LR 和早停规则。
+  learning_rate: 0.001
+  ppl_evaluation:
+    enabled: false
+    interval: -1
+
+evaluation:
+  corpus: owt
+  num_samples: 1024

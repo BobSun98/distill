@@ -1,0 +1,36 @@
+extends: owt_kd.yaml
+
+run:
+  name: off_policy_random_langflow_owt_12to6
+
+model:
+  # 仅六个 Transformer blocks 使用原生随机初始化，其余模块复制 teacher。
+  block_initialization: random
+
+# 训练结束后与 PPL/entropy 共用生成文本，自动计算 GM。
+gradient_moment:
+  enabled: true
+  reference_config: configs/gpt2_corpus_ppl.yaml
+
+training:
+  # 对齐原 lr=1e-3 的 6 层 depth-sweep：5000 步、余弦到 1e-4、global batch=64。
+  learning_rate: 0.001
+  lr_scheduler:
+    name: cosine
+    final_ratio: 0.1
+  batch_size: 4
+  grad_accumulation: 2
+  log_every: 100
+  save_every: 0
+  early_stopping:
+    enabled: false
+  ppl_evaluation:
+    # 正式 all 最后直接调用 eval_gen_ppl.sh 对应的统一工程函数。
+    enabled: false
+    interval: -1
+
+evaluation:
+  corpus: owt
+  seed: 42
+  num_samples: 1024
+  batch_size: 8

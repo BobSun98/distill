@@ -1,0 +1,73 @@
+run:
+  name: on_policy_langflow_owt_loss_matched
+  root: run
+  seed: 42
+model:
+  family: langflow
+  device: cuda
+  cache_dir: null
+  student_weights: run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_06_layers/checkpoints/step_005000
+  student_config: null
+  teacher: Continuous-Rivals-Discrete/langflow-owt
+  teacher_config: null
+  tokenizer: gpt2
+  architecture_config: null
+  checkpoint_file: null
+  use_ema: true
+  use_bf16: false
+  gradient_checkpointing: false
+  keep_layers: null
+distributed:
+  control_timeout_seconds: 7200
+  tensor_timeout_seconds: 180
+loss:
+  ce_weight: 0.0
+  kl_weight: 1.0
+  mse_weight: 0.0
+  ce_target: soft
+on_policy:
+  rollout_batch_size: 2
+  states_per_rollout: 48
+  buffer_capacity: 768
+  refresh_every: 16
+  decoder_probability: 0.2
+training:
+  max_steps: 5000
+  batch_size: 24
+  grad_accumulation: 1
+  learning_rate: 0.0001
+  lr_scheduler:
+    name: cosine
+    final_ratio: 0.1
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  log_every: 10
+  validate_every: 100
+  validation_batches: 2
+  save_every: 2500
+  plot_loss: true
+  ppl_evaluation:
+    enabled: false
+    interval: 500
+    batch_size: 2
+  early_stopping:
+    enabled: true
+    metric: error
+    min_steps: 500
+    patience: 5
+    min_delta: 0.001
+evaluation:
+  seed: 42
+  num_steps: 1024
+  sequence_length: 1024
+  batch_size: 2
+  num_samples: 1024
+  scorer: gpt2-large
+  scorer_batch_size: 4
+  scorer_max_length: 1024
+loss_alignment:
+  source_checkpoint: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_06_layers/checkpoints/step_005000
+  source_metadata: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_06_layers/checkpoints/step_005000/distillation.json
+  off_policy_loss:
+    kd_weight: 1.0
+    ce_weight: 0.0

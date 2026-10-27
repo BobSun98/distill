@@ -181,7 +181,8 @@ def run_sweep(config, command="all", allow_distributed=True, resume_dir=None):
                 progress.configure(directory, distributed.rank())
                 progress.emit("lr_sweep.trial.begin", learning_rate=rate, keep_layers=current["model"]["keep_layers"])
                 # 五组均重新复制 teacher，重新创建 optimizer/scheduler，并重置训练随机序列。
-                student = build_student(teacher, current["model"]["keep_layers"])
+                student = build_student(teacher, current["model"]["keep_layers"],
+                                        current["model"].get("block_initialization", "teacher"))
                 seed_everything(config["run"]["seed"] + distributed.rank())
                 distributed.barrier()
                 checkpoint = train(teacher, student, tokenizer, current, directory,

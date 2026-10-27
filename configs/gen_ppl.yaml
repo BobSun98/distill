@@ -10,15 +10,21 @@ protocol:
   scorer: gpt2-large
   scorer_max_length: 1024
 
+# GM 需要 GPT-2-Large 反向传播；使用 gen_ppl_gm.yaml 开启，不增加默认 PPL 预算。
+gradient_moment:
+  enabled: false
+  reference_config: configs/gpt2_corpus_ppl.yaml
+
 runtime:
   device: cuda
   cache_dir: null
   generation_batch_size: 8
   control_timeout_seconds: 7200
 
-# 每项只指定架构、权重和生成设置。可将 HF 引用替换成本地文件路径。
+# corpus 指定可选 GM 的真实参考语料；架构/权重的 HF 引用可替换为本地文件路径。
 models:
   - name: langflow_owt
+    corpus: owt
     architecture:
       repo_id: Continuous-Rivals-Discrete/langflow-owt
       filename: config.json
@@ -29,6 +35,7 @@ models:
       num_steps: 1024
       sequence_length: 1024
   - name: langflow_lm1b
+    corpus: lm1b
     architecture:
       repo_id: Continuous-Rivals-Discrete/langflow-lm1b
       filename: config.json

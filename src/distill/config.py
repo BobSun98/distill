@@ -48,6 +48,8 @@ def load_config(path, overrides=()):
     from .training_monitor import validate_monitor_config
     from .lr_schedule import validate_lr_schedule
     config = load_yaml_config(path, overrides)
+    if config["model"].get("block_initialization", "teacher") not in ("teacher", "random"):
+        raise ValueError("model.block_initialization 只支持 teacher 或 random")
     training, loss, data = config["training"], config["loss"], config["data"]
     if data.get("corpus", "owt") not in ("owt", "lm1b"):
         raise ValueError("data.corpus 只支持 owt 或 lm1b")

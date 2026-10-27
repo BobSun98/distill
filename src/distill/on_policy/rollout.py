@@ -86,8 +86,8 @@ def collect_states(model, config):
                             z, previous = _sde_step(z=z, gamma=sampling["sde_gamma"], generator=None, **times, **kwargs)
                         else:
                             z, previous = _ode_step(z=z, **times, **kwargs)
-                    if config["loss"]["ce_weight"]:
-                        # Decoder CE 只在实际 rollout 的终点、t=1、零 SC、decoder mode 上监督。
+                    if config["loss"]["ce_weight"] or config["loss"].get("kl_weight", 0):
+                        # Decoder CE/KL 只在实际 rollout 的终点、t=1、零 SC、decoder mode 上监督。
                         _dlm_decode_batch(z, query, grid[-1], native, sampling["self_cond_cfg_scale"])
     finally:
         model.train(was_training)
@@ -99,7 +99,7 @@ def choose_states(entries, count, config):
     loss = config["loss"]
     for _ in range(count):
         decoder = False
-        if config["model"]["family"] == "elf" and loss["ce_weight"]:
+        if config["model"]["family"] == "elf" and (loss["ce_weight"] or loss.get("kl_weight", 0)):
             decoder = loss["mse_weight"] == 0 or bool(torch.rand(()) < config["on_policy"]["decoder_probability"])
         candidates = [state for state in entries if bool(state["decoder"]) == decoder]
         selected.append(candidates[int(torch.randint(len(candidates), ()))])

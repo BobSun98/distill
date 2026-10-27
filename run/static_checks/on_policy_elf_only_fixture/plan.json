@@ -1,0 +1,54 @@
+{
+  "weights_checked": false,
+  "evaluation": "scripts/eval_gen_ppl.sh / gen_ppl_v1",
+  "jobs": [
+    {
+      "model": "elf_b",
+      "config": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/static_checks/on_policy_elf_only_fixture/elf_b.yaml",
+      "student_weights": "run/20261020_025737_021127_elf_b_owt_kd_12to6_lr1e-3/checkpoints/best",
+      "previous_on_policy_loss": {
+        "ce_weight": 0.0,
+        "kl_weight": 0.0,
+        "mse_weight": 1.0,
+        "ce_target": "soft"
+      },
+      "off_policy_loss": {
+        "flow_weight": 1.0,
+        "kd_weight": 1.0,
+        "ce_weight": 0.0,
+        "native_flow_weight": 0.0
+      },
+      "matched_on_policy_loss": {
+        "ce_weight": 0.0,
+        "kl_weight": 1.0,
+        "mse_weight": 1.0,
+        "ce_target": "soft"
+      },
+      "decoder_probability": 0.2
+    },
+    {
+      "model": "elf_l",
+      "config": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/static_checks/on_policy_elf_only_fixture/elf_l.yaml",
+      "student_weights": "run/20261020_055035_436199_elf_l_owt_kd_32to16_lr1e-3/checkpoints/best",
+      "previous_on_policy_loss": {
+        "ce_weight": 0.0,
+        "kl_weight": 0.0,
+        "mse_weight": 1.0,
+        "ce_target": "soft"
+      },
+      "off_policy_loss": {
+        "flow_weight": 1.0,
+        "kd_weight": 1.0,
+        "ce_weight": 0.0,
+        "native_flow_weight": 0.0
+      },
+      "matched_on_policy_loss": {
+        "ce_weight": 0.0,
+        "kl_weight": 1.0,
+        "mse_weight": 1.0,
+        "ce_target": "soft"
+      },
+      "decoder_probability": 0.2
+    }
+  ]
+}

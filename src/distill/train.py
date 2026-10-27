@@ -93,6 +93,7 @@ def save_checkpoint(student, tokenizer, run_dir, step, config, name=None):
         tokenizer.save_pretrained(path)
         write_json(path / "distillation.json", {"step": step, "teacher": config["model"]["teacher"],
                                                "keep_layers": config["model"]["keep_layers"],
+                                               "block_initialization": config["model"].get("block_initialization", "teacher"),
                                                "loss": config["loss"]})
         write_manifest(path / "gen_ppl_eval.yaml", [{"name": "student", "architecture": str(path / "config.json"),
             "weights": str(path / "model.safetensors"), "generation": {

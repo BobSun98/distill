@@ -1,0 +1,23 @@
+extends: lm1b_kd.yaml
+
+run:
+  name: off_policy_random_langflow_lm1b_12to6
+
+model:
+  block_initialization: random
+
+gradient_moment:
+  enabled: true
+  reference_config: configs/gpt2_corpus_ppl.yaml
+
+training:
+  # 对齐原 half-student 的恒定 lr=1e-3、batch、最大步数与平台期早停。
+  learning_rate: 0.001
+  ppl_evaluation:
+    enabled: false
+    interval: -1
+
+evaluation:
+  corpus: lm1b
+  # 内部验证噪声种子沿用原配置；最终统一 Gen PPL 始终使用 seed=42。
+  num_samples: 1024

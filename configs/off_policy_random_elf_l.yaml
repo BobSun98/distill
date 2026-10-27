@@ -1,0 +1,21 @@
+extends: elf_l_kd.yaml
+
+run:
+  name: off_policy_random_elf_l_32to16
+
+model:
+  block_initialization: random
+
+gradient_moment:
+  enabled: true
+  reference_config: configs/gpt2_corpus_ppl.yaml
+
+training:
+  learning_rate: 0.001
+  ppl_evaluation:
+    enabled: false
+    interval: -1
+
+evaluation:
+  corpus: owt
+  num_samples: 1024

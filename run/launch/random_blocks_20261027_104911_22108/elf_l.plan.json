@@ -1,0 +1,100 @@
+{
+  "config": "configs/off_policy_random_elf_l_debug.yaml",
+  "model": {
+    "family": "elf",
+    "teacher": "embedded-language-flows/ELF-L-owt-torch",
+    "checkpoint_file": null,
+    "use_ema": true,
+    "encoder": "t5-small",
+    "cache_dir": null,
+    "device": "cuda",
+    "use_bf16": true,
+    "keep_layers": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31
+    ],
+    "block_initialization": "random",
+    "gradient_checkpointing": true,
+    "architecture": {
+      "text_encoder_dim": 512,
+      "max_length": 1024,
+      "hidden_size": 1280,
+      "depth": 32,
+      "num_heads": 16,
+      "mlp_ratio": 4.0,
+      "attn_drop": 0.0,
+      "proj_drop": 0.0,
+      "bottleneck_dim": 128,
+      "num_time_tokens": 4,
+      "num_self_cond_cfg_tokens": 4,
+      "num_model_mode_tokens": 4,
+      "vocab_size": 32100,
+      "gradient_checkpointing": false
+    }
+  },
+  "loss": {
+    "flow_weight": 1.0,
+    "kd_weight": 1.0,
+    "ce_weight": 0.0,
+    "native_flow_weight": 0.0
+  },
+  "training": {
+    "plot_loss": false,
+    "ppl_evaluation": {
+      "enabled": false,
+      "interval": -1,
+      "num_samples_per_rank": 32,
+      "batch_size": 32
+    },
+    "max_steps": 2,
+    "batch_size": 1,
+    "grad_accumulation": 1,
+    "learning_rate": 0.001,
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "self_condition_probability": 0.5,
+    "log_every": 1,
+    "validate_every": 3,
+    "validation_batches": 1,
+    "save_every": 0,
+    "early_stopping": {
+      "enabled": false,
+      "metric": "loss",
+      "min_steps": 500,
+      "patience": 5,
+      "min_delta": 0.001
+    }
+  },
+  "protocol": {
+    "version": "gen_ppl_v1",
+    "seed": 42,
+    "num_samples": 2,
+    "scorer": "gpt2-large",
+    "scorer_max_length": 1024
+  },
+  "generation": {
+    "num_steps": 4,
+    "sequence_length": 128,
+    "sampling": {
+      "sampling_method": "sde",
+      "time_schedule": "logit_normal",
+      "sde_gamma": 1.0,
+      "cfg_scale": 1.0,
+      "self_cond_cfg_scale": 3.0
+    }
+  }
+}

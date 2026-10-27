@@ -1,0 +1,49 @@
+W1003 14:42:45.917000 42417 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+WARNING:__main__:
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+[rank 0] control_group.init.begin {"backend": "gloo", "world_size": 2}
+[rank 1] control_group.init.begin {"backend": "gloo", "world_size": 2}
+[rank 1] control_group.init.end {"seconds": 0.006437084055505693, "backend": "gloo", "world_size": 2}
+[rank 0] control_group.init.end {"seconds": 0.006689541973173618, "backend": "gloo", "world_size": 2}
+[rank 0] model.files.wait.begin {"model": "run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] model.files.resolve.begin {"model": "run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] model.files.resolve.end {"seconds": 6.354204379022121e-05, "model": "run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 1] model.files.wait.begin {"model": "run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] model.files.wait.end {"seconds": 0.003976832958869636, "model": "run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 1] model.files.wait.end {"seconds": 0.0008821670198813081, "model": "run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 1] model.files.wait.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}[rank 0] model.files.wait.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+
+[rank 0] model.files.resolve.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] model.files.resolve.end {"seconds": 4.5625027269124985e-05, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] model.files.wait.end {"seconds": 0.0007466250099241734, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 1] model.files.wait.end {"seconds": 0.0008245420176535845, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 1] model.weights.load.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] model.weights.load.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 1] model.weights.load.end {"seconds": 0.8176712499698624, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] model.weights.load.end {"seconds": 0.8175670829368755, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 1] model.to_device.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors", "device": "cpu"}
+[rank 0] model.to_device.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors", "device": "cpu"}
+[rank 0] model.to_device.end {"seconds": 0.000930667039938271, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors", "device": "cpu"}
+[rank 1] model.to_device.end {"seconds": 0.0009857499971985817, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors", "device": "cpu"}
+[rank 0] gen.generate.begin {"samples": 1}
+[rank 1] gen.generate.begin {"samples": 1}
+Generating 1 sample(s) (batch_size=1, steps=3, length=16)Generating 1 sample(s) (batch_size=1, steps=3, length=16)
+
+[rank 0] gen.generate.end {"seconds": 0.6551219170214608, "samples": 1}
+[rank 1] gen.generate.end {"seconds": 0.6566917499294505, "samples": 1}
+[rank 1] gen.score.begin {"samples": 1}
+Loading PPL scorer: run/local_assets/gpt2-large
+[rank 0] gen.score.begin {"samples": 1}
+Loading PPL scorer: run/local_assets/gpt2-large
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/436 [00:00<?, ?it/s]Loading weights:   0%|          | 0/436 [00:00<?, ?it/s]Loading weights: 100%|██████████| 436/436 [00:00<00:00, 13652.33it/s]
+Loading weights: 100%|██████████| 436/436 [00:00<00:00, 12534.56it/s]
+[transformers] `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[transformers] `loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[rank 1] gen.score.end {"seconds": 7.573316249996424, "samples": 1}
+[rank 0] gen.score.end {"seconds": 7.571978499996476, "samples": 1}
+[eval] OWT Gen. PPL: 168008.0827
+[eval] results: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261003_144248_923206_student_eval_two_rank_gen/metrics.json

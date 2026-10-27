@@ -4,12 +4,15 @@ run:
   seed: 42
 
 model:
+  family: langflow
   teacher: Continuous-Rivals-Discrete/langflow-owt
   # 本地 safetensors 文件可通过 teacher_config 指定架构配置。
   teacher_config: null
   tokenizer: gpt2
   cache_dir: null
   keep_layers: [0, 2, 4, 7, 9, 11]
+  # random 只随机初始化 Transformer blocks，其余模块仍复制 teacher。
+  block_initialization: teacher
   device: cuda
 
 distributed:

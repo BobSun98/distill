@@ -29,6 +29,8 @@ distributed:
 
 loss:
   ce_weight: 1.0
+  # 为 0 时保留原有 CE/MSE 实验；loss-matched 重跑会读取 off-policy 元数据设置此项。
+  kl_weight: 0.0
   mse_weight: 0.0
   # soft: -sum(p_teacher * log p_student)；hard: CE(argmax teacher, student)。
   ce_target: soft

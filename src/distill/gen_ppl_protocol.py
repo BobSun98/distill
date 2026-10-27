@@ -78,6 +78,7 @@ def manifest(models):
     return {"run": {"name": "unified_gen_ppl", "root": "run"},
             "protocol": {"version": VERSION, "seed": SEED, "num_samples": NUM_SAMPLES,
                          "scorer": SCORER, "scorer_max_length": MAX_LENGTH},
+            "gradient_moment": {"enabled": False, "reference_config": "configs/gpt2_corpus_ppl.yaml"},
             "runtime": {"device": "cuda", "cache_dir": None, "generation_batch_size": 8,
                         "control_timeout_seconds": 7200}, "models": models}
 

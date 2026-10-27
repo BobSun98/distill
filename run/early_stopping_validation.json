@@ -1,0 +1,29 @@
+{
+  "cases": {
+    "single_plateau": {
+      "run": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_105739_660541_real_single_early_stop",
+      "steps": 2,
+      "stop_reason": "plateau",
+      "best_step": 0
+    },
+    "ddp_plateau": {
+      "run": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_715050_real_ddp_early_stop",
+      "steps": 2,
+      "stop_reason": "plateau",
+      "best_step": 0
+    },
+    "max_steps": {
+      "run": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap",
+      "steps": 2,
+      "stop_reason": "max_steps",
+      "best_step": 2
+    }
+  },
+  "plateau_test_method": "real pretrained model and real OWT, learning_rate=0 to hold validation metric constant",
+  "unit_tests_passed": 4,
+  "math_tests_passed": 5,
+  "not_verified": [
+    "eight A6000 NCCL",
+    "generation-quality stopping criterion"
+  ]
+}

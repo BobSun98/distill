@@ -4,6 +4,7 @@ run:
   seed: 42
 
 model:
+  family: elf
   teacher: embedded-language-flows/ELF-B-owt-torch
   # null 自动选择仓库最新 checkpoint；也支持本地原生 checkpoint 文件/目录。
   checkpoint_file: null
@@ -13,6 +14,7 @@ model:
   device: cuda
   use_bf16: true
   keep_layers: [0, 2, 4, 7, 9, 11]
+  block_initialization: teacher
   gradient_checkpointing: false
   architecture:
     text_encoder_dim: 512

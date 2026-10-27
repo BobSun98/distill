@@ -1,0 +1,41 @@
+{
+  "feature": "Optional Gradient Moment in the unified generation evaluator",
+  "definition": "D-MMD Section 5, Eq. 14 independent centered gradient-pair inner product",
+  "source": "https://arxiv.org/html/2603.20155#S5",
+  "validation": {
+    "gm_math_and_config_tests": 9,
+    "unified_protocol_regression_tests": 7,
+    "all_passed": true,
+    "ast": "passed",
+    "diff_whitespace": "passed",
+    "cli_help": "passed"
+  },
+  "protocol": {
+    "name": "gpt2_large_gm_v1",
+    "samples_per_model": 1024,
+    "reference_samples_per_corpus": 1024,
+    "pairs": 512,
+    "seed": 42,
+    "loss": "per_sequence_mean_shifted_token_nll_excluding_padding",
+    "scorer": "gpt2-large",
+    "parameter_and_gradient_dtype": "float32",
+    "inner_product_dtype": "float64",
+    "pair_partition": "pair_id modulo world_size",
+    "negative_estimates": "retained"
+  },
+  "real_reference": {
+    "owt": "last 100000 documents of raw train; deterministic seed-42 sample",
+    "lm1b": "official test; deterministic seed-42 sample",
+    "config": "configs/gpt2_corpus_ppl.yaml",
+    "packing": false
+  },
+  "gpu_validation_performed": false,
+  "pretrained_models_loaded_locally": false,
+  "training_started": false,
+  "run_command": "bash scripts/eval_gen_ppl.sh configs/gen_ppl_gm.yaml",
+  "debug_command": "bash scripts/eval_gen_ppl.sh configs/gen_ppl_gm_debug.yaml debug",
+  "limitations": [
+    "Real GPT-2-Large CUDA backward and eight-GPU execution remain to be validated on the server.",
+    "The project uses its declared held-out references and token-mean loss; paper table values are not asserted to match."
+  ]
+}

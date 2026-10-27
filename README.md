@@ -14,7 +14,8 @@ ELF-B/L 的运行方式见下方独立说明。项目目标见 [DistillationCont
 
 正式对比统一使用 **`scripts/eval_gen_ppl.sh` / `gen_ppl_v1`**，固定 seed=42、
 每套权重生成 1024 条、GPT-2-Large scorer、GPT 评分上限 1024 token，默认 CUDA 0-7。
-只加载给定架构和权重做无条件生成；不额外加载 teacher、训练数据或 T5 encoder。
+默认只加载给定架构和权重做无条件生成；不额外加载 teacher 或 T5 encoder。
+可选 GM 还会加载固定的真实文本参考集，并对 GPT-2-Large 做反向传播。
 旧的原版复现入口与训练中诊断 PPL 保留原协议；历史数值需要通过新入口重评后再同表比较。
 
 ```bash
@@ -92,6 +93,51 @@ CUDA_VISIBLE_DEVICES=0 bash scripts/eval_gen_ppl.sh configs/gen_ppl_debug.yaml d
 ```
 
 debug 结果标为 `gen_ppl_v1_debug`，正式入口拒绝样本数不是 1024 的配置，避免误报为正式结果。
+
+### 可选 Gradient Moment（GM）
+
+```bash
+# 默认八卡，原统一 PPL/entropy/重复率 + GM；两个语料各评测 1024 条生成样本。
+bash scripts/eval_gen_ppl.sh configs/gen_ppl_gm.yaml
+
+# 等价开关。
+bash scripts/eval_gen_ppl.sh configs/gen_ppl.yaml all --set gradient_moment.enabled=true
+
+# 单卡同进程真实 debug：4 条生成样本、4 条真实参考、2 个梯度对。
+bash scripts/eval_gen_ppl.sh configs/gen_ppl_gm_debug.yaml debug
+```
+
+GM 使用 GSF 引用的 [D-MMD 第 5 节、公式 14](https://arxiv.org/html/2603.20155#S5)：
+对两个独立样本分别计算“生成文本梯度 − 真实文本梯度”，取内积后对所有梯度对平均。
+GPT-2-Large 参数保持不更新，使用全部独立参数（共享 embedding 只计算一次），
+FP32 前向/梯度、FP64 内积。loss 为每条文本的有效 token 平均 shifted CE，
+与本项目统一 PPL 使用相同的 GPT tokenizer、前 1024 token 截断和 padding 排除规则。
+这不是逐样本梯度范数的平均，也不是学生模型或 latent 的梯度。
+
+`gradient_moment.reference_config` 默认指向 `configs/gpt2_corpus_ppl.yaml`，
+沿用真实 PPL 的 held-out 范围：OWT 原始 train 最后 100000 条保留区、LM1B 官方 test。
+每个语料使用 seed=42 固定抽取 1024 条可评分文本，按文档/句子计样本，不 packing；
+debug 随生成样本数减少参考数量。真实 PPL 自身的 512 条默认值不变。
+可在该数据配置中填写原始文本 `local_dataset`，复用服务器已有缓存。
+
+每个 `models` 项开启 GM 时必须显式填写 `corpus: owt` 或 `corpus: lm1b`，
+不从模型名称或 tokenizer 猜参考集。自定义 student 清单可继承 `gen_ppl_gm.yaml`
+并覆盖 `models`；旧清单需补充 `gradient_moment` 配置和每项的 `corpus` 后开启。
+默认 `gen_ppl.yaml` 及通用 checkpoint 导出的清单仍关闭 GM。
+随机 blocks 四组实验的训练后清单由其配置显式开启 GM，见下方运行说明。
+
+每 2 条生成文本及对应真实文本组成一个梯度对，正式共 512 对。
+配对由全局 sample_id 决定，八卡按 pair_id 分工，不同步或写盘完整参数梯度。
+同一运行内各模型复用对应语料的参考文本，生成样本也复用于原 PPL/entropy，不重复生成。
+GM 原始数据及范围保存在 `gradient_moment/reference_owt.json`、`reference_lm1b.json`。
+
+`summary.csv` / `metrics.json` 新增 `gm`、`gm_standard_error`、`gm_num_pairs`、
+`gm_num_skipped_pairs`、`gm_status`、`gm_reference_corpus`；每个模型的
+`gradient_moment.json` 记录逐对结果和 `gpt2_large_gm_v1` 协议。
+GM 越低代表平均梯度越接近参考数据；有限样本无偏估计可以为负，保留原值和标准误。
+空白或不足两个 GPT token 的生成文本使对应整对跳过，不重采样，状态标为
+`partial_coverage`；所有对无效时 GM 为 null，不能当作零。
+横向比较需使用相同的参考范围、文本长度和 loss 归一化，当前数值不宣称与论文表格逐位对齐。
 
 ## 服务器运行
 
@@ -699,7 +745,104 @@ IDE 可直接运行 `debug/debug_elf_pipeline.py --config configs/elf_b_debug.ya
 在 `elf.data.prepare_data`、`elf.losses.batch_loss`、共用 `train`、`elf.evaluate.generate`
 设置断点。debug 不改变 teacher/student 架构，不加载 PPL scorer。
 
-## On-policy：真实 student rollout 的 CE/MSE 蒸馏
+## 半层学生：只随机初始化 Transformer blocks 的 off-policy 对照
+
+四组配置分别为 `configs/off_policy_random_langflow_owt.yaml`、
+`configs/off_policy_random_langflow_lm1b.yaml`、`configs/off_policy_random_elf_b.yaml`、
+`configs/off_policy_random_elf_l.yaml`。前三组为 12→6 层，ELF-L 为 32→16 层。
+它们沿用真实语料加噪的 off-policy 流程；LangFlow 为 KL，ELF 为 decoder KL + velocity MSE，
+所有 loss 权重和 decoder/SC 概率保持原实验设置。
+
+`model.block_initialization: random` 只让 Transformer blocks 保留模型构造器的原生初始化。
+embedding、latent/SC 投影、时间编码、输出头、噪声 schedule 等仍复制 teacher；
+LangFlow 的 AdaLN 零门控和各模型的 norm 常数初始化也保留。
+**仅改变初始化范围，不改变可训练参数范围**：LangFlow 的词嵌入与 proposal 继续冻结，
+ELF 的 T5 encoder 继续冻结，其余 student 模块按原规则训练。
+旧配置默认 `block_initialization: teacher`，仍复制所选 teacher blocks。
+
+```bash
+# 只读配置并记录运行计划，不加载模型或数据。
+bash scripts/run_random_blocks.sh --dry-run
+
+# 服务器：四个任务依次使用 CUDA 0–7；每组训后自动计算统一 PPL、entropy 和 GM。
+bash scripts/run_random_blocks.sh
+
+# 单独运行某组，或只训练。
+bash scripts/run_random_blocks.sh --model elf_b
+bash scripts/run_random_blocks.sh train --model langflow_owt
+
+# 单卡真实 debug：相同 teacher/student 架构，3 次更新、128 token、2 条评测样本。
+bash scripts/run_random_blocks.sh debug --model elf_l
+```
+
+四组均以原 off-policy 的 lr=1e-3、max_steps=5000 为首轮预算。
+LangFlow-OWT 沿用原 depth-sweep 的 cosine→1e-4、global batch=64，关闭早停并跑满 5000 步；
+LangFlow-LM1B / ELF-B / ELF-L 沿用恒定 LR，八卡 global batch 分别为 512 / 128 / 64，
+最大 5000 步、每 100 步验证、最少 500 步后允许按原平台期规则早停。
+评测 checkpoint 由原训练流程选择：OWT 为最后一步，其余三组为验证 loss 最佳的 `best/`。
+可用 `--set training.max_steps=10000` 等调整配置，调整后应另记为不同训练预算的实验。
+
+此批实验关闭旧版训练中间 PPL；`all` 在训练模型与优化器释放后，直接调用
+`scripts/eval_gen_ppl.sh configs/gen_ppl.yaml` 对应的 `run_gen_ppl`，使用同一套生成、
+文本清理、GPT-2-Large FP32/eager 评分和 token 加权汇总。
+四份配置默认 `gradient_moment.enabled: true`，`reference_config` 指向
+`configs/gpt2_corpus_ppl.yaml`，并将 `evaluation.corpus` 显式传给统一接口：
+LangFlow-LM1B 为 `lm1b`，其余三组为 `owt`。GM 与 PPL/entropy 共用本次生成文本，
+使用统一接口的真实参考文本和 GPT-2-Large 反向传播，不更新模型参数。
+每组正式评测 **1024 条、seed=42**，生成长度/NFE/ELF 采样参数沿用对应模型的原设置，
+只评测本次训练的 student。LM1B 配置的 `evaluation.seed` 仍用于训练内部验证噪声，
+正式统一生成种子由 `gen_ppl_v1` 固定为 42。
+正式 GM 每组使用 1024 条对应真实语料参考，组成 512 个梯度对，按八卡分工；
+单卡 debug 为 2 条生成/真实参考、1 个梯度对，仍直接调用真实工程的前向和反向。
+
+结果在 `run/<时间>_off_policy_random_*/`：训练日志与 checkpoint、可独立复跑的
+`gen_ppl_eval.yaml`（已开启 GM），以及下级 `*_unified_gen_ppl/summary.csv`、`metrics.json` 和生成文本。
+汇总包含 `gen_ppl`、`sample_entropy`、`gm`、`gm_standard_error` 和覆盖率；
+模型子目录的 `gradient_moment.json` 保存逐对结果。
+每个 checkpoint 的 `distillation.json` 记录 `block_initialization`。
+启动计划和队列状态在 `run/launch/random_blocks_*/`，计划同时记录 GM 开关及参考语料；
+任一任务失败时停止后续任务并保留日志。
+单卡 IDE 入口为 `debug/debug_random_blocks.py --config configs/off_policy_random_elf_b_debug.yaml`，
+直接调用原工程函数，不通过 subprocess 启动训练或评测。
+
+```bash
+# 训练后独立重测，仍使用统一接口。
+bash scripts/eval_gen_ppl.sh run/<本次实验目录>/gen_ppl_eval.yaml
+```
+
+## On-policy：真实 student rollout 的 CE/KL/MSE 蒸馏
+
+**对齐第一阶段 loss，默认只补跑 ELF-B 和 ELF-L：**
+
+```bash
+# 查看实际起点和 loss，不加载模型或启动 GPU 任务。
+bash scripts/rerun_on_policy_loss_matched.sh --dry-run
+
+# 默认八卡依次重训 ELF-B/L，并用统一 Gen PPL 比较 off-policy 起点与新 student。
+bash scripts/rerun_on_policy_loss_matched.sh
+
+# 只训练；稍后对导出的 gen_ppl_eval.yaml 运行 scripts/eval_gen_ppl.sh。
+bash scripts/rerun_on_policy_loss_matched.sh train
+
+# 仅在确实需要时，显式要求额外重跑 LangFlow OWT/LM1B。
+bash scripts/rerun_on_policy_loss_matched.sh --all-models
+```
+
+脚本保留选中的 `configs/on_policy_*.yaml` 中现有的起点、学习率、batch 和 rollout 调优，
+读取每个 off-policy checkpoint 的 `distillation.json` 来生成实际 loss：
+LangFlow 将 `kd_weight` 映射到 `kl_weight`；ELF 将 `kd_weight`、`flow_weight` 分别
+映射到 decoder KL、velocity MSE，CE 权重为 0。若第一阶段 `config.yaml` 存在，
+同时继承其 decoder 分支概率。状态仍来自 student 真实 rollout。
+
+计划、完整有效 YAML、各任务日志和 `status.tsv` 保存在
+`run/launch/on_policy_loss_matched_<时间>_<PID>/`。选中模型的权重/架构在第一项训练前统一检查，
+拒绝将旧 on-policy checkpoint 当作起点；`--dry-run` 只检查 loss 元数据，
+本地没有同步 safetensors 时也能查看计划。旧配置、模型和结果保持原样，
+新实验名称含 `loss_matched`，每组都新建 optimizer 并从原 off-policy 权重开始。
+
+在当前停止 teacher 和状态梯度的实现中，soft CE = forward KL + teacher entropy，
+对 student 的梯度相同。显式 KL 统一了 loss 数值与日志，不能把 CE→KL 本身当作
+新的监督方法；ELF 相较旧 MSE-only 恢复 decoder KL 是实质性的目标变化。
 
 第二阶段从第一阶段的 off-policy student 权重继续训练。student 自己从噪声开始生成，
 在采样器实际查询的位置保存 `(z, time, student_previous_self_cond)`；teacher 只在抽中的
@@ -755,15 +898,18 @@ bash scripts/run_on_policy.sh configs/on_policy_langflow_owt.yaml train
 `metrics.json`、`summary.csv`、`samples.jsonl`、`protocol.json`。这部分计算开销较大，
 可设 `--set training.ppl_evaluation.interval=-1` 关闭训练内评测，最终 `all` 仍统一比较两组。
 
-`loss.ce_weight` 和 `loss.mse_weight` 控制目标；本入口不使用原先的 KL loss 配置：
+`loss.ce_weight`、`loss.kl_weight`、`loss.mse_weight` 分别控制目标。
+`kl_weight` 默认为 0，保留旧 CE/MSE 实验；loss-matched 入口根据第一阶段元数据设置它：
 
 - CE 默认是 `-sum(p_teacher * log p_student)`；`loss.ce_target=hard` 则使用 teacher
   的 argmax token 标签。rollout 没有配对的真实 token 标签，不能当作原文本的 supervised CE。
+- KL 为 `KL(teacher || student)`，温度 1，词表求和后按 token 平均，与第一阶段的
+  `kd_weight` 对应；固定 teacher 目标上，其梯度与 soft CE 一致。
 - MSE 比较同一状态下的 velocity。LangFlow 沿用共享 embedding 的 VP gamma 路径，
   ELF 沿用 `(xhat-z)/max(1-t,0.05)`，对 token/latent 维度取均值。
-- ELF 开启 CE 时，只采集实际 rollout 终点的 decoder-mode 状态：`t=1`、零 SC。
-  同时启用 CE/MSE 的混合概率由 `on_policy.decoder_probability` 控制，分项均按整个
-  batch 归一化。MSE-only 冻结 decoder 输出头和 decoder mode tokens。
+- ELF 开启 CE 或 KL 时，采集实际 rollout 终点的 decoder-mode 状态：`t=1`、零 SC。
+  同时启用 posterior/MSE 的混合概率由 `on_policy.decoder_probability` 控制，分项均按整个
+  batch 归一化。只有 CE/KL 都关闭的 MSE-only 才冻结 decoder 输出头和 decoder mode tokens。
 
 ```bash
 # ELF 同时使用 velocity MSE 与实际生成终点的 decoder CE。
@@ -777,16 +923,16 @@ bash scripts/run_on_policy.sh configs/on_policy_elf_b.yaml all \
   --set evaluation.sampling.sampling_method=ode
 ```
 
-每卡独立采集并用 CPU 缓存访问状态，DDP 只同步 student 梯度。默认每条 rollout 抽 8 个
-步骤，缓存最多 64 个状态，每 16 个训练 micro-batch 用当前 student 刷新一轮，按容量
+每卡独立采集并用 CPU 缓存访问状态，DDP 只同步 student 梯度。各模型的 rollout batch、
+状态抽样数、缓存容量以当前配置为准，每 16 个训练 micro-batch 用当前 student 刷新一轮，按容量
 淘汰旧状态；这会混合当前及历史 student 的访问分布。ELF SDE 记录实际送入模型的
 `z_back/t_back`，保留真实 SC 和 SC-CFG scale，不用外层网格状态冒充模型输入。
 本阶段不读取 OWT/LM1B 原始数据，也不缓存整个词表的 teacher logits。
 
-默认最多 5000 个新的 optimizer step，初始 LR=1e-5、cosine 下降到 0.1 倍。
+默认最多 5000 个新的 optimizer step，初始 LR 取当前 on-policy 配置（现为 1e-4），cosine 下降到 0.1 倍。
 每 100 步验证，保留最大步数和平台期早停。验证用固定随机种子的当前 student 新轨迹，
 不使用或修改训练缓存。soft CE 含随状态变化的 teacher entropy，因此记录原始 CE
-训练 loss，同时默认用 `error = ce_weight*(CE-teacher_entropy) + mse_weight*MSE` 选最佳模型；
+训练 loss，同时默认用 `error = ce_weight*(CE-teacher_entropy) + kl_weight*KL + mse_weight*MSE` 选最佳模型；
 hard CE 的 entropy 项为零。它仍是拟合指标，生成质量需看独立 PPL/entropy/重复率及文本。
 `training.json` 记录实际训练步数、停止原因、best step；不是精确恢复第一阶段 optimizer。
 

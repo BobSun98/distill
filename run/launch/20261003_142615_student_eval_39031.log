@@ -1,0 +1,39 @@
+W1003 14:26:16.789000 39038 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+WARNING:__main__:
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+[rank 1] control_group.init.begin {"backend": "gloo", "world_size": 2}
+[rank 0] control_group.init.begin {"backend": "gloo", "world_size": 2}
+[rank 1] control_group.init.end {"seconds": 0.008196249953471124, "backend": "gloo", "world_size": 2}
+[rank 0] control_group.init.end {"seconds": 0.008193499990738928, "backend": "gloo", "world_size": 2}
+[rank 0] model.files.wait.begin {"model": "run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] model.files.resolve.begin {"model": "run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] model.files.resolve.end {"seconds": 0.0002013340126723051, "model": "run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 1] model.files.wait.begin {"model": "run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] model.files.wait.end {"seconds": 0.004178417031653225, "model": "run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 1] model.files.wait.end {"seconds": 0.0005764160305261612, "model": "run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] flow.data.prepare.begin {}
+[rank 0] flow.data.prepare.end {"seconds": 0.4762178750243038}
+[rank 0] model.files.wait.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] model.files.resolve.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] model.files.resolve.end {"seconds": 7.670803461223841e-05, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 1] model.files.wait.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] model.files.wait.end {"seconds": 0.001289165928028524, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] model.weights.load.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 1] model.files.wait.end {"seconds": 0.0011833329917863011, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 1] model.weights.load.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 1] model.weights.load.end {"seconds": 1.132115332991816, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 1] model.to_device.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors", "device": "cpu"}
+[rank 0] model.weights.load.end {"seconds": 1.1325527500594035, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors"}
+[rank 0] model.to_device.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors", "device": "cpu"}
+[rank 1] model.to_device.end {"seconds": 0.0021561250323429704, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors", "device": "cpu"}
+[rank 0] model.to_device.end {"seconds": 0.0019859999883919954, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors", "device": "cpu"}
+[rank 0] flow.batch.begin {"batch": 0}
+[rank 1] flow.batch.begin {"batch": 0}
+[rank 0] flow.batch.end {"seconds": 3.8444875000277534, "batch": 0}
+[rank 0] flow.batch.begin {"batch": 1}
+[rank 1] flow.batch.end {"seconds": 3.618944332934916, "batch": 0}
+[rank 0] flow.batch.end {"seconds": 2.832526292069815, "batch": 1}
+[eval] OWT Flow PPL: 1.8513
+[eval] results: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261003_142619_633688_student_eval_two_rank_flow/metrics.json

@@ -1,0 +1,84 @@
+{
+  "checkpoint": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/model.safetensors",
+  "model_config": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_707779_real_max_steps_cap/checkpoints/best/config.json",
+  "architecture": {
+    "transformers_version": "5.16.1",
+    "architectures": [
+      "LangFlow"
+    ],
+    "output_hidden_states": false,
+    "return_dict": true,
+    "dtype": "float32",
+    "chunk_size_feed_forward": 0,
+    "is_encoder_decoder": false,
+    "id2label": {
+      "0": "LABEL_0",
+      "1": "LABEL_1"
+    },
+    "label2id": {
+      "LABEL_0": 0,
+      "LABEL_1": 1
+    },
+    "problem_type": null,
+    "_name_or_path": "",
+    "auto_map": {
+      "AutoConfig": "config.LangFlowConfig",
+      "AutoModelForMaskedLM": "model.LangFlow"
+    },
+    "model_type": "LangFlow",
+    "vocab_size": 50257,
+    "hidden_size": 768,
+    "cond_dim": 128,
+    "n_blocks": 6,
+    "n_heads": 12,
+    "dropout": 0.1,
+    "model_length": 1024,
+    "use_normalized_embedding": true,
+    "embedding_norm_method": "layernorm",
+    "self_conditioning": true,
+    "use_bias": true,
+    "gumbel_loc": 4.723,
+    "gumbel_scale": 0.852,
+    "gumbel_cutoff": 1e-05,
+    "gumbel_entropy": 7.02,
+    "output_attentions": false
+  },
+  "parameters": {
+    "total": 124739156,
+    "non_embedding": 86141780,
+    "trainable": 124739156
+  },
+  "world_size": 1,
+  "results": {
+    "gen_ppl": {
+      "gen_ppl": 785300.7319952836,
+      "nll_per_token": 13.573822021484375,
+      "num_scored_tokens": 15,
+      "num_samples": 1,
+      "sample_entropy": 2.7725887298583984,
+      "per_sample_nll": [
+        13.573822021484375
+      ],
+      "per_sample_tokens": [
+        15
+      ]
+    }
+  },
+  "protocol": {
+    "gen_ppl": {
+      "seed": 42,
+      "num_samples": 1,
+      "sequence_length": 16,
+      "num_steps": 3,
+      "batch_size": 1,
+      "scorer": "run/local_assets/gpt2-large",
+      "scorer_batch_size": 1,
+      "scorer_max_length": 64,
+      "reference": "LangFlow/run_gen_ppl_8gpu.sh / gen_ppl.py / merge_gen_ppl.py",
+      "rank_seed": "seed + rank",
+      "scorer_dtype": "float32",
+      "skip_special_tokens": false,
+      "matmul_precision": "highest"
+    }
+  }
+}

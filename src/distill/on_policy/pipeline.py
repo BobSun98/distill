@@ -3,6 +3,7 @@
 import argparse
 import gc
 import json
+import math
 from functools import partial
 from pathlib import Path
 
@@ -28,10 +29,12 @@ from .losses import OnPolicyLoss, METRIC_KEYS
 def load_config(path, overrides=()):
     config = load_yaml_config(path, overrides)
     family, rollout, loss, training = config["model"]["family"], config["on_policy"], config["loss"], config["training"]
+    loss.setdefault("kl_weight", 0.0)
     if family not in ("langflow", "elf"):
         raise ValueError("on-policy model.family 只支持 langflow / elf")
-    if min(loss["ce_weight"], loss["mse_weight"]) < 0 or loss["ce_weight"] + loss["mse_weight"] == 0:
-        raise ValueError("CE/MSE 权重不能为负，且至少启用一项")
+    coefficients = [loss[key] for key in ("ce_weight", "kl_weight", "mse_weight")]
+    if any(not math.isfinite(value) or value < 0 for value in coefficients) or sum(coefficients) == 0:
+        raise ValueError("CE/KL/MSE 权重必须为有限非负数，且至少启用一项")
     if loss["ce_target"] not in ("soft", "hard"):
         raise ValueError("ce_target 只支持 teacher soft distribution 或 hard argmax")
     if min(training["max_steps"], training["batch_size"], training["grad_accumulation"], training["log_every"],
@@ -40,7 +43,8 @@ def load_config(path, overrides=()):
     steps = config["evaluation"]["num_steps"]
     if steps < 2 or not 1 <= rollout["states_per_rollout"] <= steps:
         raise ValueError("采样至少 2 次前向，抽取状态数不能超过 rollout 步数")
-    minimum = rollout["rollout_batch_size"] * (rollout["states_per_rollout"] + int(family == "elf" and loss["ce_weight"] > 0))
+    posterior_weight = loss["ce_weight"] + loss["kl_weight"]
+    minimum = rollout["rollout_batch_size"] * (rollout["states_per_rollout"] + int(family == "elf" and posterior_weight > 0))
     if rollout["buffer_capacity"] < minimum:
         raise ValueError("buffer_capacity 至少要容纳一轮采集的所有状态")
     stopping = training["early_stopping"]
@@ -58,8 +62,8 @@ def load_config(path, overrides=()):
             raise ValueError("首版 ELF 支持 ODE/SDE 和原版无条件 CFG=1")
         if config["model"]["architecture"]["num_self_cond_cfg_tokens"] <= 0 or training["self_condition_probability"] <= 0:
             raise ValueError("当前 ELF rollout 使用预训练模型的 SC-CFG prefix 结构")
-        if loss["ce_weight"] and loss["mse_weight"] and not 0 < rollout["decoder_probability"] < 1:
-            raise ValueError("同时启用 ELF CE/MSE 时 decoder_probability 必须在 (0,1)")
+        if posterior_weight and loss["mse_weight"] and not 0 < rollout["decoder_probability"] < 1:
+            raise ValueError("同时启用 ELF posterior/MSE 时 decoder_probability 必须在 (0,1)")
     monitoring = training.get("ppl_evaluation", {})
     if monitoring.get("enabled", False) and monitoring["interval"] != -1:
         if min(monitoring["interval"], monitoring["batch_size"]) < 1:
@@ -119,7 +123,7 @@ def load_pair(config, weights, architecture, directory, device):
             raise ValueError("ELF off-policy checkpoint 的 T5/latent/noise 定义与配置不一致")
         if config["loss"]["mse_weight"] == 0:
             student.final_layer.requires_grad_(False)
-        if config["loss"]["ce_weight"] == 0:
+        if config["loss"]["ce_weight"] + config["loss"]["kl_weight"] == 0:
             for key in ("proj_kernel", "proj_bias", "unembed_kernel", "unembed_bias"):
                 getattr(student, key).requires_grad_(False)
             # decoder mode token 在纯去噪分支恒为零门控，也应避免 AdamW 对它做无监督衰减。
@@ -253,7 +257,7 @@ def run_experiment(config, command="all", checkpoint=None, allow_distributed=Tru
 
 
 def main(default_config="configs/on_policy_langflow_owt.yaml", allow_distributed=True, debug=False):
-    parser = argparse.ArgumentParser(description="真实 student rollout 的 CE/MSE on-policy 蒸馏")
+    parser = argparse.ArgumentParser(description="真实 student rollout 的 CE/KL/MSE on-policy 蒸馏")
     parser.add_argument("command", nargs="?", choices=["train", "all", "evaluate", "check-distributed"], default="all")
     parser.add_argument("--config", default=default_config)
     parser.add_argument("--set", dest="overrides", action="append", default=[], metavar="KEY=VALUE")

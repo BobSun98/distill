@@ -1,0 +1,29 @@
+{
+  "preprocessing": {
+    "dataset": "Skylion007/openwebtext",
+    "dataset_config": "default",
+    "revision": "refs/convert/parquet",
+    "local_dataset": "run/local_assets/owt_smoke_raw",
+    "sequence_length": 16,
+    "validation_documents": 4,
+    "train_documents": 4,
+    "valid_documents": 4,
+    "tokenizer": "run/local_assets/gpt2",
+    "packing": "document_eos_block_bos_eos",
+    "bos_token_id": 50256,
+    "eos_token_id": 50256
+  },
+  "source_documents": 8,
+  "splits": {
+    "train": {
+      "document_start": 0,
+      "documents": 4,
+      "blocks": 443
+    },
+    "valid": {
+      "document_start": 4,
+      "documents": 4,
+      "blocks": 252
+    }
+  }
+}

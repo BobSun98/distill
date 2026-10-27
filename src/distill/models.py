@@ -1,4 +1,4 @@
-"""加载真实 teacher，并从其权重构造删层 student。"""
+"""加载真实 teacher，构造复制或随机初始化 blocks 的删层 student。"""
 
 import copy
 import torch
@@ -8,6 +8,7 @@ from transformers import AutoTokenizer
 
 from .backbones.langflow import LangFlow, LangFlowConfig
 from .config import project_path
+from .initialization import student_state_dict
 from . import distributed, progress
 
 
@@ -79,7 +80,7 @@ def load_tokenizer(config):
     return ensure_boundary_tokens(tokenizer)
 
 
-def build_student(teacher, keep_layers):
+def build_student(teacher, keep_layers, block_initialization="teacher"):
     depth = teacher.config.n_blocks
     if not keep_layers or keep_layers != sorted(set(keep_layers)):
         raise ValueError("keep_layers 必须是非空、递增且不重复的层编号")
@@ -88,15 +89,9 @@ def build_student(teacher, keep_layers):
     config = copy.deepcopy(teacher.config)
     config.n_blocks = len(keep_layers)
     student = LangFlow(config)
-    teacher_weights = teacher.state_dict()
-    weights = {key: value for key, value in teacher_weights.items()
-               if not key.startswith("backbone.blocks.")}
-    # 只重编号保留的 block；embedding、输出头、时间编码、SC 投影与 schedule 全部复制。
-    for student_index, teacher_index in enumerate(keep_layers):
-        prefix = f"backbone.blocks.{teacher_index}."
-        for key, value in teacher_weights.items():
-            if key.startswith(prefix):
-                weights[f"backbone.blocks.{student_index}." + key[len(prefix):]] = value
+    # embedding、输出头、时间编码、SC 投影与 schedule 始终复制，训练范围保持原规则。
+    weights = student_state_dict(teacher.state_dict(), student.state_dict(), keep_layers,
+                                 "backbone.blocks.", block_initialization)
     student.load_state_dict(weights, strict=True)
     student.backbone.vocab_embed.requires_grad_(False)
     student.proposal.requires_grad_(False)

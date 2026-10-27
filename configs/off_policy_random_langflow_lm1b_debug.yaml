@@ -1,0 +1,27 @@
+extends: off_policy_random_langflow_lm1b.yaml
+
+run:
+  name: off_policy_random_langflow_lm1b_debug
+
+data:
+  train_documents: 128
+  valid_documents: 64
+  max_train_blocks: 8
+  max_valid_blocks: 4
+
+training:
+  plot_loss: false
+  max_steps: 3
+  batch_size: 1
+  grad_accumulation: 1
+  log_every: 1
+  validate_every: 3
+  validation_batches: 1
+  save_every: 0
+  early_stopping:
+    enabled: false
+
+evaluation:
+  num_samples: 2
+  batch_size: 1
+  num_steps: 8

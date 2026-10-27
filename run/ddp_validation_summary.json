@@ -1,0 +1,20 @@
+{
+  "real_model_ddp_gloo": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_145052_726107_real_ddp_cpu_sparse_smoke",
+  "single_process_debug": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_145609_901222_debug_single_after_ddp",
+  "world_sizes": [
+    2,
+    1
+  ],
+  "checks": [
+    "gradient accumulation",
+    "epoch boundary",
+    "empty validation/generation rank",
+    "checkpoint reload",
+    "rank0-only output",
+    "debug CUDA mask 0"
+  ],
+  "not_verified": [
+    "8 A6000 NCCL",
+    "GPT-2-large scoring on GPU"
+  ]
+}

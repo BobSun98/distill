@@ -220,7 +220,7 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False):
                 keep = current["model"]["keep_layers"]
                 progress.emit("sweep.student.begin", depth=depth, keep_layers=keep)
                 # 每次都从同一个冻结 teacher 复制；不使用前一阶段 student 的权重或 optimizer。
-                student = build_student(teacher, keep)
+                student = build_student(teacher, keep, current["model"].get("block_initialization", "teacher"))
                 counts = parameter_counts(student)
                 seed_everything(config["run"]["seed"] + distributed.rank())
                 distributed.barrier()

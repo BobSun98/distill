@@ -153,7 +153,8 @@ def evaluate(teacher, tokenizer, checkpoint, config, run_dir):
         if label == "teacher":
             model = teacher
         elif label == "pruned":
-            model = build_student(teacher, config["model"]["keep_layers"]).eval()
+            model = build_student(teacher, config["model"]["keep_layers"],
+                                  config["model"].get("block_initialization", "teacher")).eval()
         else:
             # 从保存目录重新加载，而非直接评测内存里的模型，同时验证 checkpoint 可用。
             model = load_model(str(checkpoint), device)

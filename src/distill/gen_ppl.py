@@ -1,4 +1,4 @@
-"""统一、独立的多权重 Gen PPL 入口；只加载待测 generator 与 GPT-2-Large。"""
+"""统一生成评测：多权重 Gen PPL/entropy，以及可选 GPT-2-Large Gradient Moment。"""
 
 import argparse
 import csv
@@ -19,6 +19,7 @@ from .corpus_ppl import resolve_scorer, score_samples
 from .gen_ppl_protocol import (SEED, NUM_SAMPLES, SCORER, MAX_LENGTH, VERSION,
     sample_ids, gaussian_noise, decode_text, text_statistics, aggregate_scores)
 from .gen_ppl_sampling import generate_batch
+from . import gradient_moment
 
 
 def validate_protocol(protocol, debug=False):
@@ -35,6 +36,7 @@ def validate_protocol(protocol, debug=False):
 def load_config(path, overrides=(), debug=False):
     config = load_yaml_config(path, overrides)
     validate_protocol(config["protocol"], debug)
+    gradient_moment.validate_config(config)
     runtime = config["runtime"]
     if runtime["generation_batch_size"] < 1 or not config["models"]:
         raise ValueError("生成 batch 必须为正，models 不能为空")
@@ -182,7 +184,8 @@ def score_records(records, scorer, tokenizer, device):
 def save_summary(run_dir, protocol, results):
     write_json(run_dir / "metrics.json", {"protocol": protocol, "models": results})
     fields = ["name", "family", "num_steps", "sequence_length", "gen_ppl", "sample_entropy",
-              "repetition_4gram", "num_samples", "num_scored_samples", "num_empty_samples", "score_status"]
+              "repetition_4gram", "num_samples", "num_scored_samples", "num_empty_samples", "score_status",
+              "gm", "gm_standard_error", "gm_num_pairs", "gm_num_skipped_pairs", "gm_status", "gm_reference_corpus"]
     with (run_dir / "summary.csv").open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
         writer.writeheader()
@@ -198,10 +201,12 @@ def protocol_metadata(config, debug=False):
             "decode": "strip_one_leading_bos_stop_at_first_eos_skip_special_tokens_no_cleanup",
             "aggregation": "exp(sum_nll / sum_valid_target_tokens)", "padding": "excluded_by_attention_mask",
             "add_special_tokens": False, "first_token": "not_scored",
-            "empty_policy": "no_resampling_report_coverage", "scoring_truncation": "first_1024_gpt_tokens"}
+            "empty_policy": "no_resampling_report_coverage", "scoring_truncation": "first_1024_gpt_tokens",
+            "gradient_moment": gradient_moment.protocol_metadata(config)}
 
 
 def run_gen_ppl(config, allow_distributed=True, debug=False):
+    gradient_moment.validate_config(config)
     runtime = config["runtime"]
     owns_group = distributed.setup(runtime["device"], allow_distributed, runtime["control_timeout_seconds"])
     run_dir = Path(distributed.broadcast_main(str(create_run_dir(config)) if distributed.is_main() else None))
@@ -233,6 +238,12 @@ def run_gen_ppl(config, allow_distributed=True, debug=False):
                 scorer, scorer_tokenizer = scorer_on_device(cache, cache_dir, device)
                 with progress.phase("unified.score", model=entry["name"], local_samples=len(records)):
                     scores = score_records(records, scorer, scorer_tokenizer, device)
+                gm = {"gm": None, "gm_status": "disabled"}
+                if config.get("gradient_moment", {}).get("enabled", False):
+                    corpus = entry["corpus"]
+                    reference = gradient_moment.prepare_reference(config, corpus, scorer_tokenizer, run_dir, cache)
+                    gm = gradient_moment.score_gradient_moment(records, scorer, scorer_tokenizer,
+                        reference, device, config, corpus, output)
             finally:
                 if "model" in cache:
                     cache["model"].cpu()
@@ -245,7 +256,7 @@ def run_gen_ppl(config, allow_distributed=True, debug=False):
                 with (output / "samples.jsonl").open("w", encoding="utf-8") as handle:
                     for sample in samples:
                         handle.write(json.dumps(sample, ensure_ascii=False) + "\n")
-                result = {"name": entry["name"], "family": files["family"], **entry["generation"], **metrics,
+                result = {"name": entry["name"], "family": files["family"], **entry["generation"], **metrics, **gm,
                     "architecture": files["architecture"], "weights": files["weights"],
                     "selected_weights_key": metadata["selected_weights_key"], "model_metadata": metadata,
                     "effective_sampling": metadata["effective_sampling"],
@@ -253,8 +264,11 @@ def run_gen_ppl(config, allow_distributed=True, debug=False):
                 write_json(output / "metrics.json", {"protocol": protocol, **result})
                 results.append({key: value for key, value in result.items() if key not in ("per_sample", "model_metadata")})
                 save_summary(run_dir, protocol, results)
-                print(f"[unified] {entry['name']}: Gen. PPL={metrics['gen_ppl']}, "
-                      f"scored={metrics['num_scored_samples']}/{metrics['num_samples']}", flush=True)
+                message = (f"[unified] {entry['name']}: Gen. PPL={metrics['gen_ppl']}, "
+                           f"scored={metrics['num_scored_samples']}/{metrics['num_samples']}")
+                if gm["gm_status"] != "disabled":
+                    message += f", GM={gm['gm']}, SE={gm['gm_standard_error']}"
+                print(message, flush=True)
             distributed.barrier()
         if distributed.is_main():
             write_json(run_dir / "status.json", {"status": "completed", "protocol": protocol["version"], "debug": debug})
@@ -271,7 +285,7 @@ def run_gen_ppl(config, allow_distributed=True, debug=False):
 
 
 def main(default_config="configs/gen_ppl.yaml", allow_distributed=True, debug=False):
-    parser = argparse.ArgumentParser(description="固定 seed=42 / 1024 samples / GPT-2-Large 的多模型 Gen PPL")
+    parser = argparse.ArgumentParser(description="固定 seed=42 / 1024 samples / GPT-2-Large 的统一 Gen PPL 与可选 GM")
     parser.add_argument("command", nargs="?", choices=["all"], default="all")
     parser.add_argument("--config", default=default_config)
     parser.add_argument("--set", dest="overrides", action="append", default=[])

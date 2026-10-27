@@ -13,6 +13,7 @@ from transformers import AutoTokenizer, T5EncoderModel
 from .. import distributed, progress
 from ..backbones.elf import ELF
 from ..config import project_path, write_json
+from ..initialization import student_state_dict
 from ..gen_ppl_protocol import write_manifest
 
 
@@ -111,12 +112,9 @@ def build_student(teacher, config):
     architecture["depth"] = len(layers)
     architecture["gradient_checkpointing"] = config["model"]["gradient_checkpointing"]
     student = ELF(**architecture)
-    original = teacher.state_dict()
-    weights = {name: tensor for name, tensor in original.items() if not name.startswith("blocks.")}
-    for new_index, old_index in enumerate(layers):
-        prefix = f"blocks.{old_index}."
-        weights.update({f"blocks.{new_index}." + name[len(prefix):]: tensor
-                        for name, tensor in original.items() if name.startswith(prefix)})
+    # 随机模式只跳过 blocks 的 teacher 权重；T5 latent 投影、条件编码与两个输出头仍复制。
+    weights = student_state_dict(teacher.state_dict(), student.state_dict(), layers, "blocks.",
+                                 config["model"].get("block_initialization", "teacher"))
     student.load_state_dict(weights, strict=True)
     student.architecture = architecture
     # 单头消融冻结未使用的输出头，DDP 不需要启用 find_unused_parameters。
@@ -151,7 +149,8 @@ def save_checkpoint(student, tokenizer, run_dir, step, config, name=None):
                                               "sampling": config["evaluation"]["sampling"]})
             tokenizer.save_pretrained(path)
             write_json(path / "distillation.json", {"step": step, "teacher": config["model"]["teacher"],
-                       "keep_layers": config["model"]["keep_layers"], "loss": config["loss"]})
+                       "keep_layers": config["model"]["keep_layers"], "loss": config["loss"],
+                       "block_initialization": config["model"].get("block_initialization", "teacher")})
             write_manifest(path / "gen_ppl_eval.yaml", [{"name": "elf_student", "architecture": str(path / "config.json"),
                 "weights": str(path / "model.safetensors"), "generation": {
                     "num_steps": config["evaluation"]["num_steps"], "sequence_length": config["evaluation"]["sequence_length"]}}])

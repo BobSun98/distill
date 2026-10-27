@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-27",
+  "task": "Enable automatic PPL, entropy and GM after all four random-block off-policy jobs",
+  "checks": {
+    "unit_tests_passed": 10,
+    "formal_cli_dry_run": "passed",
+    "python_ast": "passed",
+    "shell_syntax": "passed",
+    "diff_whitespace": "passed"
+  },
+  "plan_directory": "run/launch/random_blocks_20261027_133913_39832",
+  "models": [
+    {
+      "model": "langflow_owt",
+      "corpus": "owt",
+      "gm_enabled": true,
+      "num_generated": 1024,
+      "num_reference": 1024,
+      "gm_pairs": 512
+    },
+    {
+      "model": "langflow_lm1b",
+      "corpus": "lm1b",
+      "gm_enabled": true,
+      "num_generated": 1024,
+      "num_reference": 1024,
+      "gm_pairs": 512
+    },
+    {
+      "model": "elf_b",
+      "corpus": "owt",
+      "gm_enabled": true,
+      "num_generated": 1024,
+      "num_reference": 1024,
+      "gm_pairs": 512
+    },
+    {
+      "model": "elf_l",
+      "corpus": "owt",
+      "gm_enabled": true,
+      "num_generated": 1024,
+      "num_reference": 1024,
+      "gm_pairs": 512
+    }
+  ],
+  "pretrained_models_loaded": false,
+  "gpu_training_started": false,
+  "gpu_gm_executed": false
+}

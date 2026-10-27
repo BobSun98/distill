@@ -1,0 +1,58 @@
+run:
+  name: dual_group_evaluation_progress_smoke
+  root: run
+  seed: 42
+model:
+  teacher: run/local_assets/langflow-owt
+  teacher_config: null
+  tokenizer: run/local_assets/gpt2
+  cache_dir: null
+  keep_layers:
+  - 0
+  - 2
+  - 4
+  - 7
+  - 9
+  - 11
+  device: cpu
+distributed:
+  control_timeout_seconds: 7200
+  tensor_timeout_seconds: 180
+data:
+  dataset: Skylion007/openwebtext
+  dataset_config: default
+  revision: refs/convert/parquet
+  local_dataset: run/local_assets/owt_smoke_raw
+  hf_cache_dir: null
+  prepared_root: run/data_ddp_checks
+  sequence_length: 16
+  validation_documents: 4
+  train_documents: 4
+  valid_documents: 4
+  max_train_blocks: 8
+  max_valid_blocks: 1
+  tokenize_batch_size: 128
+loss:
+  kd_weight: 1.0
+  ce_weight: 0.0
+training:
+  max_steps: 3
+  batch_size: 1
+  grad_accumulation: 1
+  learning_rate: 3.0e-05
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  self_condition_probability: 0.5
+  log_every: 1
+  validate_every: 3
+  validation_batches: 1
+  save_every: 0
+evaluation:
+  seed: 2026
+  num_samples: 1
+  batch_size: 1
+  num_steps: 3
+  sequence_length: 16
+  scorer: null
+  scorer_batch_size: 4
+  scorer_max_length: 1024

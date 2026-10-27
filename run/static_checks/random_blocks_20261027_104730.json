@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-27",
+  "scope": "Four half-depth off-policy students; native random initialization only inside Transformer blocks",
+  "local_checks": {
+    "unit_tests": 8,
+    "unit_tests_passed": 8,
+    "python_ast_files": 12,
+    "shell_syntax": "passed",
+    "diff_whitespace": "passed",
+    "four_model_dry_run": "passed"
+  },
+  "baseline_comparison": {
+    "loss": "identical",
+    "data": "identical",
+    "diffusion": "identical",
+    "keep_layers": "identical",
+    "validation_seed": "identical",
+    "training": "identical except disabling legacy periodic PPL"
+  },
+  "evaluation": {
+    "engine": "distill.gen_ppl.run_gen_ppl",
+    "protocol": "gen_ppl_v1",
+    "num_samples_per_model": 1024,
+    "seed": 42,
+    "scorer": "gpt2-large"
+  },
+  "plan_directory": "run/launch/random_blocks_20261027_104730_21780",
+  "pretrained_model_loaded": false,
+  "training_started": false,
+  "gpu_validation_performed": false,
+  "models": [
+    {
+      "teacher": "embedded-language-flows/ELF-B-owt-torch",
+      "student_depth": 6,
+      "initialization": "random",
+      "loss": {
+        "flow_weight": 1.0,
+        "kd_weight": 1.0,
+        "ce_weight": 0.0,
+        "native_flow_weight": 0.0
+      }
+    },
+    {
+      "teacher": "embedded-language-flows/ELF-L-owt-torch",
+      "student_depth": 16,
+      "initialization": "random",
+      "loss": {
+        "flow_weight": 1.0,
+        "kd_weight": 1.0,
+        "ce_weight": 0.0,
+        "native_flow_weight": 0.0
+      }
+    },
+    {
+      "teacher": "Continuous-Rivals-Discrete/langflow-lm1b",
+      "student_depth": 6,
+      "initialization": "random",
+      "loss": {
+        "kd_weight": 1.0,
+        "ce_weight": 0.0
+      }
+    },
+    {
+      "teacher": "Continuous-Rivals-Discrete/langflow-owt",
+      "student_depth": 6,
+      "initialization": "random",
+      "loss": {
+        "kd_weight": 1.0,
+        "ce_weight": 0.0
+      }
+    }
+  ]
+}

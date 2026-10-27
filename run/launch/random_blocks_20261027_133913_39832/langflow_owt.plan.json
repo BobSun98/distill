@@ -1,0 +1,71 @@
+{
+  "config": "configs/off_policy_random_langflow_owt.yaml",
+  "model": {
+    "family": "langflow",
+    "teacher": "Continuous-Rivals-Discrete/langflow-owt",
+    "teacher_config": null,
+    "tokenizer": "gpt2",
+    "cache_dir": null,
+    "keep_layers": [
+      0,
+      2,
+      4,
+      7,
+      9,
+      11
+    ],
+    "block_initialization": "random",
+    "device": "cuda"
+  },
+  "loss": {
+    "kd_weight": 1.0,
+    "ce_weight": 0.0
+  },
+  "training": {
+    "plot_loss": true,
+    "ppl_evaluation": {
+      "enabled": false,
+      "interval": -1,
+      "num_samples_per_rank": 42,
+      "batch_size": 14
+    },
+    "max_steps": 5000,
+    "batch_size": 4,
+    "grad_accumulation": 2,
+    "learning_rate": 0.001,
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "self_condition_probability": 0.25,
+    "log_every": 100,
+    "validate_every": 100,
+    "validation_batches": 8,
+    "save_every": 0,
+    "early_stopping": {
+      "enabled": false,
+      "metric": "loss",
+      "min_steps": 500,
+      "patience": 5,
+      "min_delta": 0.001
+    },
+    "lr_scheduler": {
+      "name": "cosine",
+      "final_ratio": 0.1
+    }
+  },
+  "protocol": {
+    "version": "gen_ppl_v1",
+    "seed": 42,
+    "num_samples": 1024,
+    "scorer": "gpt2-large",
+    "scorer_max_length": 1024
+  },
+  "gradient_moment": {
+    "enabled": true,
+    "reference_config": "configs/gpt2_corpus_ppl.yaml"
+  },
+  "corpus": "owt",
+  "generation": {
+    "num_steps": 1024,
+    "sequence_length": 1024
+  }
+}

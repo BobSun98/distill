@@ -1,0 +1,57 @@
+run:
+  name: unified_gen_ppl
+  root: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/static_checks/unified_depth_sweep_fixture
+protocol:
+  version: gen_ppl_v1
+  seed: 42
+  num_samples: 1024
+  scorer: gpt2-large
+  scorer_max_length: 1024
+runtime:
+  device: cuda
+  cache_dir: null
+  generation_batch_size: 8
+  control_timeout_seconds: 7200
+models:
+- name: teacher_12_layers
+  architecture: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/local_assets/langflow-owt/config.json
+  weights: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/local_assets/langflow-owt/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: student_06_layers
+  architecture: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/static_checks/unified_depth_sweep_fixture/student_06_layers/checkpoints/step_005000/config.json
+  weights: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/static_checks/unified_depth_sweep_fixture/student_06_layers/checkpoints/step_005000/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: student_07_layers
+  architecture: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/static_checks/unified_depth_sweep_fixture/student_07_layers/checkpoints/step_005000/config.json
+  weights: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/static_checks/unified_depth_sweep_fixture/student_07_layers/checkpoints/step_005000/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: student_08_layers
+  architecture: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/static_checks/unified_depth_sweep_fixture/student_08_layers/checkpoints/step_005000/config.json
+  weights: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/static_checks/unified_depth_sweep_fixture/student_08_layers/checkpoints/step_005000/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: student_09_layers
+  architecture: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/static_checks/unified_depth_sweep_fixture/student_09_layers/checkpoints/step_005000/config.json
+  weights: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/static_checks/unified_depth_sweep_fixture/student_09_layers/checkpoints/step_005000/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: student_10_layers
+  architecture: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/static_checks/unified_depth_sweep_fixture/student_10_layers/checkpoints/step_005000/config.json
+  weights: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/static_checks/unified_depth_sweep_fixture/student_10_layers/checkpoints/step_005000/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: student_11_layers
+  architecture: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/static_checks/unified_depth_sweep_fixture/student_11_layers/checkpoints/step_005000/config.json
+  weights: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/static_checks/unified_depth_sweep_fixture/student_11_layers/checkpoints/step_005000/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024

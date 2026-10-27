@@ -1,0 +1,38 @@
+{"time": "2026-09-30T17:13:37+01:00", "rank": 1, "pid": 99251, "stage": "run.start", "elapsed_seconds": 3.8041966035962105e-05, "world_size": 2, "torch_version": "2.5.1", "local_rank": 1, "device": "cpu"}
+{"time": "2026-09-30T17:13:37+01:00", "rank": 1, "pid": 99251, "stage": "data.wait_ready.begin", "elapsed_seconds": 0.00014558399561792612}
+{"time": "2026-09-30T17:13:37+01:00", "rank": 1, "pid": 99251, "stage": "data.wait_ready.end", "elapsed_seconds": 0.6135167919564992, "seconds": 0.6133009170880541}
+{"time": "2026-09-30T17:13:38+01:00", "rank": 1, "pid": 99251, "stage": "tensor_group.init.begin", "elapsed_seconds": 0.6897975419415161, "backend": "gloo", "device": "cpu", "timeout_seconds": 180}
+{"time": "2026-09-30T17:13:38+01:00", "rank": 1, "pid": 99251, "stage": "tensor_group.init.end", "elapsed_seconds": 0.6910945419222116, "seconds": 0.0011424169642850757, "backend": "gloo", "device": "cpu", "timeout_seconds": 180}
+{"time": "2026-09-30T17:13:38+01:00", "rank": 1, "pid": 99251, "stage": "communication.all_reduce.begin", "elapsed_seconds": 0.6911895839730278, "backend": "gloo", "device": "cpu", "bytes": 1048576}
+{"time": "2026-09-30T17:13:38+01:00", "rank": 1, "pid": 99251, "stage": "communication.all_reduce.end", "elapsed_seconds": 0.6993736670119688, "seconds": 0.00812991603743285, "backend": "gloo", "device": "cpu", "bytes": 1048576}
+{"time": "2026-09-30T17:13:38+01:00", "rank": 1, "pid": 99251, "stage": "communication.broadcast.begin", "elapsed_seconds": 0.6994624589569867, "backend": "gloo", "device": "cpu"}
+{"time": "2026-09-30T17:13:38+01:00", "rank": 1, "pid": 99251, "stage": "communication.broadcast.end", "elapsed_seconds": 0.7012145839398727, "seconds": 0.0017081249970942736, "backend": "gloo", "device": "cpu"}
+{"time": "2026-09-30T17:13:38+01:00", "rank": 1, "pid": 99251, "stage": "teacher.load.begin", "elapsed_seconds": 0.7012831249739975}
+{"time": "2026-09-30T17:13:38+01:00", "rank": 1, "pid": 99251, "stage": "model.files.wait.begin", "elapsed_seconds": 0.7013351250207052, "model": "run/local_assets/langflow-owt"}
+{"time": "2026-09-30T17:13:38+01:00", "rank": 1, "pid": 99251, "stage": "model.files.wait.end", "elapsed_seconds": 0.7017859589541331, "seconds": 0.00041145901195704937, "model": "run/local_assets/langflow-owt"}
+{"time": "2026-09-30T17:13:38+01:00", "rank": 1, "pid": 99251, "stage": "model.weights.load.begin", "elapsed_seconds": 0.7018475419608876, "model": "run/local_assets/langflow-owt"}
+{"time": "2026-09-30T17:13:39+01:00", "rank": 1, "pid": 99251, "stage": "model.weights.load.end", "elapsed_seconds": 1.981342833954841, "seconds": 1.2794392500072718, "model": "run/local_assets/langflow-owt"}
+{"time": "2026-09-30T17:13:39+01:00", "rank": 1, "pid": 99251, "stage": "model.to_device.begin", "elapsed_seconds": 1.98155191692058, "model": "run/local_assets/langflow-owt", "device": "cpu"}
+{"time": "2026-09-30T17:13:39+01:00", "rank": 1, "pid": 99251, "stage": "model.to_device.end", "elapsed_seconds": 1.982540208962746, "seconds": 0.0009277500212192535, "model": "run/local_assets/langflow-owt", "device": "cpu"}
+{"time": "2026-09-30T17:13:39+01:00", "rank": 1, "pid": 99251, "stage": "teacher.load.end", "elapsed_seconds": 1.9827203339664266, "seconds": 1.2813922499772161}
+{"time": "2026-09-30T17:13:39+01:00", "rank": 1, "pid": 99251, "stage": "models.wait_teacher.begin", "elapsed_seconds": 1.982773374998942}
+{"time": "2026-09-30T17:13:39+01:00", "rank": 1, "pid": 99251, "stage": "models.wait_teacher.end", "elapsed_seconds": 1.9833287089131773, "seconds": 0.0003951670369133353}
+{"time": "2026-09-30T17:13:39+01:00", "rank": 1, "pid": 99251, "stage": "evaluation.model.begin", "elapsed_seconds": 1.987085875007324, "model": "teacher"}
+{"time": "2026-09-30T17:13:39+01:00", "rank": 1, "pid": 99251, "stage": "validation.reduce.begin", "elapsed_seconds": 1.9888622090220451, "local_tokens": 0}
+{"time": "2026-09-30T17:13:39+01:00", "rank": 1, "pid": 99251, "stage": "validation.reduce.end", "elapsed_seconds": 2.57186270901002, "seconds": 0.5829271249240264, "local_tokens": 0}
+{"time": "2026-09-30T17:13:40+01:00", "rank": 1, "pid": 99251, "stage": "evaluation.model.end", "elapsed_seconds": 2.9873767499811947, "model": "teacher"}
+{"time": "2026-09-30T17:13:40+01:00", "rank": 1, "pid": 99251, "stage": "evaluation.model.begin", "elapsed_seconds": 2.987525083939545, "model": "pruned"}
+{"time": "2026-09-30T17:13:40+01:00", "rank": 1, "pid": 99251, "stage": "validation.reduce.begin", "elapsed_seconds": 3.2657022499479353, "local_tokens": 0}
+{"time": "2026-09-30T17:13:40+01:00", "rank": 1, "pid": 99251, "stage": "validation.reduce.end", "elapsed_seconds": 3.5867266670102254, "seconds": 0.3208114169538021, "local_tokens": 0}
+{"time": "2026-09-30T17:13:41+01:00", "rank": 1, "pid": 99251, "stage": "evaluation.model.end", "elapsed_seconds": 3.9547013340052217, "model": "pruned"}
+{"time": "2026-09-30T17:13:41+01:00", "rank": 1, "pid": 99251, "stage": "evaluation.model.begin", "elapsed_seconds": 3.9550215000053868, "model": "trained"}
+{"time": "2026-09-30T17:13:41+01:00", "rank": 1, "pid": 99251, "stage": "model.files.wait.begin", "elapsed_seconds": 3.9551119999960065, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170725_269458_dual_group_real_model_smoke/checkpoints/step_000002"}
+{"time": "2026-09-30T17:13:41+01:00", "rank": 1, "pid": 99251, "stage": "model.files.wait.end", "elapsed_seconds": 3.9557638339465484, "seconds": 0.0005911659682169557, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170725_269458_dual_group_real_model_smoke/checkpoints/step_000002"}
+{"time": "2026-09-30T17:13:41+01:00", "rank": 1, "pid": 99251, "stage": "model.weights.load.begin", "elapsed_seconds": 3.9558731670258567, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170725_269458_dual_group_real_model_smoke/checkpoints/step_000002"}
+{"time": "2026-09-30T17:13:41+01:00", "rank": 1, "pid": 99251, "stage": "model.weights.load.end", "elapsed_seconds": 4.535675749997608, "seconds": 0.5797328340122476, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170725_269458_dual_group_real_model_smoke/checkpoints/step_000002"}
+{"time": "2026-09-30T17:13:41+01:00", "rank": 1, "pid": 99251, "stage": "model.to_device.begin", "elapsed_seconds": 4.5359467919915915, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170725_269458_dual_group_real_model_smoke/checkpoints/step_000002", "device": "cpu"}
+{"time": "2026-09-30T17:13:41+01:00", "rank": 1, "pid": 99251, "stage": "model.to_device.end", "elapsed_seconds": 4.53625074995216, "seconds": 0.00025183300022035837, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170725_269458_dual_group_real_model_smoke/checkpoints/step_000002", "device": "cpu"}
+{"time": "2026-09-30T17:13:41+01:00", "rank": 1, "pid": 99251, "stage": "validation.reduce.begin", "elapsed_seconds": 4.53723124996759, "local_tokens": 0}
+{"time": "2026-09-30T17:13:42+01:00", "rank": 1, "pid": 99251, "stage": "validation.reduce.end", "elapsed_seconds": 4.991861041984521, "seconds": 0.4545507919974625, "local_tokens": 0}
+{"time": "2026-09-30T17:13:42+01:00", "rank": 1, "pid": 99251, "stage": "evaluation.model.end", "elapsed_seconds": 5.3992868749191985, "model": "trained"}
+{"time": "2026-09-30T17:13:42+01:00", "rank": 1, "pid": 99251, "stage": "run.completed", "elapsed_seconds": 5.401610667002387}

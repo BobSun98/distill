@@ -1,0 +1,57 @@
+{
+  "protocol": {
+    "seed": 2026,
+    "nfe": 3,
+    "sequence_length": 16,
+    "num_samples": 1,
+    "scorer": null,
+    "sampler": "LangFlow Euler-EDM",
+    "world_size": 1,
+    "generation_batch_size_per_device": 1,
+    "rank_seed": "seed + rank"
+  },
+  "models": {
+    "teacher": {
+      "parameters": {
+        "total": 170805332,
+        "non_embedding": 132207956,
+        "trainable": 0
+      },
+      "denoising": {
+        "ce": 7.134792327880859,
+        "kl": 0.0,
+        "loss": 0.0
+      },
+      "distinct_2": 1.0,
+      "sample_entropy": 2.772588722239781
+    },
+    "pruned": {
+      "parameters": {
+        "total": 124739156,
+        "non_embedding": 86141780,
+        "trainable": 86141777
+      },
+      "denoising": {
+        "ce": 5.618507385253906,
+        "kl": 1.3231263160705566,
+        "loss": 1.3231263160705566
+      },
+      "distinct_2": 1.0,
+      "sample_entropy": 2.772588722239781
+    },
+    "trained": {
+      "parameters": {
+        "total": 124739156,
+        "non_embedding": 86141780,
+        "trainable": 86141777
+      },
+      "denoising": {
+        "ce": 5.6025848388671875,
+        "kl": 1.3191249370574951,
+        "loss": 1.3191249370574951
+      },
+      "distinct_2": 1.0,
+      "sample_entropy": 2.772588722239781
+    }
+  }
+}

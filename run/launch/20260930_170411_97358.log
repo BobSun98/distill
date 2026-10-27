@@ -1,0 +1,76 @@
+[rank 0] run.start {"world_size": 1, "torch_version": "2.5.1", "local_rank": 0, "device": "cpu"}
+[run] /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170414_207184_single_debug_progress_smoke (world_size=1)
+[rank 0] data.prepare.begin {}
+[data] 复用 /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/data_ddp_checks/owt_l16_t4_v4
+[rank 0] data.prepare.end {"seconds": 0.6455416670069098}
+[rank 0] data.wait_ready.begin {}
+[rank 0] data.wait_ready.end {"seconds": 5.834037438035011e-06}
+[rank 0] teacher.load.begin {}
+[rank 0] model.files.wait.begin {"model": "run/local_assets/langflow-owt"}
+[rank 0] model.files.resolve.begin {"model": "run/local_assets/langflow-owt"}
+[rank 0] model.files.resolve.end {"seconds": 2.3208907805383205e-05, "model": "run/local_assets/langflow-owt"}
+[rank 0] model.files.wait.end {"seconds": 0.0008813749300315976, "model": "run/local_assets/langflow-owt"}
+[rank 0] model.weights.load.begin {"model": "run/local_assets/langflow-owt"}
+[rank 0] model.weights.load.end {"seconds": 0.9008459589676932, "model": "run/local_assets/langflow-owt"}
+[rank 0] model.to_device.begin {"model": "run/local_assets/langflow-owt", "device": "cpu"}
+[rank 0] model.to_device.end {"seconds": 0.0008884170092642307, "model": "run/local_assets/langflow-owt", "device": "cpu"}
+[rank 0] teacher.load.end {"seconds": 0.9055206249468029}
+[rank 0] models.wait_teacher.begin {}
+[rank 0] models.wait_teacher.end {"seconds": 5.083042196929455e-06}
+[rank 0] student.build.begin {}
+[rank 0] student.build.end {"seconds": 0.15908520796801895}
+[rank 0] models.wait_student.begin {}
+[rank 0] models.wait_student.end {"seconds": 6.209011189639568e-06}
+[rank 0] data.loaders.begin {}
+[rank 0] data.loaders.end {"seconds": 0.002486207988113165}
+[rank 0] validation.begin {"step": 0}
+[rank 0] validation.first_batch.begin {"tokens": 16}
+[rank 0] validation.first_batch.end {"loss": 1.3231263160705566, "ce": 5.618507385253906, "kl": 1.3231263160705566}
+[rank 0] validation.reduce.begin {"local_tokens": 16}
+[rank 0] validation.reduce.end {"seconds": 3.3832970075309277e-05, "local_tokens": 16}
+[train] {'phase': 'valid', 'step': 0, 'ce': 5.618507385253906, 'kl': 1.3231263160705566, 'loss': 1.3231263160705566, 'elapsed_seconds': 0.48720070894341916}
+[rank 0] validation.end {"seconds": 0.48686954111326486, "step": 0}
+[rank 0] train.step.begin {"step": 1}
+[rank 0] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+[rank 0] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+[rank 0] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[train] {'phase': 'train', 'step': 1, 'ce': 8.94815444946289, 'kl': 3.277015209197998, 'loss': 3.277015209197998, 'grad_norm': 23.07705307006836, 'tokens': 16, 'epoch': 0, 'elapsed_seconds': 1.58959316695109}
+[rank 0] train.step.end {"step": 1}
+[rank 0] validation.begin {"step": 1}
+[rank 0] validation.first_batch.begin {"tokens": 16}
+[rank 0] validation.first_batch.end {"loss": 1.3191249370574951, "ce": 5.6025848388671875, "kl": 1.3191249370574951}
+[rank 0] validation.reduce.begin {"local_tokens": 16}
+[rank 0] validation.reduce.end {"seconds": 3.2957992516458035e-05, "local_tokens": 16}
+[train] {'phase': 'valid', 'step': 1, 'ce': 5.6025848388671875, 'kl': 1.3191249370574951, 'loss': 1.3191249370574951, 'elapsed_seconds': 2.2017437499016523}
+[rank 0] validation.end {"seconds": 0.6106010420480743, "step": 1}
+[rank 0] checkpoint.save.begin {"step": 1, "path": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170414_207184_single_debug_progress_smoke/checkpoints/step_000001"}
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00, 11.14it/s]
+[rank 0] checkpoint.save.end {"step": 1}
+[rank 0] checkpoint.wait_ready.begin {"step": 1}
+[rank 0] checkpoint.wait_ready.end {"seconds": 2.0792009308934212e-05, "step": 1}
+[train] checkpoint: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170414_207184_single_debug_progress_smoke/checkpoints/step_000001
+[eval] teacher
+[rank 0] validation.first_batch.begin {"tokens": 16}
+[rank 0] validation.first_batch.end {"loss": 0.0, "ce": 7.134792327880859, "kl": 0.0}
+[rank 0] validation.reduce.begin {"local_tokens": 16}
+[rank 0] validation.reduce.end {"seconds": 5.7124998420476913e-05, "local_tokens": 16}
+[eval] pruned
+[rank 0] validation.first_batch.begin {"tokens": 16}
+[rank 0] validation.first_batch.end {"loss": 1.3231263160705566, "ce": 5.618507385253906, "kl": 1.3231263160705566}
+[rank 0] validation.reduce.begin {"local_tokens": 16}
+[rank 0] validation.reduce.end {"seconds": 4.0375045500695705e-05, "local_tokens": 16}
+[eval] trained
+[rank 0] model.files.wait.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170414_207184_single_debug_progress_smoke/checkpoints/step_000001"}
+[rank 0] model.files.resolve.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170414_207184_single_debug_progress_smoke/checkpoints/step_000001"}
+[rank 0] model.files.resolve.end {"seconds": 3.5541015677154064e-05, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170414_207184_single_debug_progress_smoke/checkpoints/step_000001"}
+[rank 0] model.files.wait.end {"seconds": 0.0009835419477894902, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170414_207184_single_debug_progress_smoke/checkpoints/step_000001"}
+[rank 0] model.weights.load.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170414_207184_single_debug_progress_smoke/checkpoints/step_000001"}
+[rank 0] model.weights.load.end {"seconds": 0.7868044580100104, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170414_207184_single_debug_progress_smoke/checkpoints/step_000001"}
+[rank 0] model.to_device.begin {"model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170414_207184_single_debug_progress_smoke/checkpoints/step_000001", "device": "cpu"}
+[rank 0] model.to_device.end {"seconds": 0.0003452500095590949, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170414_207184_single_debug_progress_smoke/checkpoints/step_000001", "device": "cpu"}
+[rank 0] validation.first_batch.begin {"tokens": 16}
+[rank 0] validation.first_batch.end {"loss": 1.3191249370574951, "ce": 5.6025848388671875, "kl": 1.3191249370574951}
+[rank 0] validation.reduce.begin {"local_tokens": 16}
+[rank 0] validation.reduce.end {"seconds": 3.983289934694767e-05, "local_tokens": 16}
+[eval] results: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_170414_207184_single_debug_progress_smoke/evaluation/metrics.json
+[rank 0] run.completed {}

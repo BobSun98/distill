@@ -1,0 +1,22 @@
+W0930 16:57:28.759000 96028 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+WARNING:__main__:
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+[rank 0] control_group.init.begin {"backend": "gloo", "world_size": 2}[rank 1] control_group.init.begin {"backend": "gloo", "world_size": 2}
+
+[rank 1] control_group.init.end {"seconds": 0.007115666987374425, "backend": "gloo", "world_size": 2}[rank 0] control_group.init.end {"seconds": 0.007124457973986864, "backend": "gloo", "world_size": 2}
+
+[rank 0] run.start {"world_size": 2, "torch_version": "2.5.1", "local_rank": 0, "device": "cpu"}
+[run] /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20260930_165730_705912_communication_check_smoke (world_size=2)
+[rank 1] run.start {"world_size": 2, "torch_version": "2.5.1", "local_rank": 1, "device": "cpu"}
+[rank 0] communication.all_reduce.begin {"backend": "gloo", "device": "cpu", "bytes": 1048576}
+[rank 1] communication.all_reduce.begin {"backend": "gloo", "device": "cpu", "bytes": 1048576}
+[rank 1] communication.all_reduce.end {"seconds": 0.00583449995610863, "backend": "gloo", "device": "cpu", "bytes": 1048576}[rank 0] communication.all_reduce.end {"seconds": 0.00582762504927814, "backend": "gloo", "device": "cpu", "bytes": 1048576}
+
+[rank 0] communication.broadcast.begin {"backend": "gloo", "device": "cpu"}
+[rank 1] communication.broadcast.begin {"backend": "gloo", "device": "cpu"}
+[rank 0] communication.broadcast.end {"seconds": 0.0006462080636993051, "backend": "gloo", "device": "cpu"}
+[rank 0] communication.check.completed {}
+[rank 1] communication.broadcast.end {"seconds": 0.0015262080123648047, "backend": "gloo", "device": "cpu"}
+[rank 1] communication.check.completed {}

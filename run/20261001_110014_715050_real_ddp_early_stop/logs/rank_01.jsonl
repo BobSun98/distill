@@ -1,0 +1,73 @@
+{"time": "2026-10-01T11:00:14+01:00", "rank": 1, "pid": 68947, "stage": "run.start", "elapsed_seconds": 6.437499541789293e-05, "world_size": 2, "torch_version": "2.5.1", "local_rank": 1, "device": "cpu"}
+{"time": "2026-10-01T11:00:14+01:00", "rank": 1, "pid": 68947, "stage": "data.wait_ready.begin", "elapsed_seconds": 0.0002238750457763672}
+{"time": "2026-10-01T11:00:15+01:00", "rank": 1, "pid": 68947, "stage": "data.wait_ready.end", "elapsed_seconds": 0.7185032920679078, "seconds": 0.7181953330291435}
+{"time": "2026-10-01T11:00:15+01:00", "rank": 1, "pid": 68947, "stage": "tensor_group.init.begin", "elapsed_seconds": 0.8078132499940693, "backend": "gloo", "device": "cpu", "timeout_seconds": 180}
+{"time": "2026-10-01T11:00:15+01:00", "rank": 1, "pid": 68947, "stage": "tensor_group.init.end", "elapsed_seconds": 0.8089691670611501, "seconds": 0.0010252500651404262, "backend": "gloo", "device": "cpu", "timeout_seconds": 180}
+{"time": "2026-10-01T11:00:15+01:00", "rank": 1, "pid": 68947, "stage": "communication.all_reduce.begin", "elapsed_seconds": 0.809051875025034, "backend": "gloo", "device": "cpu", "bytes": 1048576}
+{"time": "2026-10-01T11:00:15+01:00", "rank": 1, "pid": 68947, "stage": "communication.all_reduce.end", "elapsed_seconds": 0.8158326670527458, "seconds": 0.0067230419954285026, "backend": "gloo", "device": "cpu", "bytes": 1048576}
+{"time": "2026-10-01T11:00:15+01:00", "rank": 1, "pid": 68947, "stage": "communication.broadcast.begin", "elapsed_seconds": 0.8159422919852659, "backend": "gloo", "device": "cpu"}
+{"time": "2026-10-01T11:00:15+01:00", "rank": 1, "pid": 68947, "stage": "communication.broadcast.end", "elapsed_seconds": 0.8181251250207424, "seconds": 0.0021315000485628843, "backend": "gloo", "device": "cpu"}
+{"time": "2026-10-01T11:00:15+01:00", "rank": 1, "pid": 68947, "stage": "teacher.load.begin", "elapsed_seconds": 0.8181895840680227}
+{"time": "2026-10-01T11:00:15+01:00", "rank": 1, "pid": 68947, "stage": "model.files.wait.begin", "elapsed_seconds": 0.8182312090648338, "model": "run/local_assets/langflow-owt"}
+{"time": "2026-10-01T11:00:15+01:00", "rank": 1, "pid": 68947, "stage": "model.files.wait.end", "elapsed_seconds": 0.8187897090101615, "seconds": 0.0005190420197322965, "model": "run/local_assets/langflow-owt"}
+{"time": "2026-10-01T11:00:15+01:00", "rank": 1, "pid": 68947, "stage": "model.weights.load.begin", "elapsed_seconds": 0.8188527920283377, "model": "run/local_assets/langflow-owt"}
+{"time": "2026-10-01T11:00:16+01:00", "rank": 1, "pid": 68947, "stage": "model.weights.load.end", "elapsed_seconds": 2.0574893340235576, "seconds": 1.2385684580076486, "model": "run/local_assets/langflow-owt"}
+{"time": "2026-10-01T11:00:16+01:00", "rank": 1, "pid": 68947, "stage": "model.to_device.begin", "elapsed_seconds": 2.0578045420115814, "model": "run/local_assets/langflow-owt", "device": "cpu"}
+{"time": "2026-10-01T11:00:16+01:00", "rank": 1, "pid": 68947, "stage": "model.to_device.end", "elapsed_seconds": 2.058424749993719, "seconds": 0.0005178339779376984, "model": "run/local_assets/langflow-owt", "device": "cpu"}
+{"time": "2026-10-01T11:00:16+01:00", "rank": 1, "pid": 68947, "stage": "teacher.load.end", "elapsed_seconds": 2.058591000037268, "seconds": 1.2403642090503126}
+{"time": "2026-10-01T11:00:16+01:00", "rank": 1, "pid": 68947, "stage": "models.wait_teacher.begin", "elapsed_seconds": 2.058638875023462}
+{"time": "2026-10-01T11:00:16+01:00", "rank": 1, "pid": 68947, "stage": "models.wait_teacher.end", "elapsed_seconds": 2.0591613750439137, "seconds": 0.0004858750617131591}
+{"time": "2026-10-01T11:00:16+01:00", "rank": 1, "pid": 68947, "stage": "student.build.begin", "elapsed_seconds": 2.0594109590165317}
+{"time": "2026-10-01T11:00:17+01:00", "rank": 1, "pid": 68947, "stage": "student.build.end", "elapsed_seconds": 2.3970374170457944, "seconds": 0.33661825000308454}
+{"time": "2026-10-01T11:00:17+01:00", "rank": 1, "pid": 68947, "stage": "models.wait_student.begin", "elapsed_seconds": 2.39893387502525}
+{"time": "2026-10-01T11:00:17+01:00", "rank": 1, "pid": 68947, "stage": "models.wait_student.end", "elapsed_seconds": 2.401024291990325, "seconds": 0.0018733330070972443}
+{"time": "2026-10-01T11:00:17+01:00", "rank": 1, "pid": 68947, "stage": "data.loaders.begin", "elapsed_seconds": 2.401942834025249}
+{"time": "2026-10-01T11:00:17+01:00", "rank": 1, "pid": 68947, "stage": "data.loaders.end", "elapsed_seconds": 2.4233387500280514, "seconds": 0.021080999984405935}
+{"time": "2026-10-01T11:00:17+01:00", "rank": 1, "pid": 68947, "stage": "ddp.init.begin", "elapsed_seconds": 2.4240182919893414, "device": "cpu"}
+{"time": "2026-10-01T11:00:17+01:00", "rank": 1, "pid": 68947, "stage": "ddp.init.end", "elapsed_seconds": 2.997482042061165, "seconds": 0.573353375075385, "device": "cpu"}
+{"time": "2026-10-01T11:00:17+01:00", "rank": 1, "pid": 68947, "stage": "validation.begin", "elapsed_seconds": 2.998660584096797, "step": 0}
+{"time": "2026-10-01T11:00:17+01:00", "rank": 1, "pid": 68947, "stage": "validation.reduce.begin", "elapsed_seconds": 3.002417292096652, "local_tokens": 0}
+{"time": "2026-10-01T11:00:18+01:00", "rank": 1, "pid": 68947, "stage": "validation.reduce.end", "elapsed_seconds": 3.611458500032313, "seconds": 0.6088282919954509, "local_tokens": 0}
+{"time": "2026-10-01T11:00:18+01:00", "rank": 1, "pid": 68947, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 3.612654042080976, "step": 0}
+{"time": "2026-10-01T11:00:18+01:00", "rank": 1, "pid": 68947, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 3.732194749987684, "seconds": 0.11939370899926871, "step": 0}
+{"time": "2026-10-01T11:00:18+01:00", "rank": 1, "pid": 68947, "stage": "validation.end", "elapsed_seconds": 3.7324038750957698, "seconds": 0.7336547080194578, "step": 0}
+{"time": "2026-10-01T11:00:18+01:00", "rank": 1, "pid": 68947, "stage": "train.step.begin", "elapsed_seconds": 3.732509959023446, "step": 1}
+{"time": "2026-10-01T11:00:18+01:00", "rank": 1, "pid": 68947, "stage": "train.micro_batch.begin", "elapsed_seconds": 3.734326209058054, "step": 1, "micro_batch": 1}
+{"time": "2026-10-01T11:00:18+01:00", "rank": 1, "pid": 68947, "stage": "train.micro_batch.forward_done", "elapsed_seconds": 4.066118292044848, "step": 1, "micro_batch": 1}
+{"time": "2026-10-01T11:00:18+01:00", "rank": 1, "pid": 68947, "stage": "train.micro_batch.backward_done", "elapsed_seconds": 4.254194500041194, "step": 1, "micro_batch": 1}
+{"time": "2026-10-01T11:00:18+01:00", "rank": 1, "pid": 68947, "stage": "train.micro_batch.begin", "elapsed_seconds": 4.255500709055923, "step": 1, "micro_batch": 2}
+{"time": "2026-10-01T11:00:19+01:00", "rank": 1, "pid": 68947, "stage": "train.micro_batch.forward_done", "elapsed_seconds": 4.969322709017433, "step": 1, "micro_batch": 2}
+{"time": "2026-10-01T11:00:21+01:00", "rank": 1, "pid": 68947, "stage": "train.micro_batch.backward_done", "elapsed_seconds": 6.809580167056993, "step": 1, "micro_batch": 2}
+{"time": "2026-10-01T11:00:22+01:00", "rank": 1, "pid": 68947, "stage": "train.step.end", "elapsed_seconds": 7.917872584075667, "step": 1}
+{"time": "2026-10-01T11:00:22+01:00", "rank": 1, "pid": 68947, "stage": "validation.begin", "elapsed_seconds": 7.918453417019919, "step": 1}
+{"time": "2026-10-01T11:00:22+01:00", "rank": 1, "pid": 68947, "stage": "validation.reduce.begin", "elapsed_seconds": 7.921305000083521, "local_tokens": 0}
+{"time": "2026-10-01T11:00:23+01:00", "rank": 1, "pid": 68947, "stage": "validation.reduce.end", "elapsed_seconds": 9.209353459067643, "seconds": 1.2878220420097932, "local_tokens": 0}
+{"time": "2026-10-01T11:00:23+01:00", "rank": 1, "pid": 68947, "stage": "validation.end", "elapsed_seconds": 9.211756167002022, "seconds": 1.2931845829589292, "step": 1}
+{"time": "2026-10-01T11:00:23+01:00", "rank": 1, "pid": 68947, "stage": "train.step.begin", "elapsed_seconds": 9.211925375042483, "step": 2}
+{"time": "2026-10-01T11:00:26+01:00", "rank": 1, "pid": 68947, "stage": "train.step.end", "elapsed_seconds": 12.010942750028335, "step": 2}
+{"time": "2026-10-01T11:00:26+01:00", "rank": 1, "pid": 68947, "stage": "validation.begin", "elapsed_seconds": 12.012551916996017, "step": 2}
+{"time": "2026-10-01T11:00:26+01:00", "rank": 1, "pid": 68947, "stage": "validation.reduce.begin", "elapsed_seconds": 12.015416917041875, "local_tokens": 0}
+{"time": "2026-10-01T11:00:27+01:00", "rank": 1, "pid": 68947, "stage": "validation.reduce.end", "elapsed_seconds": 12.645235792035237, "seconds": 0.6296818749979138, "local_tokens": 0}
+{"time": "2026-10-01T11:00:27+01:00", "rank": 1, "pid": 68947, "stage": "validation.end", "elapsed_seconds": 12.646086791995913, "seconds": 0.6334410839481279, "step": 2}
+{"time": "2026-10-01T11:00:27+01:00", "rank": 1, "pid": 68947, "stage": "train.early_stop", "elapsed_seconds": 12.646271000034176, "step": 2, "metric": "loss", "best_step": 0, "best_value": 1.3231239318847656}
+{"time": "2026-10-01T11:00:27+01:00", "rank": 1, "pid": 68947, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 12.64656783407554, "step": 2}
+{"time": "2026-10-01T11:00:27+01:00", "rank": 1, "pid": 68947, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 12.713859750074334, "seconds": 0.06718029209878296, "step": 2}
+{"time": "2026-10-01T11:00:27+01:00", "rank": 1, "pid": 68947, "stage": "evaluation.model.begin", "elapsed_seconds": 12.751130416989326, "model": "teacher"}
+{"time": "2026-10-01T11:00:27+01:00", "rank": 1, "pid": 68947, "stage": "validation.reduce.begin", "elapsed_seconds": 12.752909292001277, "local_tokens": 0}
+{"time": "2026-10-01T11:00:28+01:00", "rank": 1, "pid": 68947, "stage": "validation.reduce.end", "elapsed_seconds": 13.436797084053978, "seconds": 0.6837979580741376, "local_tokens": 0}
+{"time": "2026-10-01T11:00:28+01:00", "rank": 1, "pid": 68947, "stage": "evaluation.model.end", "elapsed_seconds": 14.204661209019832, "model": "teacher"}
+{"time": "2026-10-01T11:00:28+01:00", "rank": 1, "pid": 68947, "stage": "evaluation.model.begin", "elapsed_seconds": 14.204854167066514, "model": "pruned"}
+{"time": "2026-10-01T11:00:29+01:00", "rank": 1, "pid": 68947, "stage": "validation.reduce.begin", "elapsed_seconds": 14.424436250003055, "local_tokens": 0}
+{"time": "2026-10-01T11:00:29+01:00", "rank": 1, "pid": 68947, "stage": "validation.reduce.end", "elapsed_seconds": 15.068795750034042, "seconds": 0.644177500042133, "local_tokens": 0}
+{"time": "2026-10-01T11:00:30+01:00", "rank": 1, "pid": 68947, "stage": "evaluation.model.end", "elapsed_seconds": 15.508168959058821, "model": "pruned"}
+{"time": "2026-10-01T11:00:30+01:00", "rank": 1, "pid": 68947, "stage": "evaluation.model.begin", "elapsed_seconds": 15.508364625042304, "model": "trained"}
+{"time": "2026-10-01T11:00:30+01:00", "rank": 1, "pid": 68947, "stage": "model.files.wait.begin", "elapsed_seconds": 15.508468375075608, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_715050_real_ddp_early_stop/checkpoints/best"}
+{"time": "2026-10-01T11:00:30+01:00", "rank": 1, "pid": 68947, "stage": "model.files.wait.end", "elapsed_seconds": 15.51259470905643, "seconds": 0.004060958046466112, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_715050_real_ddp_early_stop/checkpoints/best"}
+{"time": "2026-10-01T11:00:30+01:00", "rank": 1, "pid": 68947, "stage": "model.weights.load.begin", "elapsed_seconds": 15.51271458400879, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_715050_real_ddp_early_stop/checkpoints/best"}
+{"time": "2026-10-01T11:00:30+01:00", "rank": 1, "pid": 68947, "stage": "model.weights.load.end", "elapsed_seconds": 16.013032749993727, "seconds": 0.5002241249894723, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_715050_real_ddp_early_stop/checkpoints/best"}
+{"time": "2026-10-01T11:00:30+01:00", "rank": 1, "pid": 68947, "stage": "model.to_device.begin", "elapsed_seconds": 16.01337391708512, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_715050_real_ddp_early_stop/checkpoints/best", "device": "cpu"}
+{"time": "2026-10-01T11:00:30+01:00", "rank": 1, "pid": 68947, "stage": "model.to_device.end", "elapsed_seconds": 16.013715459033847, "seconds": 0.00028179201763123274, "model": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261001_110014_715050_real_ddp_early_stop/checkpoints/best", "device": "cpu"}
+{"time": "2026-10-01T11:00:30+01:00", "rank": 1, "pid": 68947, "stage": "validation.reduce.begin", "elapsed_seconds": 16.014489541994408, "local_tokens": 0}
+{"time": "2026-10-01T11:00:31+01:00", "rank": 1, "pid": 68947, "stage": "validation.reduce.end", "elapsed_seconds": 16.37698091706261, "seconds": 0.362406124942936, "local_tokens": 0}
+{"time": "2026-10-01T11:00:31+01:00", "rank": 1, "pid": 68947, "stage": "evaluation.model.end", "elapsed_seconds": 16.73850245901849, "model": "trained"}
+{"time": "2026-10-01T11:00:31+01:00", "rank": 1, "pid": 68947, "stage": "run.completed", "elapsed_seconds": 16.740174084086902}

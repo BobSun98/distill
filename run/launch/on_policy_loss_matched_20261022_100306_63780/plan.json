@@ -1,0 +1,98 @@
+{
+  "weights_checked": false,
+  "evaluation": "scripts/eval_gen_ppl.sh / gen_ppl_v1",
+  "jobs": [
+    {
+      "model": "langflow_owt",
+      "config": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/launch/on_policy_loss_matched_20261022_100306_63780/langflow_owt.yaml",
+      "student_weights": "run/20261019_074440_709356_langflow_owt_depth_sweep_lr1e-3_unified/student_06_layers/checkpoints/step_005000",
+      "previous_on_policy_loss": {
+        "ce_weight": 1.0,
+        "kl_weight": 0.0,
+        "mse_weight": 0.0,
+        "ce_target": "soft"
+      },
+      "off_policy_loss": {
+        "kd_weight": 1.0,
+        "ce_weight": 0.0
+      },
+      "matched_on_policy_loss": {
+        "ce_weight": 0.0,
+        "kl_weight": 1.0,
+        "mse_weight": 0.0,
+        "ce_target": "soft"
+      },
+      "decoder_probability": null
+    },
+    {
+      "model": "langflow_lm1b",
+      "config": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/launch/on_policy_loss_matched_20261022_100306_63780/langflow_lm1b.yaml",
+      "student_weights": "run/20261020_021521_191614_lm1b_kd_12to6_lr1e-3/checkpoints/best",
+      "previous_on_policy_loss": {
+        "ce_weight": 1.0,
+        "kl_weight": 0.0,
+        "mse_weight": 0.0,
+        "ce_target": "soft"
+      },
+      "off_policy_loss": {
+        "kd_weight": 1.0,
+        "ce_weight": 0.0
+      },
+      "matched_on_policy_loss": {
+        "ce_weight": 0.0,
+        "kl_weight": 1.0,
+        "mse_weight": 0.0,
+        "ce_target": "soft"
+      },
+      "decoder_probability": null
+    },
+    {
+      "model": "elf_b",
+      "config": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/launch/on_policy_loss_matched_20261022_100306_63780/elf_b.yaml",
+      "student_weights": "run/20261020_025737_021127_elf_b_owt_kd_12to6_lr1e-3/checkpoints/best",
+      "previous_on_policy_loss": {
+        "ce_weight": 0.0,
+        "kl_weight": 0.0,
+        "mse_weight": 1.0,
+        "ce_target": "soft"
+      },
+      "off_policy_loss": {
+        "flow_weight": 1.0,
+        "kd_weight": 1.0,
+        "ce_weight": 0.0,
+        "native_flow_weight": 0.0
+      },
+      "matched_on_policy_loss": {
+        "ce_weight": 0.0,
+        "kl_weight": 1.0,
+        "mse_weight": 1.0,
+        "ce_target": "soft"
+      },
+      "decoder_probability": 0.2
+    },
+    {
+      "model": "elf_l",
+      "config": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/launch/on_policy_loss_matched_20261022_100306_63780/elf_l.yaml",
+      "student_weights": "run/20261020_055035_436199_elf_l_owt_kd_32to16_lr1e-3/checkpoints/best",
+      "previous_on_policy_loss": {
+        "ce_weight": 0.0,
+        "kl_weight": 0.0,
+        "mse_weight": 1.0,
+        "ce_target": "soft"
+      },
+      "off_policy_loss": {
+        "flow_weight": 1.0,
+        "kd_weight": 1.0,
+        "ce_weight": 0.0,
+        "native_flow_weight": 0.0
+      },
+      "matched_on_policy_loss": {
+        "ce_weight": 0.0,
+        "kl_weight": 1.0,
+        "mse_weight": 1.0,
+        "ce_target": "soft"
+      },
+      "decoder_probability": 0.2
+    }
+  ]
+}

@@ -19,6 +19,8 @@ from ..lr_schedule import validate_lr_schedule
 
 def load_config(path, overrides=()):
     config = load_yaml_config(path, overrides)
+    if config["model"].get("block_initialization", "teacher") not in ("teacher", "random"):
+        raise ValueError("model.block_initialization 只支持 teacher 或 random")
     training, loss, diffusion = config["training"], config["loss"], config["diffusion"]
     if min(training["max_steps"], training["batch_size"], training["grad_accumulation"],
            training["log_every"], training["validate_every"], training["validation_batches"]) < 1:

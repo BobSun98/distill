@@ -71,7 +71,8 @@ def run_experiment(config, command="all", checkpoint=None, allow_distributed=Tru
             raise ValueError("训练序列长度超过 teacher 配置的 model_length")
         if command in ("train", "all"):
             with progress.phase("student.build"):
-                student = build_student(teacher, config["model"]["keep_layers"])
+                student = build_student(teacher, config["model"]["keep_layers"],
+                                        config["model"].get("block_initialization", "teacher"))
             with progress.phase("models.wait_student"):
                 distributed.barrier()
             checkpoint = train(teacher, student, tokenizer, config, run_dir,
