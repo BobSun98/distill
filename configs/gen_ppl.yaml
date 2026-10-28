@@ -19,6 +19,8 @@ runtime:
   device: cuda
   cache_dir: null
   generation_batch_size: 8
+  # 每卡每个模型跳过前 5 次实际前向，计时不额外生成样本。
+  timing_warmup_forwards: 5
   control_timeout_seconds: 7200
 
 # corpus 指定可选 GM 的真实参考语料；架构/权重的 HF 引用可替换为本地文件路径。

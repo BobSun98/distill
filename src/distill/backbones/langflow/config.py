@@ -39,6 +39,7 @@ class LangFlowConfig(transformers.PretrainedConfig):
         gumbel_scale: float = 0.852,
         gumbel_cutoff: float = 1e-5,
         gumbel_entropy: float = 7.02,
+        low_rank=None,
         **kwargs
     ):
         super().__init__(**kwargs)
@@ -61,3 +62,4 @@ class LangFlowConfig(transformers.PretrainedConfig):
         self.gumbel_scale = gumbel_scale
         self.gumbel_cutoff = gumbel_cutoff
         self.gumbel_entropy = gumbel_entropy
+        self.low_rank = low_rank

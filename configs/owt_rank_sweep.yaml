@@ -1,0 +1,48 @@
+extends: owt_kd.yaml
+
+run:
+  name: langflow_owt_svd_rank_sweep
+
+model:
+  # 七个学生均为真实 teacher 的完整 12 层；只限制指定矩阵的 rank。
+  keep_layers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
+rank_sweep:
+  teacher_depth: 12
+  hidden_size: 768
+  ratios: [0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2]
+  targets: [attn_qkv, mlp.0, mlp.2]
+  plot_results: true
+
+gradient_moment:
+  enabled: true
+  reference_config: configs/gpt2_corpus_ppl.yaml
+
+training:
+  max_steps: 5000
+  # 每卡 16、累积 2 次；八卡全局 batch=256，七组使用完全相同预算。
+  batch_size: 16
+  grad_accumulation: 2
+  learning_rate: 0.0001
+  lr_scheduler:
+    name: cosine
+    final_ratio: 0.1
+  log_every: 100
+  validate_every: 100
+  validation_batches: 8
+  # 每组保留 SVD initial 与末步权重；可配置中间 checkpoint。
+  save_every: 0
+  early_stopping:
+    enabled: false
+  ppl_evaluation:
+    enabled: false
+    interval: -1
+
+evaluation:
+  corpus: owt
+  seed: 42
+  num_samples: 1024
+  batch_size: 16
+  num_steps: 1024
+  sequence_length: 1024
+  timing_warmup_forwards: 5

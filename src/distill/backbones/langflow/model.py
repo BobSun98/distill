@@ -394,6 +394,10 @@ class LangFlow(transformers.PreTrainedModel):
             scale=config.gumbel_scale,
             cutoff=config.gumbel_cutoff,
             entropy=config.gumbel_entropy)
+        if config.low_rank:
+            # 低秩学生保留相同层数和宽度，结构由自己的架构 JSON 恢复。
+            from ...low_rank import apply_low_rank
+            apply_low_rank(self, config.low_rank)
 
     def _get_embedding_matrix(self) -> torch.Tensor:
         """Get the embedding matrix for bias skip connection."""

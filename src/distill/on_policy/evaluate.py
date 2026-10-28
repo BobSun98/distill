@@ -9,6 +9,7 @@ from ..config import project_path, write_json
 from ..gen_ppl import (generate_records, score_records, scorer_on_device, save_summary,
                        protocol_metadata, validate_protocol)
 from ..gen_ppl_protocol import manifest, aggregate_scores
+from ..inference_metrics import aggregate_timing
 
 
 def training_ppl(student, tokenizer, config, run_dir, step, *, scorer_cache, debug=False):
@@ -42,7 +43,7 @@ def training_ppl(student, tokenizer, config, run_dir, step, *, scorer_cache, deb
             scorer_cache["model"].cpu()
         if device.type == "cuda":
             torch.cuda.empty_cache()
-    shards = distributed.gather_main((records, scores))
+    shards = distributed.gather_main((records, scores, metadata["inference_timing"]))
     if not distributed.is_main():
         return None
     metrics = aggregate_scores([shard[1] for shard in shards], current["protocol"]["num_samples"])
@@ -51,10 +52,13 @@ def training_ppl(student, tokenizer, config, run_dir, step, *, scorer_cache, deb
         for sample in samples:
             handle.write(json.dumps(sample, ensure_ascii=False) + "\n")
     result = {"name": "current_student", "family": config["model"]["family"], **generation, **metrics,
+              "num_parameters": metadata["num_parameters"], **aggregate_timing([shard[2] for shard in shards]),
+              "effective_generation_batch_size": current["runtime"]["generation_batch_size"],
               "step": step, "weight_source": "in_memory_student_after_optimizer_step",
               "effective_sampling": metadata["effective_sampling"]}
     save_summary(output, protocol, [result])
     write_json(output / "protocol.json", protocol)
     return {"model": "current_student", "gen_ppl": metrics["gen_ppl"],
+            "num_parameters": result["num_parameters"], "mean_step_ms": result["mean_step_ms"],
             "sample_entropy": metrics["sample_entropy"], "repetition_4gram": metrics["repetition_4gram"],
             "num_samples": metrics["num_samples"], "score_status": metrics["score_status"], "directory": str(output)}

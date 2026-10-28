@@ -19,6 +19,7 @@ from .corpus_ppl import resolve_scorer, score_samples
 from .gen_ppl_protocol import (SEED, NUM_SAMPLES, SCORER, MAX_LENGTH, VERSION,
     sample_ids, gaussian_noise, decode_text, text_statistics, aggregate_scores)
 from .gen_ppl_sampling import generate_batch
+from .inference_metrics import ForwardTimer, aggregate_timing
 from . import gradient_moment
 
 
@@ -38,6 +39,8 @@ def load_config(path, overrides=(), debug=False):
     validate_protocol(config["protocol"], debug)
     gradient_moment.validate_config(config)
     runtime = config["runtime"]
+    if runtime.get("timing_warmup_forwards", 5) < 0:
+        raise ValueError("timing_warmup_forwards 不能为负")
     if runtime["generation_batch_size"] < 1 or not config["models"]:
         raise ValueError("生成 batch 必须为正，models 不能为空")
     names = []
@@ -134,12 +137,16 @@ def generate_records(model, tokenizer, files, entry, config, metadata, output):
     generation = entry["generation"]
     batch_size = generation.get("batch_size", config["runtime"]["generation_batch_size"])
     records = []
-    for start in range(0, len(ids), batch_size):
-        batch_ids = ids[start:start + batch_size]
-        with progress.phase("unified.generate", model=entry["name"], sample_ids=batch_ids):
-            tokens = generate_batch(model, files["family"], batch_ids, generation, metadata).cpu()
-        for sample_id, row in zip(batch_ids, tokens.tolist()):
-            records.append({"sample_id": sample_id, "token_ids": row, "text": decode_text(row, tokenizer)})
+    with ForwardTimer(model, config["runtime"].get("timing_warmup_forwards", 5)) as timer:
+        for start in range(0, len(ids), batch_size):
+            batch_ids = ids[start:start + batch_size]
+            with progress.phase("unified.generate", model=entry["name"], sample_ids=batch_ids):
+                tokens = generate_batch(model, files["family"], batch_ids, generation, metadata).cpu()
+            timer.flush()
+            for sample_id, row in zip(batch_ids, tokens.tolist()):
+                records.append({"sample_id": sample_id, "token_ids": row, "text": decode_text(row, tokenizer)})
+    metadata["inference_timing"] = timer.result()
+    metadata["num_parameters"] = sum(parameter.numel() for parameter in model.parameters())
     if 0 in ids:
         dimension = model.config.hidden_size if files["family"] == "langflow" else model.text_encoder_dim
         torch.save(gaussian_noise([0], generation["sequence_length"], dimension)[0], output / "initial_noise_sample_0.pt")
@@ -185,7 +192,8 @@ def save_summary(run_dir, protocol, results):
     write_json(run_dir / "metrics.json", {"protocol": protocol, "models": results})
     fields = ["name", "family", "num_steps", "sequence_length", "gen_ppl", "sample_entropy",
               "repetition_4gram", "num_samples", "num_scored_samples", "num_empty_samples", "score_status",
-              "gm", "gm_standard_error", "gm_num_pairs", "gm_num_skipped_pairs", "gm_status", "gm_reference_corpus"]
+              "gm", "gm_standard_error", "gm_num_pairs", "gm_num_skipped_pairs", "gm_status", "gm_reference_corpus",
+              "num_parameters", "mean_step_ms", "timed_forward_calls", "effective_generation_batch_size"]
     with (run_dir / "summary.csv").open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
         writer.writeheader()
@@ -202,7 +210,13 @@ def protocol_metadata(config, debug=False):
             "aggregation": "exp(sum_nll / sum_valid_target_tokens)", "padding": "excluded_by_attention_mask",
             "add_special_tokens": False, "first_token": "not_scored",
             "empty_policy": "no_resampling_report_coverage", "scoring_truncation": "first_1024_gpt_tokens",
-            "gradient_moment": gradient_moment.protocol_metadata(config)}
+            "gradient_moment": gradient_moment.protocol_metadata(config),
+            "inference_timing": {"definition": "mean generator forward latency per batch, milliseconds",
+                "aggregation": "sum_device_forward_ms / sum_actual_timed_forward_calls",
+                "warmup_forwards_per_rank": config["runtime"].get("timing_warmup_forwards", 5),
+                "method": "CUDA events; CPU uses perf_counter", "includes_decoder_forward": True,
+                "excludes": ["warmup", "model_loading", "sampler_transport", "tokenization", "GPT_scoring", "GM"]},
+            "parameter_count": "unique generator parameters, including frozen embeddings; scorer excluded"}
 
 
 def run_gen_ppl(config, allow_distributed=True, debug=False):
@@ -249,7 +263,7 @@ def run_gen_ppl(config, allow_distributed=True, debug=False):
                     cache["model"].cpu()
                 if device.type == "cuda":
                     torch.cuda.empty_cache()
-            shards = distributed.gather_main((records, scores))
+            shards = distributed.gather_main((records, scores, metadata["inference_timing"]))
             if distributed.is_main():
                 metrics = aggregate_scores([shard[1] for shard in shards], config["protocol"]["num_samples"])
                 samples = sorted((row for shard in shards for row in shard[0]), key=lambda row: row["sample_id"])
@@ -257,6 +271,7 @@ def run_gen_ppl(config, allow_distributed=True, debug=False):
                     for sample in samples:
                         handle.write(json.dumps(sample, ensure_ascii=False) + "\n")
                 result = {"name": entry["name"], "family": files["family"], **entry["generation"], **metrics, **gm,
+                    "num_parameters": metadata["num_parameters"], **aggregate_timing([shard[2] for shard in shards]),
                     "architecture": files["architecture"], "weights": files["weights"],
                     "selected_weights_key": metadata["selected_weights_key"], "model_metadata": metadata,
                     "effective_sampling": metadata["effective_sampling"],
@@ -268,6 +283,7 @@ def run_gen_ppl(config, allow_distributed=True, debug=False):
                            f"scored={metrics['num_scored_samples']}/{metrics['num_samples']}")
                 if gm["gm_status"] != "disabled":
                     message += f", GM={gm['gm']}, SE={gm['gm_standard_error']}"
+                message += f", params={result['num_parameters']}, mean_step_ms={result['mean_step_ms']}"
                 print(message, flush=True)
             distributed.barrier()
         if distributed.is_main():

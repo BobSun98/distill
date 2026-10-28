@@ -83,6 +83,14 @@ ELF 使用架构中 `encoder` 的 tokenizer 引用，不加载 encoder 模型权
 - 同时报告 GPT-token unigram entropy、重复 4-gram 比例和空样本数，保留实际文本。
   各权重的长度/步数可以不同，但预算差异会影响对比，应核对结果中的生成设置。
 
+统一接口还输出 `num_parameters` 和 `mean_step_ms`：前者为生成模型的唯一参数总数，
+包括冻结 embedding/proposal，GPT scorer 不计入；后者为 **一次 batch 的生成模型前向平均毫秒数**，
+按八卡实际计时前向次数加权。CUDA 使用 events，各卡各模型跳过前 5 次实际前向，
+不额外采样；CPU 使用 `perf_counter`。计时覆盖 LangFlow 的直接 `self.forward` 调用和
+ELF 的实际模型调用（含 terminal decoder），排除加载、采样器 transport、文本处理、
+GPT 评分和 GM。`effective_generation_batch_size`、`timed_forward_calls` 和设备名称同时记录，
+比较耗时应保持 batch、生成长度、硬件和精度一致。此数值是 batch 前向延迟，未除以 batch size。
+
 产物在 `run/<时间>_unified_gen_ppl/`：`protocol.json`、汇总 `metrics.json`/`summary.csv`，
 每个模型目录中的 `samples.jsonl`、含逐样本 NLL 的 `metrics.json`、真实 tokenizer，
 以及 `initial_noise_sample_0.pt`（未施加模型噪声缩放的标准 epsilon）。每完成一套权重即更新汇总。
@@ -817,6 +825,68 @@ LangFlow-LM1B 为 `lm1b`，其余三组为 `owt`。GM 与 PPL/entropy 共用本�
 # 训练后独立重测，仍使用统一接口。
 bash scripts/eval_gen_ppl.sh run/<本次实验目录>/gen_ppl_eval.yaml
 ```
+
+## LangFlow-OWT：同层数 SVD 低秩学生 sweep
+
+`configs/owt_rank_sweep.yaml` 从原始 LangFlow-OWT teacher 独立构造七个 **12 层**学生，
+保留 hidden size=768、12 heads、原激活与残差。每个 block 只替换三个 Linear：
+融合 `attn_qkv`、FFN 的 `mlp.0` 和 `mlp.2`。
+对权重 `[out,in]`，使用 `r=max(1,floor(ratio*min(out,in)))`，
+三个目标的最小维度均为 768，80%→20% 对应 `[614,537,460,384,307,230,153]`。
+ratio 表示矩阵秩比例；总参数量包含其他模块，独立记录在结果中。
+
+每个目标矩阵只做一次 FP32 SVD，36 个矩阵分给八卡计算，保存在本实验的 `svd/`。
+七组截取同一分解的前 r 项，使用平衡因子 `U_r sqrt(S_r)` 和 `sqrt(S_r) Vh_r`。
+两个因子之间没有新增激活，原 bias 放在第二个 Linear；嵌入、输出头和条件编码复制 teacher。
+`svd/summary.json` 记录满秩重构误差、实际 rank 和保留奇异值能量，rank 选择始终按数量比例。
+
+```bash
+# 服务器：默认 CUDA 0–7，构建 → Teacher/初始学生评测 → 七组 KL 蒸馏 → 复评。
+bash scripts/run_owt_rank_sweep.sh
+
+# 只检查配置、保存运行计划，不加载模型/数据，不初始化 GPU。
+bash scripts/run_owt_rank_sweep.sh --dry-run
+
+# 同进程单卡 debug：完整 12 层 teacher 与全部七种低秩学生。
+bash scripts/run_owt_rank_sweep.sh debug
+
+# 只构建 SVD 起点，先检查 checkpoint。
+bash scripts/run_owt_rank_sweep.sh build
+
+# 长实验中断后，复用保存配置并跳过已完成阶段/训练组。
+bash scripts/run_owt_rank_sweep.sh --run-dir run/<本次rank实验目录>
+```
+
+正式训练每组 5000 次更新、纯 forward KL，初始 LR=1e-4、cosine 到 1e-5。
+每卡 batch=16、累积 2 次，八卡全局 batch=256；生成评测每卡 batch=16。
+七组使用相同数据、训练 RNG、学习率与预算，关闭早停，以最后一步复评。
+LangFlow 的词嵌入与 proposal 继续冻结，其余学生参数（包括两组低秩因子）按原规则更新。
+未完成组恢复时从自己的 SVD initial 重跑，当前不恢复中间 optimizer 状态。
+`--run-dir` 使用本实验保存的配置；调整 `--set` 条件时创建新实验，避免复用不匹配的阶段结果。
+
+正式统一评测为 Teacher 一次、SVD initial 七次、trained 七次，共 15 套权重；
+seed=42、每模型 1024 条、生成长度/NFE=1024、同一 GPT-2-Large FP32/eager 评分，
+默认开启 OWT GM（1024 条真实参考，512 个梯度对）。同时输出 entropy、重复率、
+覆盖率、`mean_step_ms` 和 `num_parameters`，全部复用 `eval_gen_ppl.sh` 工程函数。
+
+运行结果位于 `run/<时间>_langflow_owt_svd_rank_sweep/`：
+
+- `rank_080/` 至 `rank_020/`：每组配置、训练日志、`loss_curve.png`，以及
+  `checkpoints/initial/` 和最终 `checkpoints/step_005000/`。
+- checkpoint 的 `config.json` 保存每个目标模块的实际 rank；safetensors 保存两组因子，
+  统一模型构造器会先恢复因子结构，再严格加载权重。
+- `gen_ppl_before.yaml`、`gen_ppl_after.yaml` 和最终的 `gen_ppl_models.yaml` 可独立复测。
+- `summary.csv` / `summary.json` 汇总 Teacher、before、after 的质量/耗时/参数指标；
+  `rank_quality_curve.png` 比较 rank 与蒸馏前后 PPL/entropy/GM，缺失指标保留空值。
+
+```bash
+# 任意初始/训练后的低秩 checkpoint，仍使用统一八卡评测。
+bash scripts/eval_gen_ppl.sh run/<本次rank实验>/rank_080/checkpoints/initial/gen_ppl_eval.yaml
+```
+
+IDE 入口 `debug/debug_rank_sweep.py` 直接调用同一套 SVD、采集、训练、生成、GM 和计时函数，
+不启动其他 Python 进程。debug 保留七种 12 层学生，仅缩短为 3 次更新、128 token、8 NFE、
+4 条评测样本，并关闭绘图；本地开发验证不下载/加载预训练权重，真实 GPU 验证由服务器执行。
 
 ## On-policy：真实 student rollout 的 CE/KL/MSE 蒸馏
 

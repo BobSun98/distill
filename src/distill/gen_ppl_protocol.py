@@ -80,6 +80,7 @@ def manifest(models):
                          "scorer": SCORER, "scorer_max_length": MAX_LENGTH},
             "gradient_moment": {"enabled": False, "reference_config": "configs/gpt2_corpus_ppl.yaml"},
             "runtime": {"device": "cuda", "cache_dir": None, "generation_batch_size": 8,
+                        "timing_warmup_forwards": 5,
                         "control_timeout_seconds": 7200}, "models": models}
 
 

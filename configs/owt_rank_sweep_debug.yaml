@@ -1,0 +1,31 @@
+extends: owt_rank_sweep.yaml
+
+run:
+  name: langflow_owt_svd_rank_sweep_debug
+
+rank_sweep:
+  # 保留实际 12 层 teacher 和七种真实低秩结构，只缩短数据与运行预算。
+  plot_results: false
+
+data:
+  sequence_length: 128
+  train_documents: 32
+  valid_documents: 16
+  max_train_blocks: 8
+  max_valid_blocks: 4
+
+training:
+  plot_loss: false
+  max_steps: 3
+  batch_size: 1
+  grad_accumulation: 1
+  log_every: 1
+  validate_every: 3
+  validation_batches: 1
+  save_every: 0
+
+evaluation:
+  num_samples: 4
+  batch_size: 1
+  num_steps: 8
+  sequence_length: 128

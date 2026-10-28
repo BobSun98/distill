@@ -1,0 +1,90 @@
+{
+  "teacher": "Continuous-Rivals-Discrete/langflow-owt",
+  "student_depth": 12,
+  "students": [
+    {
+      "ratio": 0.8,
+      "rank": 614
+    },
+    {
+      "ratio": 0.7,
+      "rank": 537
+    },
+    {
+      "ratio": 0.6,
+      "rank": 460
+    },
+    {
+      "ratio": 0.5,
+      "rank": 384
+    },
+    {
+      "ratio": 0.4,
+      "rank": 307
+    },
+    {
+      "ratio": 0.3,
+      "rank": 230
+    },
+    {
+      "ratio": 0.2,
+      "rank": 153
+    }
+  ],
+  "training": {
+    "plot_loss": true,
+    "ppl_evaluation": {
+      "enabled": false,
+      "interval": -1,
+      "num_samples_per_rank": 42,
+      "batch_size": 14
+    },
+    "max_steps": 5000,
+    "batch_size": 16,
+    "grad_accumulation": 2,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "self_condition_probability": 0.25,
+    "log_every": 100,
+    "validate_every": 100,
+    "validation_batches": 8,
+    "save_every": 0,
+    "early_stopping": {
+      "enabled": false,
+      "metric": "loss",
+      "min_steps": 500,
+      "patience": 5,
+      "min_delta": 0.001
+    },
+    "lr_scheduler": {
+      "name": "cosine",
+      "final_ratio": 0.1
+    }
+  },
+  "evaluation": {
+    "seed": 42,
+    "num_samples": 1024,
+    "batch_size": 16,
+    "num_steps": 1024,
+    "sequence_length": 1024,
+    "scorer": "gpt2-large",
+    "scorer_batch_size": 4,
+    "scorer_max_length": 1024,
+    "corpus": "owt",
+    "timing_warmup_forwards": 5
+  },
+  "gradient_moment": {
+    "enabled": true,
+    "reference_config": "configs/gpt2_corpus_ppl.yaml"
+  },
+  "global_batch_size_8gpu": 256,
+  "stages": [
+    "teacher_svd",
+    "teacher_and_initial_evaluation",
+    "off_policy_kl",
+    "trained_evaluation"
+  ],
+  "debug": false
+}
+[rank-sweep] plan: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/launch/rank_sweep_plan_20261028_153507_712434.json

@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-28",
+  "scope": "Seven same-depth SVD LangFlow-OWT students, pre/post KL unified evaluation, generator parameter count and mean forward latency",
+  "student_depth": 12,
+  "ratios": [
+    0.8,
+    0.7,
+    0.6,
+    0.5,
+    0.4,
+    0.3,
+    0.2
+  ],
+  "ranks": [
+    614,
+    537,
+    460,
+    384,
+    307,
+    230,
+    153
+  ],
+  "training": {
+    "batch_per_gpu": 16,
+    "grad_accumulation": 2,
+    "default_world_size": 8,
+    "global_batch": 256,
+    "max_steps": 5000,
+    "initial_lr": 0.0001,
+    "final_lr": 1e-05,
+    "loss": "KL",
+    "early_stopping": false
+  },
+  "evaluation": {
+    "engine": "distill.gen_ppl.run_gen_ppl",
+    "num_weight_sets": 15,
+    "generated_samples_per_model": 1024,
+    "gm_enabled": true,
+    "batch_per_gpu": 16,
+    "new_fields": [
+      "num_parameters",
+      "mean_step_ms"
+    ],
+    "timing_unit": "milliseconds per generator batch forward, excluding first five calls per rank"
+  },
+  "checks": {
+    "rank_math_operator_config_tests": 11,
+    "unified_protocol_regressions": 7,
+    "python_ast_files": 9,
+    "shell_syntax": "passed",
+    "formal_dry_run": "run/launch/rank_sweep_plan_20261028_153507_712434.json",
+    "debug_dry_run": "run/launch/rank_sweep_plan_20261028_153645_422412.json"
+  },
+  "pretrained_models_loaded": false,
+  "gpu_svd_executed": false,
+  "training_started": false,
+  "cuda_timing_validated": false
+}
