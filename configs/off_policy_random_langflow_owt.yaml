@@ -13,7 +13,7 @@ gradient_moment:
   reference_config: configs/gpt2_corpus_ppl.yaml
 
 training:
-  # 对齐原 lr=1e-3 的 6 层 depth-sweep：5000 步、余弦到 1e-4、global batch=64。
+  # 5000 步、余弦到 1e-4；当前八卡全局 batch = 8 × 14 × 2 = 224。
   learning_rate: 0.001
   lr_scheduler:
     name: cosine

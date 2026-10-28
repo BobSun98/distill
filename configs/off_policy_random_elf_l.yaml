@@ -1,7 +1,7 @@
 extends: elf_l_kd.yaml
 
 run:
-  name: off_policy_random_elf_l_32to16
+  name: off_policy_random_elf_l_32to16_cosine_gbs224
 
 model:
   block_initialization: random
@@ -12,6 +12,18 @@ gradient_moment:
 
 training:
   learning_rate: 0.001
+  lr_scheduler:
+    name: cosine
+    final_ratio: 0.1
+  max_steps: 5000
+  # 对齐 OWT 的全局 batch=224，保留已验证可运行的每卡 1，避免增大显存开销。
+  batch_size: 1
+  grad_accumulation: 28
+  log_every: 100
+  validate_every: 100
+  save_every: 500
+  early_stopping:
+    enabled: false
   ppl_evaluation:
     enabled: false
     interval: -1

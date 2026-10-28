@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-28",
+  "task": "ELF-only random-block rerun with the current LangFlow-OWT optimization schedule and global batch",
+  "plan_directory": "run/launch/random_blocks_20261028_103244_48298",
+  "selected_models": [
+    {
+      "model": "elf_b",
+      "per_gpu_batch": 7,
+      "grad_accumulation": 4,
+      "global_batch_size": 224,
+      "initial_lr": 0.001,
+      "final_lr": 0.0001,
+      "max_steps": 5000,
+      "early_stopping": false,
+      "save_every": 500,
+      "self_condition_probability": 0.5,
+      "loss": {
+        "flow_weight": 1.0,
+        "kd_weight": 1.0,
+        "ce_weight": 0.0,
+        "native_flow_weight": 0.0
+      },
+      "gm_enabled": true
+    },
+    {
+      "model": "elf_l",
+      "per_gpu_batch": 1,
+      "grad_accumulation": 28,
+      "global_batch_size": 224,
+      "initial_lr": 0.001,
+      "final_lr": 0.0001,
+      "max_steps": 5000,
+      "early_stopping": false,
+      "save_every": 500,
+      "self_condition_probability": 0.5,
+      "loss": {
+        "flow_weight": 1.0,
+        "kd_weight": 1.0,
+        "ce_weight": 0.0,
+        "native_flow_weight": 0.0
+      },
+      "gm_enabled": true
+    }
+  ],
+  "checks": {
+    "unit_tests_passed": 10,
+    "shell_syntax": "passed",
+    "python_ast": "passed",
+    "diff_whitespace": "passed",
+    "elf_only_cli_dry_run": "passed"
+  },
+  "collapse_observation": {
+    "run": "run/20261028_012942_475943_off_policy_random_elf_l_32to16",
+    "checkpoint_step": 4700,
+    "num_samples": 1024,
+    "tokens_per_sample": 1024,
+    "all_token_counts": {
+      "3": 1048576
+    },
+    "token_3_piece": "▁",
+    "token_3_decoder": "Metaspace -> whitespace",
+    "pad_token_id": 0,
+    "eos_token_id": 1,
+    "decoded_characters": {
+      "space": 1047552
+    },
+    "root_cause": "not established from logs alone",
+    "validation_at_initialization": {
+      "flow_mse": 3.6746853952751164,
+      "decoder_kl": 1.4754126507147944
+    },
+    "validation_at_selected_step": {
+      "flow_mse": 0.13429398575060195,
+      "decoder_kl": 1.654306796913228
+    }
+  },
+  "gpu_training_started": false,
+  "pretrained_model_loaded_locally": false
+}

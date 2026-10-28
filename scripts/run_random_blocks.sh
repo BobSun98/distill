@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 四组半层学生只随机初始化 Transformer blocks；默认八卡，训后统一计算 PPL/entropy/GM。
-# 用法: bash scripts/run_random_blocks.sh [all|train|debug] [--model MODEL] [--dry-run] [--set KEY=VALUE]
+# 用法: bash scripts/run_random_blocks.sh [all|train|debug] [--elf-only|--model MODEL] [--dry-run] [--set KEY=VALUE]
 set -euo pipefail
 PROJECT_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 PY=${PY:-/proj/gpu_mtk53742/.conda/envs/distill/bin/python}
@@ -12,6 +12,7 @@ while (( $# )); do
     case "$1" in
         all|train|debug) COMMAND="$1"; shift ;;
         --dry-run) DRY_RUN=1; shift ;;
+        --elf-only) MODELS=(elf_b elf_l); shift ;;
         --model)
             case "${2:-}" in
                 langflow_owt|langflow_lm1b|elf_b|elf_l) MODELS=("$2"); shift 2 ;;
@@ -20,7 +21,7 @@ while (( $# )); do
         --set)
             [[ $# -ge 2 ]] || { echo '--set 需要 KEY=VALUE' >&2; exit 2; }
             OVERRIDES+=(--set "$2"); shift 2 ;;
-        *) echo '用法: bash scripts/run_random_blocks.sh [all|train|debug] [--model MODEL] [--dry-run] [--set KEY=VALUE]' >&2; exit 2 ;;
+        *) echo '用法: bash scripts/run_random_blocks.sh [all|train|debug] [--elf-only|--model MODEL] [--dry-run] [--set KEY=VALUE]' >&2; exit 2 ;;
     esac
 done
 export NGPU="${NGPU:-8}"

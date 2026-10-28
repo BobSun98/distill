@@ -771,15 +771,23 @@ bash scripts/run_random_blocks.sh
 bash scripts/run_random_blocks.sh --model elf_b
 bash scripts/run_random_blocks.sh train --model langflow_owt
 
+# 只重跑 ELF-B/L：对齐当前 LangFlow-OWT 的 LR 调度、全局 batch 和固定训练预算。
+bash scripts/run_random_blocks.sh --elf-only
+
 # 单卡真实 debug：相同 teacher/student 架构，3 次更新、128 token、2 条评测样本。
 bash scripts/run_random_blocks.sh debug --model elf_l
 ```
 
-四组均以原 off-policy 的 lr=1e-3、max_steps=5000 为首轮预算。
-LangFlow-OWT 沿用原 depth-sweep 的 cosine→1e-4、global batch=64，关闭早停并跑满 5000 步；
-LangFlow-LM1B / ELF-B / ELF-L 沿用恒定 LR，八卡 global batch 分别为 512 / 128 / 64，
-最大 5000 步、每 100 步验证、最少 500 步后允许按原平台期规则早停。
-评测 checkpoint 由原训练流程选择：OWT 为最后一步，其余三组为验证 loss 最佳的 `best/`。
+四组初始 lr=1e-3、max_steps=5000。LangFlow-OWT 当前每卡 14、累积 2，
+八卡 global batch=224，cosine 衰减到 1e-4，关闭早停并跑满 5000 步。
+ELF-B/L 的重跑配置对齐这套优化与预算：B 每卡 7、累积 4；L 每卡 1、累积 28，
+全局 batch 同为 224，cosine→1e-4、关闭早停、每 100 步验证。
+ELF 保留自己的 KL + velocity MSE、SC 概率 0.5、decoder/latent 和采样参数；
+其 micro-batch 按已有显存记录保守设置，L 继续使用 gradient checkpointing。
+两组每 500 步保留 checkpoint 便于检查退化起点，最终统一评测第 5000 步权重，
+新的 run.name 带 `cosine_gbs224`，原恒定 LR 试跑记录仍保留在 `run/`。
+LangFlow-LM1B 继续恒定 LR、global batch=512，最少 500 步后按原平台期规则早停，
+最终选择验证 loss 最佳的 `best/`。
 可用 `--set training.max_steps=10000` 等调整配置，调整后应另记为不同训练预算的实验。
 
 此批实验关闭旧版训练中间 PPL；`all` 在训练模型与优化器释放后，直接调用

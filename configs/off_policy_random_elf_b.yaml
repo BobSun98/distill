@@ -1,7 +1,7 @@
 extends: elf_b_kd.yaml
 
 run:
-  name: off_policy_random_elf_b_12to6
+  name: off_policy_random_elf_b_12to6_cosine_gbs224
 
 model:
   block_initialization: random
@@ -11,8 +11,21 @@ gradient_moment:
   reference_config: configs/gpt2_corpus_ppl.yaml
 
 training:
-  # 保留原 KL + velocity MSE、decoder 比例、batch、恒定 LR 和早停规则。
+  # 对齐 LangFlow-OWT 的优化与预算；ELF 的 loss、SC 和 decoder 定义保持原值。
   learning_rate: 0.001
+  lr_scheduler:
+    name: cosine
+    final_ratio: 0.1
+  max_steps: 5000
+  # 八卡全局 batch = 8 × 7 × 4 = 224；micro-batch 不超过已跑过的每卡 8。
+  batch_size: 7
+  grad_accumulation: 4
+  log_every: 100
+  validate_every: 100
+  # 保留中间权重以定位退化起点；正式最终评测使用第 5000 步。
+  save_every: 500
+  early_stopping:
+    enabled: false
   ppl_evaluation:
     enabled: false
     interval: -1
