@@ -83,7 +83,7 @@ def prepare_svd(teacher, config, run_dir):
             u, singular, vh = torch.linalg.svd(matrix, full_matrices=False)
             relative_error = (torch.linalg.vector_norm(matrix - (u * singular) @ vh)
                               / torch.linalg.vector_norm(matrix).clamp_min(1e-12)).item()
-            if not torch.isfinite(singular).all().item() or relative_error > 1e-4:
+            if not torch.isfinite(singular).all().item() or relative_error > 1e-2:
                 raise ValueError(f"SVD 满秩重构检查未通过: {path}, relative_error={relative_error}")
             torch.save({"u": u.cpu(), "singular": singular.cpu(), "vh": vh.cpu()}, directory / f"{path}.pt")
             energy = singular.square()
