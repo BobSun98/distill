@@ -1,0 +1,402 @@
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[rank 5] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.begin {"backend": "gloo", "world_size": 8}
+[rank 0] control_group.init.end {"seconds": 0.04077029228210449, "backend": "gloo", "world_size": 8}
+[rank 2] control_group.init.end {"seconds": 0.020485391840338707, "backend": "gloo", "world_size": 8}
+[rank 1] control_group.init.end {"seconds": 0.059307694900780916, "backend": "gloo", "world_size": 8}
+[rank 4] control_group.init.end {"seconds": 0.02841869741678238, "backend": "gloo", "world_size": 8}
+[rank 5] control_group.init.end {"seconds": 0.13862529722973704, "backend": "gloo", "world_size": 8}
+[rank 3] control_group.init.end {"seconds": 0.13425998436287045, "backend": "gloo", "world_size": 8}
+[rank 6] control_group.init.end {"seconds": 0.11326098581776023, "backend": "gloo", "world_size": 8}
+[rank 7] control_group.init.end {"seconds": 0.12923913588747382, "backend": "gloo", "world_size": 8}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[data] 复用 /proj/gpu_mtk53742/CDLM-distillation/run/data/owt_l1024_t20000_v128
+[rank 0] tensor_group.init.begin {"backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 0] tensor_group.init.end {"seconds": 0.004556186031550169, "backend": "nccl", "device": "cuda:0", "timeout_seconds": 180}
+[rank 0] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 2] tensor_group.init.begin {"backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}
+[rank 1] tensor_group.init.begin {"backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 2] tensor_group.init.end {"seconds": 0.00572994677349925, "backend": "nccl", "device": "cuda:2", "timeout_seconds": 180}[rank 1] tensor_group.init.end {"seconds": 0.0056483629159629345, "backend": "nccl", "device": "cuda:1", "timeout_seconds": 180}
+
+[rank 2] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:2", "bytes": 1048576}[rank 1] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:1", "bytes": 1048576}
+
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 7] tensor_group.init.begin {"backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}
+[rank 3] tensor_group.init.begin {"backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}
+[rank 7] tensor_group.init.end {"seconds": 0.005700091831386089, "backend": "nccl", "device": "cuda:7", "timeout_seconds": 180}
+[rank 7] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 3] tensor_group.init.end {"seconds": 0.005601461045444012, "backend": "nccl", "device": "cuda:3", "timeout_seconds": 180}
+[rank 3] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:3", "bytes": 1048576}
+[rank 4] tensor_group.init.begin {"backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}
+[rank 4] tensor_group.init.end {"seconds": 0.006420645862817764, "backend": "nccl", "device": "cuda:4", "timeout_seconds": 180}
+[rank 4] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 5] tensor_group.init.begin {"backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+[rank 5] tensor_group.init.end {"seconds": 0.00582880899310112, "backend": "nccl", "device": "cuda:5", "timeout_seconds": 180}
+[rank 5] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+[rank 6] tensor_group.init.begin {"backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+[rank 6] tensor_group.init.end {"seconds": 0.01514391414821148, "backend": "nccl", "device": "cuda:6", "timeout_seconds": 180}
+[rank 6] communication.all_reduce.begin {"backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+[rank 3] communication.all_reduce.end {"seconds": 0.8964418512769043, "backend": "nccl", "device": "cuda:3", "bytes": 1048576}
+[rank 3] communication.broadcast.begin {"backend": "nccl", "device": "cuda:3"}
+[rank 6] communication.all_reduce.end {"seconds": 0.7880742605775595, "backend": "nccl", "device": "cuda:6", "bytes": 1048576}
+[rank 6] communication.broadcast.begin {"backend": "nccl", "device": "cuda:6"}
+[rank 4] communication.all_reduce.end {"seconds": 0.8896391680464149, "backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+[rank 4] communication.broadcast.begin {"backend": "nccl", "device": "cuda:4"}
+[rank 1] communication.all_reduce.end {"seconds": 0.9071684516966343, "backend": "nccl", "device": "cuda:1", "bytes": 1048576}
+[rank 1] communication.broadcast.begin {"backend": "nccl", "device": "cuda:1"}
+[rank 5] communication.all_reduce.end {"seconds": 0.8111019842326641, "backend": "nccl", "device": "cuda:5", "bytes": 1048576}
+[rank 5] communication.broadcast.begin {"backend": "nccl", "device": "cuda:5"}
+[rank 0] communication.all_reduce.end {"seconds": 1.324616550002247, "backend": "nccl", "device": "cuda:0", "bytes": 1048576}
+[rank 0] communication.broadcast.begin {"backend": "nccl", "device": "cuda:0"}
+[rank 0] communication.broadcast.end {"seconds": 0.001028435304760933, "backend": "nccl", "device": "cuda:0"}[rank 1] communication.broadcast.end {"seconds": 0.008456067647784948, "backend": "nccl", "device": "cuda:1"}
+
+[rank 1] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] communication.all_reduce.end {"seconds": 0.9166158009320498, "backend": "nccl", "device": "cuda:7", "bytes": 1048576}
+[rank 7] communication.broadcast.begin {"backend": "nccl", "device": "cuda:7"}
+[rank 2] communication.all_reduce.end {"seconds": 0.9246671949513257, "backend": "nccl", "device": "cuda:2", "bytes": 1048576}
+[rank 2] communication.broadcast.begin {"backend": "nccl", "device": "cuda:2"}
+[rank 2] communication.broadcast.end {"seconds": 0.0005496796220541, "backend": "nccl", "device": "cuda:2"}
+[rank 3] communication.broadcast.end {"seconds": 0.019413474015891552, "backend": "nccl", "device": "cuda:3"}
+[rank 2] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] communication.broadcast.end {"seconds": 0.018247129395604134, "backend": "nccl", "device": "cuda:4"}
+[rank 5] communication.broadcast.end {"seconds": 0.01195748383179307, "backend": "nccl", "device": "cuda:5"}
+[rank 3] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] communication.broadcast.end {"seconds": 0.019212359096854925, "backend": "nccl", "device": "cuda:6"}
+[rank 7] communication.broadcast.end {"seconds": 0.0017851763404905796, "backend": "nccl", "device": "cuda:7"}
+[rank 4] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}[rank 7] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+
+[rank 0] model.files.resolve.end {"seconds": 0.4282630910165608, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.end {"seconds": 0.43186334101483226, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.files.wait.end {"seconds": 0.4229683601297438, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.files.wait.end {"seconds": 0.423122001811862, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.files.wait.end {"seconds": 0.42291418509557843, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.files.wait.end {"seconds": 0.42319416999816895, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 1] model.files.wait.end {"seconds": 0.4328302387148142, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.files.wait.end {"seconds": 0.4232280398719013, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.files.wait.end {"seconds": 0.4234798550605774, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 6] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 1] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.end {"seconds": 0.41894446685910225, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.end {"seconds": 0.4209204111248255, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.files.wait.end {"seconds": 0.4219320444390178, "model": "Continuous-Rivals-Discrete/langflow-owt"}[rank 5] model.files.wait.end {"seconds": 0.4200535509735346, "model": "Continuous-Rivals-Discrete/langflow-owt"}[rank 1] model.files.wait.end {"seconds": 0.42099722288548946, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+
+
+[rank 3] model.files.wait.end {"seconds": 0.42080177925527096, "model": "Continuous-Rivals-Discrete/langflow-owt"}[rank 6] model.files.wait.end {"seconds": 0.42177656712010503, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+
+[rank 4] model.files.wait.end {"seconds": 0.42083111265674233, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.files.wait.end {"seconds": 0.4217766486108303, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}[rank 5] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}[rank 1] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+
+
+[rank 7] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}[rank 6] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+
+[rank 4] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.end {"seconds": 1.4310385971330106, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 2] model.weights.load.end {"seconds": 1.4306675330735743, "model": "Continuous-Rivals-Discrete/langflow-owt"}[rank 6] model.weights.load.end {"seconds": 1.4306657421402633, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+
+[rank 0] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:0"}
+[rank 6] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:6"}[rank 2] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:2"}
+
+[rank 4] model.weights.load.end {"seconds": 1.4359461730346084, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 4] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:4"}
+[rank 1] model.weights.load.end {"seconds": 1.43625648599118, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 1] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:1"}
+[rank 7] model.weights.load.end {"seconds": 1.4455694467760623, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 7] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:7"}
+[rank 5] model.weights.load.end {"seconds": 1.5225693378597498, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 5] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:5"}
+[rank 6] model.to_device.end {"seconds": 0.11446773773059249, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:6"}
+[rank 3] model.weights.load.end {"seconds": 1.5523639298044145, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 3] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:3"}
+[rank 4] model.to_device.end {"seconds": 0.1166719077154994, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:4"}
+[rank 6] rank_sweep.svd.begin {"module": "backbone.blocks.2.attn_qkv"}
+[rank 2] model.to_device.end {"seconds": 0.12835571123287082, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:2"}
+[rank 4] rank_sweep.svd.begin {"module": "backbone.blocks.1.mlp.0"}
+[rank 0] model.to_device.end {"seconds": 0.12948012305423617, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:0"}
+[rank 1] model.to_device.end {"seconds": 0.12891828175634146, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:1"}
+[rank 0] rank_sweep.svd.begin {"module": "backbone.blocks.0.attn_qkv"}
+[rank 2] rank_sweep.svd.begin {"module": "backbone.blocks.0.mlp.2"}
+[rank 1] rank_sweep.svd.begin {"module": "backbone.blocks.0.mlp.0"}
+[rank 7] model.to_device.end {"seconds": 0.174100442789495, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:7"}
+[rank 7] rank_sweep.svd.begin {"module": "backbone.blocks.2.mlp.0"}
+[rank 5] model.to_device.end {"seconds": 0.10922441119328141, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:5"}
+[rank 5] rank_sweep.svd.begin {"module": "backbone.blocks.1.mlp.2"}
+[rank 3] model.to_device.end {"seconds": 0.12134994380176067, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:3"}
+[rank 3] rank_sweep.svd.begin {"module": "backbone.blocks.1.attn_qkv"}
+[rank 4] rank_sweep.svd.failed {"error": "ValueError: SVD 满秩重构检查未通过: backbone.blocks.1.mlp.0, relative_error=0.00019449685350991786", "module": "backbone.blocks.1.mlp.0"}
+[rank 6] rank_sweep.svd.failed {"error": "ValueError: SVD 满秩重构检查未通过: backbone.blocks.2.attn_qkv, relative_error=0.0002013184712268412", "module": "backbone.blocks.2.attn_qkv"}
+[rank 2] rank_sweep.svd.failed {"error": "ValueError: SVD 满秩重构检查未通过: backbone.blocks.0.mlp.2, relative_error=0.00018391752382740378", "module": "backbone.blocks.0.mlp.2"}
+[rank 0] rank_sweep.svd.failed {"error": "ValueError: SVD 满秩重构检查未通过: backbone.blocks.0.attn_qkv, relative_error=0.0001794788840925321", "module": "backbone.blocks.0.attn_qkv"}
+[rank 1] rank_sweep.svd.failed {"error": "ValueError: SVD 满秩重构检查未通过: backbone.blocks.0.mlp.0, relative_error=0.00019144687394145876", "module": "backbone.blocks.0.mlp.0"}
+[rank 7] rank_sweep.svd.failed {"error": "ValueError: SVD 满秩重构检查未通过: backbone.blocks.2.mlp.0, relative_error=0.0002077301760436967", "module": "backbone.blocks.2.mlp.0"}
+[rank 5] rank_sweep.svd.failed {"error": "ValueError: SVD 满秩重构检查未通过: backbone.blocks.1.mlp.2, relative_error=0.0002038507373072207", "module": "backbone.blocks.1.mlp.2"}
+[rank 3] rank_sweep.svd.failed {"error": "ValueError: SVD 满秩重构检查未通过: backbone.blocks.1.attn_qkv, relative_error=0.00019200542010366917", "module": "backbone.blocks.1.attn_qkv"}
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank0]:   File "<frozen runpy>", line 88, in _run_code
+[rank0]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 363, in <module>
+[rank0]:     main()
+[rank0]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 358, in main
+[rank0]:     directory = run_sweep(config, args.command, allow_distributed, debug, args.run_dir)
+[rank0]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 258, in run_sweep
+[rank0]:     prepare_svd(teacher, config, run_dir)
+[rank0]:   File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+[rank0]:     return func(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 87, in prepare_svd
+[rank0]:     raise ValueError(f"SVD 满秩重构检查未通过: {path}, relative_error={relative_error}")
+[rank0]: ValueError: SVD 满秩重构检查未通过: backbone.blocks.0.attn_qkv, relative_error=0.0001794788840925321
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank1]:   File "<frozen runpy>", line 88, in _run_code
+[rank1]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 363, in <module>
+[rank1]:     main()
+[rank1]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 358, in main
+[rank1]:     directory = run_sweep(config, args.command, allow_distributed, debug, args.run_dir)
+[rank1]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 258, in run_sweep
+[rank1]:     prepare_svd(teacher, config, run_dir)
+[rank1]:   File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+[rank1]:     return func(*args, **kwargs)
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 87, in prepare_svd
+[rank1]:     raise ValueError(f"SVD 满秩重构检查未通过: {path}, relative_error={relative_error}")
+[rank1]: ValueError: SVD 满秩重构检查未通过: backbone.blocks.0.mlp.0, relative_error=0.00019144687394145876
+[rank2]: Traceback (most recent call last):
+[rank2]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank2]:   File "<frozen runpy>", line 88, in _run_code
+[rank2]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 363, in <module>
+[rank2]:     main()
+[rank2]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 358, in main
+[rank2]:     directory = run_sweep(config, args.command, allow_distributed, debug, args.run_dir)
+[rank2]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 258, in run_sweep
+[rank2]:     prepare_svd(teacher, config, run_dir)
+[rank2]:   File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+[rank2]:     return func(*args, **kwargs)
+[rank2]:            ^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 87, in prepare_svd
+[rank2]:     raise ValueError(f"SVD 满秩重构检查未通过: {path}, relative_error={relative_error}")
+[rank2]: ValueError: SVD 满秩重构检查未通过: backbone.blocks.0.mlp.2, relative_error=0.00018391752382740378
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank3]:   File "<frozen runpy>", line 88, in _run_code
+[rank3]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 363, in <module>
+[rank3]:     main()
+[rank3]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 358, in main
+[rank3]:     directory = run_sweep(config, args.command, allow_distributed, debug, args.run_dir)
+[rank3]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 258, in run_sweep
+[rank3]:     prepare_svd(teacher, config, run_dir)
+[rank3]:   File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+[rank3]:     return func(*args, **kwargs)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 87, in prepare_svd
+[rank3]:     raise ValueError(f"SVD 满秩重构检查未通过: {path}, relative_error={relative_error}")
+[rank3]: ValueError: SVD 满秩重构检查未通过: backbone.blocks.1.attn_qkv, relative_error=0.00019200542010366917
+[rank4]: Traceback (most recent call last):
+[rank4]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank4]:   File "<frozen runpy>", line 88, in _run_code
+[rank4]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 363, in <module>
+[rank4]:     main()
+[rank4]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 358, in main
+[rank4]:     directory = run_sweep(config, args.command, allow_distributed, debug, args.run_dir)
+[rank4]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank4]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 258, in run_sweep
+[rank4]:     prepare_svd(teacher, config, run_dir)
+[rank4]:   File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+[rank4]:     return func(*args, **kwargs)
+[rank4]:            ^^^^^^^^^^^^^^^^^^^^^
+[rank4]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 87, in prepare_svd
+[rank4]:     raise ValueError(f"SVD 满秩重构检查未通过: {path}, relative_error={relative_error}")
+[rank4]: ValueError: SVD 满秩重构检查未通过: backbone.blocks.1.mlp.0, relative_error=0.00019449685350991786
+[rank6]: Traceback (most recent call last):
+[rank6]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank6]:   File "<frozen runpy>", line 88, in _run_code
+[rank6]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 363, in <module>
+[rank6]:     main()
+[rank6]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 358, in main
+[rank6]:     directory = run_sweep(config, args.command, allow_distributed, debug, args.run_dir)
+[rank6]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 258, in run_sweep
+[rank6]:     prepare_svd(teacher, config, run_dir)
+[rank6]:   File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+[rank6]:     return func(*args, **kwargs)
+[rank6]:            ^^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 87, in prepare_svd
+[rank6]:     raise ValueError(f"SVD 满秩重构检查未通过: {path}, relative_error={relative_error}")
+[rank6]: ValueError: SVD 满秩重构检查未通过: backbone.blocks.2.attn_qkv, relative_error=0.0002013184712268412
+[rank5]: Traceback (most recent call last):
+[rank5]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank5]:   File "<frozen runpy>", line 88, in _run_code
+[rank5]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 363, in <module>
+[rank5]:     main()
+[rank5]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 358, in main
+[rank5]:     directory = run_sweep(config, args.command, allow_distributed, debug, args.run_dir)
+[rank5]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank5]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 258, in run_sweep
+[rank5]:     prepare_svd(teacher, config, run_dir)
+[rank5]:   File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+[rank5]:     return func(*args, **kwargs)
+[rank5]:            ^^^^^^^^^^^^^^^^^^^^^
+[rank5]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 87, in prepare_svd
+[rank5]:     raise ValueError(f"SVD 满秩重构检查未通过: {path}, relative_error={relative_error}")
+[rank5]: ValueError: SVD 满秩重构检查未通过: backbone.blocks.1.mlp.2, relative_error=0.0002038507373072207
+[rank7]: Traceback (most recent call last):
+[rank7]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank7]:   File "<frozen runpy>", line 88, in _run_code
+[rank7]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 363, in <module>
+[rank7]:     main()
+[rank7]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 358, in main
+[rank7]:     directory = run_sweep(config, args.command, allow_distributed, debug, args.run_dir)
+[rank7]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank7]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 258, in run_sweep
+[rank7]:     prepare_svd(teacher, config, run_dir)
+[rank7]:   File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+[rank7]:     return func(*args, **kwargs)
+[rank7]:            ^^^^^^^^^^^^^^^^^^^^^
+[rank7]:   File "/proj/gpu_mtk53742/CDLM-distillation/src/distill/rank_sweep.py", line 87, in prepare_svd
+[rank7]:     raise ValueError(f"SVD 满秩重构检查未通过: {path}, relative_error={relative_error}")
+[rank7]: ValueError: SVD 满秩重构检查未通过: backbone.blocks.2.mlp.0, relative_error=0.0002077301760436967
+W1028 23:45:13.039000 2272327 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 2272632 closing signal SIGTERM
+W1028 23:45:13.039000 2272327 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 2272633 closing signal SIGTERM
+W1028 23:45:13.039000 2272327 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 2272634 closing signal SIGTERM
+W1028 23:45:13.039000 2272327 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 2272636 closing signal SIGTERM
+W1028 23:45:13.039000 2272327 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 2272637 closing signal SIGTERM
+W1028 23:45:13.040000 2272327 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 2272638 closing signal SIGTERM
+W1028 23:45:13.040000 2272327 site-packages/torch/distributed/elastic/multiprocessing/api.py:1028] Sending process 2272639 closing signal SIGTERM
+E1028 23:45:13.606000 2272327 site-packages/torch/distributed/elastic/multiprocessing/api.py:1002] failed (exitcode: 1) local_rank: 3 (pid: 2272635) of binary: /proj/gpu_mtk53742/.conda/envs/distill/bin/python
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1142, in <module>
+    main()
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 380, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1138, in main
+    run(args)
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/run.py", line 1129, in run
+    elastic_launch(
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 197, in __call__
+    return launch_agent(
+           ^^^^^^^^^^^^^
+  File "/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 386, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+distill.rank_sweep FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2026-10-28_23:45:13
+  host      : colglx2002
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 2272632) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[2]:
+  time      : 2026-10-28_23:45:13
+  host      : colglx2002
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 2272633) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[3]:
+  time      : 2026-10-28_23:45:13
+  host      : colglx2002
+  rank      : 2 (local_rank: 2)
+  exitcode  : 1 (pid: 2272634) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[4]:
+  time      : 2026-10-28_23:45:13
+  host      : colglx2002
+  rank      : 4 (local_rank: 4)
+  exitcode  : 1 (pid: 2272636) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[5]:
+  time      : 2026-10-28_23:45:13
+  host      : colglx2002
+  rank      : 5 (local_rank: 5)
+  exitcode  : 1 (pid: 2272637) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[6]:
+  time      : 2026-10-28_23:45:13
+  host      : colglx2002
+  rank      : 6 (local_rank: 6)
+  exitcode  : 1 (pid: 2272638) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[7]:
+  time      : 2026-10-28_23:45:13
+  host      : colglx2002
+  rank      : 7 (local_rank: 7)
+  exitcode  : 1 (pid: 2272639) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-10-28_23:45:13
+  host      : colglx2002
+  rank      : 3 (local_rank: 3)
+  exitcode  : 1 (pid: 2272635) 
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
