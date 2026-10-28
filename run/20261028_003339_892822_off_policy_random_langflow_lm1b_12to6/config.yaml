@@ -1,0 +1,77 @@
+run:
+  name: off_policy_random_langflow_lm1b_12to6
+  root: run
+  seed: 42
+model:
+  family: langflow
+  teacher: Continuous-Rivals-Discrete/langflow-lm1b
+  teacher_config: null
+  tokenizer: bert-base-uncased
+  cache_dir: null
+  keep_layers:
+  - 0
+  - 2
+  - 4
+  - 7
+  - 9
+  - 11
+  block_initialization: random
+  device: cuda
+distributed:
+  control_timeout_seconds: 7200
+  tensor_timeout_seconds: 180
+data:
+  corpus: lm1b
+  dataset: dvruette/lm1b
+  dataset_config: default
+  revision: refs/convert/parquet
+  local_dataset: null
+  hf_cache_dir: null
+  prepared_root: run/data
+  sequence_length: 128
+  validation_documents: 100000
+  train_documents: 200000
+  valid_documents: 1024
+  max_train_blocks: 32768
+  max_valid_blocks: 256
+  tokenize_batch_size: 128
+loss:
+  kd_weight: 1.0
+  ce_weight: 0.0
+training:
+  plot_loss: true
+  ppl_evaluation:
+    enabled: false
+    interval: -1
+    num_samples_per_rank: 42
+    batch_size: 14
+  max_steps: 5000
+  batch_size: 32
+  grad_accumulation: 2
+  learning_rate: 0.001
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  self_condition_probability: 0.25
+  log_every: 10
+  validate_every: 100
+  validation_batches: 8
+  save_every: 500
+  early_stopping:
+    enabled: true
+    metric: loss
+    min_steps: 500
+    patience: 5
+    min_delta: 0.001
+evaluation:
+  seed: 2026
+  num_samples: 1024
+  batch_size: 8
+  num_steps: 128
+  sequence_length: 128
+  scorer: gpt2-large
+  scorer_batch_size: 8
+  scorer_max_length: 1024
+  corpus: lm1b
+gradient_moment:
+  enabled: true
+  reference_config: configs/gpt2_corpus_ppl.yaml

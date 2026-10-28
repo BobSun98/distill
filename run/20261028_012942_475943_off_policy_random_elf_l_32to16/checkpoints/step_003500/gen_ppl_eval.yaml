@@ -1,0 +1,24 @@
+run:
+  name: unified_gen_ppl
+  root: run
+protocol:
+  version: gen_ppl_v1
+  seed: 42
+  num_samples: 1024
+  scorer: gpt2-large
+  scorer_max_length: 1024
+gradient_moment:
+  enabled: false
+  reference_config: configs/gpt2_corpus_ppl.yaml
+runtime:
+  device: cuda
+  cache_dir: null
+  generation_batch_size: 8
+  control_timeout_seconds: 7200
+models:
+- name: elf_student
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261028_012942_475943_off_policy_random_elf_l_32to16/checkpoints/step_003500/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261028_012942_475943_off_policy_random_elf_l_32to16/checkpoints/step_003500/model.safetensors
+  generation:
+    num_steps: 64
+    sequence_length: 1024
