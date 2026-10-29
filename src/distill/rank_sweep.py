@@ -54,8 +54,10 @@ def load_config(path, overrides=(), debug=False):
         raise ValueError("本实验仅分解融合 QKV、FFN 第一层与第二层")
     if config["model"]["keep_layers"] != list(range(sweep["teacher_depth"])):
         raise ValueError("rank sweep 的所有学生必须保留 teacher 全部层")
-    if training["early_stopping"]["enabled"] or training["ppl_evaluation"]["enabled"]:
-        raise ValueError("rank 对照采用固定训练预算，关闭早停与旧版训练中间 PPL")
+    if training["ppl_evaluation"]["enabled"]:
+        raise ValueError("rank 对照关闭旧版训练中间 PPL，统一在初始与训练后评测")
+    if training["early_stopping"]["enabled"] and training["early_stopping"]["metric"] not in ("kl", "loss"):
+        raise ValueError("低秩学生按验证 KL（或等价的纯 KL loss）早停")
     if config["loss"] != {"kd_weight": 1.0, "ce_weight": 0.0}:
         raise ValueError("本实验沿用 LangFlow off-policy 的纯 KL 蒸馏")
     if (evaluation["num_steps"] < 2 or not 1 <= evaluation["sequence_length"] <= MAX_LENGTH
@@ -190,14 +192,22 @@ def save_results(run_dir, config, reports):
         for row in report["models"]:
             teacher = row["name"] == "teacher"
             ratio = 1.0 if teacher else next(r for r in config["rank_sweep"]["ratios"] if rank_name(r) in row["name"])
+            training = {}
+            if phase == "after" and not teacher:
+                training = json.loads((run_dir / rank_name(ratio) / "training.json").read_text())
             rows.append({**row, "phase": "teacher" if teacher else phase, "rank_ratio": ratio,
                 "rank": None if teacher else retained_rank((config["rank_sweep"]["hidden_size"],) * 2, ratio),
-                "depth": config["rank_sweep"]["teacher_depth"]})
+                "depth": config["rank_sweep"]["teacher_depth"],
+                "training_steps": training.get("steps"), "best_step": training.get("best_step"),
+                "tokens_seen": training.get("tokens_seen"),
+                "checkpoint_tokens_seen": training.get("checkpoint_tokens_seen"),
+                "stop_reason": training.get("stop_reason")})
     write_json(run_dir / "summary.json", {"config": config, "results": rows,
         "metric_definition": "mean_step_ms is per-batch generator forward latency after warmup; num_parameters includes embeddings"})
     fields = ["name", "phase", "rank_ratio", "rank", "depth", "gen_ppl", "sample_entropy", "gm", "gm_standard_error",
         "num_parameters", "mean_step_ms", "effective_generation_batch_size", "timed_forward_calls",
-        "num_samples", "num_scored_samples", "num_empty_samples", "score_status", "gm_num_pairs", "gm_num_skipped_pairs", "gm_status"]
+        "num_samples", "num_scored_samples", "num_empty_samples", "score_status", "gm_num_pairs", "gm_num_skipped_pairs", "gm_status",
+        "training_steps", "best_step", "tokens_seen", "checkpoint_tokens_seen", "stop_reason"]
     with (run_dir / "summary.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
         writer.writeheader()
@@ -246,6 +256,13 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
     reports = {}
     try:
         if distributed.is_main():
+            saved_config = run_dir / "config.yaml"
+            if resume_dir and config["training"]["early_stopping"] != load_yaml_config(saved_config)["training"]["early_stopping"]:
+                # 仅在学生尚未开始训练时更新规则；初始权重和已有初评不受影响。
+                write_json(run_dir / "early_stopping_update.json", {
+                    "previous": load_yaml_config(saved_config)["training"]["early_stopping"],
+                    "current": config["training"]["early_stopping"]})
+                saved_config.write_text(yaml.safe_dump(config, allow_unicode=True, sort_keys=False), encoding="utf-8")
             write_json(run_dir / "status.json", {"status": "running", "command": command, "resumed": bool(resume_dir)})
         tokenizer = load_tokenizer(config) if distributed.is_main() else None
         if distributed.is_main():
@@ -312,6 +329,9 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
             if (directory / "training.json").is_file():
                 checkpoint = Path(json.loads((directory / "training.json").read_text())["checkpoint"])
             else:
+                if distributed.is_main():
+                    # 恢复旧初评时，分组记录也保存本次实际采用的早停设置。
+                    (directory / "config.yaml").write_text(yaml.safe_dump(current, sort_keys=False), encoding="utf-8")
                 if teacher is None:
                     teacher = load_teacher(config)
                     distributed.barrier()
@@ -359,9 +379,17 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
     parser.add_argument("--dry-run", action="store_true", help="只检查配置并保存计划，不加载模型或数据")
     args = parser.parse_args()
     if args.run_dir and args.overrides:
-        parser.error("恢复实验使用保存配置；--set 新条件请创建新实验，避免复用不匹配的 SVD/训练/评测结果")
+        allowed = {f"training.early_stopping.{key}" for key in ("enabled", "metric", "min_steps", "patience", "min_delta")}
+        if any(override.split("=", 1)[0] not in allowed for override in args.overrides):
+            parser.error("恢复时 --set 仅允许修改尚未开始训练的早停设置；其他新条件请创建新实验")
     path = project_path(args.run_dir) / "config.yaml" if args.run_dir else args.config
     config = load_config(path, args.overrides, debug)
+    if args.run_dir and args.overrides:
+        saved = load_yaml_config(path)
+        directory = project_path(args.run_dir)
+        if config["training"]["early_stopping"] != saved["training"]["early_stopping"]:
+            if any(directory.glob("rank_*/metrics.jsonl")) or any(directory.glob("rank_*/training.json")):
+                parser.error("学生已有训练记录，不能在原实验中改变早停规则；请创建新实验")
     config["rank_sweep"]["debug"] = debug
     if args.dry_run:
         plan = {"teacher": config["model"]["teacher"], "student_depth": config["rank_sweep"]["teacher_depth"],

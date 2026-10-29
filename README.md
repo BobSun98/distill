@@ -868,14 +868,28 @@ bash scripts/run_owt_rank_sweep.sh build
 
 # 长实验中断后，复用保存配置，并逐模型跳过已完成评测、跳过已完成训练组。
 bash scripts/run_owt_rank_sweep.sh --run-dir run/<本次rank实验目录>
+
+# 旧实验只完成了 SVD/初评、所有学生尚未开始训练：续跑时启用验证 KL 早停。
+bash scripts/run_owt_rank_sweep.sh --run-dir run/<本次rank实验目录> \
+  --set training.early_stopping.enabled=true \
+  --set training.early_stopping.metric=kl
 ```
 
-正式训练每组 5000 次更新、纯 forward KL，初始 LR=1e-4、cosine 到 1e-5。
+正式训练每组最多 5000 次更新、纯 forward KL，初始 LR=1e-4、cosine 按 5000 步上限衰减到 1e-5。
 每卡 batch=16、累积 2 次，八卡全局 batch=256；生成评测每卡 batch=16。
-七组使用相同数据、训练 RNG、学习率与预算，关闭早停，以最后一步复评。
+七组使用相同数据、训练 RNG、学习率和训练上限，默认按验证 KL 平台期早停：
+每 100 步验证，500 步起累计连续无有效改善的检查；相对上次有效改善的 KL 累计下降
+至少 0.001 时清零计数，连续 5 次未达到则停止。每次真实验证最优均保存 `best`，
+统一复评使用验证 KL 最低的权重，同时保留停止时的权重。
+各组实际训练步数可能不同：单组最多 1,310,720,000 token 位置曝光，
+实际值记录在 `training.json` 和总表，不能再视为固定曝光预算对照。
 LangFlow 的词嵌入与 proposal 继续冻结，其余学生参数（包括两组低秩因子）按原规则更新。
 未完成组恢复时从自己的 SVD initial 重跑，当前不恢复中间 optimizer 状态。
-`--run-dir` 使用本实验保存的配置；调整 `--set` 条件时创建新实验，避免复用不匹配的阶段结果。
+`--run-dir` 使用本实验保存的配置。只有所有学生尚未开始训练时，允许通过 `--set`
+修改 `training.early_stopping.*`，已有 SVD/初评继续复用；启动后将新规则写回实验配置，
+并在 `early_stopping_update.json` 保留前后设置。`--dry-run` 只显示计划，不改旧实验配置。
+其他条件变化或已有学生训练记录时，请创建新实验。若需要固定 5000 步对照，可在新实验中
+传入 `--set training.early_stopping.enabled=false`。
 初评/复评中断也支持逐模型续跑：兼容旧运行未写入阶段 receipt 的情形，自动寻找配置匹配的
 `*_unified_gen_ppl` 目录。已完成模型不重新加载 generator 或 GPT scorer；未完成模型从该模型重新开始。
 SVD 缓存和已保存的七组 initial 权重继续复用，batch size 和评分精度保持原设置。
@@ -888,11 +902,13 @@ seed=42、每模型 1024 条、生成长度/NFE=1024、同一 GPT-2-Large FP32/e
 运行结果位于 `run/<时间>_langflow_owt_svd_rank_sweep/`：
 
 - `rank_080/` 至 `rank_020/`：每组配置、训练日志、`loss_curve.png`，以及
-  `checkpoints/initial/` 和最终 `checkpoints/step_005000/`。
+  `checkpoints/initial/`、验证最佳的 `checkpoints/best/` 和停止步的 `checkpoints/step_XXXXXX/`。
+  `training.json` 记录停止原因、实际训练步数、最佳步数、总 token 曝光 `tokens_seen`
+  和所选 checkpoint 对应的曝光 `checkpoint_tokens_seen`。
 - checkpoint 的 `config.json` 保存每个目标模块的实际 rank；safetensors 保存两组因子，
   统一模型构造器会先恢复因子结构，再严格加载权重。
 - `gen_ppl_before.yaml`、`gen_ppl_after.yaml` 和最终的 `gen_ppl_models.yaml` 可独立复测。
-- `summary.csv` / `summary.json` 汇总 Teacher、before、after 的质量/耗时/参数指标；
+- `summary.csv` / `summary.json` 汇总 Teacher、before、after 的质量/耗时/参数指标和实际训练预算；
   `rank_quality_curve.png` 比较 rank 与蒸馏前后 PPL/entropy/GM，缺失指标保留空值。
 
 ```bash
@@ -902,7 +918,7 @@ bash scripts/eval_gen_ppl.sh run/<本次rank实验>/rank_080/checkpoints/initial
 
 IDE 入口 `debug/debug_rank_sweep.py` 直接调用同一套 SVD、采集、训练、生成、GM 和计时函数，
 不启动其他 Python 进程。debug 保留七种 12 层学生，仅缩短为 3 次更新、128 token、8 NFE、
-4 条评测样本，并关闭绘图；本地开发验证不下载/加载预训练权重，真实 GPU 验证由服务器执行。
+4 条评测样本，并关闭绘图与早停；本地开发验证不下载/加载预训练权重，真实 GPU 验证由服务器执行。
 
 ## On-policy：真实 student rollout 的 CE/KL/MSE 蒸馏
 

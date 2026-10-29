@@ -20,7 +20,7 @@ gradient_moment:
 
 training:
   max_steps: 5000
-  # 每卡 16、累积 2 次；八卡全局 batch=256，七组使用完全相同预算。
+  # 每卡 16、累积 2 次；八卡全局 batch=256，七组使用相同训练上限。
   batch_size: 16
   grad_accumulation: 2
   learning_rate: 0.0001
@@ -30,10 +30,14 @@ training:
   log_every: 100
   validate_every: 100
   validation_batches: 8
-  # 每组保留 SVD initial 与末步权重；可配置中间 checkpoint。
+  # 保留 SVD initial、验证 KL 最佳和停止时的权重。
   save_every: 0
   early_stopping:
-    enabled: false
+    enabled: true
+    metric: kl
+    min_steps: 500
+    patience: 5
+    min_delta: 0.001
   ppl_evaluation:
     enabled: false
     interval: -1

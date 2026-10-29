@@ -119,6 +119,7 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
     stopping = settings["early_stopping"]
     monitor = PlateauMonitor(stopping) if stopping["enabled"] and distributed.is_main() else None
     best_state = None
+    total_tokens, best_tokens = 0, 0
     stop_reason = "max_steps"
     with progress.phase("data.loaders"):
         train_loader, valid_loader = loader_fn(config, "train"), loader_fn(config, "valid")
@@ -157,6 +158,7 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
             print(f"[train] {event}", flush=True)
 
         def check_plateau(metrics, step):
+            nonlocal best_tokens
             if not stopping["enabled"]:
                 return None
             # rank 0 基于全局验证结果决定保存/停止，广播后各 rank 走相同分支。
@@ -164,6 +166,7 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
             decision = distributed.broadcast_main(decision)
             record({"phase": "early_stopping", "step": step, **decision})
             if decision["new_best"]:
+                best_tokens = total_tokens
                 checkpoint_fn(student, tokenizer, run_dir, step, config, name="best")
             return decision
 
@@ -218,6 +221,8 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
                 settings["max_grad_norm"], error_if_nonfinite=True)
             learning_rate = optimizer.param_groups[0]["lr"]
             optimizer.step()
+            # 统计实际完成更新的全局 token 位置，包含梯度累积，兼容不满的尾批。
+            total_tokens += int(global_tokens)
             if scheduler is not None and step < settings["max_steps"]:
                 scheduler.step()
             should_stop = False
@@ -260,6 +265,8 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
         write_json(run_dir / "training.json", {"checkpoint": str(checkpoint),
                     "last_checkpoint": str(last_checkpoint), "steps": step,
                     "max_steps": settings["max_steps"], "stop_reason": stop_reason,
+                    "tokens_seen": total_tokens,
+                    "checkpoint_tokens_seen": best_tokens if stopping["enabled"] else total_tokens,
                     "initial_learning_rate": settings["learning_rate"], "final_learning_rate": learning_rate,
                     "lr_scheduler": settings.get("lr_scheduler", {"name": "constant"}),
                     "early_stopping": stopping,

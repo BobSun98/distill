@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-29",
+  "change": "Enable validation-KL plateau stopping for LangFlow-OWT low-rank students",
+  "training": {
+    "max_steps": 5000,
+    "per_gpu_batch_size": 16,
+    "grad_accumulation": 2,
+    "world_size": 8,
+    "validate_every": 100,
+    "early_stopping": {
+      "enabled": true,
+      "metric": "kl",
+      "min_steps": 500,
+      "patience": 5,
+      "min_delta": 0.001
+    },
+    "evaluation_checkpoint": "best validation KL",
+    "budget_records": ["training_steps", "best_step", "tokens_seen", "checkpoint_tokens_seen", "stop_reason"]
+  },
+  "validation": {
+    "rank_operator_config_and_summary_tests": 12,
+    "plateau_monitor_tests": 4,
+    "resume_cli_tests": 4,
+    "evaluation_resume_regression_tests": 3,
+    "total_tests_passed": 23,
+    "real_models_loaded": false,
+    "gpu_training_run": false
+  },
+  "legacy_resume_dry_run": {
+    "run_dir": "run/20261028_235242_063594_langflow_owt_svd_rank_sweep",
+    "plan": "run/launch/rank_sweep_plan_20261029_130520_776583.json",
+    "overrides": ["training.early_stopping.enabled=true", "training.early_stopping.metric=kl"],
+    "completed_evaluations_reused": ["teacher", "rank_080_initial", "rank_070_initial"],
+    "remaining_initial_evaluations": ["rank_060_initial", "rank_050_initial", "rank_040_initial", "rank_030_initial", "rank_020_initial"],
+    "saved_run_config_changed_by_dry_run": false
+  },
+  "resume_policy": "Only early-stopping settings may change before any student has training records. Other changes require a new experiment."
+}

@@ -23,6 +23,9 @@ training:
   validate_every: 3
   validation_batches: 1
   save_every: 0
+  # 单卡断点入口固定走完三步，正式八卡实验使用平台期早停。
+  early_stopping:
+    enabled: false
 
 evaluation:
   num_samples: 4
