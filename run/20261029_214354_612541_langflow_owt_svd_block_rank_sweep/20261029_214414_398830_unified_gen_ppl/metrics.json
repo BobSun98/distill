@@ -1,0 +1,100 @@
+{
+  "protocol": {
+    "version": "gen_ppl_v1",
+    "seed": 42,
+    "num_samples": 1024,
+    "scorer": "gpt2-large",
+    "scorer_max_length": 1024,
+    "debug": false,
+    "world_size": 8,
+    "torch_version": "2.14.0+cu130",
+    "noise": "sample_id_stream_cpu_fp32_dim_major_stride_1024_v1",
+    "scorer_dtype": "float32",
+    "scorer_attention": "eager",
+    "scorer_batch_size": 1,
+    "generation_precision": "float32_parameters_bfloat16_cuda_backbone",
+    "decode": "strip_one_leading_bos_stop_at_first_eos_skip_special_tokens_no_cleanup",
+    "aggregation": "exp(sum_nll / sum_valid_target_tokens)",
+    "padding": "excluded_by_attention_mask",
+    "add_special_tokens": false,
+    "first_token": "not_scored",
+    "empty_policy": "no_resampling_report_coverage",
+    "scoring_truncation": "first_1024_gpt_tokens",
+    "gradient_moment": {
+      "enabled": true,
+      "version": "gpt2_large_gm_v1",
+      "scorer": "gpt2-large",
+      "reference_config": "configs/gpt2_corpus_ppl.yaml",
+      "seed": 42,
+      "num_reference_samples_per_corpus": 1024,
+      "max_length": 1024,
+      "loss": "per_sequence_mean_shifted_token_nll_excluding_padding",
+      "parameters": "all_unique_reference_parameters_including_tied_embedding_once",
+      "estimator": "mean_of_independent_gradient_difference_inner_products_eq14",
+      "pairing": "consecutive_sample_ids_pair_id_mod_world_size",
+      "gradient_dtype": "float32",
+      "inner_product_dtype": "float64",
+      "invalid_samples": "skip_pair_without_resampling_and_report_coverage",
+      "negative_estimates": "retained"
+    },
+    "inference_timing": {
+      "definition": "mean generator forward latency per batch, milliseconds",
+      "aggregation": "sum_device_forward_ms / sum_actual_timed_forward_calls",
+      "warmup_forwards_per_rank": 5,
+      "method": "CUDA events; CPU uses perf_counter",
+      "includes_decoder_forward": true,
+      "excludes": [
+        "warmup",
+        "model_loading",
+        "sampler_transport",
+        "tokenization",
+        "GPT_scoring",
+        "GM"
+      ]
+    },
+    "parameter_count": "unique generator parameters, including frozen embeddings; scorer excluded"
+  },
+  "models": [
+    {
+      "name": "teacher",
+      "family": "langflow",
+      "num_steps": 1024,
+      "sequence_length": 1024,
+      "gen_ppl": 32.714982519562795,
+      "nll_per_token": 3.4878331539967173,
+      "num_samples": 1024,
+      "num_scored_tokens": 627737,
+      "num_scored_samples": 1020,
+      "num_empty_samples": 2,
+      "sample_entropy": 4.674041293077552,
+      "repetition_4gram": 0.08569606114356063,
+      "score_status": "partial_coverage",
+      "gm": 1.1946155255154824,
+      "gm_standard_error": 0.07370926593915665,
+      "gm_num_pairs": 508,
+      "gm_num_skipped_pairs": 4,
+      "gm_num_samples_used": 1016,
+      "gm_status": "partial_coverage",
+      "gm_reference_corpus": "owt",
+      "num_parameters": 170805332,
+      "mean_step_ms": 202.09777623334182,
+      "timed_forward_calls": 65496,
+      "forward_time_ms": 13236595.952178955,
+      "timing_device_names": [
+        "NVIDIA RTX A6000"
+      ],
+      "warmup_forward_calls": 40,
+      "total_forward_calls": 65536,
+      "architecture": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--Continuous-Rivals-Discrete--langflow-owt/snapshots/a08f933dd337d52762fec5ef7d60c131896cc341/config.json",
+      "weights": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--Continuous-Rivals-Discrete--langflow-owt/snapshots/a08f933dd337d52762fec5ef7d60c131896cc341/model.safetensors",
+      "selected_weights_key": null,
+      "effective_sampling": {
+        "sampling_method": "euler_edm",
+        "noise_scale": 1.0,
+        "self_conditioning": true,
+        "nfe": 1024
+      },
+      "effective_generation_batch_size": 16
+    }
+  ]
+}
