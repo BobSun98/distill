@@ -1,10 +1,10 @@
 extends: owt_rank_sweep.yaml
 
 run:
-  name: langflow_owt_svd_rank_sweep_debug
+  name: langflow_owt_svd_block_rank_sweep_debug
 
 rank_sweep:
-  # 保留实际 12 层 teacher 和七种真实低秩结构，只缩短数据与运行预算。
+  # 保留实际 12 层 teacher、全部 block 投影和四种低秩结构，只缩短运行预算。
   plot_results: false
 
 data:

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 默认八卡：七个 12 层 SVD 学生，统一初评、KL 蒸馏、统一复评。
+# 默认八卡：四个 12 层学生的全部 block 矩阵 SVD，统一初评、KL 蒸馏、统一复评。
 set -euo pipefail
 PROJECT_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 CONFIG=""

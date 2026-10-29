@@ -5,7 +5,8 @@ import math
 import torch
 from torch import nn
 
-TARGETS = ("attn_qkv", "mlp.0", "mlp.2")
+# 覆盖 DDiTBlock 的全部二维权重；LayerNorm 与 bias 是向量，不做 SVD。
+TARGETS = ("attn_qkv", "attn_out", "mlp.0", "mlp.2", "adaLN_modulation")
 
 
 def retained_rank(shape, ratio):

@@ -14,16 +14,26 @@ import yaml
 from . import distributed, gradient_moment, progress
 from .backbones.langflow import LangFlow
 from .config import create_run_dir, load_config as load_training_config, load_yaml_config, project_path, write_json
-from .data import prepare_data
+from .data import load_tokens, prepare_data
 from .gen_ppl import completed_model_result, evaluation_matches, run_gen_ppl, validate_protocol
 from .gen_ppl_protocol import MAX_LENGTH, NUM_SAMPLES, manifest
 from .low_rank import TARGETS, balanced_factors, retained_rank, target_linears
+from .losses import distillation_loss
 from .models import load_model, load_teacher, load_tokenizer, resolve_model_files
+from .states import off_policy_state, posterior_logits
 from .train import save_checkpoint, seed_everything, train
 
 
 def rank_name(ratio):
     return f"rank_{round(ratio * 100):03d}"
+
+
+def conditioning_rank(config, ratio):
+    sweep = config["rank_sweep"]
+    if "adaLN_modulation" not in sweep["targets"]:
+        return None
+    # AdaLN 权重是 [6 * hidden_size, cond_dim]，不能误用主干的 768 维 rank。
+    return retained_rank((6 * sweep["hidden_size"], sweep.get("cond_dim", 128)), ratio)
 
 
 def evaluation_config(config, entries, root, debug=False):
@@ -50,8 +60,9 @@ def load_config(path, overrides=(), debug=False):
         raise ValueError("rank ratios 必须非空、不重复，且百分比目录名不能冲突")
     for ratio in ratios:
         retained_rank((sweep["hidden_size"], sweep["hidden_size"]), ratio)
-    if set(sweep["targets"]) != set(TARGETS) or len(sweep["targets"]) != len(TARGETS):
-        raise ValueError("本实验仅分解融合 QKV、FFN 第一层与第二层")
+    if (not sweep["targets"] or len(set(sweep["targets"])) != len(sweep["targets"])
+            or not set(sweep["targets"]).issubset(TARGETS)):
+        raise ValueError("SVD targets 必须是不重复的 block 投影：QKV、attention 输出、FFN 或 AdaLN")
     if config["model"]["keep_layers"] != list(range(sweep["teacher_depth"])):
         raise ValueError("rank sweep 的所有学生必须保留 teacher 全部层")
     if training["ppl_evaluation"]["enabled"]:
@@ -76,7 +87,7 @@ def prepare_svd(teacher, config, run_dir):
         return
     directory.mkdir(parents=True, exist_ok=True)
     local = []
-    # 36 个真实矩阵按序分给各卡，每个矩阵只分解一次，七组截取相同 SVD 的不同前缀。
+    # 新版 60 个真实矩阵按序分给八卡，每个矩阵只分解一次，四组截取同一 SVD 的不同前缀。
     for index, (path, layer) in enumerate(target_linears(teacher, config["rank_sweep"]["targets"])):
         if index % distributed.world_size() != distributed.rank():
             continue
@@ -98,6 +109,7 @@ def prepare_svd(teacher, config, run_dir):
     shards = distributed.gather_main(local)
     if distributed.is_main():
         write_json(directory / "summary.json", {"teacher": config["model"]["teacher"],
+            "targets": config["rank_sweep"]["targets"],
             "factorization": "U_sqrtS__sqrtS_Vh", "rounding": "floor_ratio_times_min_dimension",
             "matrices": sorted((row for shard in shards for row in shard), key=lambda row: row["module"])})
     distributed.barrier()
@@ -122,6 +134,33 @@ def build_svd_student(teacher, ratio, config, run_dir):
     student.backbone.vocab_embed.requires_grad_(False)
     student.proposal.requires_grad_(False)
     return student
+
+
+@torch.no_grad()
+def check_full_rank(teacher, config, run_dir):
+    """真实 teacher 的满秩因子化单步对照；不额外训练或生成一整套样本。"""
+    with progress.phase("rank_sweep.full_rank_check"):
+        student = build_svd_student(teacher, 1.0, config, run_dir).eval()
+        device = next(teacher.parameters()).device
+        # 只缩短校验输入，结构仍是全部真实预训练层；正式训练/生成长度保持 1024。
+        token_ids = load_tokens(config, "valid")[:1, :128].to(device)
+        with torch.random.fork_rng(devices=[device.index] if device.type == "cuda" else []):
+            torch.manual_seed(config["run"]["seed"])
+            state = off_policy_state(teacher, student, token_ids, 0.0)
+            expected, actual = posterior_logits(teacher, state), posterior_logits(student, state)
+        loss, _ = distillation_loss(actual, expected, None, config["loss"])
+        difference = actual.float() - expected.float()
+        if not torch.isfinite(loss).item() or not torch.isfinite(difference).all().item():
+            raise FloatingPointError("满秩 SVD 单步对照产生非有限结果")
+        report = {"rank_ratio": 1.0, "num_samples": len(token_ids), "sequence_length": token_ids.shape[1],
+            "num_factorized_matrices": len(student.config.low_rank["ranks"]),
+            "posterior_kl": float(loss), "max_abs_logit_error": difference.abs().max().item(),
+            "logits_relative_l2_error": (torch.linalg.vector_norm(difference)
+                / torch.linalg.vector_norm(expected.float()).clamp_min(1e-12)).item(),
+            "note": "Single-step numerical comparison; BF16 dense/factorized matmuls may differ. Not generation evaluation."}
+        if distributed.is_main():
+            write_json(run_dir / "full_rank_check.json", report)
+    distributed.barrier()
 
 
 def stage_config(config, ratio):
@@ -197,14 +236,15 @@ def save_results(run_dir, config, reports):
                 training = json.loads((run_dir / rank_name(ratio) / "training.json").read_text())
             rows.append({**row, "phase": "teacher" if teacher else phase, "rank_ratio": ratio,
                 "rank": None if teacher else retained_rank((config["rank_sweep"]["hidden_size"],) * 2, ratio),
+                "conditioning_rank": None if teacher else conditioning_rank(config, ratio),
                 "depth": config["rank_sweep"]["teacher_depth"],
                 "training_steps": training.get("steps"), "best_step": training.get("best_step"),
                 "tokens_seen": training.get("tokens_seen"),
                 "checkpoint_tokens_seen": training.get("checkpoint_tokens_seen"),
                 "stop_reason": training.get("stop_reason")})
     write_json(run_dir / "summary.json", {"config": config, "results": rows,
-        "metric_definition": "mean_step_ms is per-batch generator forward latency after warmup; num_parameters includes embeddings"})
-    fields = ["name", "phase", "rank_ratio", "rank", "depth", "gen_ppl", "sample_entropy", "gm", "gm_standard_error",
+        "metric_definition": "rank is the main hidden-projection rank; conditioning_rank is the AdaLN rank; mean_step_ms is per-batch generator forward latency after warmup; num_parameters includes embeddings"})
+    fields = ["name", "phase", "rank_ratio", "rank", "conditioning_rank", "depth", "gen_ppl", "sample_entropy", "gm", "gm_standard_error",
         "num_parameters", "mean_step_ms", "effective_generation_batch_size", "timed_forward_calls",
         "num_samples", "num_scored_samples", "num_empty_samples", "score_status", "gm_num_pairs", "gm_num_skipped_pairs", "gm_status",
         "training_steps", "best_step", "tokens_seen", "checkpoint_tokens_seen", "stop_reason"]
@@ -287,11 +327,14 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
             seed_everything(config["run"]["seed"] + distributed.rank())
             teacher = load_teacher(config)
             if (teacher.config.n_blocks != config["rank_sweep"]["teacher_depth"]
-                    or teacher.config.hidden_size != config["rank_sweep"]["hidden_size"] or teacher.config.low_rank):
+                    or teacher.config.hidden_size != config["rank_sweep"]["hidden_size"]
+                    or teacher.config.cond_dim != config["rank_sweep"].get("cond_dim", 128) or teacher.config.low_rank):
                 raise ValueError("SVD 起点必须是配置指定深度/宽度的原始 dense teacher")
             if len(tokenizer) != teacher.config.vocab_size or max(config["data"]["sequence_length"], config["evaluation"]["sequence_length"]) > teacher.config.model_length:
                 raise ValueError("真实 tokenizer/序列长度与 teacher 不匹配")
             prepare_svd(teacher, config, run_dir)
+            if config["rank_sweep"].get("full_rank_check", False):
+                check_full_rank(teacher, config, run_dir)
         for ratio in config["rank_sweep"]["ratios"]:
             current = stage_config(config, ratio)
             directory = run_dir / rank_name(ratio)
@@ -393,8 +436,12 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
     config["rank_sweep"]["debug"] = debug
     if args.dry_run:
         plan = {"teacher": config["model"]["teacher"], "student_depth": config["rank_sweep"]["teacher_depth"],
-            "students": [{"ratio": ratio, "rank": retained_rank((config["rank_sweep"]["hidden_size"],) * 2, ratio)}
+            "students": [{"ratio": ratio, "rank": retained_rank((config["rank_sweep"]["hidden_size"],) * 2, ratio),
+                          "conditioning_rank": conditioning_rank(config, ratio)}
                          for ratio in config["rank_sweep"]["ratios"]],
+            "targets": config["rank_sweep"]["targets"],
+            "num_svd_matrices": config["rank_sweep"]["teacher_depth"] * len(config["rank_sweep"]["targets"]),
+            "full_rank_check": config["rank_sweep"].get("full_rank_check", False),
             "training": config["training"], "evaluation": config["evaluation"], "gradient_moment": config["gradient_moment"],
             "global_batch_size_8gpu": 8 * config["training"]["batch_size"] * config["training"]["grad_accumulation"],
             "stages": ["teacher_svd", "teacher_and_initial_evaluation", "off_policy_kl", "trained_evaluation"], "debug": debug}

@@ -1,0 +1,91 @@
+{
+  "teacher": "Continuous-Rivals-Discrete/langflow-owt",
+  "student_depth": 12,
+  "students": [
+    {
+      "ratio": 0.8,
+      "rank": 614,
+      "conditioning_rank": 102
+    },
+    {
+      "ratio": 0.6,
+      "rank": 460,
+      "conditioning_rank": 76
+    },
+    {
+      "ratio": 0.4,
+      "rank": 307,
+      "conditioning_rank": 51
+    },
+    {
+      "ratio": 0.2,
+      "rank": 153,
+      "conditioning_rank": 25
+    }
+  ],
+  "targets": [
+    "attn_qkv",
+    "attn_out",
+    "mlp.0",
+    "mlp.2",
+    "adaLN_modulation"
+  ],
+  "num_svd_matrices": 60,
+  "full_rank_check": true,
+  "training": {
+    "plot_loss": false,
+    "ppl_evaluation": {
+      "enabled": false,
+      "interval": -1,
+      "num_samples_per_rank": 42,
+      "batch_size": 14
+    },
+    "max_steps": 3,
+    "batch_size": 1,
+    "grad_accumulation": 1,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "self_condition_probability": 0.25,
+    "log_every": 1,
+    "validate_every": 3,
+    "validation_batches": 1,
+    "save_every": 0,
+    "early_stopping": {
+      "enabled": false,
+      "metric": "kl",
+      "min_steps": 500,
+      "patience": 5,
+      "min_delta": 0.001
+    },
+    "lr_scheduler": {
+      "name": "cosine",
+      "final_ratio": 0.1
+    }
+  },
+  "evaluation": {
+    "seed": 42,
+    "num_samples": 4,
+    "batch_size": 1,
+    "num_steps": 8,
+    "sequence_length": 128,
+    "scorer": "gpt2-large",
+    "scorer_batch_size": 4,
+    "scorer_max_length": 1024,
+    "corpus": "owt",
+    "timing_warmup_forwards": 5
+  },
+  "gradient_moment": {
+    "enabled": true,
+    "reference_config": "configs/gpt2_corpus_ppl.yaml"
+  },
+  "global_batch_size_8gpu": 8,
+  "stages": [
+    "teacher_svd",
+    "teacher_and_initial_evaluation",
+    "off_policy_kl",
+    "trained_evaluation"
+  ],
+  "debug": true
+}
+[rank-sweep] plan: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/launch/rank_sweep_plan_20261029_134115_809820.json

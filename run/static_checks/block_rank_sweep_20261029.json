@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-29",
+  "change": "Four same-depth LangFlow-OWT students with SVD on every Linear in each Transformer block",
+  "config": "configs/owt_rank_sweep.yaml",
+  "run_name": "langflow_owt_svd_block_rank_sweep",
+  "ratios": [0.8, 0.6, 0.4, 0.2],
+  "hidden_projection_ranks": [614, 460, 307, 153],
+  "conditioning_projection_ranks": [102, 76, 51, 25],
+  "targets": ["attn_qkv", "attn_out", "mlp.0", "mlp.2", "adaLN_modulation"],
+  "num_blocks": 12,
+  "num_svd_matrices": 60,
+  "full_rank_control": {
+    "enabled": true,
+    "formal_student": false,
+    "input": "One real validation sequence, at most 128 positions, one noisy-state comparison",
+    "output": "full_rank_check.json",
+    "executed_locally": false
+  },
+  "training": {
+    "loss": "forward KL only, off-policy real-text noisy states",
+    "world_size": 8,
+    "batch_size_per_gpu": 16,
+    "grad_accumulation": 2,
+    "global_batch_size": 256,
+    "max_steps": 5000,
+    "early_stopping": {"enabled": true, "metric": "kl", "min_steps": 500, "patience": 5, "min_delta": 0.001},
+    "evaluation_checkpoint": "best validation KL"
+  },
+  "evaluation": {
+    "interface": "unified gen_ppl",
+    "num_weight_sets": 9,
+    "num_samples_per_model": 1024,
+    "sequence_length": 1024,
+    "num_steps": 1024,
+    "batch_size_per_gpu": 16,
+    "gradient_moment": true
+  },
+  "validation": {
+    "rank_operator_configuration_source_coverage_and_summary_tests": 14,
+    "plateau_monitor_tests": 4,
+    "resume_cli_and_evaluation_regression_tests": 7,
+    "total_tests_passed": 25,
+    "formal_dry_run_plan": "run/launch/rank_sweep_plan_20261029_134115_809349.json",
+    "debug_dry_run_plan": "run/launch/rank_sweep_plan_20261029_134115_809820.json",
+    "shell_syntax_check": "passed",
+    "pretrained_models_loaded_locally": false,
+    "gpu_training_run": false
+  },
+  "experiment_policy": "Start a new experiment with the default command; do not reuse the previous three-matrix students or their evaluation outputs."
+}

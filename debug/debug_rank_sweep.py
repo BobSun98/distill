@@ -1,4 +1,4 @@
-"""单卡真实 Teacher 的 SVD、七种低秩学生、KL 训练与统一评测，同进程进入断点。"""
+"""单卡真实 Teacher 的全部 block 投影 SVD、四种学生、KL 训练与统一评测，同进程进入断点。"""
 
 import os
 import sys

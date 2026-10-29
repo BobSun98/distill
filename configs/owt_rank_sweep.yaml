@@ -1,17 +1,20 @@
 extends: owt_kd.yaml
 
 run:
-  name: langflow_owt_svd_rank_sweep
+  name: langflow_owt_svd_block_rank_sweep
 
 model:
-  # 七个学生均为真实 teacher 的完整 12 层；只限制指定矩阵的 rank。
+  # 四个学生均保留真实 teacher 的完整 12 层与宽度。
   keep_layers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
 rank_sweep:
   teacher_depth: 12
   hidden_size: 768
-  ratios: [0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2]
-  targets: [attn_qkv, mlp.0, mlp.2]
+  cond_dim: 128
+  ratios: [0.8, 0.6, 0.4, 0.2]
+  # 覆盖每个 Transformer block 内全部五个 Linear，包含条件调制投影。
+  targets: [attn_qkv, attn_out, mlp.0, mlp.2, adaLN_modulation]
+  full_rank_check: true
   plot_results: true
 
 gradient_moment:
@@ -20,7 +23,7 @@ gradient_moment:
 
 training:
   max_steps: 5000
-  # 每卡 16、累积 2 次；八卡全局 batch=256，七组使用相同训练上限。
+  # 每卡 16、累积 2 次；八卡全局 batch=256，四组使用相同训练上限。
   batch_size: 16
   grad_accumulation: 2
   learning_rate: 0.0001
