@@ -95,6 +95,19 @@ GPT 评分和 GM。`effective_generation_batch_size`、`timed_forward_calls` 和
 每个模型目录中的 `samples.jsonl`、含逐样本 NLL 的 `metrics.json`、真实 tokenizer，
 以及 `initial_noise_sample_0.pt`（未施加模型噪声缩放的标准 epsilon）。每完成一套权重即更新汇总。
 
+中断后可在相同配置下逐模型续评，已完成模型的质量、参数和耗时结果原样复用：
+
+```bash
+bash scripts/eval_gen_ppl.sh run/<已有统一评测目录>/config.yaml all \
+  --resume-dir run/<已有统一评测目录>
+```
+
+已有模型 `metrics.json` 即为完成记录，包含空文本导致的合法 null 结果；
+仅保存 `samples.jsonl` 的未完成模型会重新生成、评分和计时。
+续评要求模型、协议、GM、batch 和计时预热设置一致，并复用原运行已记录的 GM 真实参考文本。
+分布式 OOM 会保存 `fatal_rank_XX.json` 后立即退出故障 worker，由 torchrun 停止本作业其他 worker，
+避免在 NCCL/Gloo 清理中等待超时；单卡 debug 保留普通异常堆栈。
+
 ```bash
 # 单卡、真实模型、当前进程断点调试；seed/scorer 相同，只减少样本、长度和步数。
 CUDA_VISIBLE_DEVICES=0 bash scripts/eval_gen_ppl.sh configs/gen_ppl_debug.yaml debug
@@ -853,7 +866,7 @@ bash scripts/run_owt_rank_sweep.sh debug
 # 只构建 SVD 起点，先检查 checkpoint。
 bash scripts/run_owt_rank_sweep.sh build
 
-# 长实验中断后，复用保存配置并跳过已完成阶段/训练组。
+# 长实验中断后，复用保存配置，并逐模型跳过已完成评测、跳过已完成训练组。
 bash scripts/run_owt_rank_sweep.sh --run-dir run/<本次rank实验目录>
 ```
 
@@ -863,6 +876,9 @@ bash scripts/run_owt_rank_sweep.sh --run-dir run/<本次rank实验目录>
 LangFlow 的词嵌入与 proposal 继续冻结，其余学生参数（包括两组低秩因子）按原规则更新。
 未完成组恢复时从自己的 SVD initial 重跑，当前不恢复中间 optimizer 状态。
 `--run-dir` 使用本实验保存的配置；调整 `--set` 条件时创建新实验，避免复用不匹配的阶段结果。
+初评/复评中断也支持逐模型续跑：兼容旧运行未写入阶段 receipt 的情形，自动寻找配置匹配的
+`*_unified_gen_ppl` 目录。已完成模型不重新加载 generator 或 GPT scorer；未完成模型从该模型重新开始。
+SVD 缓存和已保存的七组 initial 权重继续复用，batch size 和评分精度保持原设置。
 
 正式统一评测为 Teacher 一次、SVD initial 七次、trained 七次，共 15 套权重；
 seed=42、每模型 1024 条、生成长度/NFE=1024、同一 GPT-2-Large FP32/eager 评分，

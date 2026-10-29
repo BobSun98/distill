@@ -219,11 +219,40 @@ def protocol_metadata(config, debug=False):
             "parameter_count": "unique generator parameters, including frozen embeddings; scorer excluded"}
 
 
-def run_gen_ppl(config, allow_distributed=True, debug=False):
+def evaluation_matches(config, saved):
+    # 只核对会改变测量口径的配置，不做权重哈希；耗时比较也必须保持 batch/预热条件。
+    if any(config.get(key) != saved.get(key) for key in ("protocol", "gradient_moment", "models")):
+        return False
+    defaults = {"device": "cuda", "generation_batch_size": 8, "timing_warmup_forwards": 5}
+    return all(config["runtime"].get(key, default) == saved["runtime"].get(key, default)
+               for key, default in defaults.items())
+
+
+def completed_model_result(output, require_gm=False):
+    path = Path(output) / "metrics.json"
+    if not path.is_file():
+        return None
+    try:
+        saved = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return None
+    required = {"name", "gen_ppl", "num_samples", "score_status", "num_parameters", "mean_step_ms"}
+    if require_gm:
+        required.update(("gm", "gm_status"))
+    if not required.issubset(saved) or saved["name"] != Path(output).name:
+        return None
+    # None PPL/GM 也可能是已完成的空文本结果；不能因此重跑或把缺失值当成零。
+    return {key: value for key, value in saved.items() if key not in ("protocol", "per_sample", "model_metadata")}
+
+
+def run_gen_ppl(config, allow_distributed=True, debug=False, resume_dir=None):
     gradient_moment.validate_config(config)
     runtime = config["runtime"]
     owns_group = distributed.setup(runtime["device"], allow_distributed, runtime["control_timeout_seconds"])
-    run_dir = Path(distributed.broadcast_main(str(create_run_dir(config)) if distributed.is_main() else None))
+    run_dir = Path(distributed.broadcast_main(
+        str(project_path(resume_dir) if resume_dir else create_run_dir(config)) if distributed.is_main() else None))
+    if resume_dir and not evaluation_matches(config, load_yaml_config(run_dir / "config.yaml")):
+        raise ValueError("恢复评测的模型、协议或 batch/预热配置与已有结果不一致，请另建评测")
     progress.configure(run_dir, distributed.rank())
     results, cache = [], {}
     try:
@@ -237,8 +266,18 @@ def run_gen_ppl(config, allow_distributed=True, debug=False):
         protocol = protocol_metadata(config, debug)
         if distributed.is_main():
             write_json(run_dir / "protocol.json", protocol)
+            write_json(run_dir / "status.json", {"status": "running", "protocol": protocol["version"], "resumed": bool(resume_dir)})
         for entry in config["models"]:
             output = run_dir / entry["name"]
+            cached = (completed_model_result(output, config.get("gradient_moment", {}).get("enabled", False))
+                      if resume_dir and distributed.is_main() else None)
+            cached = distributed.broadcast_main(cached)
+            if cached is not None:
+                if distributed.is_main():
+                    results.append(cached)
+                    save_summary(run_dir, protocol, results)
+                    progress.emit("unified.resume.skip", model=entry["name"])
+                continue
             files = prepare_files(entry, output, cache_dir)
             tokenizer = AutoTokenizer.from_pretrained(files["tokenizer"], use_fast=files["use_fast"], local_files_only=True)
             with progress.phase("unified.model.load", model=entry["name"]):
@@ -293,6 +332,8 @@ def run_gen_ppl(config, allow_distributed=True, debug=False):
         progress.emit("unified.failed", error=str(error))
         if distributed.is_main():
             write_json(run_dir / "status.json", {"status": "failed", "error": str(error)})
+        if owns_group:
+            distributed.abort_on_cuda_oom(error, run_dir)
         raise
     finally:
         if owns_group:
@@ -305,8 +346,9 @@ def main(default_config="configs/gen_ppl.yaml", allow_distributed=True, debug=Fa
     parser.add_argument("command", nargs="?", choices=["all"], default="all")
     parser.add_argument("--config", default=default_config)
     parser.add_argument("--set", dest="overrides", action="append", default=[])
+    parser.add_argument("--resume-dir", help="复用已有统一评测目录，跳过已写入 metrics.json 的模型")
     args = parser.parse_args()
-    run_gen_ppl(load_config(args.config, args.overrides, debug), allow_distributed, debug)
+    run_gen_ppl(load_config(args.config, args.overrides, debug), allow_distributed, debug, args.resume_dir)
 
 
 if __name__ == "__main__":

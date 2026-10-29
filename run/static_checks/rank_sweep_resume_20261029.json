@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-29",
+  "task": "Resume completed model evaluations and exit OOM distributed workers without collective teardown",
+  "failure_snapshot": {
+    "run": "run/20261028_235242_063594_langflow_owt_svd_rank_sweep",
+    "phase": "rank_060_initial GM first pair",
+    "gpu": 0,
+    "this_process_gib": 11.17,
+    "other_pid": 2593886,
+    "other_process_gib": 36.03,
+    "live_gpu_state_checked": false
+  },
+  "recovery": {
+    "directory": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261028_235242_063594_langflow_owt_svd_rank_sweep/20261028_235303_747388_unified_gen_ppl",
+    "completed": [
+      "teacher",
+      "rank_080_initial",
+      "rank_070_initial"
+    ],
+    "remaining": [
+      "rank_060_initial",
+      "rank_050_initial",
+      "rank_040_initial",
+      "rank_030_initial",
+      "rank_020_initial"
+    ]
+  },
+  "batch_per_gpu": 16,
+  "generation_batch": 16,
+  "preserved": [
+    "SVD factors and initial weights",
+    "completed model metrics including latency/parameters",
+    "original GM reference sample records"
+  ],
+  "checks": {
+    "resume_cases_passed": 7,
+    "cpu_gloo_oom_exit_branch": "passed using local-loopback permission; synthetic exception, no GPU allocation",
+    "rank_sweep_regressions_passed": 11,
+    "unified_protocol_regressions_passed": 7,
+    "total_passed": 25,
+    "actual_completed_rows_equal_original": true,
+    "actual_saved_gm_reference_reused": 1024,
+    "resume_dry_run": "run/launch/rank_sweep_plan_20261029_101153_120992.json",
+    "ast_and_diff_whitespace": "passed"
+  },
+  "pretrained_models_loaded": false,
+  "server_job_started": false,
+  "real_cuda_oom_tested": false
+}

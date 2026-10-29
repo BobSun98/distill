@@ -55,14 +55,18 @@ def prepare_reference(config, corpus, tokenizer, run_dir, cache):
     references = cache.setdefault("gm_references", {})
     if corpus not in references:
         path = run_dir / "gradient_moment" / f"reference_{corpus}.json"
-        if distributed.is_main():
+        if distributed.is_main() and not path.is_file():
             with progress.phase("unified.gm.reference", corpus=corpus):
                 payload = select_samples(reference_config(config), corpus, tokenizer)
                 payload["protocol"] = protocol_metadata(config)
                 write_json(path, payload)
         # 只由 rank 0 选择/编码真实语料，其余卡从本次运行的同一份记录读取。
         distributed.barrier()
-        references[corpus] = json.loads(path.read_text(encoding="utf-8"))
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        # 续评复用原运行已固定的真实参考，不重新抽取；保持与已完成模型的 GM 可比。
+        if payload["protocol"] != protocol_metadata(config) or len(payload["samples"]) != config["protocol"]["num_samples"]:
+            raise ValueError("已有 GM 参考样本与当前协议不一致，请创建新评测")
+        references[corpus] = payload
     return references[corpus]
 
 

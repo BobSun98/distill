@@ -13,9 +13,9 @@ import yaml
 
 from . import distributed, gradient_moment, progress
 from .backbones.langflow import LangFlow
-from .config import create_run_dir, load_config as load_training_config, project_path, write_json
+from .config import create_run_dir, load_config as load_training_config, load_yaml_config, project_path, write_json
 from .data import prepare_data
-from .gen_ppl import run_gen_ppl, validate_protocol
+from .gen_ppl import completed_model_result, evaluation_matches, run_gen_ppl, validate_protocol
 from .gen_ppl_protocol import MAX_LENGTH, NUM_SAMPLES, manifest
 from .low_rank import TARGETS, balanced_factors, retained_rank, target_linears
 from .models import load_model, load_teacher, load_tokenizer, resolve_model_files
@@ -149,19 +149,36 @@ def save_rank_checkpoint(student, tokenizer, run_dir, step, config, name=None):
     return checkpoint
 
 
+def find_evaluation_directory(run_dir, stage, evaluation):
+    receipt = run_dir / f"{stage}_evaluation.json"
+    if receipt.is_file():
+        return Path(json.loads(receipt.read_text())["directory"])
+    # 兼容旧运行：失败前还没写 stage receipt，但已保存部分模型的 metrics.json。
+    for directory in sorted(run_dir.glob("*_unified_gen_ppl"), reverse=True):
+        saved = directory / "config.yaml"
+        if saved.is_file() and evaluation_matches(evaluation, load_yaml_config(saved)):
+            return directory
+    return None
+
+
 def evaluate_stage(config, entries, run_dir, stage, allow_distributed, debug):
     receipt = run_dir / f"{stage}_evaluation.json"
     evaluation = evaluation_config(config, entries, run_dir, debug)
     path = run_dir / f"gen_ppl_{stage}.yaml"
     if distributed.is_main():
         path.write_text(yaml.safe_dump(evaluation, sort_keys=False), encoding="utf-8")
-    if receipt.is_file():
-        directory = Path(json.loads(receipt.read_text())["directory"])
-    else:
-        # 与独立 eval_gen_ppl.sh 完全共用生成、GM、计时与参数统计；不另开 Python。
-        directory = run_gen_ppl(evaluation, allow_distributed=allow_distributed, debug=debug)
-        if distributed.is_main():
-            write_json(receipt, {"directory": str(directory)})
+    directory = None
+    if distributed.is_main():
+        directory = find_evaluation_directory(run_dir, stage, evaluation)
+        if directory is None:
+            directory = create_run_dir(evaluation)
+        # 在昂贵的评测之前就保存位置，OOM 后也能按模型恢复。
+        write_json(receipt, {"directory": str(directory), "status": "running"})
+    directory = Path(distributed.broadcast_main(str(directory) if distributed.is_main() else None))
+    # 与独立 eval_gen_ppl.sh 共用逐模型恢复；未完成模型重跑，已完成结果原样保留。
+    run_gen_ppl(evaluation, allow_distributed=allow_distributed, debug=debug, resume_dir=directory)
+    if distributed.is_main():
+        write_json(receipt, {"directory": str(directory), "status": "completed"})
     progress.configure(run_dir, distributed.rank())
     distributed.barrier()
     return json.loads((directory / "metrics.json").read_text())
@@ -228,6 +245,8 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
     progress.configure(run_dir, distributed.rank())
     reports = {}
     try:
+        if distributed.is_main():
+            write_json(run_dir / "status.json", {"status": "running", "command": command, "resumed": bool(resume_dir)})
         tokenizer = load_tokenizer(config) if distributed.is_main() else None
         if distributed.is_main():
             prepare_data(config, tokenizer)
@@ -323,6 +342,7 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
     except Exception as error:
         if distributed.is_main():
             write_json(run_dir / "status.json", {"status": "failed", "error": str(error)})
+        distributed.abort_on_cuda_oom(error, run_dir)
         raise
     finally:
         if owns_group:
@@ -350,6 +370,16 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
             "training": config["training"], "evaluation": config["evaluation"], "gradient_moment": config["gradient_moment"],
             "global_batch_size_8gpu": 8 * config["training"]["batch_size"] * config["training"]["grad_accumulation"],
             "stages": ["teacher_svd", "teacher_and_initial_evaluation", "off_policy_kl", "trained_evaluation"], "debug": debug}
+        if args.run_dir:
+            manifest_path = project_path(args.run_dir) / "gen_ppl_before.yaml"
+            if manifest_path.is_file():
+                before = load_yaml_config(manifest_path)
+                directory = find_evaluation_directory(project_path(args.run_dir), "before", before)
+                if directory is not None:
+                    completed = [entry["name"] for entry in before["models"]
+                                 if completed_model_result(directory / entry["name"], before["gradient_moment"]["enabled"]) is not None]
+                    plan["resume_before"] = {"directory": str(directory), "completed": completed,
+                        "remaining": [entry["name"] for entry in before["models"] if entry["name"] not in completed]}
         output = project_path("run/launch") / f"rank_sweep_plan_{datetime.now():%Y%m%d_%H%M%S_%f}.json"
         write_json(output, plan)
         print(json.dumps(plan, ensure_ascii=False, indent=2), flush=True)

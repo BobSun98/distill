@@ -1,6 +1,8 @@
 """单机 DDP 的必要通信工具；单进程调用保持原有行为。"""
 
 import os
+import sys
+import traceback
 from datetime import timedelta
 
 import torch
@@ -116,6 +118,28 @@ def mean_metrics(sums, tokens, device):
     if combined[0] == 0:
         raise ValueError("没有可用的 token")
     return {key: value / combined[0] for key, value in zip(keys, combined[1:])}
+
+
+def abort_on_cuda_oom(error, run_dir):
+    if not active() or not isinstance(error, torch.OutOfMemoryError):
+        return
+    from .config import write_json
+    from pathlib import Path
+    # OOM 后不进入可能等待其他 rank 的 NCCL/Gloo 清理。退出当前 worker，
+    # 由 torchrun 结束本作业其他 worker；不接触同卡上其他作业的 PID。
+    try:
+        try:
+            write_json(Path(run_dir) / f"fatal_rank_{rank():02d}.json", {
+                "status": "failed", "rank": rank(), "pid": os.getpid(),
+                "error_type": type(error).__name__, "error": str(error), "exit": "distributed_oom_fast_exit"})
+        except OSError as logging_error:
+            print(f"[fatal OOM] 保存错误记录失败: {logging_error}", file=sys.stderr)
+        traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+        print(f"[rank {rank()}] CUDA OOM: exiting worker immediately; torchrun will stop this job", file=sys.stderr)
+        sys.stdout.flush()
+        sys.stderr.flush()
+    finally:
+        os._exit(1)
 
 
 def close():
