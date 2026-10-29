@@ -1,0 +1,54 @@
+run:
+  name: unified_gen_ppl
+  root: /proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep
+protocol:
+  version: gen_ppl_v1
+  seed: 42
+  num_samples: 1024
+  scorer: gpt2-large
+  scorer_max_length: 1024
+gradient_moment:
+  enabled: true
+  reference_config: configs/gpt2_corpus_ppl.yaml
+runtime:
+  device: cuda
+  cache_dir: null
+  generation_batch_size: 16
+  timing_warmup_forwards: 5
+  control_timeout_seconds: 7200
+models:
+- name: teacher
+  corpus: owt
+  architecture: /proj/gpu_mtk53742/.cache/huggingface/hub/models--Continuous-Rivals-Discrete--langflow-owt/snapshots/a08f933dd337d52762fec5ef7d60c131896cc341/config.json
+  weights: /proj/gpu_mtk53742/.cache/huggingface/hub/models--Continuous-Rivals-Discrete--langflow-owt/snapshots/a08f933dd337d52762fec5ef7d60c131896cc341/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: rank_080_initial
+  corpus: owt
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/initial/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/initial/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: rank_060_initial
+  corpus: owt
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_060/checkpoints/initial/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_060/checkpoints/initial/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: rank_040_initial
+  corpus: owt
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_040/checkpoints/initial/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_040/checkpoints/initial/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
+- name: rank_020_initial
+  corpus: owt
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_020/checkpoints/initial/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_020/checkpoints/initial/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024
