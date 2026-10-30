@@ -1,0 +1,26 @@
+run:
+  name: unified_gen_ppl
+  root: /proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080
+protocol:
+  version: gen_ppl_v1
+  seed: 42
+  num_samples: 1024
+  scorer: gpt2-large
+  scorer_max_length: 1024
+gradient_moment:
+  enabled: true
+  reference_config: configs/gpt2_corpus_ppl.yaml
+runtime:
+  device: cuda
+  cache_dir: null
+  generation_batch_size: 16
+  timing_warmup_forwards: 5
+  control_timeout_seconds: 7200
+models:
+- name: rank_080
+  corpus: owt
+  architecture: /proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/step_001600/config.json
+  weights: /proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/step_001600/model.safetensors
+  generation:
+    num_steps: 1024
+    sequence_length: 1024

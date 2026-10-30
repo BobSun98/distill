@@ -1,0 +1,24 @@
+{
+  "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_040/checkpoints/best",
+  "last_checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_040/checkpoints/step_005000",
+  "steps": 5000,
+  "max_steps": 5000,
+  "stop_reason": "max_steps",
+  "tokens_seen": 1310720000,
+  "checkpoint_tokens_seen": 1310720000,
+  "initial_learning_rate": 0.0001,
+  "final_learning_rate": 1e-05,
+  "lr_scheduler": {
+    "name": "cosine",
+    "final_ratio": 0.1
+  },
+  "early_stopping": {
+    "enabled": true,
+    "metric": "kl",
+    "min_steps": 500,
+    "patience": 5,
+    "min_delta": 0.001
+  },
+  "best_step": 5000,
+  "best_value": 0.14261093828827143
+}
