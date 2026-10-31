@@ -1,10 +1,11 @@
-"""同深度 LangFlow-OWT：Teacher SVD → 统一初评 → KL 蒸馏 → 统一复评。"""
+"""同深度 LangFlow-OWT：全层/尾部层数 × rank 的 SVD、KL 蒸馏与统一评测。"""
 
 import argparse
 import copy
 import csv
 import gc
 import json
+import shutil
 from datetime import datetime
 from pathlib import Path
 
@@ -26,6 +27,61 @@ from .train import save_checkpoint, seed_everything, train
 
 def rank_name(ratio):
     return f"rank_{round(ratio * 100):03d}"
+
+
+def compressed_layers(config, tail_layers=None):
+    depth = config["rank_sweep"]["teacher_depth"]
+    # block 下标从 0 开始；K=2 只选中 10/11，不删除其余 dense 层。
+    return list(range(depth - tail_layers, depth)) if tail_layers is not None else list(range(depth))
+
+
+def student_specs(config):
+    sweep = config["rank_sweep"]
+    counts = sweep.get("tail_layers")
+    return [{"name": (f"tail_{count:02d}_" if count is not None else "") + rank_name(ratio),
+             "ratio": ratio, "tail_layers": count if count is not None else sweep["teacher_depth"],
+             "layer_indices": compressed_layers(config, count)}
+            for count in (counts if counts is not None else [None]) for ratio in sweep["ratios"]]
+
+
+def reference_rows(config):
+    """只读引用已完成的全层结果，不复制 checkpoint，不重新训练/评测。"""
+    source = config["rank_sweep"].get("reference_run")
+    if not source:
+        return []
+    report = json.loads((project_path(source) / "summary.json").read_text(encoding="utf-8"))
+    previous = report["config"]
+    # 比较实验条件即可，不做权重哈希；改了预算/协议时应关闭旧结果引用。
+    for key in ("model", "data", "loss", "training", "evaluation", "gradient_moment"):
+        if config[key] != previous[key]:
+            raise ValueError(f"全层参考实验的 {key} 与当前配置不同；请设置 rank_sweep.reference_run=null 或选择匹配实验")
+    if config["run"]["seed"] != previous["run"]["seed"] or any(
+        config["rank_sweep"].get(key) != previous["rank_sweep"].get(key)
+        for key in ("teacher_depth", "hidden_size", "cond_dim", "targets")):
+        raise ValueError("全层参考实验的 seed/架构/SVD 目标与当前配置不一致")
+    depth = config["rank_sweep"]["teacher_depth"]
+    rows = [{**row, "tail_layers": depth, "layer_indices": list(range(depth)),
+             "is_reference": True, "reference_run": str(source)}
+            for row in report["results"] if row["phase"] in ("before", "after")
+            and row["rank_ratio"] in config["rank_sweep"]["ratios"]
+            and row.get("tail_layers", row["depth"]) == depth and not row.get("is_reference", False)]
+    expected = {(phase, ratio) for phase in ("before", "after") for ratio in config["rank_sweep"]["ratios"]}
+    if {(row["phase"], row["rank_ratio"]) for row in rows} != expected or len(rows) != len(expected):
+        raise ValueError("参考实验缺少所选 rank 的完整全层初评/复评结果")
+    return rows
+
+
+def reference_gm_path(config):
+    source = config["rank_sweep"].get("reference_run")
+    if not source or not config["gradient_moment"]["enabled"]:
+        return None
+    root = project_path(source)
+    receipt = json.loads((root / "before_evaluation.json").read_text(encoding="utf-8"))
+    # 使用子目录名定位，服务器绝对路径的记录在本地同步后也可读取。
+    path = root / Path(receipt["directory"]).name / "gradient_moment/reference_owt.json"
+    if not path.is_file():
+        raise FileNotFoundError(f"全层参考实验缺少固定 GM 参考语料: {path}")
+    return path
 
 
 def conditioning_rank(config, ratio):
@@ -60,6 +116,10 @@ def load_config(path, overrides=(), debug=False):
         raise ValueError("rank ratios 必须非空、不重复，且百分比目录名不能冲突")
     for ratio in ratios:
         retained_rank((sweep["hidden_size"], sweep["hidden_size"]), ratio)
+    counts = sweep.get("tail_layers")
+    if counts is not None and (not counts or len(set(counts)) != len(counts)
+            or any(type(count) is not int or not 1 <= count <= sweep["teacher_depth"] for count in counts)):
+        raise ValueError("tail_layers 必须是非空、不重复且介于 1 和 teacher_depth 的整数列表")
     if (not sweep["targets"] or len(set(sweep["targets"])) != len(sweep["targets"])
             or not set(sweep["targets"]).issubset(TARGETS)):
         raise ValueError("SVD targets 必须是不重复的 block 投影：QKV、attention 输出、FFN 或 AdaLN")
@@ -77,6 +137,8 @@ def load_config(path, overrides=(), debug=False):
     if not debug and evaluation["num_samples"] != NUM_SAMPLES:
         raise ValueError("正式 rank sweep 固定评测 1024 条；小样本配置请使用单卡 debug 入口")
     evaluation_config(config, [{"name": "teacher", "corpus": "owt"}], "run", debug)
+    reference_rows(config)
+    reference_gm_path(config)
     return config
 
 
@@ -87,8 +149,9 @@ def prepare_svd(teacher, config, run_dir):
         return
     directory.mkdir(parents=True, exist_ok=True)
     local = []
-    # 新版 60 个真实矩阵按序分给八卡，每个矩阵只分解一次，四组截取同一 SVD 的不同前缀。
-    for index, (path, layer) in enumerate(target_linears(teacher, config["rank_sweep"]["targets"])):
+    layers = sorted({index for spec in student_specs(config) for index in spec["layer_indices"]})
+    # 只分解本轮网格覆盖的层；各格共享同一份 teacher SVD，不逐个学生重复计算。
+    for index, (path, layer) in enumerate(target_linears(teacher, config["rank_sweep"]["targets"], layers)):
         if index % distributed.world_size() != distributed.rank():
             continue
         with progress.phase("rank_sweep.svd", module=path):
@@ -110,16 +173,19 @@ def prepare_svd(teacher, config, run_dir):
     if distributed.is_main():
         write_json(directory / "summary.json", {"teacher": config["model"]["teacher"],
             "targets": config["rank_sweep"]["targets"],
+            "layer_indices": layers,
             "factorization": "U_sqrtS__sqrtS_Vh", "rounding": "floor_ratio_times_min_dimension",
             "matrices": sorted((row for shard in shards for row in shard), key=lambda row: row["module"])})
     distributed.barrier()
 
 
 @torch.no_grad()
-def build_svd_student(teacher, ratio, config, run_dir):
-    targets = list(target_linears(teacher, config["rank_sweep"]["targets"]))
+def build_svd_student(teacher, ratio, config, run_dir, tail_layers=None):
+    layers = compressed_layers(config, tail_layers)
+    targets = list(target_linears(teacher, config["rank_sweep"]["targets"], layers))
     architecture = copy.deepcopy(teacher.config)
     architecture.low_rank = {"ratio": ratio, "method": "svd_sqrt", "rounding": "floor",
+        "layer_indices": layers,
         "ranks": {path: retained_rank(layer.weight.shape, ratio) for path, layer in targets}}
     student = LangFlow(architecture).to(next(teacher.parameters()).device)
     replaced = {path + suffix for path, _ in targets for suffix in (".weight", ".bias")}
@@ -137,10 +203,10 @@ def build_svd_student(teacher, ratio, config, run_dir):
 
 
 @torch.no_grad()
-def check_full_rank(teacher, config, run_dir):
+def check_full_rank(teacher, config, run_dir, tail_layers=None):
     """真实 teacher 的满秩因子化单步对照；不额外训练或生成一整套样本。"""
     with progress.phase("rank_sweep.full_rank_check"):
-        student = build_svd_student(teacher, 1.0, config, run_dir).eval()
+        student = build_svd_student(teacher, 1.0, config, run_dir, tail_layers).eval()
         device = next(teacher.parameters()).device
         # 只缩短校验输入，结构仍是全部真实预训练层；正式训练/生成长度保持 1024。
         token_ids = load_tokens(config, "valid")[:1, :128].to(device)
@@ -153,20 +219,25 @@ def check_full_rank(teacher, config, run_dir):
         if not torch.isfinite(loss).item() or not torch.isfinite(difference).all().item():
             raise FloatingPointError("满秩 SVD 单步对照产生非有限结果")
         report = {"rank_ratio": 1.0, "num_samples": len(token_ids), "sequence_length": token_ids.shape[1],
+            "tail_layers": len(compressed_layers(config, tail_layers)),
+            "layer_indices": compressed_layers(config, tail_layers),
             "num_factorized_matrices": len(student.config.low_rank["ranks"]),
             "posterior_kl": float(loss), "max_abs_logit_error": difference.abs().max().item(),
             "logits_relative_l2_error": (torch.linalg.vector_norm(difference)
                 / torch.linalg.vector_norm(expected.float()).clamp_min(1e-12)).item(),
             "note": "Single-step numerical comparison; BF16 dense/factorized matmuls may differ. Not generation evaluation."}
         if distributed.is_main():
-            write_json(run_dir / "full_rank_check.json", report)
+            filename = "full_rank_check.json" if tail_layers is None else f"full_rank_check_tail_{tail_layers:02d}.json"
+            write_json(run_dir / filename, report)
     distributed.barrier()
 
 
-def stage_config(config, ratio):
+def stage_config(config, ratio, tail_layers=None):
     result = copy.deepcopy(config)
-    result["run"]["name"] = rank_name(ratio)
+    prefix = f"tail_{tail_layers:02d}_" if config["rank_sweep"].get("tail_layers") is not None else ""
+    result["run"]["name"] = prefix + rank_name(ratio)
     result["rank_sweep"]["current_ratio"] = ratio
+    result["rank_sweep"]["current_tail_layers"] = tail_layers if tail_layers is not None else config["rank_sweep"]["teacher_depth"]
     return result
 
 
@@ -213,6 +284,13 @@ def evaluate_stage(config, entries, run_dir, stage, allow_distributed, debug):
         directory = find_evaluation_directory(run_dir, stage, evaluation)
         if directory is None:
             directory = create_run_dir(evaluation)
+        reference = reference_gm_path(config)
+        if reference is not None:
+            target = directory / "gradient_moment/reference_owt.json"
+            # 与旧 K=12 结果共用同一批真实文本；续评时保留本轮已固定的文件。
+            if not target.is_file():
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(reference, target)
         # 在昂贵的评测之前就保存位置，OOM 后也能按模型恢复。
         write_json(receipt, {"directory": str(directory), "status": "running"})
     directory = Path(distributed.broadcast_main(str(directory) if distributed.is_main() else None))
@@ -227,24 +305,32 @@ def evaluate_stage(config, entries, run_dir, stage, allow_distributed, debug):
 
 def save_results(run_dir, config, reports):
     rows = []
+    specs = {spec["name"]: spec for spec in student_specs(config)}
     for phase, report in reports.items():
         for row in report["models"]:
             teacher = row["name"] == "teacher"
-            ratio = 1.0 if teacher else next(r for r in config["rank_sweep"]["ratios"] if rank_name(r) in row["name"])
+            name = row["name"].removesuffix("_initial").removesuffix("_trained")
+            spec = None if teacher else specs[name]
+            ratio = 1.0 if teacher else spec["ratio"]
             training = {}
             if phase == "after" and not teacher:
-                training = json.loads((run_dir / rank_name(ratio) / "training.json").read_text())
+                training = json.loads((run_dir / spec["name"] / "training.json").read_text())
             rows.append({**row, "phase": "teacher" if teacher else phase, "rank_ratio": ratio,
                 "rank": None if teacher else retained_rank((config["rank_sweep"]["hidden_size"],) * 2, ratio),
                 "conditioning_rank": None if teacher else conditioning_rank(config, ratio),
                 "depth": config["rank_sweep"]["teacher_depth"],
+                "tail_layers": 0 if teacher else spec["tail_layers"],
+                "layer_indices": [] if teacher else spec["layer_indices"],
+                "is_reference": False, "reference_run": None,
                 "training_steps": training.get("steps"), "best_step": training.get("best_step"),
                 "tokens_seen": training.get("tokens_seen"),
                 "checkpoint_tokens_seen": training.get("checkpoint_tokens_seen"),
                 "stop_reason": training.get("stop_reason")})
+    rows.extend(row for row in reference_rows(config) if row["phase"] in reports)
     write_json(run_dir / "summary.json", {"config": config, "results": rows,
-        "metric_definition": "rank is the main hidden-projection rank; conditioning_rank is the AdaLN rank; mean_step_ms is per-batch generator forward latency after warmup; num_parameters includes embeddings"})
-    fields = ["name", "phase", "rank_ratio", "rank", "conditioning_rank", "depth", "gen_ppl", "sample_entropy", "gm", "gm_standard_error",
+        "metric_definition": "tail_layers counts compressed final blocks; depth always counts all blocks; is_reference marks existing full-layer results, including original timing/training budgets; rank is the main projection rank; conditioning_rank is the AdaLN rank; mean_step_ms is per-batch forward latency; num_parameters includes embeddings"})
+    fields = ["name", "phase", "rank_ratio", "rank", "conditioning_rank", "depth", "tail_layers", "is_reference", "reference_run",
+        "gen_ppl", "sample_entropy", "repetition_4gram", "gm", "gm_standard_error",
         "num_parameters", "mean_step_ms", "effective_generation_batch_size", "timed_forward_calls",
         "num_samples", "num_scored_samples", "num_empty_samples", "score_status", "gm_num_pairs", "gm_num_skipped_pairs", "gm_status",
         "training_steps", "best_step", "tokens_seen", "checkpoint_tokens_seen", "stop_reason"]
@@ -253,7 +339,10 @@ def save_results(run_dir, config, reports):
         writer.writeheader()
         writer.writerows(rows)
     if config["rank_sweep"]["plot_results"]:
-        plot_results(run_dir, rows)
+        if config["rank_sweep"].get("tail_layers") is not None:
+            plot_tail_grid(run_dir, rows)
+        else:
+            plot_results(run_dir, rows)
 
 
 def plot_results(run_dir, rows):
@@ -280,6 +369,46 @@ def plot_results(run_dir, rows):
     fig.suptitle("LangFlow-OWT: same depth, SVD rank bottleneck")
     fig.tight_layout()
     fig.savefig(run_dir / "rank_quality_curve.png", dpi=160)
+    plt.close(fig)
+
+
+def plot_tail_grid(run_dir, rows):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    fig, axes = plt.subplots(2, 3, figsize=(14, 7), sharex=True, sharey="col")
+    teacher = next((row for row in rows if row["phase"] == "teacher"), None)
+    ratios = sorted({row["rank_ratio"] for row in rows if row["phase"] != "teacher"})
+    for line, phase in zip(axes, ("before", "after")):
+        for ax, metric, label in zip(line, ("gen_ppl", "sample_entropy", "gm"), ("Gen PPL", "Unigram entropy (nats)", "GM")):
+            for ratio in ratios:
+                selected = sorted((row for row in rows if row["phase"] == phase and row["rank_ratio"] == ratio),
+                                  key=lambda row: row["tail_layers"])
+                x = [row["tail_layers"] for row in selected]
+                y = [row.get(metric) if row.get(metric) is not None else float("nan") for row in selected]
+                curve, = ax.plot(x, y, marker="o", label=f"{ratio:.0%} rank")
+                if metric == "gm":
+                    ax.errorbar(x, y, yerr=[row.get("gm_standard_error") or 0 for row in selected],
+                                fmt="none", ecolor=curve.get_color(), capsize=3)
+                # K=12 是旧实验的只读参考，空心点明确区分，不再次训练或评测。
+                references = [row for row in selected if row.get("is_reference") and row.get(metric) is not None]
+                if references:
+                    ax.scatter([row["tail_layers"] for row in references], [row[metric] for row in references],
+                               facecolors="white", edgecolors=curve.get_color(), zorder=4)
+            if teacher and teacher.get(metric) is not None:
+                ax.axhline(teacher[metric], linestyle="--", color="gray", label="Teacher")
+            if metric == "gen_ppl":
+                ax.set_yscale("log")
+            ax.set(ylabel=label, title=phase + " KL distillation")
+            ax.grid(alpha=.2)
+            ax.legend(fontsize=8)
+    counts = sorted({row["tail_layers"] for row in rows if row["phase"] != "teacher"})
+    for ax in axes[-1]:
+        ax.set(xlabel="Compressed tail blocks K", xticks=counts)
+    fig.suptitle("LangFlow-OWT: tail blocks x rank; hollow markers = existing full-layer results")
+    fig.tight_layout()
+    fig.savefig(run_dir / "tail_rank_quality_curve.png", dpi=160)
     plt.close(fig)
 
 
@@ -320,9 +449,10 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
         if device.type == "cuda":
             device = torch.device("cuda", torch.cuda.current_device())
         teacher_files = resolve_model_files(config["model"]["teacher"], config["model"]["cache_dir"], config["model"]["teacher_config"])
+        specs = student_specs(config)
         initial_entries = []
-        needs_build = any(not (run_dir / rank_name(r) / "checkpoints/initial/model.safetensors").is_file()
-                          for r in config["rank_sweep"]["ratios"])
+        needs_build = any(not (run_dir / spec["name"] / "checkpoints/initial/model.safetensors").is_file()
+                          for spec in specs)
         if needs_build:
             seed_everything(config["run"]["seed"] + distributed.rank())
             teacher = load_teacher(config)
@@ -334,20 +464,22 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
                 raise ValueError("真实 tokenizer/序列长度与 teacher 不匹配")
             prepare_svd(teacher, config, run_dir)
             if config["rank_sweep"].get("full_rank_check", False):
-                check_full_rank(teacher, config, run_dir)
-        for ratio in config["rank_sweep"]["ratios"]:
-            current = stage_config(config, ratio)
-            directory = run_dir / rank_name(ratio)
+                for count in config["rank_sweep"].get("tail_layers") or [None]:
+                    check_full_rank(teacher, config, run_dir, count)
+        for spec in specs:
+            ratio, count = spec["ratio"], spec["tail_layers"]
+            current = stage_config(config, ratio, count)
+            directory = run_dir / spec["name"]
             checkpoint = directory / "checkpoints/initial"
             if not (checkpoint / "model.safetensors").is_file():
                 if distributed.is_main():
                     directory.mkdir(parents=True, exist_ok=True)
                     (directory / "config.yaml").write_text(yaml.safe_dump(current, sort_keys=False), encoding="utf-8")
                 distributed.barrier()
-                student = build_svd_student(teacher, ratio, config, run_dir)
+                student = build_svd_student(teacher, ratio, config, run_dir, count)
                 save_rank_checkpoint(student, tokenizer, directory, 0, current, name="initial")
                 del student
-            initial_entries.append(checkpoint_entry(config, checkpoint, rank_name(ratio) + "_initial"))
+            initial_entries.append(checkpoint_entry(config, checkpoint, spec["name"] + "_initial"))
         if needs_build:
             del teacher
         gc.collect()
@@ -366,9 +498,9 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
         # 各组重新加载自己的 SVD 起点，并重置训练 RNG/optimizer；始终保留全部层。
         teacher = None
         final_entries = []
-        for ratio in config["rank_sweep"]["ratios"]:
-            current = stage_config(config, ratio)
-            directory = run_dir / rank_name(ratio)
+        for spec in specs:
+            current = stage_config(config, spec["ratio"], spec["tail_layers"])
+            directory = run_dir / spec["name"]
             if (directory / "training.json").is_file():
                 checkpoint = Path(json.loads((directory / "training.json").read_text())["checkpoint"])
             else:
@@ -388,7 +520,7 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
                 gc.collect()
                 if device.type == "cuda":
                     torch.cuda.empty_cache()
-            final_entries.append(checkpoint_entry(config, checkpoint, rank_name(ratio) + "_trained"))
+            final_entries.append(checkpoint_entry(config, checkpoint, spec["name"] + "_trained"))
         del teacher
         gc.collect()
         if device.type == "cuda":
@@ -400,7 +532,8 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
             (run_dir / "gen_ppl_models.yaml").write_text(yaml.safe_dump(combined, sort_keys=False), encoding="utf-8")
             save_results(run_dir, config, reports)
             write_json(run_dir / "status.json", {"status": "completed", "command": command,
-                "student_depth": config["rank_sweep"]["teacher_depth"], "ratios": config["rank_sweep"]["ratios"]})
+                "student_depth": config["rank_sweep"]["teacher_depth"], "ratios": config["rank_sweep"]["ratios"],
+                "tail_layers": config["rank_sweep"].get("tail_layers"), "completed_students": [spec["name"] for spec in specs]})
         distributed.barrier()
     except Exception as error:
         if distributed.is_main():
@@ -414,7 +547,7 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
 
 
 def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, debug=False):
-    parser = argparse.ArgumentParser(description="同层数 LangFlow-OWT 的 SVD rank sweep 与统一评测")
+    parser = argparse.ArgumentParser(description="同层数 LangFlow-OWT 的全层/尾部 SVD rank sweep 与统一评测")
     parser.add_argument("command", nargs="?", choices=("all", "prepare", "build"), default="all")
     parser.add_argument("--config", default=default_config)
     parser.add_argument("--set", dest="overrides", action="append", default=[])
@@ -431,30 +564,39 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
         saved = load_yaml_config(path)
         directory = project_path(args.run_dir)
         if config["training"]["early_stopping"] != saved["training"]["early_stopping"]:
-            if any(directory.glob("rank_*/metrics.jsonl")) or any(directory.glob("rank_*/training.json")):
+            if any(directory.glob("*/metrics.jsonl")) or any(directory.glob("*/training.json")):
                 parser.error("学生已有训练记录，不能在原实验中改变早停规则；请创建新实验")
     config["rank_sweep"]["debug"] = debug
     if args.dry_run:
+        specs = student_specs(config)
+        layers = sorted({index for spec in specs for index in spec["layer_indices"]})
         plan = {"teacher": config["model"]["teacher"], "student_depth": config["rank_sweep"]["teacher_depth"],
-            "students": [{"ratio": ratio, "rank": retained_rank((config["rank_sweep"]["hidden_size"],) * 2, ratio),
-                          "conditioning_rank": conditioning_rank(config, ratio)}
-                         for ratio in config["rank_sweep"]["ratios"]],
+            "students": [{**spec, "rank": retained_rank((config["rank_sweep"]["hidden_size"],) * 2, spec["ratio"]),
+                          "conditioning_rank": conditioning_rank(config, spec["ratio"])} for spec in specs],
             "targets": config["rank_sweep"]["targets"],
-            "num_svd_matrices": config["rank_sweep"]["teacher_depth"] * len(config["rank_sweep"]["targets"]),
+            "num_svd_matrices": len(layers) * len(config["rank_sweep"]["targets"]),
+            "new_evaluation_models": 1 + 2 * len(specs),
+            "reference_run": config["rank_sweep"].get("reference_run"),
+            "reference_models": [{key: row[key] for key in ("name", "phase", "rank_ratio", "tail_layers")}
+                                 for row in reference_rows(config)],
             "full_rank_check": config["rank_sweep"].get("full_rank_check", False),
             "training": config["training"], "evaluation": config["evaluation"], "gradient_moment": config["gradient_moment"],
             "global_batch_size_8gpu": 8 * config["training"]["batch_size"] * config["training"]["grad_accumulation"],
             "stages": ["teacher_svd", "teacher_and_initial_evaluation", "off_policy_kl", "trained_evaluation"], "debug": debug}
         if args.run_dir:
-            manifest_path = project_path(args.run_dir) / "gen_ppl_before.yaml"
-            if manifest_path.is_file():
-                before = load_yaml_config(manifest_path)
-                directory = find_evaluation_directory(project_path(args.run_dir), "before", before)
-                if directory is not None:
-                    completed = [entry["name"] for entry in before["models"]
-                                 if completed_model_result(directory / entry["name"], before["gradient_moment"]["enabled"]) is not None]
-                    plan["resume_before"] = {"directory": str(directory), "completed": completed,
-                        "remaining": [entry["name"] for entry in before["models"] if entry["name"] not in completed]}
+            root = project_path(args.run_dir)
+            for stage in ("before", "after"):
+                manifest_path = root / f"gen_ppl_{stage}.yaml"
+                if manifest_path.is_file():
+                    evaluation = load_yaml_config(manifest_path)
+                    directory = find_evaluation_directory(root, stage, evaluation)
+                    if directory is not None:
+                        completed = [entry["name"] for entry in evaluation["models"]
+                                     if completed_model_result(directory / entry["name"], evaluation["gradient_moment"]["enabled"]) is not None]
+                        plan[f"resume_{stage}"] = {"directory": str(directory), "completed": completed,
+                            "remaining": [entry["name"] for entry in evaluation["models"] if entry["name"] not in completed]}
+            trained = [spec["name"] for spec in specs if (root / spec["name"] / "training.json").is_file()]
+            plan["resume_training"] = {"completed": trained, "remaining": [spec["name"] for spec in specs if spec["name"] not in trained]}
         output = project_path("run/launch") / f"rank_sweep_plan_{datetime.now():%Y%m%d_%H%M%S_%f}.json"
         write_json(output, plan)
         print(json.dumps(plan, ensure_ascii=False, indent=2), flush=True)

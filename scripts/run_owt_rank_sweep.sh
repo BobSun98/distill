@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 默认八卡：四个 12 层学生的全部 block 矩阵 SVD，统一初评、KL 蒸馏、统一复评。
+# 默认八卡：SVD 学生统一初评、KL 蒸馏、统一复评；具体网格由配置决定。
 set -euo pipefail
 PROJECT_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 CONFIG=""
@@ -22,11 +22,11 @@ while (( $# )); do
     esac
 done
 if [[ -z "$CONFIG" ]]; then
-    if [[ "$COMMAND" == debug ]]; then CONFIG=configs/owt_rank_sweep_debug.yaml;
-    else CONFIG=configs/owt_rank_sweep.yaml; fi
+    if [[ "$COMMAND" == debug ]]; then CONFIG=${DISTILL_RANK_SWEEP_DEBUG_CONFIG:-configs/owt_rank_sweep_debug.yaml};
+    else CONFIG=${DISTILL_RANK_SWEEP_CONFIG:-configs/owt_rank_sweep.yaml}; fi
 fi
 # dry-run 只启动一个配置检查进程，不初始化 CUDA 或八卡通信。
 if (( DRY_RUN )) && [[ "$COMMAND" != debug ]]; then COMMAND=prepare; fi
 export DISTILL_MODULE=distill.rank_sweep
-export DISTILL_DEBUG_ENTRY=debug/debug_rank_sweep.py
+export DISTILL_DEBUG_ENTRY=${DISTILL_DEBUG_ENTRY:-debug/debug_rank_sweep.py}
 exec bash "$PROJECT_ROOT/scripts/run_experiment.sh" "$CONFIG" "$COMMAND" ${ARGS[@]+"${ARGS[@]}"}

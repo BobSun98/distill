@@ -49,8 +49,11 @@ def apply_low_rank(model, settings):
                                               rank, original.bias is not None)
 
 
-def target_linears(teacher, targets=TARGETS):
+def target_linears(teacher, targets=TARGETS, layer_indices=None):
+    selected = None if layer_indices is None else set(layer_indices)
     for index, block in enumerate(teacher.backbone.blocks):
+        if selected is not None and index not in selected:
+            continue
         for suffix in targets:
             layer = block.get_submodule(suffix)
             if not isinstance(layer, nn.Linear):

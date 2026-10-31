@@ -1,0 +1,10 @@
+extends: owt_rank_sweep_debug.yaml
+
+run:
+  name: langflow_owt_svd_tail_rank_sweep_debug
+
+rank_sweep:
+  # 单进程断点仍覆盖十种真实 12 层结构，沿用短数据/三步训练/短采样。
+  ratios: [0.4, 0.6]
+  tail_layers: [2, 4, 6, 8, 10]
+  reference_run: null

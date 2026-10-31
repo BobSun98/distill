@@ -1,0 +1,214 @@
+{
+  "date": "2026-10-31",
+  "entrypoint": "scripts/run_owt_tail_rank_sweep.sh",
+  "config": "configs/owt_tail_rank_sweep.yaml",
+  "students": [
+    {
+      "name": "tail_02_rank_040",
+      "ratio": 0.4,
+      "tail_layers": 2,
+      "layer_indices": [
+        10,
+        11
+      ],
+      "rank": 307,
+      "conditioning_rank": 51
+    },
+    {
+      "name": "tail_02_rank_060",
+      "ratio": 0.6,
+      "tail_layers": 2,
+      "layer_indices": [
+        10,
+        11
+      ],
+      "rank": 460,
+      "conditioning_rank": 76
+    },
+    {
+      "name": "tail_04_rank_040",
+      "ratio": 0.4,
+      "tail_layers": 4,
+      "layer_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "rank": 307,
+      "conditioning_rank": 51
+    },
+    {
+      "name": "tail_04_rank_060",
+      "ratio": 0.6,
+      "tail_layers": 4,
+      "layer_indices": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "rank": 460,
+      "conditioning_rank": 76
+    },
+    {
+      "name": "tail_06_rank_040",
+      "ratio": 0.4,
+      "tail_layers": 6,
+      "layer_indices": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "rank": 307,
+      "conditioning_rank": 51
+    },
+    {
+      "name": "tail_06_rank_060",
+      "ratio": 0.6,
+      "tail_layers": 6,
+      "layer_indices": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "rank": 460,
+      "conditioning_rank": 76
+    },
+    {
+      "name": "tail_08_rank_040",
+      "ratio": 0.4,
+      "tail_layers": 8,
+      "layer_indices": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "rank": 307,
+      "conditioning_rank": 51
+    },
+    {
+      "name": "tail_08_rank_060",
+      "ratio": 0.6,
+      "tail_layers": 8,
+      "layer_indices": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "rank": 460,
+      "conditioning_rank": 76
+    },
+    {
+      "name": "tail_10_rank_040",
+      "ratio": 0.4,
+      "tail_layers": 10,
+      "layer_indices": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "rank": 307,
+      "conditioning_rank": 51
+    },
+    {
+      "name": "tail_10_rank_060",
+      "ratio": 0.6,
+      "tail_layers": 10,
+      "layer_indices": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "rank": 460,
+      "conditioning_rank": 76
+    }
+  ],
+  "num_new_students": 10,
+  "num_svd_matrices": 50,
+  "new_evaluation_models": 21,
+  "reference_models": [
+    {
+      "name": "rank_060_initial",
+      "phase": "before",
+      "rank_ratio": 0.6,
+      "tail_layers": 12
+    },
+    {
+      "name": "rank_040_initial",
+      "phase": "before",
+      "rank_ratio": 0.4,
+      "tail_layers": 12
+    },
+    {
+      "name": "rank_060_trained",
+      "phase": "after",
+      "rank_ratio": 0.6,
+      "tail_layers": 12
+    },
+    {
+      "name": "rank_040_trained",
+      "phase": "after",
+      "rank_ratio": 0.4,
+      "tail_layers": 12
+    }
+  ],
+  "reference_run": "run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep",
+  "global_batch_size_8gpu": 256,
+  "unit_checks": {
+    "passed": 30,
+    "modules": [
+      "tmp/test_tail_rank_sweep.py",
+      "tmp/test_rank_sweep.py",
+      "tmp/test_gen_ppl_protocol.py"
+    ]
+  },
+  "cli_plans": {
+    "formal": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/launch/rank_sweep_plan_20261031_235150_507591.json",
+    "debug": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/launch/rank_sweep_plan_20261031_235150_506295.json",
+    "resume": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/launch/rank_sweep_plan_20261031_235358_182368.json",
+    "legacy": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/launch/rank_sweep_plan_20261031_235358_170378.json"
+  },
+  "resume_checks": {
+    "before_skip": 2,
+    "training_skip": 1,
+    "after_skip": 1,
+    "training_rule_change_after_start": "rejected"
+  },
+  "fixed_real_gm_reference": "existing OWT reference matches native protocol and is reused unchanged",
+  "shell_syntax": "passed",
+  "python_syntax": "passed",
+  "diff_whitespace": "passed",
+  "gpu_validation": "not run locally; no pretrained model loaded or downloaded",
+  "plot_rendering": "requires server matplotlib; not rendered locally"
+}

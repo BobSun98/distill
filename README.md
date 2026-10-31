@@ -924,6 +924,57 @@ IDE 入口 `debug/debug_rank_sweep.py` 直接调用同一套 SVD、采集、训�
 不启动其他 Python 进程。debug 保留四种 12 层学生和全部 block 投影，仅缩短为 3 次更新、128 token、8 NFE、
 4 条评测样本，并关闭绘图与早停；本地开发验证不下载/加载预训练权重，真实 GPU 验证由服务器执行。
 
+## LangFlow-OWT：尾部层数 × rank 网格
+
+```bash
+# 服务器默认八卡：40%/60% rank × 尾部 2/4/6/8/10 层，共十个学生。
+bash scripts/run_owt_tail_rank_sweep.sh
+
+# 只核对网格、旧参考条件与预算，不加载模型或初始化 GPU。
+bash scripts/run_owt_tail_rank_sweep.sh --dry-run
+
+# 中断后复用同一个目录继续。
+bash scripts/run_owt_tail_rank_sweep.sh --run-dir run/<时间>_langflow_owt_svd_tail_rank_sweep
+
+# 单进程单卡真实模型断点入口。
+bash scripts/run_owt_tail_rank_sweep.sh debug
+```
+
+配置为 `configs/owt_tail_rank_sweep.yaml`。所有学生保持 12 层，K=2 时只把第 11–12 层
+的 QKV、attention 输出、FFN 两个投影和 AdaLN 投影做 SVD；其余层保持 dense 结构。
+K=4/6/8/10 依此扩展，主干 rank 分别为 307（40%）和 460（60%），AdaLN rank 为 51/76。
+每格独立从原 Teacher 初始化，尾部十层共 50 个矩阵只分解一次，各格共享其 SVD 前缀。
+冻结 embedding/proposal，其余学生参数均训练，包含前部没有分解的 dense 层。
+
+每组八卡、每卡 batch=16、累积 2 次，全局 batch=256，纯 KL 蒸馏；最多 5000 步，沿用
+验证 KL 平台期早停（每 100 步验证，min_steps=500、patience=5、min_delta=0.001）与 cosine LR。
+先用统一接口评测 Teacher 和十组 SVD 初始权重，完成十组训练后评测各自验证最优权重。
+每套权重生成 1024 条，长度/NFE=1024，报告 PPL、entropy、重复率、OWT GM、参数量与单步前向时间。
+本轮新增 21 套权重评测：Teacher 一次、initial 十次、trained 十次。
+
+**K=12 不在本轮构建、训练或评测列表中。** 默认 `rank_sweep.reference_run` 指向
+`run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep`，仅从其 `summary.json` 读取
+40%/60% 的全层初评/复评结果。引用前核对训练与评测配置，引用行标记 `is_reference=true`，
+原始训练步数、覆盖率、参数和耗时原样保留，不能视为本次同步计时。
+新初评/复评同时复用该实验已保存的 1024 条 OWT GM 真实参考文本，不重新抽样。
+改变实验条件或不需要引用时，可用 `--set rank_sweep.reference_run=null` 启动新实验。
+
+产物位于 `run/<时间>_langflow_owt_svd_tail_rank_sweep/`：
+
+- `tail_02_rank_040/`、`tail_02_rank_060/`……：每个学生的 initial/best/停止步 checkpoint、
+  训练配置与日志；checkpoint 的 `low_rank.ranks` 仅列出被分解的尾部模块，模型仍是 12 层。
+- `full_rank_check_tail_XX.json`：各尾部范围的真实满秩因子化单步数值对照。
+- `summary.json` / `summary.csv`：增加 `tail_layers`、`is_reference`、`reference_run`，
+  并保留训练/最优步数、token 曝光、PPL/entropy/重复率/GM/参数/耗时。
+- `tail_rank_quality_curve.png`：横轴为尾部层数 K，40%/60% 两条曲线，初评/复评分行显示；
+  K=12 引用用空心点标记，GM 误差条为标准误。
+- `gen_ppl_models.yaml`：仅包含本轮实际评测的 21 套权重，可通过统一入口独立复测。
+
+恢复时复用已构建的初始权重，跳过已完成的训练组和已有完整 `metrics.json` 的评测模型；
+未完成训练组从该组 SVD initial 重新开始，未完成评测模型整体重跑，不提供训练 step/GM pair 级恢复。
+`debug/debug_tail_rank_sweep.py` 直接在当前进程调用同一工程，保留十种真实 12 层结构，
+只缩短数据、训练到三步、生成长度到 128/NFE 到 8、评测到四条，不引用正式 K=12 结果。
+
 ## On-policy：真实 student rollout 的 CE/KL/MSE 蒸馏
 
 **对齐第一阶段 loss，默认只补跑 ELF-B 和 ELF-L：**

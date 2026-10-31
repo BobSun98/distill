@@ -1,0 +1,12 @@
+extends: owt_rank_sweep.yaml
+
+run:
+  name: langflow_owt_svd_tail_rank_sweep
+
+rank_sweep:
+  ratios: [0.4, 0.6]
+  # 保留全部 12 层，只分解尾部 K 层；K=12 已完成，不加入本轮训练/评测网格。
+  tail_layers: [2, 4, 6, 8, 10]
+  # 只读引用该实验中 40%/60% 全 12 层的初评/复评，绝不再次运行它们。
+  # 如不需要旧结果，或要更改训练/评测条件，可设为 null。
+  reference_run: run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep
