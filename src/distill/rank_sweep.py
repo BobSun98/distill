@@ -35,11 +35,17 @@ def compressed_layers(config, tail_layers=None):
     return list(range(depth - tail_layers, depth)) if tail_layers is not None else list(range(depth))
 
 
+def rank_max_steps(config, ratio):
+    # 新增 rank 可以单独增加预算，不能把旧学生的 5000 步记录改成 10000 步。
+    return config["rank_sweep"].get("max_steps_by_rank", {}).get(rank_name(ratio), config["training"]["max_steps"])
+
+
 def student_specs(config):
     sweep = config["rank_sweep"]
     counts = sweep.get("tail_layers")
     return [{"name": (f"tail_{count:02d}_" if count is not None else "") + rank_name(ratio),
              "ratio": ratio, "tail_layers": count if count is not None else sweep["teacher_depth"],
+             "max_steps": rank_max_steps(config, ratio),
              "layer_indices": compressed_layers(config, count)}
             for count in (counts if counts is not None else [None]) for ratio in sweep["ratios"]]
 
@@ -61,6 +67,7 @@ def reference_rows(config):
         raise ValueError("全层参考实验的 seed/架构/SVD 目标与当前配置不一致")
     depth = config["rank_sweep"]["teacher_depth"]
     rows = [{**row, "tail_layers": depth, "layer_indices": list(range(depth)),
+             "training_max_steps": row.get("training_max_steps", rank_max_steps(previous, row["rank_ratio"])),
              "is_reference": True, "reference_run": str(source)}
             for row in report["results"] if row["phase"] in ("before", "after")
             and row["rank_ratio"] in config["rank_sweep"]["ratios"]
@@ -116,6 +123,11 @@ def load_config(path, overrides=(), debug=False):
         raise ValueError("rank ratios 必须非空、不重复，且百分比目录名不能冲突")
     for ratio in ratios:
         retained_rank((sweep["hidden_size"], sweep["hidden_size"]), ratio)
+    limits = sweep.get("max_steps_by_rank", {})
+    if not isinstance(limits, dict) or any(
+        name not in {rank_name(ratio) for ratio in ratios} or type(steps) is not int or steps < 1
+        for name, steps in limits.items()):
+        raise ValueError("max_steps_by_rank 必须按 rank_XXX 配置已选 rank 的正整数训练上限")
     counts = sweep.get("tail_layers")
     if counts is not None and (not counts or len(set(counts)) != len(counts)
             or any(type(count) is not int or not 1 <= count <= sweep["teacher_depth"] for count in counts)):
@@ -242,21 +254,44 @@ def stage_config(config, ratio, tail_layers=None):
     result["run"]["name"] = prefix + rank_name(ratio)
     result["rank_sweep"]["current_ratio"] = ratio
     result["rank_sweep"]["current_tail_layers"] = tail_layers if tail_layers is not None else config["rank_sweep"]["teacher_depth"]
+    result["training"]["max_steps"] = rank_max_steps(config, ratio)
     return result
 
 
+def check_step_limit_change(run_dir, previous, config):
+    changes = {rank_name(ratio): {"previous": rank_max_steps(previous, ratio), "current": rank_max_steps(config, ratio)}
+               for ratio in config["rank_sweep"]["ratios"]
+               if rank_max_steps(previous, ratio) != rank_max_steps(config, ratio)}
+    for spec in student_specs(config):
+        if rank_name(spec["ratio"]) not in changes:
+            continue
+        directory = run_dir / spec["name"]
+        # 训练入口先写 step=0 验证记录；保守地将任何训练日志视为已开始，初始生成评测不受影响。
+        if any((directory / name).is_file() for name in ("metrics.jsonl", "training.json")):
+            raise ValueError(f"{spec['name']} 已有训练记录，不能在原组中改变 max_steps；该组预算保持不变")
+    return changes
+
+
 def save_rank_extension(run_dir, config):
-    """同目录只增加 rank；保存原配置/汇总/曲线快照，旧学生与逐模型指标不覆盖。"""
+    """同目录增加 rank/调整未训练 rank 的预算，旧学生与逐模型指标不覆盖。"""
     path = run_dir / "config.yaml"
     previous = load_yaml_config(path)
     original = previous["rank_sweep"]["ratios"]
     added = [ratio for ratio in config["rank_sweep"]["ratios"] if ratio not in original]
+    changes = check_step_limit_change(run_dir, previous, config)
     unchanged = copy.deepcopy(config)
     unchanged["rank_sweep"]["ratios"] = original
-    if (not added or not set(original).issubset(config["rank_sweep"]["ratios"])
-            or unchanged != previous):
-        raise ValueError("追加 rank 必须保留所有原 rank，且训练、数据、评测等其他配置完全一致")
-    backup = run_dir / "extensions" / "_".join(rank_name(ratio) for ratio in added)
+    if "max_steps_by_rank" in previous["rank_sweep"]:
+        unchanged["rank_sweep"]["max_steps_by_rank"] = previous["rank_sweep"]["max_steps_by_rank"]
+    else:
+        unchanged["rank_sweep"].pop("max_steps_by_rank", None)
+    if not set(original).issubset(config["rank_sweep"]["ratios"]) or unchanged != previous:
+        raise ValueError("必须保留所有原 rank；除未训练 rank 的步数上限外，训练、数据、评测等其他配置必须完全一致")
+    if not added and not changes:
+        return
+    name = "_".join(rank_name(ratio) for ratio in added) if added else "_".join(
+        f"{name}_max_steps_{change['current']}" for name, change in changes.items())
+    backup = run_dir / "extensions" / name
     backup.mkdir(parents=True, exist_ok=True)
     for filename in ("config.yaml", "status.json", "summary.json", "summary.csv", "tail_rank_quality_curve.png",
                      "gen_ppl_before.yaml", "gen_ppl_after.yaml", "gen_ppl_models.yaml"):
@@ -265,6 +300,7 @@ def save_rank_extension(run_dir, config):
             shutil.copyfile(source, target)
     write_json(backup / "extension.json", {"original_ratios": original,
         "added_ratios": added, "ratios": config["rank_sweep"]["ratios"],
+        "step_limit_changes": changes,
         "new_students": [spec["name"] for spec in student_specs(config) if spec["ratio"] in added]})
     path.write_text(yaml.safe_dump(config, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
@@ -352,18 +388,19 @@ def save_results(run_dir, config, reports):
                 "tail_layers": 0 if teacher else spec["tail_layers"],
                 "layer_indices": [] if teacher else spec["layer_indices"],
                 "is_reference": False, "reference_run": None,
+                "training_max_steps": None if teacher else training.get("max_steps", spec["max_steps"]),
                 "training_steps": training.get("steps"), "best_step": training.get("best_step"),
                 "tokens_seen": training.get("tokens_seen"),
                 "checkpoint_tokens_seen": training.get("checkpoint_tokens_seen"),
                 "stop_reason": training.get("stop_reason")})
     rows.extend(row for row in reference_rows(config) if row["phase"] in reports)
     write_json(run_dir / "summary.json", {"config": config, "results": rows,
-        "metric_definition": "tail_layers counts compressed final blocks; depth always counts all blocks; is_reference marks existing full-layer results, including original timing/training budgets; rank is the main projection rank; conditioning_rank is the AdaLN rank; mean_step_ms is per-batch forward latency; num_parameters includes embeddings"})
+        "metric_definition": "tail_layers counts compressed final blocks; depth always counts all blocks; training_max_steps is the per-student cap (trained rows use training.json); is_reference keeps historical timing/training budgets; rank is the main projection rank; conditioning_rank is the AdaLN rank; mean_step_ms is per-batch forward latency; num_parameters includes embeddings"})
     fields = ["name", "phase", "rank_ratio", "rank", "conditioning_rank", "depth", "tail_layers", "is_reference", "reference_run",
         "gen_ppl", "sample_entropy", "repetition_4gram", "gm", "gm_standard_error",
         "num_parameters", "mean_step_ms", "effective_generation_batch_size", "timed_forward_calls",
         "num_samples", "num_scored_samples", "num_empty_samples", "score_status", "gm_num_pairs", "gm_num_skipped_pairs", "gm_status",
-        "training_steps", "best_step", "tokens_seen", "checkpoint_tokens_seen", "stop_reason"]
+        "training_max_steps", "training_steps", "best_step", "tokens_seen", "checkpoint_tokens_seen", "stop_reason"]
     with (run_dir / "summary.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
         writer.writeheader()
@@ -439,7 +476,18 @@ def plot_tail_grid(run_dir, rows):
     for ax in axes[-1]:
         ax.set(xlabel="Compressed tail blocks K", xticks=counts)
     fig.suptitle("LangFlow-OWT: tail blocks x rank; hollow markers = existing full-layer results")
-    fig.tight_layout()
+    caps = sorted({(row["rank_ratio"], row["training_max_steps"]) for row in rows
+                   if not row.get("is_reference") and row.get("training_max_steps") is not None})
+    references = sorted({row["training_max_steps"] for row in rows
+                         if row.get("is_reference") and row.get("training_max_steps") is not None})
+    notes = []
+    if caps:
+        notes.append("Tail training caps: " + ", ".join(f"{ratio:.0%}={steps}" for ratio, steps in caps))
+    if references:
+        notes.append("K=12 reference caps: " + ", ".join(str(steps) for steps in references))
+    if notes:
+        fig.text(.5, .01, "; ".join(notes), ha="center", fontsize=9)
+    fig.tight_layout(rect=(0, .035 if notes else 0, 1, 1))
     fig.savefig(run_dir / "tail_rank_quality_curve.png", dpi=160)
     plt.close(fig)
 
@@ -458,12 +506,14 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
     try:
         if distributed.is_main():
             saved_config = run_dir / "config.yaml"
-            if resume_dir and config["rank_sweep"]["ratios"] != load_yaml_config(saved_config)["rank_sweep"]["ratios"]:
+            previous = load_yaml_config(saved_config) if resume_dir else None
+            if resume_dir and (config["rank_sweep"]["ratios"] != previous["rank_sweep"]["ratios"]
+                    or config["rank_sweep"].get("max_steps_by_rank", {}) != previous["rank_sweep"].get("max_steps_by_rank", {})):
                 save_rank_extension(run_dir, config)
-            elif resume_dir and config["training"]["early_stopping"] != load_yaml_config(saved_config)["training"]["early_stopping"]:
+            elif resume_dir and config["training"]["early_stopping"] != previous["training"]["early_stopping"]:
                 # 仅在学生尚未开始训练时更新规则；初始权重和已有初评不受影响。
                 write_json(run_dir / "early_stopping_update.json", {
-                    "previous": load_yaml_config(saved_config)["training"]["early_stopping"],
+                    "previous": previous["training"]["early_stopping"],
                     "current": config["training"]["early_stopping"]})
                 saved_config.write_text(yaml.safe_dump(config, allow_unicode=True, sort_keys=False), encoding="utf-8")
             write_json(run_dir / "status.json", {"status": "running", "command": command, "resumed": bool(resume_dir)})
@@ -588,10 +638,13 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
     parser.add_argument("--run-dir", help="复用实验保存的配置及已完成阶段；未完成训练组从 SVD 起点重跑")
     parser.add_argument("--add-rank", dest="add_ratios", action="append", type=float, default=[],
                         help="向 --run-dir 追加 rank 比例（例如 0.2）；其他实验条件沿用原记录，可重复执行续跑")
+    parser.add_argument("--max-steps", type=int, help="只设置 --add-rank 指定 rank 的训练上限；该 rank 所有组均未开始训练时可修改")
     parser.add_argument("--dry-run", action="store_true", help="只检查配置并保存计划，不加载模型或数据")
     args = parser.parse_args()
     if args.add_ratios and not args.run_dir:
         parser.error("--add-rank 必须配合 --run-dir，追加到已有实验")
+    if args.max_steps is not None and (not args.add_ratios or args.max_steps < 1):
+        parser.error("--max-steps 必须为正整数，并配合 --run-dir / --add-rank 指定待训练的 rank")
     if args.run_dir and args.overrides:
         allowed = {f"training.early_stopping.{key}" for key in ("enabled", "metric", "min_steps", "patience", "min_delta")}
         if any(override.split("=", 1)[0] not in allowed for override in args.overrides):
@@ -605,6 +658,13 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
                 ratios.append(ratio)
         overrides.append("rank_sweep.ratios=" + json.dumps(ratios))
     config = load_config(path, overrides, debug)
+    if args.max_steps is not None:
+        limits = dict(config["rank_sweep"].get("max_steps_by_rank", {}))
+        limits.update({rank_name(ratio): args.max_steps for ratio in args.add_ratios})
+        config["rank_sweep"]["max_steps_by_rank"] = limits
+    if args.run_dir:
+        # 在初始化 CUDA/DDP 前检查服务器上的真实记录；已完成的其他 rank 不阻挡新增 rank 改预算。
+        check_step_limit_change(project_path(args.run_dir), load_yaml_config(path), config)
     if args.run_dir and args.overrides:
         saved = load_yaml_config(path)
         directory = project_path(args.run_dir)
@@ -625,10 +685,11 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
             "evaluation_models_total": 1 + 2 * len(specs),
             "new_evaluation_models": 1 + 2 * len(specs),
             "reference_run": config["rank_sweep"].get("reference_run"),
-            "reference_models": [{key: row[key] for key in ("name", "phase", "rank_ratio", "tail_layers")}
+            "reference_models": [{key: row[key] for key in ("name", "phase", "rank_ratio", "tail_layers", "training_max_steps")}
                                  for row in reference_rows(config)],
             "full_rank_check": config["rank_sweep"].get("full_rank_check", False),
             "training": config["training"], "evaluation": config["evaluation"], "gradient_moment": config["gradient_moment"],
+            "max_steps_by_rank": config["rank_sweep"].get("max_steps_by_rank", {}),
             "global_batch_size_8gpu": 8 * config["training"]["batch_size"] * config["training"]["grad_accumulation"],
             "stages": ["teacher_svd", "teacher_and_initial_evaluation", "off_policy_kl", "trained_evaluation"], "debug": debug}
         if args.run_dir:

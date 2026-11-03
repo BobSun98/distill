@@ -978,7 +978,7 @@ K=4/6/8/10 依此扩展，主干 rank 分别为 307（40%）和 460（60%），A
 已经完成 40%/60% 后，向同一个目录追加 **20% × 尾部 2/4/6/8/10 层**：
 
 ```bash
-# 默认八卡，追加到 run/20261101_075912_158102_langflow_owt_svd_tail_rank_sweep。
+# 默认八卡，20% 最多 10000 步；追加到 run/20261101_075912_158102_langflow_owt_svd_tail_rank_sweep。
 bash scripts/run_owt_tail_rank_sweep_020.sh
 
 # 先查看新增/跳过的学生与评测；不会修改该目录的配置或结果。
@@ -988,15 +988,26 @@ bash scripts/run_owt_tail_rank_sweep_020.sh --dry-run
 bash scripts/run_owt_tail_rank_sweep_020.sh debug
 ```
 
-通用写法为 `bash scripts/run_owt_tail_rank_sweep.sh --run-dir <已有目录> --add-rank 0.2`。
-追加时直接读取已有实验的训练/数据/评测配置，仍为纯 KL、八卡每卡 batch=16、最多 5000 步与平台期早停。
+通用写法为 `bash scripts/run_owt_tail_rank_sweep.sh --run-dir <已有目录> --add-rank 0.2 --max-steps 10000`。
+追加时读取已有实验的训练/数据/评测配置，仍为纯 KL、八卡每卡 batch=16 与平台期早停。
+20% 尾部五组上限单独设为 10000，cosine LR 也按该上限运行；旧 40%/60% 和全层 20% 仍保留原来的 5000 步上限。
+逐 rank 上限保存为 `rank_sweep.max_steps_by_rank`，根配置的 `training.max_steps` 保留历史基础预算。
 只新增五组 20% 学生（主干 rank=153、AdaLN rank=25）及其初评/复评；Teacher 和已完成的
 40%/60% 逐模型指标原样复用，已有 SVD 缓存与满秩单步对照也复用。K=12 的 20% 结果继续只读引用。
 同目录下的 `summary.csv` / `summary.json` / `tail_rank_quality_curve.png` 合并显示 20%/40%/60%，
 原来的 40%/60% 曲线保留原色，逐模型原始结果不覆盖。
 首次实际追加前，旧配置、汇总、曲线与总评测清单会备份到 `extensions/rank_020/`。
-评测只允许在协议/batch 与旧模型条目不变的条件下增加新条目；不允许借追加修改已有模型或训练条件。
+评测只允许在协议/batch 与旧模型条目不变的条件下增加新条目；不允许借追加修改已有模型。
 重复执行不会再次追加相同 rank，恢复粒度仍为完整训练组/评测模型。
+
+如果 20% 仍在 SVD/初始生成评测阶段，可以先停止旧任务、同步代码，再执行同一个脚本。
+已完成的逐模型评测继续复用；正在评测且还没有完整 `metrics.json` 的那个模型会从头生成/评分，
+不按生成 batch 或 GM pair 恢复。20% 五组中只要出现 `metrics.jsonl` 或 `training.json`，
+就拒绝改变该 rank 的步数上限；其他已完成的 rank 不影响这项检查。
+预算已经保存为 10000 后，重复传同一个上限正常续跑，不会因已有训练日志而被拒绝。
+只调整上限时备份到 `extensions/rank_020_max_steps_10000/`；旧汇总始终保留原预算。
+汇总表的 `training_max_steps` 与图中说明分别标明新尾部组和 K=12 历史参考的预算，
+并继续报告实际训练步数；不能把这些结果当作全部固定 10000 步的对照。
 
 ## On-policy：真实 student rollout 的 CE/KL/MSE 蒸馏
 

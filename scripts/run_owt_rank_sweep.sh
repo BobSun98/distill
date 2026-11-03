@@ -13,12 +13,12 @@ while (( $# )); do
             [[ $# -ge 2 ]] || { echo '--config 需要路径' >&2; exit 2; }
             CONFIG="$2"; shift 2 ;;
         *.yaml|*.yml) CONFIG="$1"; shift ;;
-        --set|--run-dir|--add-rank)
+        --set|--run-dir|--add-rank|--max-steps)
             [[ $# -ge 2 ]] || { echo "$1 需要参数" >&2; exit 2; }
             ARGS+=("$1" "$2"); shift 2 ;;
         --dry-run) DRY_RUN=1; ARGS+=("$1"); shift ;;
         --help|-h) ARGS+=(--help); shift ;;
-        *) echo '用法: bash scripts/run_owt_rank_sweep.sh [CONFIG.yaml] [all|prepare|build|debug] [--dry-run] [--run-dir DIR] [--add-rank RATIO] [--set KEY=VALUE]' >&2; exit 2 ;;
+        *) echo '用法: bash scripts/run_owt_rank_sweep.sh [CONFIG.yaml] [all|prepare|build|debug] [--dry-run] [--run-dir DIR] [--add-rank RATIO] [--max-steps N] [--set KEY=VALUE]' >&2; exit 2 ;;
     esac
 done
 if [[ -z "$CONFIG" ]]; then
