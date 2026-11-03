@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 
 import torch
+import yaml
 from huggingface_hub import hf_hub_download
 from safetensors.torch import load_file
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -219,13 +220,37 @@ def protocol_metadata(config, debug=False):
             "parameter_count": "unique generator parameters, including frozen embeddings; scorer excluded"}
 
 
-def evaluation_matches(config, saved):
+def evaluation_matches(config, saved, allow_new_models=False):
     # 只核对会改变测量口径的配置，不做权重哈希；耗时比较也必须保持 batch/预热条件。
-    if any(config.get(key) != saved.get(key) for key in ("protocol", "gradient_moment", "models")):
+    if any(config.get(key) != saved.get(key) for key in ("protocol", "gradient_moment")):
+        return False
+    if allow_new_models:
+        current = {entry["name"]: entry for entry in config["models"]}
+        previous = {entry["name"]: entry for entry in saved["models"]}
+        # 扩网格只可增加模型；同名旧权重、采样配置必须原样保留，也不允许删除旧模型。
+        if (len(current) != len(config["models"]) or len(previous) != len(saved["models"])
+                or any(current.get(name) != entry for name, entry in previous.items())):
+            return False
+    elif config["models"] != saved["models"]:
         return False
     defaults = {"device": "cuda", "generation_batch_size": 8, "timing_warmup_forwards": 5}
     return all(config["runtime"].get(key, default) == saved["runtime"].get(key, default)
                for key, default in defaults.items())
+
+
+def prepare_evaluation_resume(config, run_dir, allow_new_models=False):
+    path = Path(run_dir) / "config.yaml"
+    saved = load_yaml_config(path)
+    if not evaluation_matches(config, saved, allow_new_models):
+        raise ValueError("恢复评测的旧模型、协议或 batch/预热配置不一致；只能在相同条件下追加新模型")
+    if allow_new_models and config["models"] != saved["models"] and distributed.is_main():
+        backup = path.with_name("config_before_add_models.yaml")
+        if not backup.is_file():
+            backup.write_bytes(path.read_bytes())
+        # 八个 rank 都会读取配置，用原子替换避免读到半写入的 YAML；旧模型结果文件不改动。
+        temporary = path.with_suffix(".yaml.tmp")
+        temporary.write_text(yaml.safe_dump(config, sort_keys=False), encoding="utf-8")
+        temporary.replace(path)
 
 
 def completed_model_result(output, require_gm=False):
@@ -245,14 +270,14 @@ def completed_model_result(output, require_gm=False):
     return {key: value for key, value in saved.items() if key not in ("protocol", "per_sample", "model_metadata")}
 
 
-def run_gen_ppl(config, allow_distributed=True, debug=False, resume_dir=None):
+def run_gen_ppl(config, allow_distributed=True, debug=False, resume_dir=None, allow_new_models=False):
     gradient_moment.validate_config(config)
     runtime = config["runtime"]
     owns_group = distributed.setup(runtime["device"], allow_distributed, runtime["control_timeout_seconds"])
     run_dir = Path(distributed.broadcast_main(
         str(project_path(resume_dir) if resume_dir else create_run_dir(config)) if distributed.is_main() else None))
-    if resume_dir and not evaluation_matches(config, load_yaml_config(run_dir / "config.yaml")):
-        raise ValueError("恢复评测的模型、协议或 batch/预热配置与已有结果不一致，请另建评测")
+    if resume_dir:
+        prepare_evaluation_resume(config, run_dir, allow_new_models)
     progress.configure(run_dir, distributed.rank())
     results, cache = [], {}
     try:

@@ -205,6 +205,11 @@ def build_svd_student(teacher, ratio, config, run_dir, tail_layers=None):
 @torch.no_grad()
 def check_full_rank(teacher, config, run_dir, tail_layers=None):
     """真实 teacher 的满秩因子化单步对照；不额外训练或生成一整套样本。"""
+    filename = "full_rank_check.json" if tail_layers is None else f"full_rank_check_tail_{tail_layers:02d}.json"
+    path = run_dir / filename
+    cached = distributed.broadcast_main(path.is_file() if distributed.is_main() else None)
+    if cached:
+        return
     with progress.phase("rank_sweep.full_rank_check"):
         student = build_svd_student(teacher, 1.0, config, run_dir, tail_layers).eval()
         device = next(teacher.parameters()).device
@@ -227,8 +232,7 @@ def check_full_rank(teacher, config, run_dir, tail_layers=None):
                 / torch.linalg.vector_norm(expected.float()).clamp_min(1e-12)).item(),
             "note": "Single-step numerical comparison; BF16 dense/factorized matmuls may differ. Not generation evaluation."}
         if distributed.is_main():
-            filename = "full_rank_check.json" if tail_layers is None else f"full_rank_check_tail_{tail_layers:02d}.json"
-            write_json(run_dir / filename, report)
+            write_json(path, report)
     distributed.barrier()
 
 
@@ -239,6 +243,30 @@ def stage_config(config, ratio, tail_layers=None):
     result["rank_sweep"]["current_ratio"] = ratio
     result["rank_sweep"]["current_tail_layers"] = tail_layers if tail_layers is not None else config["rank_sweep"]["teacher_depth"]
     return result
+
+
+def save_rank_extension(run_dir, config):
+    """同目录只增加 rank；保存原配置/汇总/曲线快照，旧学生与逐模型指标不覆盖。"""
+    path = run_dir / "config.yaml"
+    previous = load_yaml_config(path)
+    original = previous["rank_sweep"]["ratios"]
+    added = [ratio for ratio in config["rank_sweep"]["ratios"] if ratio not in original]
+    unchanged = copy.deepcopy(config)
+    unchanged["rank_sweep"]["ratios"] = original
+    if (not added or not set(original).issubset(config["rank_sweep"]["ratios"])
+            or unchanged != previous):
+        raise ValueError("追加 rank 必须保留所有原 rank，且训练、数据、评测等其他配置完全一致")
+    backup = run_dir / "extensions" / "_".join(rank_name(ratio) for ratio in added)
+    backup.mkdir(parents=True, exist_ok=True)
+    for filename in ("config.yaml", "status.json", "summary.json", "summary.csv", "tail_rank_quality_curve.png",
+                     "gen_ppl_before.yaml", "gen_ppl_after.yaml", "gen_ppl_models.yaml"):
+        source, target = run_dir / filename, backup / filename
+        if source.is_file() and not target.is_file():
+            shutil.copyfile(source, target)
+    write_json(backup / "extension.json", {"original_ratios": original,
+        "added_ratios": added, "ratios": config["rank_sweep"]["ratios"],
+        "new_students": [spec["name"] for spec in student_specs(config) if spec["ratio"] in added]})
+    path.write_text(yaml.safe_dump(config, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
 
 def checkpoint_entry(config, checkpoint, name):
@@ -264,11 +292,13 @@ def save_rank_checkpoint(student, tokenizer, run_dir, step, config, name=None):
 def find_evaluation_directory(run_dir, stage, evaluation):
     receipt = run_dir / f"{stage}_evaluation.json"
     if receipt.is_file():
-        return Path(json.loads(receipt.read_text())["directory"])
+        directory = Path(json.loads(receipt.read_text())["directory"])
+        local = run_dir / directory.name
+        return local if local.is_dir() else directory
     # 兼容旧运行：失败前还没写 stage receipt，但已保存部分模型的 metrics.json。
     for directory in sorted(run_dir.glob("*_unified_gen_ppl"), reverse=True):
         saved = directory / "config.yaml"
-        if saved.is_file() and evaluation_matches(evaluation, load_yaml_config(saved)):
+        if saved.is_file() and evaluation_matches(evaluation, load_yaml_config(saved), allow_new_models=True):
             return directory
     return None
 
@@ -295,7 +325,7 @@ def evaluate_stage(config, entries, run_dir, stage, allow_distributed, debug):
         write_json(receipt, {"directory": str(directory), "status": "running"})
     directory = Path(distributed.broadcast_main(str(directory) if distributed.is_main() else None))
     # 与独立 eval_gen_ppl.sh 共用逐模型恢复；未完成模型重跑，已完成结果原样保留。
-    run_gen_ppl(evaluation, allow_distributed=allow_distributed, debug=debug, resume_dir=directory)
+    run_gen_ppl(evaluation, allow_distributed=allow_distributed, debug=debug, resume_dir=directory, allow_new_models=True)
     if distributed.is_main():
         write_json(receipt, {"directory": str(directory), "status": "completed"})
     progress.configure(run_dir, distributed.rank())
@@ -387,7 +417,9 @@ def plot_tail_grid(run_dir, rows):
                                   key=lambda row: row["tail_layers"])
                 x = [row["tail_layers"] for row in selected]
                 y = [row.get(metric) if row.get(metric) is not None else float("nan") for row in selected]
-                curve, = ax.plot(x, y, marker="o", label=f"{ratio:.0%} rank")
+                # 追加 20% 后，40%/60% 仍保持原来的蓝色/橙色，便于对照旧图。
+                color = {0.4: "C0", 0.6: "C1", 0.2: "C2"}.get(ratio)
+                curve, = ax.plot(x, y, marker="o", color=color, label=f"{ratio:.0%} rank")
                 if metric == "gm":
                     ax.errorbar(x, y, yerr=[row.get("gm_standard_error") or 0 for row in selected],
                                 fmt="none", ecolor=curve.get_color(), capsize=3)
@@ -426,7 +458,9 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
     try:
         if distributed.is_main():
             saved_config = run_dir / "config.yaml"
-            if resume_dir and config["training"]["early_stopping"] != load_yaml_config(saved_config)["training"]["early_stopping"]:
+            if resume_dir and config["rank_sweep"]["ratios"] != load_yaml_config(saved_config)["rank_sweep"]["ratios"]:
+                save_rank_extension(run_dir, config)
+            elif resume_dir and config["training"]["early_stopping"] != load_yaml_config(saved_config)["training"]["early_stopping"]:
                 # 仅在学生尚未开始训练时更新规则；初始权重和已有初评不受影响。
                 write_json(run_dir / "early_stopping_update.json", {
                     "previous": load_yaml_config(saved_config)["training"]["early_stopping"],
@@ -552,14 +586,25 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
     parser.add_argument("--config", default=default_config)
     parser.add_argument("--set", dest="overrides", action="append", default=[])
     parser.add_argument("--run-dir", help="复用实验保存的配置及已完成阶段；未完成训练组从 SVD 起点重跑")
+    parser.add_argument("--add-rank", dest="add_ratios", action="append", type=float, default=[],
+                        help="向 --run-dir 追加 rank 比例（例如 0.2）；其他实验条件沿用原记录，可重复执行续跑")
     parser.add_argument("--dry-run", action="store_true", help="只检查配置并保存计划，不加载模型或数据")
     args = parser.parse_args()
+    if args.add_ratios and not args.run_dir:
+        parser.error("--add-rank 必须配合 --run-dir，追加到已有实验")
     if args.run_dir and args.overrides:
         allowed = {f"training.early_stopping.{key}" for key in ("enabled", "metric", "min_steps", "patience", "min_delta")}
         if any(override.split("=", 1)[0] not in allowed for override in args.overrides):
             parser.error("恢复时 --set 仅允许修改尚未开始训练的早停设置；其他新条件请创建新实验")
     path = project_path(args.run_dir) / "config.yaml" if args.run_dir else args.config
-    config = load_config(path, args.overrides, debug)
+    overrides = list(args.overrides)
+    if args.add_ratios:
+        ratios = list(load_yaml_config(path)["rank_sweep"]["ratios"])
+        for ratio in args.add_ratios:
+            if ratio not in ratios:
+                ratios.append(ratio)
+        overrides.append("rank_sweep.ratios=" + json.dumps(ratios))
+    config = load_config(path, overrides, debug)
     if args.run_dir and args.overrides:
         saved = load_yaml_config(path)
         directory = project_path(args.run_dir)
@@ -575,6 +620,9 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
                           "conditioning_rank": conditioning_rank(config, spec["ratio"])} for spec in specs],
             "targets": config["rank_sweep"]["targets"],
             "num_svd_matrices": len(layers) * len(config["rank_sweep"]["targets"]),
+            "requested_add_ratios": args.add_ratios,
+            "added_students": [spec["name"] for spec in specs if spec["ratio"] in args.add_ratios],
+            "evaluation_models_total": 1 + 2 * len(specs),
             "new_evaluation_models": 1 + 2 * len(specs),
             "reference_run": config["rank_sweep"].get("reference_run"),
             "reference_models": [{key: row[key] for key in ("name", "phase", "rank_ratio", "tail_layers")}
@@ -586,17 +634,21 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
         if args.run_dir:
             root = project_path(args.run_dir)
             for stage in ("before", "after"):
+                suffix = "initial" if stage == "before" else "trained"
+                expected = (["teacher"] if stage == "before" else []) + [spec["name"] + "_" + suffix for spec in specs]
+                completed, directory = [], None
                 manifest_path = root / f"gen_ppl_{stage}.yaml"
                 if manifest_path.is_file():
                     evaluation = load_yaml_config(manifest_path)
                     directory = find_evaluation_directory(root, stage, evaluation)
                     if directory is not None:
-                        completed = [entry["name"] for entry in evaluation["models"]
-                                     if completed_model_result(directory / entry["name"], evaluation["gradient_moment"]["enabled"]) is not None]
-                        plan[f"resume_{stage}"] = {"directory": str(directory), "completed": completed,
-                            "remaining": [entry["name"] for entry in evaluation["models"] if entry["name"] not in completed]}
+                        completed = [name for name in expected
+                                     if completed_model_result(directory / name, evaluation["gradient_moment"]["enabled"]) is not None]
+                plan[f"resume_{stage}"] = {"directory": str(directory) if directory else None, "completed": completed,
+                    "remaining": [name for name in expected if name not in completed]}
             trained = [spec["name"] for spec in specs if (root / spec["name"] / "training.json").is_file()]
             plan["resume_training"] = {"completed": trained, "remaining": [spec["name"] for spec in specs if spec["name"] not in trained]}
+            plan["new_evaluation_models"] = sum(len(plan[f"resume_{stage}"]["remaining"]) for stage in ("before", "after"))
         output = project_path("run/launch") / f"rank_sweep_plan_{datetime.now():%Y%m%d_%H%M%S_%f}.json"
         write_json(output, plan)
         print(json.dumps(plan, ensure_ascii=False, indent=2), flush=True)
