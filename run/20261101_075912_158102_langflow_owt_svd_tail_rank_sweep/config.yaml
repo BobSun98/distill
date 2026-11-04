@@ -89,6 +89,7 @@ rank_sweep:
   ratios:
   - 0.4
   - 0.6
+  - 0.2
   targets:
   - attn_qkv
   - attn_out
@@ -105,6 +106,8 @@ rank_sweep:
   - 10
   reference_run: run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep
   debug: false
+  max_steps_by_rank:
+    rank_020: 10000
 gradient_moment:
   enabled: true
   reference_config: configs/gpt2_corpus_ppl.yaml

@@ -1,0 +1,69 @@
+{
+  "step": 0,
+  "teacher": "Continuous-Rivals-Discrete/langflow-owt",
+  "keep_layers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "block_initialization": "teacher",
+  "loss": {
+    "kd_weight": 1.0,
+    "ce_weight": 0.0
+  },
+  "initialization": "teacher_svd",
+  "low_rank": {
+    "ratio": 0.2,
+    "method": "svd_sqrt",
+    "rounding": "floor",
+    "layer_indices": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "ranks": {
+      "backbone.blocks.6.attn_qkv": 153,
+      "backbone.blocks.6.attn_out": 153,
+      "backbone.blocks.6.mlp.0": 153,
+      "backbone.blocks.6.mlp.2": 153,
+      "backbone.blocks.6.adaLN_modulation": 25,
+      "backbone.blocks.7.attn_qkv": 153,
+      "backbone.blocks.7.attn_out": 153,
+      "backbone.blocks.7.mlp.0": 153,
+      "backbone.blocks.7.mlp.2": 153,
+      "backbone.blocks.7.adaLN_modulation": 25,
+      "backbone.blocks.8.attn_qkv": 153,
+      "backbone.blocks.8.attn_out": 153,
+      "backbone.blocks.8.mlp.0": 153,
+      "backbone.blocks.8.mlp.2": 153,
+      "backbone.blocks.8.adaLN_modulation": 25,
+      "backbone.blocks.9.attn_qkv": 153,
+      "backbone.blocks.9.attn_out": 153,
+      "backbone.blocks.9.mlp.0": 153,
+      "backbone.blocks.9.mlp.2": 153,
+      "backbone.blocks.9.adaLN_modulation": 25,
+      "backbone.blocks.10.attn_qkv": 153,
+      "backbone.blocks.10.attn_out": 153,
+      "backbone.blocks.10.mlp.0": 153,
+      "backbone.blocks.10.mlp.2": 153,
+      "backbone.blocks.10.adaLN_modulation": 25,
+      "backbone.blocks.11.attn_qkv": 153,
+      "backbone.blocks.11.attn_out": 153,
+      "backbone.blocks.11.mlp.0": 153,
+      "backbone.blocks.11.mlp.2": 153,
+      "backbone.blocks.11.adaLN_modulation": 25
+    }
+  }
+}
