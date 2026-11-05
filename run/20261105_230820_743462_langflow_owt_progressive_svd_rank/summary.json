@@ -1,0 +1,214 @@
+{
+  "config": {
+    "run": {
+      "name": "langflow_owt_progressive_svd_rank",
+      "root": "run",
+      "seed": 42
+    },
+    "model": {
+      "family": "langflow",
+      "teacher": "Continuous-Rivals-Discrete/langflow-owt",
+      "teacher_config": null,
+      "tokenizer": "gpt2",
+      "cache_dir": null,
+      "keep_layers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "block_initialization": "teacher",
+      "device": "cuda"
+    },
+    "distributed": {
+      "control_timeout_seconds": 7200,
+      "tensor_timeout_seconds": 180
+    },
+    "execution": {
+      "backend": "compile",
+      "mode": "reduce-overhead",
+      "warmup_forwards": 3,
+      "debug_compile": false
+    },
+    "data": {
+      "corpus": "owt",
+      "dataset": "Skylion007/openwebtext",
+      "dataset_config": "default",
+      "revision": "refs/convert/parquet",
+      "local_dataset": null,
+      "hf_cache_dir": null,
+      "prepared_root": "run/data",
+      "sequence_length": 1024,
+      "validation_documents": 100000,
+      "train_documents": 20000,
+      "valid_documents": 128,
+      "max_train_blocks": 8192,
+      "max_valid_blocks": 128,
+      "tokenize_batch_size": 128
+    },
+    "loss": {
+      "kd_weight": 1.0,
+      "ce_weight": 0.0
+    },
+    "training": {
+      "plot_loss": true,
+      "ppl_evaluation": {
+        "enabled": false,
+        "interval": -1,
+        "num_samples_per_rank": 42,
+        "batch_size": 14
+      },
+      "max_steps": 10000,
+      "batch_size": 16,
+      "grad_accumulation": 2,
+      "learning_rate": 0.0001,
+      "weight_decay": 0.01,
+      "max_grad_norm": 1.0,
+      "self_condition_probability": 0.25,
+      "log_every": 100,
+      "validate_every": 100,
+      "validation_batches": 8,
+      "save_every": 0,
+      "early_stopping": {
+        "enabled": true,
+        "metric": "kl",
+        "min_steps": 500,
+        "patience": 5,
+        "min_delta": 0.001
+      },
+      "lr_scheduler": {
+        "name": "cosine",
+        "final_ratio": 0.1
+      }
+    },
+    "evaluation": {
+      "seed": 42,
+      "num_samples": 1024,
+      "batch_size": 16,
+      "num_steps": 1024,
+      "sequence_length": 1024,
+      "scorer": "gpt2-large",
+      "scorer_batch_size": 4,
+      "scorer_max_length": 1024,
+      "corpus": "owt",
+      "timing_warmup_forwards": 5
+    },
+    "rank_sweep": {
+      "teacher_depth": 12,
+      "hidden_size": 768,
+      "cond_dim": 128,
+      "ratios": [
+        0.75,
+        0.7,
+        0.65,
+        0.6,
+        0.55,
+        0.5,
+        0.45,
+        0.4,
+        0.35,
+        0.3,
+        0.25,
+        0.2
+      ],
+      "targets": [
+        "attn_qkv",
+        "attn_out",
+        "mlp.0",
+        "mlp.2",
+        "adaLN_modulation"
+      ],
+      "full_rank_check": false,
+      "plot_results": true,
+      "debug": false
+    },
+    "gradient_moment": {
+      "enabled": true,
+      "reference_config": "configs/gpt2_corpus_ppl.yaml"
+    },
+    "progressive_rank": {
+      "source_checkpoint": "run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best",
+      "start_percent": 80,
+      "end_percent": 20,
+      "step_percent": 5
+    }
+  },
+  "results": [
+    {
+      "name": "rank_080_source",
+      "family": "langflow",
+      "num_steps": 1024,
+      "sequence_length": 1024,
+      "gen_ppl": 24.485973985018525,
+      "nll_per_token": 3.1981004632080703,
+      "num_samples": 1024,
+      "num_scored_tokens": 656756,
+      "num_scored_samples": 1023,
+      "num_empty_samples": 1,
+      "sample_entropy": 4.625129489336177,
+      "repetition_4gram": 0.11852799159429617,
+      "score_status": "partial_coverage",
+      "gm": 1.0866554467805718,
+      "gm_standard_error": 0.07708502157427902,
+      "gm_num_pairs": 511,
+      "gm_num_skipped_pairs": 1,
+      "gm_num_samples_used": 1022,
+      "gm_status": "partial_coverage",
+      "gm_reference_corpus": "owt",
+      "num_parameters": 175127636,
+      "mean_step_ms": 177.10319715858424,
+      "timed_forward_calls": 65496,
+      "forward_time_ms": 11599551.001098633,
+      "timing_device_names": [
+        "NVIDIA RTX A6000"
+      ],
+      "warmup_forward_calls": 40,
+      "total_forward_calls": 65536,
+      "execution_backend": "compile",
+      "compile_mode": "reduce-overhead",
+      "compile_target": "backbone.forward",
+      "cuda_graphs_requested": true,
+      "cuda_graphs_verified": null,
+      "observed_cuda_graph_launches": 0,
+      "compile_warmup_seconds": 48.09021713398397,
+      "compile_warmup_forward_calls": 64,
+      "compiled_input_variants": 2,
+      "architecture": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best/config.json",
+      "weights": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best/model.safetensors",
+      "selected_weights_key": null,
+      "effective_sampling": {
+        "sampling_method": "euler_edm",
+        "noise_scale": 1.0,
+        "self_conditioning": true,
+        "nfe": 1024
+      },
+      "effective_generation_batch_size": 16,
+      "phase": "source",
+      "rank_ratio": 0.8,
+      "teacher_ratio": null,
+      "parent_checkpoint": null,
+      "depth": 12,
+      "rank": 614,
+      "conditioning_rank": 102,
+      "training_max_steps": null,
+      "training_backend": null,
+      "training_compile_mode": null,
+      "best_step": null,
+      "stop_reason": null,
+      "tokens_seen": null,
+      "checkpoint_tokens_seen": null,
+      "training_steps": null
+    }
+  ],
+  "method": "Each teacher is the frozen best checkpoint of the previous rank; truncated student is re-distilled off-policy with KL.",
+  "rank_definition": "Absolute floor(ratio * min(original matrix dimensions)); all blocks and five projections.",
+  "timing_note": "Per-batch generator forward latency; compilation/warmup, GPT scoring and GM excluded."
+}

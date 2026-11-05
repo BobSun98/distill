@@ -1,0 +1,668 @@
+{
+  "source_checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best",
+  "source_ratio": 0.8,
+  "ratio": 0.75,
+  "method": "SVD of learned up @ down",
+  "matrices": [
+    {
+      "module": "backbone.blocks.0.adaLN_modulation",
+      "shape": [
+        4608,
+        128
+      ],
+      "previous_rank": 102,
+      "rank": 96,
+      "full_rank_relative_error": 1.3042962564213667e-05,
+      "energy_fraction": 0.9999707341194153
+    },
+    {
+      "module": "backbone.blocks.0.attn_out",
+      "shape": [
+        768,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00022261055710259825,
+      "energy_fraction": 0.999495804309845
+    },
+    {
+      "module": "backbone.blocks.0.attn_qkv",
+      "shape": [
+        2304,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0001479319907957688,
+      "energy_fraction": 0.9941368699073792
+    },
+    {
+      "module": "backbone.blocks.0.mlp.0",
+      "shape": [
+        3072,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00016334751853719354,
+      "energy_fraction": 0.9940989017486572
+    },
+    {
+      "module": "backbone.blocks.0.mlp.2",
+      "shape": [
+        768,
+        3072
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00015519133012276143,
+      "energy_fraction": 0.9902758002281189
+    },
+    {
+      "module": "backbone.blocks.1.adaLN_modulation",
+      "shape": [
+        4608,
+        128
+      ],
+      "previous_rank": 102,
+      "rank": 96,
+      "full_rank_relative_error": 1.8670776626095176e-05,
+      "energy_fraction": 0.9999666213989258
+    },
+    {
+      "module": "backbone.blocks.1.attn_out",
+      "shape": [
+        768,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00022846386127639562,
+      "energy_fraction": 0.9980969429016113
+    },
+    {
+      "module": "backbone.blocks.1.attn_qkv",
+      "shape": [
+        2304,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00016243378922808915,
+      "energy_fraction": 0.991096556186676
+    },
+    {
+      "module": "backbone.blocks.1.mlp.0",
+      "shape": [
+        3072,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0001755392731865868,
+      "energy_fraction": 0.9891611933708191
+    },
+    {
+      "module": "backbone.blocks.1.mlp.2",
+      "shape": [
+        768,
+        3072
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00018088459910359234,
+      "energy_fraction": 0.9844144582748413
+    },
+    {
+      "module": "backbone.blocks.10.adaLN_modulation",
+      "shape": [
+        4608,
+        128
+      ],
+      "previous_rank": 102,
+      "rank": 96,
+      "full_rank_relative_error": 1.6964715541689657e-05,
+      "energy_fraction": 0.9999964237213135
+    },
+    {
+      "module": "backbone.blocks.10.attn_out",
+      "shape": [
+        768,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0002376817719778046,
+      "energy_fraction": 0.996574878692627
+    },
+    {
+      "module": "backbone.blocks.10.attn_qkv",
+      "shape": [
+        2304,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017352170834783465,
+      "energy_fraction": 0.9891694188117981
+    },
+    {
+      "module": "backbone.blocks.10.mlp.0",
+      "shape": [
+        3072,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00018158000602852553,
+      "energy_fraction": 0.9833977222442627
+    },
+    {
+      "module": "backbone.blocks.10.mlp.2",
+      "shape": [
+        768,
+        3072
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00018720285152085125,
+      "energy_fraction": 0.9767552614212036
+    },
+    {
+      "module": "backbone.blocks.11.adaLN_modulation",
+      "shape": [
+        4608,
+        128
+      ],
+      "previous_rank": 102,
+      "rank": 96,
+      "full_rank_relative_error": 3.568267629816546e-06,
+      "energy_fraction": 0.9999977350234985
+    },
+    {
+      "module": "backbone.blocks.11.attn_out",
+      "shape": [
+        768,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0002423615223960951,
+      "energy_fraction": 0.9927082657814026
+    },
+    {
+      "module": "backbone.blocks.11.attn_qkv",
+      "shape": [
+        2304,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0001763325126376003,
+      "energy_fraction": 0.9882346391677856
+    },
+    {
+      "module": "backbone.blocks.11.mlp.0",
+      "shape": [
+        3072,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0001723949535517022,
+      "energy_fraction": 0.9838003516197205
+    },
+    {
+      "module": "backbone.blocks.11.mlp.2",
+      "shape": [
+        768,
+        3072
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00019079331832472235,
+      "energy_fraction": 0.9764360785484314
+    },
+    {
+      "module": "backbone.blocks.2.adaLN_modulation",
+      "shape": [
+        4608,
+        128
+      ],
+      "previous_rank": 102,
+      "rank": 96,
+      "full_rank_relative_error": 1.7553749785292894e-05,
+      "energy_fraction": 0.9999723434448242
+    },
+    {
+      "module": "backbone.blocks.2.attn_out",
+      "shape": [
+        768,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00022979904315434396,
+      "energy_fraction": 0.9971686005592346
+    },
+    {
+      "module": "backbone.blocks.2.attn_qkv",
+      "shape": [
+        2304,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0001682766160229221,
+      "energy_fraction": 0.9900489449501038
+    },
+    {
+      "module": "backbone.blocks.2.mlp.0",
+      "shape": [
+        3072,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017828542331699282,
+      "energy_fraction": 0.9849472045898438
+    },
+    {
+      "module": "backbone.blocks.2.mlp.2",
+      "shape": [
+        768,
+        3072
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017059828678611666,
+      "energy_fraction": 0.984741747379303
+    },
+    {
+      "module": "backbone.blocks.3.adaLN_modulation",
+      "shape": [
+        4608,
+        128
+      ],
+      "previous_rank": 102,
+      "rank": 96,
+      "full_rank_relative_error": 1.3476226740749553e-05,
+      "energy_fraction": 0.9999740719795227
+    },
+    {
+      "module": "backbone.blocks.3.attn_out",
+      "shape": [
+        768,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00024210214905906469,
+      "energy_fraction": 0.9961315989494324
+    },
+    {
+      "module": "backbone.blocks.3.attn_qkv",
+      "shape": [
+        2304,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017169748025480658,
+      "energy_fraction": 0.9885209202766418
+    },
+    {
+      "module": "backbone.blocks.3.mlp.0",
+      "shape": [
+        3072,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017286081856582314,
+      "energy_fraction": 0.9838393926620483
+    },
+    {
+      "module": "backbone.blocks.3.mlp.2",
+      "shape": [
+        768,
+        3072
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017416072660125792,
+      "energy_fraction": 0.9859336614608765
+    },
+    {
+      "module": "backbone.blocks.4.adaLN_modulation",
+      "shape": [
+        4608,
+        128
+      ],
+      "previous_rank": 102,
+      "rank": 96,
+      "full_rank_relative_error": 1.2919332220917568e-05,
+      "energy_fraction": 0.9999731183052063
+    },
+    {
+      "module": "backbone.blocks.4.attn_out",
+      "shape": [
+        768,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0002371612936258316,
+      "energy_fraction": 0.9945306181907654
+    },
+    {
+      "module": "backbone.blocks.4.attn_qkv",
+      "shape": [
+        2304,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017396996554452926,
+      "energy_fraction": 0.9871878027915955
+    },
+    {
+      "module": "backbone.blocks.4.mlp.0",
+      "shape": [
+        3072,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017442084208596498,
+      "energy_fraction": 0.9826762676239014
+    },
+    {
+      "module": "backbone.blocks.4.mlp.2",
+      "shape": [
+        768,
+        3072
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017277408915106207,
+      "energy_fraction": 0.9826093316078186
+    },
+    {
+      "module": "backbone.blocks.5.adaLN_modulation",
+      "shape": [
+        4608,
+        128
+      ],
+      "previous_rank": 102,
+      "rank": 96,
+      "full_rank_relative_error": 3.346523590153083e-05,
+      "energy_fraction": 0.9999876618385315
+    },
+    {
+      "module": "backbone.blocks.5.attn_out",
+      "shape": [
+        768,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0002243642375105992,
+      "energy_fraction": 0.9960873126983643
+    },
+    {
+      "module": "backbone.blocks.5.attn_qkv",
+      "shape": [
+        2304,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00018136075232177973,
+      "energy_fraction": 0.9878934621810913
+    },
+    {
+      "module": "backbone.blocks.5.mlp.0",
+      "shape": [
+        3072,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017408552230335772,
+      "energy_fraction": 0.9827162027359009
+    },
+    {
+      "module": "backbone.blocks.5.mlp.2",
+      "shape": [
+        768,
+        3072
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017614038370084018,
+      "energy_fraction": 0.9837480187416077
+    },
+    {
+      "module": "backbone.blocks.6.adaLN_modulation",
+      "shape": [
+        4608,
+        128
+      ],
+      "previous_rank": 102,
+      "rank": 96,
+      "full_rank_relative_error": 9.56827170739416e-06,
+      "energy_fraction": 0.9999797940254211
+    },
+    {
+      "module": "backbone.blocks.6.attn_out",
+      "shape": [
+        768,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0002287735987920314,
+      "energy_fraction": 0.9971480369567871
+    },
+    {
+      "module": "backbone.blocks.6.attn_qkv",
+      "shape": [
+        2304,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017294222197961062,
+      "energy_fraction": 0.9893898367881775
+    },
+    {
+      "module": "backbone.blocks.6.mlp.0",
+      "shape": [
+        3072,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0001707880583126098,
+      "energy_fraction": 0.9836700558662415
+    },
+    {
+      "module": "backbone.blocks.6.mlp.2",
+      "shape": [
+        768,
+        3072
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0001772433752194047,
+      "energy_fraction": 0.9829559326171875
+    },
+    {
+      "module": "backbone.blocks.7.adaLN_modulation",
+      "shape": [
+        4608,
+        128
+      ],
+      "previous_rank": 102,
+      "rank": 96,
+      "full_rank_relative_error": 2.646881875989493e-05,
+      "energy_fraction": 0.9999884963035583
+    },
+    {
+      "module": "backbone.blocks.7.attn_out",
+      "shape": [
+        768,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00023137649986892939,
+      "energy_fraction": 0.9963309168815613
+    },
+    {
+      "module": "backbone.blocks.7.attn_qkv",
+      "shape": [
+        2304,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0001736299745971337,
+      "energy_fraction": 0.9890168309211731
+    },
+    {
+      "module": "backbone.blocks.7.mlp.0",
+      "shape": [
+        3072,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017136197129730135,
+      "energy_fraction": 0.9830736517906189
+    },
+    {
+      "module": "backbone.blocks.7.mlp.2",
+      "shape": [
+        768,
+        3072
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00016987296112347394,
+      "energy_fraction": 0.9835243225097656
+    },
+    {
+      "module": "backbone.blocks.8.adaLN_modulation",
+      "shape": [
+        4608,
+        128
+      ],
+      "previous_rank": 102,
+      "rank": 96,
+      "full_rank_relative_error": 1.4065956747799646e-05,
+      "energy_fraction": 0.9999895095825195
+    },
+    {
+      "module": "backbone.blocks.8.attn_out",
+      "shape": [
+        768,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0002285193040734157,
+      "energy_fraction": 0.997865617275238
+    },
+    {
+      "module": "backbone.blocks.8.attn_qkv",
+      "shape": [
+        2304,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017033967014867812,
+      "energy_fraction": 0.9905404448509216
+    },
+    {
+      "module": "backbone.blocks.8.mlp.0",
+      "shape": [
+        3072,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0001785086642485112,
+      "energy_fraction": 0.9822671413421631
+    },
+    {
+      "module": "backbone.blocks.8.mlp.2",
+      "shape": [
+        768,
+        3072
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0001818143791751936,
+      "energy_fraction": 0.9821791052818298
+    },
+    {
+      "module": "backbone.blocks.9.adaLN_modulation",
+      "shape": [
+        4608,
+        128
+      ],
+      "previous_rank": 102,
+      "rank": 96,
+      "full_rank_relative_error": 7.988220204424579e-06,
+      "energy_fraction": 0.9999939203262329
+    },
+    {
+      "module": "backbone.blocks.9.attn_out",
+      "shape": [
+        768,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00022945026285015047,
+      "energy_fraction": 0.9963096976280212
+    },
+    {
+      "module": "backbone.blocks.9.attn_qkv",
+      "shape": [
+        2304,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017293577548116446,
+      "energy_fraction": 0.9895021915435791
+    },
+    {
+      "module": "backbone.blocks.9.mlp.0",
+      "shape": [
+        3072,
+        768
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.00017081943224184215,
+      "energy_fraction": 0.9818410873413086
+    },
+    {
+      "module": "backbone.blocks.9.mlp.2",
+      "shape": [
+        768,
+        3072
+      ],
+      "previous_rank": 614,
+      "rank": 576,
+      "full_rank_relative_error": 0.0001860481861513108,
+      "energy_fraction": 0.9780135750770569
+    }
+  ]
+}
