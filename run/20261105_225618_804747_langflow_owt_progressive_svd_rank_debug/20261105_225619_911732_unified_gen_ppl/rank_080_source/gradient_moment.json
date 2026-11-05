@@ -1,0 +1,59 @@
+{
+  "protocol": {
+    "enabled": true,
+    "version": "gpt2_large_gm_v1",
+    "scorer": "gpt2-large",
+    "reference_config": "configs/gpt2_corpus_ppl.yaml",
+    "seed": 42,
+    "num_reference_samples_per_corpus": 4,
+    "max_length": 1024,
+    "loss": "per_sequence_mean_shifted_token_nll_excluding_padding",
+    "parameters": "all_unique_reference_parameters_including_tied_embedding_once",
+    "estimator": "mean_of_independent_gradient_difference_inner_products_eq14",
+    "pairing": "consecutive_sample_ids_pair_id_mod_world_size",
+    "gradient_dtype": "float32",
+    "inner_product_dtype": "float64",
+    "invalid_samples": "skip_pair_without_resampling_and_report_coverage",
+    "negative_estimates": "retained"
+  },
+  "corpus": "owt",
+  "reference_source": {
+    "dataset": "Skylion007/openwebtext",
+    "dataset_config": "default",
+    "revision": "refs/convert/parquet",
+    "split": "train",
+    "tail_documents": 100000,
+    "detokenize": false,
+    "local_dataset": null,
+    "effective_split": "train[-100000:]",
+    "source_index_scope": "effective_split",
+    "seed": 42,
+    "candidate_documents": 100000,
+    "skipped_documents": 0
+  },
+  "gm": 4.0297702110076195,
+  "gm_standard_error": 0.9285760639044041,
+  "gm_num_pairs": 2,
+  "gm_num_skipped_pairs": 0,
+  "gm_num_samples_used": 4,
+  "gm_status": "completed",
+  "per_pair": [
+    {
+      "pair_id": 0,
+      "gm": 4.9583462749120235,
+      "sample_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "pair_id": 1,
+      "gm": 3.1011941471032154,
+      "sample_ids": [
+        2,
+        3
+      ]
+    }
+  ],
+  "gm_reference_corpus": "owt"
+}

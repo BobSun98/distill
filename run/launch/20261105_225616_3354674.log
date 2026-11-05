@@ -1,0 +1,616 @@
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[data] 复用 /proj/gpu_mtk53742/CDLM-distillation/run/data/owt_l128_t32_v16
+[rank 0] unified.model.load.begin {"model": "rank_080_source"}
+[rank 0] unified.model.load.end {"seconds": 2.5417482554912567, "model": "rank_080_source"}
+[rank 0] execution.enabled {"execution_backend": "compile", "compile_mode": "reduce-overhead", "cuda_graphs_requested": true, "roles": ["generator"]}
+[rank 0] unified.generate.begin {"model": "rank_080_source", "sample_ids": [0]}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 1}
+I1105 22:56:34.687000 3354681 site-packages/torch/_inductor/compile_fx.py:335] [0/0] [__perf_hints] TensorFloat32 tensor cores for float32 matrix multiplication available but not enabled. Consider setting `torch.set_float32_matmul_precision('high')` for better performance.
+I1105 22:56:36.011000 3354681 site-packages/torch/_inductor/graph.py:1045] [0/0] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention.default
+USDT:2026-11-05 22:56:45 3354681:3354681 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 22:56:45 3354681:3354681 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 20.475904979743063, "role": "generator", "mode": "reduce-overhead", "variant": 1}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 2}
+I1105 22:56:55.254000 3354681 site-packages/torch/_inductor/graph.py:1045] [0/1] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention.default
+USDT:2026-11-05 22:57:03 3354681:3354681 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 22:57:03 3354681:3354681 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 18.522806123830378, "role": "generator", "mode": "reduce-overhead", "variant": 2}
+[rank 0] unified.generate.end {"seconds": 39.12161395512521, "model": "rank_080_source", "sample_ids": [0]}
+[rank 0] unified.generate.begin {"model": "rank_080_source", "sample_ids": [1]}
+[rank 0] unified.generate.end {"seconds": 0.06363586336374283, "model": "rank_080_source", "sample_ids": [1]}
+[rank 0] unified.generate.begin {"model": "rank_080_source", "sample_ids": [2]}
+[rank 0] unified.generate.end {"seconds": 0.05958752799779177, "model": "rank_080_source", "sample_ids": [2]}
+[rank 0] unified.generate.begin {"model": "rank_080_source", "sample_ids": [3]}
+[rank 0] unified.generate.end {"seconds": 0.05913897417485714, "model": "rank_080_source", "sample_ids": [3]}
+[rank 0] unified.scorer.files.begin {"model": "gpt2-large"}
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1266.78it/s]
+[rank 0] unified.scorer.files.end {"seconds": 0.42493023723363876, "model": "gpt2-large"}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 0] unified.scorer.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519"}
+[rank 0] unified.scorer.load.end {"seconds": 0.14867692068219185, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519"}
+[rank 0] unified.score.begin {"model": "rank_080_source", "local_samples": 4}
+[rank 0] corpus.score.batch.begin {"batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.18418673891574144, "batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.029920018278062344, "batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.029701673425734043, "batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 3, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.02934157010167837, "batch": 3, "samples": 1}
+[rank 0] unified.score.end {"seconds": 0.43575733713805676, "model": "rank_080_source", "local_samples": 4}
+[rank 0] unified.gm.reference.begin {"corpus": "owt"}
+[rank 0] unified.gm.reference.end {"seconds": 3.1163181187584996, "corpus": "owt"}
+[rank 0] unified.gm.pair.begin {"pair_id": 0}
+[rank 0] unified.gm.pair.end {"seconds": 1.0506653096526861, "pair_id": 0}
+[rank 0] unified.gm.pair.begin {"pair_id": 1}
+[rank 0] unified.gm.pair.end {"seconds": 1.166034147143364, "pair_id": 1}
+[unified] rank_080_source: Gen. PPL=83.99609399344027, scored=4/4, GM=4.0297702110076195, SE=0.9285760639044041, params=175127636, mean_step_ms=4.9686613436098455
+[rank 0] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best"}
+[rank 0] model.files.resolve.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best"}
+[rank 0] model.files.resolve.end {"seconds": 5.86705282330513e-05, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best"}
+[rank 0] model.files.wait.end {"seconds": 0.00018528010696172714, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best"}
+[rank 0] model.weights.load.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best"}
+[rank 0] model.weights.load.end {"seconds": 1.5583853302523494, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best"}
+[rank 0] model.to_device.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best", "device": "cuda"}
+[rank 0] model.to_device.end {"seconds": 0.12780559808015823, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best", "device": "cuda"}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.0.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.03527460899204016, "module": "backbone.blocks.0.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.0.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.09885803610086441, "module": "backbone.blocks.0.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.0.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.12270458787679672, "module": "backbone.blocks.0.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.0.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.09904724266380072, "module": "backbone.blocks.0.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.0.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.14348181523382664, "module": "backbone.blocks.0.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.1.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.008251302875578403, "module": "backbone.blocks.1.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.1.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.10998024605214596, "module": "backbone.blocks.1.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.1.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.08621432445943356, "module": "backbone.blocks.1.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.1.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.09639740083366632, "module": "backbone.blocks.1.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.1.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.21647830959409475, "module": "backbone.blocks.1.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.10.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.00813321489840746, "module": "backbone.blocks.10.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.10.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.10609632730484009, "module": "backbone.blocks.10.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.10.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.22463894728571177, "module": "backbone.blocks.10.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.10.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.09556868299841881, "module": "backbone.blocks.10.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.10.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.10252858512103558, "module": "backbone.blocks.10.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.11.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.007315748371183872, "module": "backbone.blocks.11.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.11.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.0939388694241643, "module": "backbone.blocks.11.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.11.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.1183625040575862, "module": "backbone.blocks.11.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.11.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.1345418021082878, "module": "backbone.blocks.11.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.11.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.10685749165713787, "module": "backbone.blocks.11.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.2.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.007351372390985489, "module": "backbone.blocks.2.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.2.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.0930083580315113, "module": "backbone.blocks.2.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.2.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.1589964497834444, "module": "backbone.blocks.2.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.2.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.09517455659806728, "module": "backbone.blocks.2.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.2.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.1054681558161974, "module": "backbone.blocks.2.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.3.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.0074992673471570015, "module": "backbone.blocks.3.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.3.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.09812903869897127, "module": "backbone.blocks.3.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.3.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.10777760576456785, "module": "backbone.blocks.3.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.3.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.23820889741182327, "module": "backbone.blocks.3.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.3.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.10331869404762983, "module": "backbone.blocks.3.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.4.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.007614840753376484, "module": "backbone.blocks.4.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.4.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.09217545296996832, "module": "backbone.blocks.4.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.4.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.1094555789604783, "module": "backbone.blocks.4.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.4.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.1071923179551959, "module": "backbone.blocks.4.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.4.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.13196994084864855, "module": "backbone.blocks.4.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.5.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.00753204058855772, "module": "backbone.blocks.5.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.5.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.10372149478644133, "module": "backbone.blocks.5.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.5.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.08620706386864185, "module": "backbone.blocks.5.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.5.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.11529502924531698, "module": "backbone.blocks.5.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.5.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.16517414525151253, "module": "backbone.blocks.5.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.6.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.007526874542236328, "module": "backbone.blocks.6.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.6.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.11734687816351652, "module": "backbone.blocks.6.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.6.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.12756337691098452, "module": "backbone.blocks.6.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.6.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.0970434658229351, "module": "backbone.blocks.6.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.6.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.11144642345607281, "module": "backbone.blocks.6.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.7.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.007650469429790974, "module": "backbone.blocks.7.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.7.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.114315046928823, "module": "backbone.blocks.7.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.7.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.1442232159897685, "module": "backbone.blocks.7.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.7.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.1802323553711176, "module": "backbone.blocks.7.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.7.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.10532333236187696, "module": "backbone.blocks.7.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.8.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.0074579473584890366, "module": "backbone.blocks.8.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.8.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.12091889139264822, "module": "backbone.blocks.8.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.8.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.0937938429415226, "module": "backbone.blocks.8.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.8.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.16729159653186798, "module": "backbone.blocks.8.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.8.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.11350506450980902, "module": "backbone.blocks.8.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.9.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.007291731424629688, "module": "backbone.blocks.9.adaLN_modulation", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.9.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.11201446503400803, "module": "backbone.blocks.9.attn_out", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.9.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.11070887465029955, "module": "backbone.blocks.9.attn_qkv", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.9.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.18948227167129517, "module": "backbone.blocks.9.mlp.0", "ratio": 0.75}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.9.mlp.2", "ratio": 0.75}
+[rank 0] progressive.svd.end {"seconds": 0.1786081288009882, "module": "backbone.blocks.9.mlp.2", "ratio": 0.75}
+[rank 0] checkpoint.save.begin {"step": 0, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/initial"}
+[rank 0] checkpoint.save.end {"step": 0}
+[rank 0] checkpoint.wait_ready.begin {"step": 0}
+[rank 0] checkpoint.wait_ready.end {"seconds": 1.2481585144996643e-05, "step": 0}
+[rank 0] unified.model.load.begin {"model": "rank_075_initial"}
+[rank 0] unified.model.load.end {"seconds": 1.654986483976245, "model": "rank_075_initial"}
+[rank 0] execution.enabled {"execution_backend": "compile", "compile_mode": "reduce-overhead", "cuda_graphs_requested": true, "roles": ["generator"]}
+[rank 0] unified.generate.begin {"model": "rank_075_initial", "sample_ids": [0]}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 1}
+I1105 22:57:36.170000 3354681 site-packages/torch/_inductor/graph.py:1045] [0/0] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention.default
+USDT:2026-11-05 22:57:41 3354681:3354681 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 22:57:41 3354681:3354681 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 15.03719686716795, "role": "generator", "mode": "reduce-overhead", "variant": 1}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 2}
+I1105 22:57:50.724000 3354681 site-packages/torch/_inductor/graph.py:1045] [0/1] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention.default
+USDT:2026-11-05 22:57:56 3354681:3354681 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 22:57:56 3354681:3354681 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 15.053973796777427, "role": "generator", "mode": "reduce-overhead", "variant": 2}
+[rank 0] unified.generate.end {"seconds": 30.144521039910614, "model": "rank_075_initial", "sample_ids": [0]}
+[rank 0] unified.generate.begin {"model": "rank_075_initial", "sample_ids": [1]}
+[rank 0] unified.generate.end {"seconds": 0.060211408883333206, "model": "rank_075_initial", "sample_ids": [1]}
+[rank 0] unified.generate.begin {"model": "rank_075_initial", "sample_ids": [2]}
+[rank 0] unified.generate.end {"seconds": 0.056955612264573574, "model": "rank_075_initial", "sample_ids": [2]}
+[rank 0] unified.generate.begin {"model": "rank_075_initial", "sample_ids": [3]}
+[rank 0] unified.generate.end {"seconds": 0.05633555352687836, "model": "rank_075_initial", "sample_ids": [3]}
+[rank 0] unified.scorer.files.begin {"model": "gpt2-large"}
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1391.41it/s]
+[rank 0] unified.scorer.files.end {"seconds": 0.417184516787529, "model": "gpt2-large"}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 0] unified.scorer.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519"}
+[rank 0] unified.scorer.load.end {"seconds": 0.1254073092713952, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519"}
+[rank 0] unified.score.begin {"model": "rank_075_initial", "local_samples": 4}
+[rank 0] corpus.score.batch.begin {"batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.030690964311361313, "batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.027925767935812473, "batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.02811835054308176, "batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 3, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.02780123706907034, "batch": 3, "samples": 1}
+[rank 0] unified.score.end {"seconds": 0.31721963826566935, "model": "rank_075_initial", "local_samples": 4}
+[rank 0] unified.gm.pair.begin {"pair_id": 0}
+[rank 0] unified.gm.pair.end {"seconds": 0.9741092789918184, "pair_id": 0}
+[rank 0] unified.gm.pair.begin {"pair_id": 1}
+[rank 0] unified.gm.pair.end {"seconds": 1.1623915638774633, "pair_id": 1}
+[unified] rank_075_initial: Gen. PPL=61.59069602210676, scored=4/4, GM=4.578136520978027, SE=0.13467266307761516, params=169183316, mean_step_ms=4.662887167047571
+[rank 0] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best"}
+[rank 0] model.files.resolve.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best"}
+[rank 0] model.files.resolve.end {"seconds": 3.981590270996094e-05, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best"}
+[rank 0] model.files.wait.end {"seconds": 0.0001573106274008751, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best"}
+[rank 0] model.weights.load.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best"}
+[rank 0] model.weights.load.end {"seconds": 1.7012941865250468, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best"}
+[rank 0] model.to_device.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best", "device": "cuda"}
+[rank 0] model.to_device.end {"seconds": 0.11829137057065964, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best", "device": "cuda"}
+[rank 0] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/initial"}
+[rank 0] model.files.resolve.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/initial"}
+[rank 0] model.files.resolve.end {"seconds": 7.561501115560532e-05, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/initial"}
+[rank 0] model.files.wait.end {"seconds": 0.0002290746197104454, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/initial"}
+[rank 0] model.weights.load.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/initial"}
+[rank 0] model.weights.load.end {"seconds": 1.680617118254304, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/initial"}
+[rank 0] model.to_device.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/initial", "device": "cuda:0"}
+[rank 0] model.to_device.end {"seconds": 0.11371069960296154, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/initial", "device": "cuda:0"}
+[rank 0] execution.enabled {"execution_backend": "compile", "compile_mode": "reduce-overhead", "cuda_graphs_requested": true, "roles": ["teacher", "student"]}
+[rank 0] data.loaders.begin {}
+[rank 0] data.loaders.end {"seconds": 0.0020567961037158966}
+[train] {'phase': 'execution_start', 'step': 0, 'max_steps': 3, 'elapsed_seconds': 7.445644587278366e-05, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] validation.begin {"step": 0}
+[rank 0] validation.first_batch.begin {"tokens": 128}
+[rank 0] validation.first_batch.end {"loss": 0.1826198399066925, "ce": 6.142770767211914, "kl": 0.1826198399066925}
+[rank 0] validation.reduce.begin {"local_tokens": 128}
+[rank 0] validation.reduce.end {"seconds": 0.00013697240501642227, "local_tokens": 128}
+[train] {'phase': 'valid', 'step': 0, 'ce': 6.142770767211914, 'kl': 0.1826198399066925, 'loss': 0.1826198399066925, 'elapsed_seconds': 12.70778901129961, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] validation.end {"seconds": 12.707600375637412, "step": 0}
+[rank 0] train.step.begin {"step": 1}
+[rank 0] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+I1105 22:58:35.696000 3354681 site-packages/torch/_inductor/graph.py:1045] [0/2] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention.default
+[rank 0] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+I1105 22:58:47.759000 3354681 site-packages/torch/_inductor/graph.py:1045] [0/2] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention_backward.default
+I1105 22:58:50.828000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 22:58:50.878000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 22:58:50.890000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 22:58:50.902000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 22:58:50.913000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 22:58:50.925000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 22:58:50.937000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 22:58:50.949000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 22:58:50.960000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 22:58:50.972000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 22:58:50.984000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 22:58:50.996000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+[rank 0] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[train] {'phase': 'train', 'step': 1, 'ce': 5.743120193481445, 'kl': 0.624710202217102, 'loss': 0.624710202217102, 'grad_norm': 51.95970916748047, 'tokens': 128, 'epoch': 0, 'learning_rate': 0.0001, 'rank0_peak_memory_gib': 3.2502222061157227, 'elapsed_seconds': 52.74827933590859, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] train.step.end {"step": 1}
+[rank 0] train.step.begin {"step": 2}
+[train] {'phase': 'train', 'step': 2, 'ce': 3.0632057189941406, 'kl': 0.12681376934051514, 'loss': 0.12681376934051514, 'grad_norm': 6.90493106842041, 'tokens': 128, 'epoch': 0, 'learning_rate': 5.5e-05, 'rank0_peak_memory_gib': 3.250467300415039, 'elapsed_seconds': 53.04993746522814, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] train.step.end {"step": 2}
+[rank 0] train.step.begin {"step": 3}
+[train] {'phase': 'train', 'step': 3, 'ce': 4.650074481964111, 'kl': 0.736380934715271, 'loss': 0.736380934715271, 'grad_norm': 27.03831672668457, 'tokens': 128, 'epoch': 0, 'learning_rate': 1e-05, 'rank0_peak_memory_gib': 3.250467300415039, 'elapsed_seconds': 53.097326391376555, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] train.step.end {"step": 3}
+[rank 0] validation.begin {"step": 3}
+[rank 0] validation.first_batch.begin {"tokens": 128}
+[rank 0] validation.first_batch.end {"loss": 0.4360131323337555, "ce": 5.9606218338012695, "kl": 0.4360131323337555}
+[rank 0] validation.reduce.begin {"local_tokens": 128}
+[rank 0] validation.reduce.end {"seconds": 0.00011420808732509613, "local_tokens": 128}
+[train] {'phase': 'valid', 'step': 3, 'ce': 5.9606218338012695, 'kl': 0.4360131323337555, 'loss': 0.4360131323337555, 'elapsed_seconds': 53.11394581571221, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] validation.end {"seconds": 0.01636043656617403, "step": 3}
+[rank 0] checkpoint.save.begin {"step": 3, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003"}
+[rank 0] checkpoint.save.end {"step": 3}
+[rank 0] checkpoint.wait_ready.begin {"step": 3}
+[rank 0] checkpoint.wait_ready.end {"seconds": 1.2313947081565857e-05, "step": 3}
+[train] stopped at step 3: max_steps
+[train] checkpoint: /proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003
+[rank 0] unified.model.load.begin {"model": "rank_075_trained"}
+[rank 0] unified.model.load.end {"seconds": 2.058667845092714, "model": "rank_075_trained"}
+[rank 0] execution.enabled {"execution_backend": "compile", "compile_mode": "reduce-overhead", "cuda_graphs_requested": true, "roles": ["generator"]}
+[rank 0] unified.generate.begin {"model": "rank_075_trained", "sample_ids": [0]}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 1}
+USDT:2026-11-05 22:59:08 3354681:3354681 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 22:59:08 3354681:3354681 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 3.7933836188167334, "role": "generator", "mode": "reduce-overhead", "variant": 1}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 2}
+USDT:2026-11-05 22:59:12 3354681:3354681 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 22:59:12 3354681:3354681 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 4.069112782366574, "role": "generator", "mode": "reduce-overhead", "variant": 2}
+[rank 0] unified.generate.end {"seconds": 7.917756934650242, "model": "rank_075_trained", "sample_ids": [0]}
+[rank 0] unified.generate.begin {"model": "rank_075_trained", "sample_ids": [1]}
+[rank 0] unified.generate.end {"seconds": 0.05824502184987068, "model": "rank_075_trained", "sample_ids": [1]}
+[rank 0] unified.generate.begin {"model": "rank_075_trained", "sample_ids": [2]}
+[rank 0] unified.generate.end {"seconds": 0.056880111806094646, "model": "rank_075_trained", "sample_ids": [2]}
+[rank 0] unified.generate.begin {"model": "rank_075_trained", "sample_ids": [3]}
+[rank 0] unified.generate.end {"seconds": 0.0566805237904191, "model": "rank_075_trained", "sample_ids": [3]}
+[rank 0] unified.scorer.files.begin {"model": "gpt2-large"}
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1275.97it/s]
+[rank 0] unified.scorer.files.end {"seconds": 0.4032759917899966, "model": "gpt2-large"}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 0] unified.scorer.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519"}
+[rank 0] unified.scorer.load.end {"seconds": 0.1255985712632537, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519"}
+[rank 0] unified.score.begin {"model": "rank_075_trained", "local_samples": 4}
+[rank 0] corpus.score.batch.begin {"batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.030921458266675472, "batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.028326583094894886, "batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.029128054156899452, "batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 3, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.029128756374120712, "batch": 3, "samples": 1}
+[rank 0] unified.score.end {"seconds": 0.3215130418539047, "model": "rank_075_trained", "local_samples": 4}
+[rank 0] unified.gm.pair.begin {"pair_id": 0}
+[rank 0] unified.gm.pair.end {"seconds": 0.981869513168931, "pair_id": 0}
+[rank 0] unified.gm.pair.begin {"pair_id": 1}
+[rank 0] unified.gm.pair.end {"seconds": 1.189008659683168, "pair_id": 1}
+[unified] rank_075_trained: Gen. PPL=160.292764634701, scored=4/4, GM=7.073904187697693, SE=0.864440595409055, params=169183316, mean_step_ms=4.6439608821162475
+[rank 0] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003"}
+[rank 0] model.files.resolve.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003"}
+[rank 0] model.files.resolve.end {"seconds": 5.56139275431633e-05, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003"}
+[rank 0] model.files.wait.end {"seconds": 0.00021012220531702042, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003"}
+[rank 0] model.weights.load.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003"}
+[rank 0] model.weights.load.end {"seconds": 1.6455195434391499, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003"}
+[rank 0] model.to_device.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003", "device": "cuda"}
+[rank 0] model.to_device.end {"seconds": 0.10861906502395868, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003", "device": "cuda"}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.0.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.009017725475132465, "module": "backbone.blocks.0.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.0.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.10268832929432392, "module": "backbone.blocks.0.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.0.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.08745862543582916, "module": "backbone.blocks.0.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.0.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.0868572061881423, "module": "backbone.blocks.0.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.0.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.08934581279754639, "module": "backbone.blocks.0.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.1.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.007762282155454159, "module": "backbone.blocks.1.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.1.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.09767544642090797, "module": "backbone.blocks.1.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.1.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.0805282685905695, "module": "backbone.blocks.1.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.1.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.08500974159687757, "module": "backbone.blocks.1.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.1.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.09654301404953003, "module": "backbone.blocks.1.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.10.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.006856323219835758, "module": "backbone.blocks.10.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.10.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.09695590194314718, "module": "backbone.blocks.10.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.10.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.08793016709387302, "module": "backbone.blocks.10.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.10.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.08479413203895092, "module": "backbone.blocks.10.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.10.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.09242267720401287, "module": "backbone.blocks.10.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.11.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.006710980087518692, "module": "backbone.blocks.11.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.11.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.1074844291433692, "module": "backbone.blocks.11.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.11.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.07437023427337408, "module": "backbone.blocks.11.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.11.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.07671806868165731, "module": "backbone.blocks.11.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.11.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.0844882195815444, "module": "backbone.blocks.11.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.2.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.008100312203168869, "module": "backbone.blocks.2.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.2.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.09795032255351543, "module": "backbone.blocks.2.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.2.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.07975609134882689, "module": "backbone.blocks.2.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.2.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.1141186086460948, "module": "backbone.blocks.2.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.2.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.09254361782222986, "module": "backbone.blocks.2.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.3.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.0075738318264484406, "module": "backbone.blocks.3.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.3.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.09516723267734051, "module": "backbone.blocks.3.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.3.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.08413817454129457, "module": "backbone.blocks.3.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.3.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.08069291431456804, "module": "backbone.blocks.3.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.3.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.09682353213429451, "module": "backbone.blocks.3.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.4.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.007836971431970596, "module": "backbone.blocks.4.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.4.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.10536444839090109, "module": "backbone.blocks.4.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.4.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.07742646522819996, "module": "backbone.blocks.4.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.4.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.08237240184098482, "module": "backbone.blocks.4.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.4.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.0874722944572568, "module": "backbone.blocks.4.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.5.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.008099078200757504, "module": "backbone.blocks.5.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.5.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.10642451606690884, "module": "backbone.blocks.5.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.5.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.09086405579000711, "module": "backbone.blocks.5.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.5.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.10804679058492184, "module": "backbone.blocks.5.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.5.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.12340971734374762, "module": "backbone.blocks.5.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.6.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.0072626108303666115, "module": "backbone.blocks.6.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.6.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.09946579672396183, "module": "backbone.blocks.6.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.6.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.07784535735845566, "module": "backbone.blocks.6.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.6.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.08993788156658411, "module": "backbone.blocks.6.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.6.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.0959158493205905, "module": "backbone.blocks.6.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.7.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.007492179051041603, "module": "backbone.blocks.7.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.7.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.09690083470195532, "module": "backbone.blocks.7.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.7.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.08282014913856983, "module": "backbone.blocks.7.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.7.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.08100450038909912, "module": "backbone.blocks.7.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.7.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.0977743836119771, "module": "backbone.blocks.7.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.8.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.007181297056376934, "module": "backbone.blocks.8.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.8.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.10660753957927227, "module": "backbone.blocks.8.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.8.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.07984427735209465, "module": "backbone.blocks.8.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.8.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.08372945711016655, "module": "backbone.blocks.8.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.8.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.09978414140641689, "module": "backbone.blocks.8.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.9.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.007121463306248188, "module": "backbone.blocks.9.adaLN_modulation", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.9.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.10433617047965527, "module": "backbone.blocks.9.attn_out", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.9.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.0789173785597086, "module": "backbone.blocks.9.attn_qkv", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.9.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.13285030331462622, "module": "backbone.blocks.9.mlp.0", "ratio": 0.7}
+[rank 0] progressive.svd.begin {"module": "backbone.blocks.9.mlp.2", "ratio": 0.7}
+[rank 0] progressive.svd.end {"seconds": 0.08780560083687305, "module": "backbone.blocks.9.mlp.2", "ratio": 0.7}
+[rank 0] checkpoint.save.begin {"step": 0, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_070/checkpoints/initial"}
+[rank 0] checkpoint.save.end {"step": 0}
+[rank 0] checkpoint.wait_ready.begin {"step": 0}
+[rank 0] checkpoint.wait_ready.end {"seconds": 1.0411255061626434e-05, "step": 0}
+[rank 0] unified.model.load.begin {"model": "rank_070_initial"}
+[rank 0] unified.model.load.end {"seconds": 1.4357552276924253, "model": "rank_070_initial"}
+[rank 0] execution.enabled {"execution_backend": "compile", "compile_mode": "reduce-overhead", "cuda_graphs_requested": true, "roles": ["generator"]}
+[rank 0] unified.generate.begin {"model": "rank_070_initial", "sample_ids": [0]}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 1}
+I1105 22:59:39.019000 3354681 site-packages/torch/_inductor/graph.py:1045] [0/0] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention.default
+USDT:2026-11-05 22:59:44 3354681:3354681 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 22:59:44 3354681:3354681 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 14.937366364523768, "role": "generator", "mode": "reduce-overhead", "variant": 1}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 2}
+I1105 22:59:53.911000 3354681 site-packages/torch/_inductor/graph.py:1045] [0/1] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention.default
+USDT:2026-11-05 22:59:59 3354681:3354681 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 22:59:59 3354681:3354681 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 14.98822127096355, "role": "generator", "mode": "reduce-overhead", "variant": 2}
+[rank 0] unified.generate.end {"seconds": 29.984289933927357, "model": "rank_070_initial", "sample_ids": [0]}
+[rank 0] unified.generate.begin {"model": "rank_070_initial", "sample_ids": [1]}
+[rank 0] unified.generate.end {"seconds": 0.06442149262875319, "model": "rank_070_initial", "sample_ids": [1]}
+[rank 0] unified.generate.begin {"model": "rank_070_initial", "sample_ids": [2]}
+[rank 0] unified.generate.end {"seconds": 0.06286366935819387, "model": "rank_070_initial", "sample_ids": [2]}
+[rank 0] unified.generate.begin {"model": "rank_070_initial", "sample_ids": [3]}
+[rank 0] unified.generate.end {"seconds": 0.06188682559877634, "model": "rank_070_initial", "sample_ids": [3]}
+[rank 0] unified.scorer.files.begin {"model": "gpt2-large"}
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1499.11it/s]
+[rank 0] unified.scorer.files.end {"seconds": 0.43230529874563217, "model": "gpt2-large"}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 0] unified.scorer.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519"}
+[rank 0] unified.scorer.load.end {"seconds": 0.12169434409588575, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519"}
+[rank 0] unified.score.begin {"model": "rank_070_initial", "local_samples": 4}
+[rank 0] corpus.score.batch.begin {"batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.030255254358053207, "batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.027826371602714062, "batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.02750701643526554, "batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 3, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.0280752619728446, "batch": 3, "samples": 1}
+[rank 0] unified.score.end {"seconds": 0.3145439326763153, "model": "rank_070_initial", "local_samples": 4}
+[rank 0] unified.gm.pair.begin {"pair_id": 0}
+[rank 0] unified.gm.pair.end {"seconds": 0.9744689604267478, "pair_id": 0}
+[rank 0] unified.gm.pair.begin {"pair_id": 1}
+[rank 0] unified.gm.pair.end {"seconds": 1.1583566637709737, "pair_id": 1}
+[unified] rank_070_initial: Gen. PPL=153.17371858048406, scored=4/4, GM=5.586251357385552, SE=2.6223527842767504, params=163034708, mean_step_ms=5.361828751034206
+[rank 0] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003"}
+[rank 0] model.files.resolve.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003"}
+[rank 0] model.files.resolve.end {"seconds": 3.788527101278305e-05, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003"}
+[rank 0] model.files.wait.end {"seconds": 0.00015437230467796326, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003"}
+[rank 0] model.weights.load.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003"}
+[rank 0] model.weights.load.end {"seconds": 1.3162692049518228, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003"}
+[rank 0] model.to_device.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003", "device": "cuda"}
+[rank 0] model.to_device.end {"seconds": 0.10154597368091345, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_075/checkpoints/step_000003", "device": "cuda"}
+[rank 0] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_070/checkpoints/initial"}
+[rank 0] model.files.resolve.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_070/checkpoints/initial"}
+[rank 0] model.files.resolve.end {"seconds": 5.3435564041137695e-05, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_070/checkpoints/initial"}
+[rank 0] model.files.wait.end {"seconds": 0.00017955899238586426, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_070/checkpoints/initial"}
+[rank 0] model.weights.load.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_070/checkpoints/initial"}
+[rank 0] model.weights.load.end {"seconds": 1.2917726766318083, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_070/checkpoints/initial"}
+[rank 0] model.to_device.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_070/checkpoints/initial", "device": "cuda:0"}
+[rank 0] model.to_device.end {"seconds": 0.09382861293852329, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_070/checkpoints/initial", "device": "cuda:0"}
+[rank 0] execution.enabled {"execution_backend": "compile", "compile_mode": "reduce-overhead", "cuda_graphs_requested": true, "roles": ["teacher", "student"]}
+[rank 0] data.loaders.begin {}
+[rank 0] data.loaders.end {"seconds": 0.001294621266424656}
+[train] {'phase': 'execution_start', 'step': 0, 'max_steps': 3, 'elapsed_seconds': 6.094854325056076e-05, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] validation.begin {"step": 0}
+[rank 0] validation.first_batch.begin {"tokens": 128}
+[rank 0] validation.first_batch.end {"loss": 0.06080317497253418, "ce": 6.052252769470215, "kl": 0.06080317497253418}
+[rank 0] validation.reduce.begin {"local_tokens": 128}
+[rank 0] validation.reduce.end {"seconds": 0.00011443626135587692, "local_tokens": 128}
+[train] {'phase': 'valid', 'step': 0, 'ce': 6.052252769470215, 'kl': 0.06080317497253418, 'loss': 0.06080317497253418, 'elapsed_seconds': 11.76977213472128, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] validation.end {"seconds": 11.76963351201266, "step": 0}
+[rank 0] train.step.begin {"step": 1}
+[rank 0] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+I1105 23:00:37.680000 3354681 site-packages/torch/_inductor/graph.py:1045] [0/2] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention.default
+[rank 0] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+I1105 23:00:49.924000 3354681 site-packages/torch/_inductor/graph.py:1045] [0/2] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention_backward.default
+I1105 23:00:53.554000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 23:00:53.604000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 23:00:53.616000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 23:00:53.628000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 23:00:53.640000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 23:00:53.651000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 23:00:53.664000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 23:00:53.676000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 23:00:53.688000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 23:00:53.699000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 23:00:53.711000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 23:00:53.723000 3354681 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+[rank 0] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[train] {'phase': 'train', 'step': 1, 'ce': 5.439294815063477, 'kl': 0.13254836201667786, 'loss': 0.13254836201667786, 'grad_norm': 14.905367851257324, 'tokens': 128, 'epoch': 0, 'learning_rate': 0.0001, 'rank0_peak_memory_gib': 3.109588623046875, 'elapsed_seconds': 49.542242996394634, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] train.step.end {"step": 1}
+[rank 0] train.step.begin {"step": 2}
+[train] {'phase': 'train', 'step': 2, 'ce': 4.071002006530762, 'kl': 0.11101053655147552, 'loss': 0.11101053655147552, 'grad_norm': 5.4315900802612305, 'tokens': 128, 'epoch': 0, 'learning_rate': 5.5e-05, 'rank0_peak_memory_gib': 3.109588623046875, 'elapsed_seconds': 49.838844505138695, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] train.step.end {"step": 2}
+[rank 0] train.step.begin {"step": 3}
+[train] {'phase': 'train', 'step': 3, 'ce': 4.57177209854126, 'kl': 0.3058376908302307, 'loss': 0.3058376908302307, 'grad_norm': 21.69794464111328, 'tokens': 128, 'epoch': 0, 'learning_rate': 1e-05, 'rank0_peak_memory_gib': 3.109588623046875, 'elapsed_seconds': 49.88681708276272, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] train.step.end {"step": 3}
+[rank 0] validation.begin {"step": 3}
+[rank 0] validation.first_batch.begin {"tokens": 128}
+[rank 0] validation.first_batch.end {"loss": 0.410747230052948, "ce": 5.764260292053223, "kl": 0.410747230052948}
+[rank 0] validation.reduce.begin {"local_tokens": 128}
+[rank 0] validation.reduce.end {"seconds": 0.00011279620230197906, "local_tokens": 128}
+[train] {'phase': 'valid', 'step': 3, 'ce': 5.764260292053223, 'kl': 0.410747230052948, 'loss': 0.410747230052948, 'elapsed_seconds': 49.9036740064621, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] validation.end {"seconds": 0.016635457053780556, "step": 3}
+[rank 0] checkpoint.save.begin {"step": 3, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_070/checkpoints/step_000003"}
+[rank 0] checkpoint.save.end {"step": 3}
+[rank 0] checkpoint.wait_ready.begin {"step": 3}
+[rank 0] checkpoint.wait_ready.end {"seconds": 1.2126751244068146e-05, "step": 3}
+[train] stopped at step 3: max_steps
+[train] checkpoint: /proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug/rank_070/checkpoints/step_000003
+[rank 0] unified.model.load.begin {"model": "rank_070_trained"}
+[rank 0] unified.model.load.end {"seconds": 1.6568444706499577, "model": "rank_070_trained"}
+[rank 0] execution.enabled {"execution_backend": "compile", "compile_mode": "reduce-overhead", "cuda_graphs_requested": true, "roles": ["generator"]}
+[rank 0] unified.generate.begin {"model": "rank_070_trained", "sample_ids": [0]}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 1}
+USDT:2026-11-05 23:01:07 3354681:3354681 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 23:01:07 3354681:3354681 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 4.367288111709058, "role": "generator", "mode": "reduce-overhead", "variant": 1}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 2}
+USDT:2026-11-05 23:01:11 3354681:3354681 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 23:01:11 3354681:3354681 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 4.000241689383984, "role": "generator", "mode": "reduce-overhead", "variant": 2}
+[rank 0] unified.generate.end {"seconds": 8.427915771491826, "model": "rank_070_trained", "sample_ids": [0]}
+[rank 0] unified.generate.begin {"model": "rank_070_trained", "sample_ids": [1]}
+[rank 0] unified.generate.end {"seconds": 0.06383731961250305, "model": "rank_070_trained", "sample_ids": [1]}
+[rank 0] unified.generate.begin {"model": "rank_070_trained", "sample_ids": [2]}
+[rank 0] unified.generate.end {"seconds": 0.0625441549345851, "model": "rank_070_trained", "sample_ids": [2]}
+[rank 0] unified.generate.begin {"model": "rank_070_trained", "sample_ids": [3]}
+[rank 0] unified.generate.end {"seconds": 0.061706109903752804, "model": "rank_070_trained", "sample_ids": [3]}
+[rank 0] unified.scorer.files.begin {"model": "gpt2-large"}
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1455.13it/s]
+[rank 0] unified.scorer.files.end {"seconds": 0.41642930172383785, "model": "gpt2-large"}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 0] unified.scorer.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519"}
+[rank 0] unified.scorer.load.end {"seconds": 0.15275081805884838, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519"}
+[rank 0] unified.score.begin {"model": "rank_070_trained", "local_samples": 4}
+[rank 0] corpus.score.batch.begin {"batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.0383775420486927, "batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.035373576916754246, "batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.0353738060221076, "batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 3, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.034935749135911465, "batch": 3, "samples": 1}
+[rank 0] unified.score.end {"seconds": 0.34613772947341204, "model": "rank_070_trained", "local_samples": 4}
+[rank 0] unified.gm.pair.begin {"pair_id": 0}
+[rank 0] unified.gm.pair.end {"seconds": 0.9954674374312162, "pair_id": 0}
+[rank 0] unified.gm.pair.begin {"pair_id": 1}
+[rank 0] unified.gm.pair.end {"seconds": 1.175731947645545, "pair_id": 1}
+[unified] rank_070_trained: Gen. PPL=201.28419882503417, scored=4/4, GM=4.71058315311187, SE=1.961276487230465, params=163034708, mean_step_ms=5.342757931462041
+[progressive-rank] results: /proj/gpu_mtk53742/CDLM-distillation/run/20261105_225618_804747_langflow_owt_progressive_svd_rank_debug
