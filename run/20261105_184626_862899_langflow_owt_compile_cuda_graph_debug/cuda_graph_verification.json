@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "environment": {
+    "python": "3.11.16",
+    "pytorch": "2.14.0+cu130",
+    "cuda": "13.0",
+    "cudnn": 92400,
+    "cuda_visible_devices": "0",
+    "gpu": "NVIDIA RTX A6000",
+    "compute_capability": [
+      8,
+      6
+    ],
+    "gpu_total_memory_bytes": 50899648512,
+    "gpu_free_memory_bytes_at_start": 50616270848,
+    "torchinductor_compile_threads": "1",
+    "torch_logs": "perf_hints"
+  },
+  "evaluated_models": [
+    {
+      "stage": "before",
+      "name": "teacher",
+      "execution_backend": "compile",
+      "compile_mode": "reduce-overhead",
+      "compile_target": "backbone.forward",
+      "cuda_graphs_verified": true,
+      "observed_cuda_graph_launches": 2,
+      "compile_warmup_seconds": 37.35607237089425,
+      "mean_step_ms": 4.245553758409288
+    },
+    {
+      "stage": "before",
+      "name": "tail_02_rank_020_initial",
+      "execution_backend": "compile",
+      "compile_mode": "reduce-overhead",
+      "compile_target": "backbone.forward",
+      "cuda_graphs_verified": true,
+      "observed_cuda_graph_launches": 2,
+      "compile_warmup_seconds": 29.8880778811872,
+      "mean_step_ms": 4.227344583581995
+    },
+    {
+      "stage": "after",
+      "name": "tail_02_rank_020_trained",
+      "execution_backend": "compile",
+      "compile_mode": "reduce-overhead",
+      "compile_target": "backbone.forward",
+      "cuda_graphs_verified": true,
+      "observed_cuda_graph_launches": 2,
+      "compile_warmup_seconds": 7.643949744291604,
+      "mean_step_ms": 4.251991695827908
+    }
+  ],
+  "observed_cuda_graph_launches": 6,
+  "cuda_graph_replay_verified": true,
+  "checkpoint_count": 2,
+  "parameter_names_preserved": true,
+  "pipeline": "real teacher -> SVD -> train -> unified generation/PPL/GM"
+}

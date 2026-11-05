@@ -1,0 +1,110 @@
+run:
+  name: langflow_owt_compile_cuda_graph_debug
+  root: run
+  seed: 42
+model:
+  family: langflow
+  teacher: Continuous-Rivals-Discrete/langflow-owt
+  teacher_config: null
+  tokenizer: gpt2
+  cache_dir: null
+  keep_layers:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  block_initialization: teacher
+  device: cuda
+distributed:
+  control_timeout_seconds: 7200
+  tensor_timeout_seconds: 180
+execution:
+  backend: compile
+  mode: reduce-overhead
+  warmup_forwards: 3
+  debug_compile: true
+data:
+  corpus: owt
+  dataset: Skylion007/openwebtext
+  dataset_config: default
+  revision: refs/convert/parquet
+  local_dataset: null
+  hf_cache_dir: null
+  prepared_root: run/data
+  sequence_length: 128
+  validation_documents: 100000
+  train_documents: 32
+  valid_documents: 16
+  max_train_blocks: 8
+  max_valid_blocks: 4
+  tokenize_batch_size: 128
+loss:
+  kd_weight: 1.0
+  ce_weight: 0.0
+training:
+  plot_loss: false
+  ppl_evaluation:
+    enabled: false
+    interval: -1
+    num_samples_per_rank: 42
+    batch_size: 14
+  max_steps: 3
+  batch_size: 1
+  grad_accumulation: 1
+  learning_rate: 0.0001
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  self_condition_probability: 0.25
+  log_every: 1
+  validate_every: 3
+  validation_batches: 1
+  save_every: 0
+  early_stopping:
+    enabled: false
+    metric: kl
+    min_steps: 500
+    patience: 5
+    min_delta: 0.001
+  lr_scheduler:
+    name: cosine
+    final_ratio: 0.1
+evaluation:
+  seed: 42
+  num_samples: 4
+  batch_size: 1
+  num_steps: 8
+  sequence_length: 128
+  scorer: gpt2-large
+  scorer_batch_size: 4
+  scorer_max_length: 1024
+  corpus: owt
+  timing_warmup_forwards: 5
+rank_sweep:
+  teacher_depth: 12
+  hidden_size: 768
+  cond_dim: 128
+  ratios:
+  - 0.2
+  targets:
+  - attn_qkv
+  - attn_out
+  - mlp.0
+  - mlp.2
+  - adaLN_modulation
+  full_rank_check: true
+  plot_results: false
+  tail_layers:
+  - 2
+  reference_run: null
+  debug: true
+gradient_moment:
+  enabled: true
+  reference_config: configs/gpt2_corpus_ppl.yaml

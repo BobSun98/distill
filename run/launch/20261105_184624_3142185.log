@@ -1,0 +1,239 @@
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[compile-debug] environment: {"python": "3.11.16", "pytorch": "2.14.0+cu130", "cuda": "13.0", "cudnn": 92400, "cuda_visible_devices": "0", "gpu": "NVIDIA RTX A6000", "compute_capability": [8, 6], "gpu_total_memory_bytes": 50899648512, "gpu_free_memory_bytes_at_start": 50616270848, "torchinductor_compile_threads": "1", "torch_logs": "perf_hints"}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[data] 复用 /proj/gpu_mtk53742/CDLM-distillation/run/data/owt_l128_t32_v16
+[rank 0] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.end {"seconds": 0.41342715080827475, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.end {"seconds": 0.413867874071002, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.end {"seconds": 0.43887598626315594, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.end {"seconds": 0.43941710609942675, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.end {"seconds": 1.3953255442902446, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda"}
+[rank 0] model.to_device.end {"seconds": 0.12506172992289066, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda"}
+[rank 0] rank_sweep.svd.begin {"module": "backbone.blocks.10.attn_qkv"}
+[rank 0] rank_sweep.svd.end {"seconds": 0.29964744206517935, "module": "backbone.blocks.10.attn_qkv"}
+[rank 0] rank_sweep.svd.begin {"module": "backbone.blocks.10.attn_out"}
+[rank 0] rank_sweep.svd.end {"seconds": 0.05482544470578432, "module": "backbone.blocks.10.attn_out"}
+[rank 0] rank_sweep.svd.begin {"module": "backbone.blocks.10.mlp.0"}
+[rank 0] rank_sweep.svd.end {"seconds": 0.06614226754754782, "module": "backbone.blocks.10.mlp.0"}
+[rank 0] rank_sweep.svd.begin {"module": "backbone.blocks.10.mlp.2"}
+[rank 0] rank_sweep.svd.end {"seconds": 0.06215120758861303, "module": "backbone.blocks.10.mlp.2"}
+[rank 0] rank_sweep.svd.begin {"module": "backbone.blocks.10.adaLN_modulation"}
+[rank 0] rank_sweep.svd.end {"seconds": 0.006827048026025295, "module": "backbone.blocks.10.adaLN_modulation"}
+[rank 0] rank_sweep.svd.begin {"module": "backbone.blocks.11.attn_qkv"}
+[rank 0] rank_sweep.svd.end {"seconds": 0.05506537947803736, "module": "backbone.blocks.11.attn_qkv"}
+[rank 0] rank_sweep.svd.begin {"module": "backbone.blocks.11.attn_out"}
+[rank 0] rank_sweep.svd.end {"seconds": 0.0506733562797308, "module": "backbone.blocks.11.attn_out"}
+[rank 0] rank_sweep.svd.begin {"module": "backbone.blocks.11.mlp.0"}
+[rank 0] rank_sweep.svd.end {"seconds": 0.057434226386249065, "module": "backbone.blocks.11.mlp.0"}
+[rank 0] rank_sweep.svd.begin {"module": "backbone.blocks.11.mlp.2"}
+[rank 0] rank_sweep.svd.end {"seconds": 0.056900021620094776, "module": "backbone.blocks.11.mlp.2"}
+[rank 0] rank_sweep.svd.begin {"module": "backbone.blocks.11.adaLN_modulation"}
+[rank 0] rank_sweep.svd.end {"seconds": 0.006748471409082413, "module": "backbone.blocks.11.adaLN_modulation"}
+[rank 0] rank_sweep.full_rank_check.begin {}
+[rank 0] rank_sweep.full_rank_check.end {"seconds": 1.7916421191766858}
+[rank 0] checkpoint.save.begin {"step": 0, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_184626_862899_langflow_owt_compile_cuda_graph_debug/tail_02_rank_020/checkpoints/initial"}
+[rank 0] checkpoint.save.end {"step": 0}
+[rank 0] checkpoint.wait_ready.begin {"step": 0}
+[rank 0] checkpoint.wait_ready.end {"seconds": 5.234032869338989e-05, "step": 0}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 0] unified.model.load.begin {"model": "teacher"}
+[rank 0] unified.model.load.end {"seconds": 1.5135428616777062, "model": "teacher"}
+[rank 0] execution.enabled {"execution_backend": "compile", "compile_mode": "reduce-overhead", "cuda_graphs_requested": true, "roles": ["generator"]}
+[rank 0] unified.generate.begin {"model": "teacher", "sample_ids": [0]}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 1}
+I1105 18:46:48.430000 3142192 site-packages/torch/_inductor/compile_fx.py:335] [0/0] [__perf_hints] TensorFloat32 tensor cores for float32 matrix multiplication available but not enabled. Consider setting `torch.set_float32_matmul_precision('high')` for better performance.
+I1105 18:46:49.622000 3142192 site-packages/torch/_inductor/graph.py:1045] [0/0] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention.default
+USDT:2026-11-05 18:46:58 3142192:3142192 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 18:46:58 3142192:3142192 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 19.590207890607417, "role": "generator", "mode": "reduce-overhead", "variant": 1}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 2}
+I1105 18:47:07.598000 3142192 site-packages/torch/_inductor/graph.py:1045] [0/1] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention.default
+USDT:2026-11-05 18:47:16 3142192:3142192 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 18:47:16 3142192:3142192 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 17.765271260403097, "role": "generator", "mode": "reduce-overhead", "variant": 2}
+[rank 0] unified.generate.end {"seconds": 37.410919294692576, "model": "teacher", "sample_ids": [0]}
+[rank 0] unified.generate.begin {"model": "teacher", "sample_ids": [1]}
+[rank 0] unified.generate.end {"seconds": 0.05678555928170681, "model": "teacher", "sample_ids": [1]}
+[rank 0] unified.generate.begin {"model": "teacher", "sample_ids": [2]}
+[rank 0] unified.generate.end {"seconds": 0.053362468257546425, "model": "teacher", "sample_ids": [2]}
+[rank 0] unified.generate.begin {"model": "teacher", "sample_ids": [3]}
+[rank 0] unified.generate.end {"seconds": 0.05327644944190979, "model": "teacher", "sample_ids": [3]}
+[rank 0] unified.scorer.files.begin {"model": "gpt2-large"}
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1638.13it/s]
+[rank 0] unified.scorer.files.end {"seconds": 0.4070983473211527, "model": "gpt2-large"}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 0] unified.scorer.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519"}
+[rank 0] unified.scorer.load.end {"seconds": 0.14609927777200937, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519"}
+[rank 0] unified.score.begin {"model": "teacher", "local_samples": 4}
+[rank 0] corpus.score.batch.begin {"batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.1261490834876895, "batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.030541536398231983, "batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.029401727952063084, "batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 3, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.029799788258969784, "batch": 3, "samples": 1}
+[rank 0] unified.score.end {"seconds": 0.3789052851498127, "model": "teacher", "local_samples": 4}
+[rank 0] unified.gm.reference.begin {"corpus": "owt"}
+[rank 0] unified.gm.reference.end {"seconds": 3.2476540645584464, "corpus": "owt"}
+[rank 0] unified.gm.pair.begin {"pair_id": 0}
+[rank 0] unified.gm.pair.end {"seconds": 1.0306055126711726, "pair_id": 0}
+[rank 0] unified.gm.pair.begin {"pair_id": 1}
+[rank 0] unified.gm.pair.end {"seconds": 1.156649581156671, "pair_id": 1}
+[unified] teacher: Gen. PPL=147.07725171638762, scored=4/4, GM=13.713676401176187, SE=3.0188472739227317, params=170805332, mean_step_ms=4.245553758409288
+[rank 0] unified.model.load.begin {"model": "tail_02_rank_020_initial"}
+[rank 0] unified.model.load.end {"seconds": 1.2504557026550174, "model": "tail_02_rank_020_initial"}
+[rank 0] execution.enabled {"execution_backend": "compile", "compile_mode": "reduce-overhead", "cuda_graphs_requested": true, "roles": ["generator"]}
+[rank 0] unified.generate.begin {"model": "tail_02_rank_020_initial", "sample_ids": [0]}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 1}
+I1105 18:47:36.608000 3142192 site-packages/torch/_inductor/graph.py:1045] [0/0] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention.default
+USDT:2026-11-05 18:47:42 3142192:3142192 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 18:47:42 3142192:3142192 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 14.594134298153222, "role": "generator", "mode": "reduce-overhead", "variant": 1}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 2}
+I1105 18:47:51.575000 3142192 site-packages/torch/_inductor/graph.py:1045] [0/1] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention.default
+USDT:2026-11-05 18:47:57 3142192:3142192 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 18:47:57 3142192:3142192 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 15.293415552936494, "role": "generator", "mode": "reduce-overhead", "variant": 2}
+[rank 0] unified.generate.end {"seconds": 29.938117353245616, "model": "tail_02_rank_020_initial", "sample_ids": [0]}
+[rank 0] unified.generate.begin {"model": "tail_02_rank_020_initial", "sample_ids": [1]}
+[rank 0] unified.generate.end {"seconds": 0.0566877955570817, "model": "tail_02_rank_020_initial", "sample_ids": [1]}
+[rank 0] unified.generate.begin {"model": "tail_02_rank_020_initial", "sample_ids": [2]}
+[rank 0] unified.generate.end {"seconds": 0.05345908273011446, "model": "tail_02_rank_020_initial", "sample_ids": [2]}
+[rank 0] unified.generate.begin {"model": "tail_02_rank_020_initial", "sample_ids": [3]}
+[rank 0] unified.generate.end {"seconds": 0.05292768217623234, "model": "tail_02_rank_020_initial", "sample_ids": [3]}
+[rank 0] unified.score.begin {"model": "tail_02_rank_020_initial", "local_samples": 4}
+[rank 0] corpus.score.batch.begin {"batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.03153527248650789, "batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.030933919362723827, "batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.029254581779241562, "batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 3, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.027973582036793232, "batch": 3, "samples": 1}
+[rank 0] unified.score.end {"seconds": 0.31844658590853214, "model": "tail_02_rank_020_initial", "local_samples": 4}
+[rank 0] unified.gm.pair.begin {"pair_id": 0}
+[rank 0] unified.gm.pair.end {"seconds": 0.9923578118905425, "pair_id": 0}
+[rank 0] unified.gm.pair.begin {"pair_id": 1}
+[rank 0] unified.gm.pair.end {"seconds": 1.1584247518330812, "pair_id": 1}
+[unified] tail_02_rank_020_initial: Gen. PPL=511.1990542827488, scored=4/4, GM=3.5294891472725034, SE=0.5696854502797821, params=159466836, mean_step_ms=4.227344583581995
+[rank 0] model.files.wait.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.resolve.end {"seconds": 0.4254993051290512, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.files.wait.end {"seconds": 0.42589033860713243, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.begin {"model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.weights.load.end {"seconds": 0.900390206836164, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+[rank 0] model.to_device.begin {"model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda"}
+[rank 0] model.to_device.end {"seconds": 0.09060918353497982, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda"}
+[rank 0] model.files.wait.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_184626_862899_langflow_owt_compile_cuda_graph_debug/tail_02_rank_020/checkpoints/initial"}
+[rank 0] model.files.resolve.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_184626_862899_langflow_owt_compile_cuda_graph_debug/tail_02_rank_020/checkpoints/initial"}
+[rank 0] model.files.resolve.end {"seconds": 5.35380095243454e-05, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_184626_862899_langflow_owt_compile_cuda_graph_debug/tail_02_rank_020/checkpoints/initial"}
+[rank 0] model.files.wait.end {"seconds": 0.00021834485232830048, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_184626_862899_langflow_owt_compile_cuda_graph_debug/tail_02_rank_020/checkpoints/initial"}
+[rank 0] model.weights.load.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_184626_862899_langflow_owt_compile_cuda_graph_debug/tail_02_rank_020/checkpoints/initial"}
+[rank 0] model.weights.load.end {"seconds": 1.1304018208757043, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_184626_862899_langflow_owt_compile_cuda_graph_debug/tail_02_rank_020/checkpoints/initial"}
+[rank 0] model.to_device.begin {"model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_184626_862899_langflow_owt_compile_cuda_graph_debug/tail_02_rank_020/checkpoints/initial", "device": "cuda:0"}
+[rank 0] model.to_device.end {"seconds": 0.08685380220413208, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_184626_862899_langflow_owt_compile_cuda_graph_debug/tail_02_rank_020/checkpoints/initial", "device": "cuda:0"}
+[rank 0] execution.enabled {"execution_backend": "compile", "compile_mode": "reduce-overhead", "cuda_graphs_requested": true, "roles": ["teacher", "student"]}
+[rank 0] data.loaders.begin {}
+[rank 0] data.loaders.end {"seconds": 0.0023001087829470634}
+[train] {'phase': 'execution_start', 'step': 0, 'max_steps': 3, 'elapsed_seconds': 9.046867489814758e-05, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] validation.begin {"step": 0}
+[rank 0] validation.first_batch.begin {"tokens": 128}
+[rank 0] validation.first_batch.end {"loss": 0.7222691178321838, "ce": 5.978062629699707, "kl": 0.7222691178321838}
+[rank 0] validation.reduce.begin {"local_tokens": 128}
+[rank 0] validation.reduce.end {"seconds": 0.00013171974569559097, "local_tokens": 128}
+[train] {'phase': 'valid', 'step': 0, 'ce': 5.978062629699707, 'kl': 0.7222691178321838, 'loss': 0.7222691178321838, 'elapsed_seconds': 10.551327659748495, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] validation.end {"seconds": 10.551108995452523, "step": 0}
+[rank 0] train.step.begin {"step": 1}
+[rank 0] train.micro_batch.begin {"step": 1, "micro_batch": 1}
+I1105 18:48:31.785000 3142192 site-packages/torch/_inductor/graph.py:1045] [0/2] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention.default
+[rank 0] train.micro_batch.forward_done {"step": 1, "micro_batch": 1}
+I1105 18:48:44.805000 3142192 site-packages/torch/_inductor/graph.py:1045] [0/2] [__perf_hints] Using FallbackKernel: torch.ops.aten._scaled_dot_product_flash_attention_backward.default
+I1105 18:48:48.213000 3142192 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 18:48:48.264000 3142192 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 18:48:48.276000 3142192 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 18:48:48.288000 3142192 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 18:48:48.300000 3142192 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 18:48:48.312000 3142192 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 18:48:48.324000 3142192 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 18:48:48.336000 3142192 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 18:48:48.347000 3142192 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 18:48:48.359000 3142192 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 18:48:48.371000 3142192 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+I1105 18:48:48.383000 3142192 site-packages/torch/_inductor/codegen/simd.py:4909] [0/2] [__perf_hints] possibly bad tiling: [{'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'y': 3072, 'x': 128, 'r0_': 1}, {'x': 393216, 'r0_': 1}]
+[rank 0] train.micro_batch.backward_done {"step": 1, "micro_batch": 1}
+[train] {'phase': 'train', 'step': 1, 'ce': 5.528687953948975, 'kl': 1.2053700685501099, 'loss': 1.2053700685501099, 'grad_norm': 8.401162147521973, 'tokens': 128, 'epoch': 0, 'learning_rate': 0.0001, 'rank0_peak_memory_gib': 3.047985076904297, 'elapsed_seconds': 52.41282307729125, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] train.step.end {"step": 1}
+[rank 0] train.step.begin {"step": 2}
+[train] {'phase': 'train', 'step': 2, 'ce': 2.935882806777954, 'kl': 0.6442286968231201, 'loss': 0.6442286968231201, 'grad_norm': 7.728526592254639, 'tokens': 128, 'epoch': 0, 'learning_rate': 5.5e-05, 'rank0_peak_memory_gib': 3.0488529205322266, 'elapsed_seconds': 52.78331997897476, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] train.step.end {"step": 2}
+[rank 0] train.step.begin {"step": 3}
+[train] {'phase': 'train', 'step': 3, 'ce': 5.111991882324219, 'kl': 1.3172112703323364, 'loss': 1.3172112703323364, 'grad_norm': 9.027185440063477, 'tokens': 128, 'epoch': 0, 'learning_rate': 1e-05, 'rank0_peak_memory_gib': 3.0488529205322266, 'elapsed_seconds': 52.842763726599514, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] train.step.end {"step": 3}
+[rank 0] validation.begin {"step": 3}
+[rank 0] validation.first_batch.begin {"tokens": 128}
+[rank 0] validation.first_batch.end {"loss": 0.723904013633728, "ce": 6.05633020401001, "kl": 0.723904013633728}
+[rank 0] validation.reduce.begin {"local_tokens": 128}
+[rank 0] validation.reduce.end {"seconds": 0.00011048465967178345, "local_tokens": 128}
+[train] {'phase': 'valid', 'step': 3, 'ce': 6.05633020401001, 'kl': 0.723904013633728, 'loss': 0.723904013633728, 'elapsed_seconds': 52.85701156035066, 'execution_backend': 'compile', 'compile_mode': 'reduce-overhead', 'cuda_graphs_requested': True}
+[rank 0] validation.end {"seconds": 0.014028574340045452, "step": 3}
+[rank 0] checkpoint.save.begin {"step": 3, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261105_184626_862899_langflow_owt_compile_cuda_graph_debug/tail_02_rank_020/checkpoints/step_000003"}
+[rank 0] checkpoint.save.end {"step": 3}
+[rank 0] checkpoint.wait_ready.begin {"step": 3}
+[rank 0] checkpoint.wait_ready.end {"seconds": 1.2116506695747375e-05, "step": 3}
+[train] stopped at step 3: max_steps
+[train] checkpoint: /proj/gpu_mtk53742/CDLM-distillation/run/20261105_184626_862899_langflow_owt_compile_cuda_graph_debug/tail_02_rank_020/checkpoints/step_000003
+[rank 0] unified.model.load.begin {"model": "tail_02_rank_020_trained"}
+[rank 0] unified.model.load.end {"seconds": 1.1732538975775242, "model": "tail_02_rank_020_trained"}
+[rank 0] execution.enabled {"execution_backend": "compile", "compile_mode": "reduce-overhead", "cuda_graphs_requested": true, "roles": ["generator"]}
+[rank 0] unified.generate.begin {"model": "tail_02_rank_020_trained", "sample_ids": [0]}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 1}
+USDT:2026-11-05 18:49:06 3142192:3142192 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 18:49:06 3142192:3142192 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 4.071969233453274, "role": "generator", "mode": "reduce-overhead", "variant": 1}
+[rank 0] execution.warmup.begin {"role": "generator", "mode": "reduce-overhead", "variant": 2}
+USDT:2026-11-05 18:49:10 3142192:3142192 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-05 18:49:10 3142192:3142192 SyncActivityProfilerHandler.cpp:46] profiler_stop
+[rank 0] execution.warmup.end {"seconds": 3.5714491214603186, "role": "generator", "mode": "reduce-overhead", "variant": 2}
+[rank 0] unified.generate.end {"seconds": 7.698293834924698, "model": "tail_02_rank_020_trained", "sample_ids": [0]}
+[rank 0] unified.generate.begin {"model": "tail_02_rank_020_trained", "sample_ids": [1]}
+[rank 0] unified.generate.end {"seconds": 0.055137285962700844, "model": "tail_02_rank_020_trained", "sample_ids": [1]}
+[rank 0] unified.generate.begin {"model": "tail_02_rank_020_trained", "sample_ids": [2]}
+[rank 0] unified.generate.end {"seconds": 0.05339565500617027, "model": "tail_02_rank_020_trained", "sample_ids": [2]}
+[rank 0] unified.generate.begin {"model": "tail_02_rank_020_trained", "sample_ids": [3]}
+[rank 0] unified.generate.end {"seconds": 0.053031718358397484, "model": "tail_02_rank_020_trained", "sample_ids": [3]}
+[rank 0] unified.scorer.files.begin {"model": "gpt2-large"}
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1429.34it/s]
+[rank 0] unified.scorer.files.end {"seconds": 0.41075706854462624, "model": "gpt2-large"}
+/proj/gpu_mtk53742/.conda/envs/distill/lib/python3.11/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[rank 0] unified.scorer.load.begin {"path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519"}
+[rank 0] unified.scorer.load.end {"seconds": 0.11921919044107199, "path": "/proj/gpu_mtk53742/.cache/huggingface/hub/models--gpt2-large/snapshots/32b71b12589c2f8d625668d2335a01cac3249519"}
+[rank 0] unified.score.begin {"model": "tail_02_rank_020_trained", "local_samples": 4}
+[rank 0] corpus.score.batch.begin {"batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.030830015428364277, "batch": 0, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.028253115713596344, "batch": 1, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.028529152274131775, "batch": 2, "samples": 1}
+[rank 0] corpus.score.batch.begin {"batch": 3, "samples": 1}
+[rank 0] corpus.score.batch.end {"seconds": 0.028139383532106876, "batch": 3, "samples": 1}
+[rank 0] unified.score.end {"seconds": 0.3185443636029959, "model": "tail_02_rank_020_trained", "local_samples": 4}
+[rank 0] unified.gm.reference.begin {"corpus": "owt"}
+[rank 0] unified.gm.reference.end {"seconds": 2.189589934423566, "corpus": "owt"}
+[rank 0] unified.gm.pair.begin {"pair_id": 0}
+[rank 0] unified.gm.pair.end {"seconds": 0.9744906267151237, "pair_id": 0}
+[rank 0] unified.gm.pair.begin {"pair_id": 1}
+[rank 0] unified.gm.pair.end {"seconds": 1.1672620102763176, "pair_id": 1}
+[unified] tail_02_rank_020_trained: Gen. PPL=374.7481015442367, scored=4/4, GM=3.1772464271539422, SE=0.09140717518102903, params=159466836, mean_step_ms=4.251991695827908
+[rank-sweep] results: /proj/gpu_mtk53742/CDLM-distillation/run/20261105_184626_862899_langflow_owt_compile_cuda_graph_debug
+[compile-debug] CUDA Graph replay 验证通过，结果: /proj/gpu_mtk53742/CDLM-distillation/run/20261105_184626_862899_langflow_owt_compile_cuda_graph_debug

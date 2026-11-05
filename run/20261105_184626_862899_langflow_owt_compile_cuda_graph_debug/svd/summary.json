@@ -1,0 +1,168 @@
+{
+  "teacher": "Continuous-Rivals-Discrete/langflow-owt",
+  "targets": [
+    "attn_qkv",
+    "attn_out",
+    "mlp.0",
+    "mlp.2",
+    "adaLN_modulation"
+  ],
+  "layer_indices": [
+    10,
+    11
+  ],
+  "factorization": "U_sqrtS__sqrtS_Vh",
+  "rounding": "floor_ratio_times_min_dimension",
+  "matrices": [
+    {
+      "module": "backbone.blocks.10.adaLN_modulation",
+      "shape": [
+        4608,
+        128
+      ],
+      "full_rank_relative_error": 1.8586029909783974e-05,
+      "retained": [
+        {
+          "ratio": 0.2,
+          "rank": 25,
+          "energy_fraction": 0.9959367513656616
+        }
+      ]
+    },
+    {
+      "module": "backbone.blocks.10.attn_out",
+      "shape": [
+        768,
+        768
+      ],
+      "full_rank_relative_error": 0.00023176558897830546,
+      "retained": [
+        {
+          "ratio": 0.2,
+          "rank": 153,
+          "energy_fraction": 0.5879455208778381
+        }
+      ]
+    },
+    {
+      "module": "backbone.blocks.10.attn_qkv",
+      "shape": [
+        2304,
+        768
+      ],
+      "full_rank_relative_error": 0.00020979238615836948,
+      "retained": [
+        {
+          "ratio": 0.2,
+          "rank": 153,
+          "energy_fraction": 0.5367326140403748
+        }
+      ]
+    },
+    {
+      "module": "backbone.blocks.10.mlp.0",
+      "shape": [
+        3072,
+        768
+      ],
+      "full_rank_relative_error": 0.0002077601820928976,
+      "retained": [
+        {
+          "ratio": 0.2,
+          "rank": 153,
+          "energy_fraction": 0.5206664800643921
+        }
+      ]
+    },
+    {
+      "module": "backbone.blocks.10.mlp.2",
+      "shape": [
+        768,
+        3072
+      ],
+      "full_rank_relative_error": 0.0002182780153816566,
+      "retained": [
+        {
+          "ratio": 0.2,
+          "rank": 153,
+          "energy_fraction": 0.41315239667892456
+        }
+      ]
+    },
+    {
+      "module": "backbone.blocks.11.adaLN_modulation",
+      "shape": [
+        4608,
+        128
+      ],
+      "full_rank_relative_error": 1.751311356201768e-05,
+      "retained": [
+        {
+          "ratio": 0.2,
+          "rank": 25,
+          "energy_fraction": 0.9978483319282532
+        }
+      ]
+    },
+    {
+      "module": "backbone.blocks.11.attn_out",
+      "shape": [
+        768,
+        768
+      ],
+      "full_rank_relative_error": 0.00024656541063450277,
+      "retained": [
+        {
+          "ratio": 0.2,
+          "rank": 153,
+          "energy_fraction": 0.5406716465950012
+        }
+      ]
+    },
+    {
+      "module": "backbone.blocks.11.attn_qkv",
+      "shape": [
+        2304,
+        768
+      ],
+      "full_rank_relative_error": 0.00020448512805160135,
+      "retained": [
+        {
+          "ratio": 0.2,
+          "rank": 153,
+          "energy_fraction": 0.5344840288162231
+        }
+      ]
+    },
+    {
+      "module": "backbone.blocks.11.mlp.0",
+      "shape": [
+        3072,
+        768
+      ],
+      "full_rank_relative_error": 0.0002097894175676629,
+      "retained": [
+        {
+          "ratio": 0.2,
+          "rank": 153,
+          "energy_fraction": 0.5298662781715393
+        }
+      ]
+    },
+    {
+      "module": "backbone.blocks.11.mlp.2",
+      "shape": [
+        768,
+        3072
+      ],
+      "full_rank_relative_error": 0.0002146287588402629,
+      "retained": [
+        {
+          "ratio": 0.2,
+          "rank": 153,
+          "energy_fraction": 0.39634519815444946
+        }
+      ]
+    }
+  ]
+}
