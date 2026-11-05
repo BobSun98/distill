@@ -5,6 +5,7 @@ import copy
 import csv
 import gc
 import json
+import shutil
 from datetime import datetime
 from pathlib import Path
 
@@ -72,6 +73,27 @@ def completed_record(path, required):
     except (FileNotFoundError, json.JSONDecodeError):
         return None
     return saved if isinstance(saved, dict) and all(key in saved for key in required) else None
+
+
+def update_step_config(directory, config, *, write=False):
+    previous = load_yaml_config(directory / "config.yaml")
+    old_step, new_step = previous["progressive_rank"]["step_percent"], config["progressive_rank"]["step_percent"]
+    if old_step == new_step:
+        return False
+    # 改步长会改变每级 Teacher；只允许在尚未构造任何学生时复用起点评测。
+    if any(path.is_dir() for path in directory.glob("rank_*")):
+        raise ValueError("已有学生阶段，不能改变其 Teacher 链；请新建使用新步长的实验")
+    if write:
+        backup = directory / "extensions" / f"step_{new_step:03d}"
+        backup.mkdir(parents=True, exist_ok=True)
+        if not (backup / "config.yaml").is_file():
+            shutil.copyfile(directory / "config.yaml", backup / "config.yaml")
+        write_json(backup / "change.json", {"previous_step_percent": old_step, "step_percent": new_step,
+            "ratios": config["rank_sweep"]["ratios"], "source_evaluation": "retained; unfinished model is recomputed"})
+        temporary = directory / "config.yaml.tmp"
+        temporary.write_text(yaml.safe_dump(config, sort_keys=False, allow_unicode=True), encoding="utf-8")
+        temporary.replace(directory / "config.yaml")
+    return True
 
 
 def best_checkpoint(directory, config):
@@ -229,6 +251,8 @@ def run_progressive(config, command="all", allow_distributed=True, debug=False, 
         if not debug and command == "all" and distributed.world_size() != 8:
             raise RuntimeError("正式逐级实验使用八卡，请通过 scripts/run_owt_progressive_rank.sh 启动")
         if distributed.is_main():
+            if resume_dir:
+                update_step_config(run_dir, config, write=True)
             write_json(run_dir / "status.json", {"status": "running", "command": command, "resumed": bool(resume_dir)})
         tokenizer = load_tokenizer(config) if distributed.is_main() else None
         if distributed.is_main():
@@ -351,7 +375,8 @@ def dry_run_plan(config, run_dir=None):
                               rank_name(config["progressive_rank"]["start_percent"] / 100) + "_source")
     source_complete = evaluation_complete(config, source, root, "source", config["rank_sweep"]["debug"]) if run_dir else False
     return {"experiment": "progressive_svd_rank", "teacher": "previous rank best student",
-        "source_checkpoint": config["progressive_rank"]["source_checkpoint"], "student_depth": config["rank_sweep"]["teacher_depth"],
+        "source_checkpoint": config["progressive_rank"]["source_checkpoint"], "step_percent": config["progressive_rank"]["step_percent"],
+        "student_depth": config["rank_sweep"]["teacher_depth"],
         "targets": config["rank_sweep"]["targets"], "matrices_per_stage": 5 * config["rank_sweep"]["teacher_depth"],
         "stages": stages, "training": config["training"], "evaluation": config["evaluation"], "execution": config["execution"],
         "gradient_moment": config["gradient_moment"], "total_evaluation_models": 1 + 2 * len(stages),
@@ -368,6 +393,7 @@ def main(default_config="configs/owt_progressive_rank.yaml", allow_distributed=T
     parser.add_argument("command", nargs="?", choices=("all", "prepare"), default="all")
     parser.add_argument("--config", default=default_config)
     parser.add_argument("--run-dir", help="复用已完成级别/评测；未完成训练从本级 SVD initial 重训")
+    parser.add_argument("--step-percent", type=int, help="rank 百分比步长；恢复时仅允许在尚无学生阶段的目录改变")
     parser.add_argument("--set", dest="overrides", action="append", default=[])
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
@@ -375,7 +401,12 @@ def main(default_config="configs/owt_progressive_rank.yaml", allow_distributed=T
         parser.error("逐级链恢复使用保存的完整配置；更改实验条件请另开目录")
     if args.run_dir and load_yaml_config(project_path(args.run_dir) / "config.yaml")["rank_sweep"].get("debug", False) != debug:
         parser.error("debug 与正式目录不能混用，请使用创建该实验时的入口恢复")
-    config = load_config(project_path(args.run_dir) / "config.yaml" if args.run_dir else args.config, args.overrides, debug)
+    overrides = list(args.overrides)
+    if args.step_percent is not None:
+        overrides.append(f"progressive_rank.step_percent={args.step_percent}")
+    config = load_config(project_path(args.run_dir) / "config.yaml" if args.run_dir else args.config, overrides, debug)
+    if args.run_dir:
+        update_step_config(project_path(args.run_dir), config)
     if args.dry_run:
         plan = dry_run_plan(config, args.run_dir)
         output = project_path("run/launch") / f"progressive_rank_plan_{datetime.now():%Y%m%d_%H%M%S_%f}.json"

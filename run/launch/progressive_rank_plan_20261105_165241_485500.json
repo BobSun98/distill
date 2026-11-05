@@ -1,0 +1,149 @@
+{
+  "experiment": "progressive_svd_rank",
+  "teacher": "previous rank best student",
+  "source_checkpoint": "run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best",
+  "student_depth": 12,
+  "targets": [
+    "attn_qkv",
+    "attn_out",
+    "mlp.0",
+    "mlp.2",
+    "adaLN_modulation"
+  ],
+  "matrices_per_stage": 60,
+  "stages": [
+    {
+      "name": "rank_070",
+      "ratio": 0.7,
+      "teacher_ratio": 0.8,
+      "teacher_checkpoint": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best",
+      "rank": 537,
+      "conditioning_rank": 89,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_060",
+      "ratio": 0.6,
+      "teacher_ratio": 0.7,
+      "teacher_checkpoint": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmpgh3zqd2d/rank_070/checkpoints/best",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmpgh3zqd2d/rank_070/checkpoints/best",
+      "rank": 460,
+      "conditioning_rank": 76,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_050",
+      "ratio": 0.5,
+      "teacher_ratio": 0.6,
+      "teacher_checkpoint": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmpgh3zqd2d/rank_060/checkpoints/best",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmpgh3zqd2d/rank_060/checkpoints/best",
+      "rank": 384,
+      "conditioning_rank": 64,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_040",
+      "ratio": 0.4,
+      "teacher_ratio": 0.5,
+      "teacher_checkpoint": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmpgh3zqd2d/rank_050/checkpoints/best",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmpgh3zqd2d/rank_050/checkpoints/best",
+      "rank": 307,
+      "conditioning_rank": 51,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_030",
+      "ratio": 0.3,
+      "teacher_ratio": 0.4,
+      "teacher_checkpoint": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmpgh3zqd2d/rank_040/checkpoints/best",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmpgh3zqd2d/rank_040/checkpoints/best",
+      "rank": 230,
+      "conditioning_rank": 38,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_020",
+      "ratio": 0.2,
+      "teacher_ratio": 0.3,
+      "teacher_checkpoint": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmpgh3zqd2d/rank_030/checkpoints/best",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmpgh3zqd2d/rank_030/checkpoints/best",
+      "rank": 153,
+      "conditioning_rank": 25,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    }
+  ],
+  "training": {
+    "batch_size": 16,
+    "early_stopping": {
+      "enabled": true,
+      "metric": "kl",
+      "min_delta": 0.001,
+      "min_steps": 500,
+      "patience": 5
+    },
+    "grad_accumulation": 2,
+    "learning_rate": 0.0001,
+    "log_every": 100,
+    "lr_scheduler": {
+      "final_ratio": 0.1,
+      "name": "cosine"
+    },
+    "max_grad_norm": 1.0,
+    "max_steps": 10000,
+    "plot_loss": true,
+    "ppl_evaluation": {
+      "batch_size": 14,
+      "enabled": false,
+      "interval": -1,
+      "num_samples_per_rank": 42
+    },
+    "save_every": 0,
+    "self_condition_probability": 0.25,
+    "validate_every": 100,
+    "validation_batches": 8,
+    "weight_decay": 0.01
+  },
+  "evaluation": {
+    "batch_size": 16,
+    "corpus": "owt",
+    "num_samples": 1024,
+    "num_steps": 1024,
+    "scorer": "gpt2-large",
+    "scorer_batch_size": 4,
+    "scorer_max_length": 1024,
+    "seed": 42,
+    "sequence_length": 1024,
+    "timing_warmup_forwards": 5
+  },
+  "execution": {
+    "backend": "compile",
+    "mode": "reduce-overhead",
+    "warmup_forwards": 3,
+    "debug_compile": false
+  },
+  "gradient_moment": {
+    "enabled": true,
+    "reference_config": "configs/gpt2_corpus_ppl.yaml"
+  },
+  "total_evaluation_models": 13,
+  "source_evaluation_completed": false,
+  "remaining_training_stages": 6,
+  "remaining_evaluation_models": 13,
+  "formal_world_size": 8,
+  "global_batch_size_8gpu": 256,
+  "scorer_execution": "float32/eager unchanged",
+  "resume_granularity": "completed SVD/model evaluation/training stages; incomplete training restarts initial"
+}

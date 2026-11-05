@@ -17,12 +17,12 @@ while (( $# )); do
             [[ $# -ge 2 ]] || { echo '--config 需要路径' >&2; exit 2; }
             CONFIG="$2"; shift 2 ;;
         *.yaml|*.yml) CONFIG="$1"; shift ;;
-        --run-dir|--set)
+        --run-dir|--set|--step-percent)
             [[ $# -ge 2 ]] || { echo "$1 需要参数" >&2; exit 2; }
             ARGS+=("$1" "$2"); shift 2 ;;
         --dry-run) DRY_RUN=1; ARGS+=(--dry-run); shift ;;
         --help|-h) DRY_RUN=1; ARGS+=(--help); shift ;;
-        *) echo '用法: bash scripts/run_owt_progressive_rank.sh [all|prepare|debug|compile-debug] [--dry-run] [--run-dir DIR] [--set KEY=VALUE] [--config CONFIG.yaml]' >&2; exit 2 ;;
+        *) echo '用法: bash scripts/run_owt_progressive_rank.sh [all|prepare|debug|compile-debug] [--dry-run] [--run-dir DIR] [--step-percent N] [--set KEY=VALUE] [--config CONFIG.yaml]' >&2; exit 2 ;;
     esac
 done
 if (( DRY_RUN )) && [[ "$COMMAND" != debug ]]; then COMMAND=prepare; fi
