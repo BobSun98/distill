@@ -924,6 +924,54 @@ IDE 入口 `debug/debug_rank_sweep.py` 直接调用同一套 SVD、采集、训�
 不启动其他 Python 进程。debug 保留四种 12 层学生和全部 block 投影，仅缩短为 3 次更新、128 token、8 NFE、
 4 条评测样本，并关闭绘图与早停；本地开发验证不下载/加载预训练权重，真实 GPU 验证由服务器执行。
 
+## LangFlow-OWT：逐级 SVD rank 蒸馏
+
+```bash
+# 正式八卡，compile + 自动 CUDA Graph：80% 已训 student -> 75% -> 70% -> ... -> 20%。
+bash scripts/run_owt_progressive_rank.sh
+
+# 只检查实际起点架构、12 级 Teacher/student 传递及预算，不加载权重或初始化 CUDA。
+bash scripts/run_owt_progressive_rank.sh --dry-run
+
+# 恢复同一个逐级实验，先补齐未完成阶段，再进入下一阶。
+bash scripts/run_owt_progressive_rank.sh --run-dir run/<时间>_langflow_owt_progressive_svd_rank
+
+# 同进程单卡：真实 80% -> 75% -> 70%，每级 3 步，4 样本、128 token、8 NFE。
+bash scripts/run_owt_progressive_rank.sh debug
+# 同一短流程启用 compile，并实际检查生成 forward 的 CUDA Graph replay。
+bash scripts/run_owt_progressive_rank.sh compile-debug
+```
+
+配置为 `configs/owt_progressive_rank.yaml`。起点是上一轮完整 12 层 low-rank sweep 的
+`run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best`，
+其原训练最佳为 step=1600。原目录只读，新实验另建 `run/<时间>_langflow_owt_progressive_svd_rank/`。
+
+每一级把上一级验证 KL 最佳 student 冻结为 Teacher，并从同一份权重构造更低 rank 的 student。
+全部学生保持 12 层、hidden=768、cond=128，每个 block 的 QKV、attention 输出、FFN 两个投影和
+AdaLN 五个投影都分解。百分比相对原始矩阵的最小维度，例如 75% 为主干 rank=576、AdaLN rank=96，
+70% 为 537/89，20% 为 153/25。蒸馏后因子已改变，所以重新对 `up @ down` 做 FP32 SVD，
+不是简单裁剪旧因子。非因子参数和 bias 复制上一级；冻结 embedding/proposal，其余 student 参数训练。
+
+每级严格执行：**SVD 截断 → 统一初评 → off-policy KL 蒸馏 → 最佳 checkpoint 统一复评 → 下一阶**。
+每一级重置 optimizer 和 cosine LR（1e-4 → 1e-5）；默认上限 10000 步，每100步验证，
+min_steps=500、patience=5、min_delta=0.001。每卡 batch=16、累积2次，八卡全局 batch=256。
+SVD 的60个矩阵分配给八卡并行计算，再用 NCCL 同步新因子；训练和生成沿用 compile/reduce-overhead
+与自动 CUDA Graph。GPT-2-Large scorer/GM 保持统一接口的 FP32/eager 定义。
+
+先用统一接口复测 80% 起点，然后每级各评测 initial/trained，共25套权重；每套生成1024条、
+长度/NFE=1024，报告 PPL、unigram entropy、GM、重复率、实际覆盖率、参数量和平均单步耗时。
+全链复用同一批 OWT GM 参考文本（1024条，512对），阶段评测直接调用与 `eval_gen_ppl.sh` 相同的函数。
+
+- 每级 `rank_075/` … `rank_020/` 保存 Teacher 路径、实际 rank、`truncation.json`、训练日志和 checkpoint。
+- `source_evaluation.json` 和各级 `before_evaluation.json` / `after_evaluation.json` 保存统一评测的位置。
+- 根目录 `summary.csv` / `summary.json` 和 `progressive_rank_quality_curve.png` 持续更新；`teacher_ratio`
+  明确本级监督来自谁，不把各级 KL 当成对同一个固定 Teacher 的误差。
+- `gen_ppl_models.yaml` 与每个 checkpoint 的 `gen_ppl_eval.yaml` 可交给统一八卡接口独立复测。
+
+恢复会跳过已完成截断、训练和逐模型评测；未完成训练从本级 `initial` 重训，未完成评测重跑该模型，
+不恢复 optimizer 到中断 step。完成本级复评后才传递 `best`，不会提前构造后续学生。
+恢复使用保存的配置，不在同一条链中更改起点、步长或预算。debug 与正式目录分开。
+
 ## LangFlow-OWT：尾部层数 × rank 网格
 
 ```bash

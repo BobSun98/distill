@@ -37,6 +37,29 @@ class LowRankLinear(nn.Module):
         return self.up(self.down(inputs))
 
 
+@torch.no_grad()
+def truncate_factors(layer, ratio):
+    """对训练后的有效矩阵重新做 SVD；ratio 相对原始维度，不相对上一阶 rank。"""
+    if not isinstance(layer, LowRankLinear):
+        raise ValueError("逐级截断的起点必须是 LowRankLinear")
+    shape = (layer.out_features, layer.in_features)
+    rank = retained_rank(shape, ratio)
+    if rank >= layer.rank:
+        raise ValueError(f"逐级截断必须降低 rank: {layer.rank} -> {rank}")
+    # 蒸馏后 down/up 不再是原始奇异向量，不能直接裁剪因子的行列。
+    matrix = layer.up.weight.detach().float() @ layer.down.weight.detach().float()
+    u, singular, vh = torch.linalg.svd(matrix, full_matrices=False)
+    relative_error = (torch.linalg.vector_norm(matrix - (u * singular) @ vh)
+                      / torch.linalg.vector_norm(matrix).clamp_min(1e-12)).item()
+    if not torch.isfinite(singular).all().item() or relative_error > 1e-2:
+        raise ValueError(f"逐级 SVD 满秩重构检查未通过: relative_error={relative_error}")
+    down, up = balanced_factors(u, singular, vh, rank)
+    energy = singular.square()
+    return down, up, {"shape": list(shape), "previous_rank": layer.rank, "rank": rank,
+        "full_rank_relative_error": relative_error,
+        "energy_fraction": (energy[:rank].sum() / energy.sum().clamp_min(1e-12)).item()}
+
+
 def apply_low_rank(model, settings):
     """加载 checkpoint 时先按 config.json 建立因子结构，再严格加载其权重。"""
     for path, rank in settings["ranks"].items():

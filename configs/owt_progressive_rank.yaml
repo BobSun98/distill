@@ -1,0 +1,23 @@
+extends: owt_rank_sweep.yaml
+
+run:
+  name: langflow_owt_progressive_svd_rank
+
+progressive_rank:
+  # 上一轮全 12 层、五个投影全部分解的 80% student；只读使用其最佳权重。
+  source_checkpoint: run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best
+  start_percent: 80
+  end_percent: 20
+  step_percent: 5
+
+rank_sweep:
+  # 实际 ratios 由上面的整数百分比生成；本实验不运行独立 rank sweep。
+  full_rank_check: false
+
+execution:
+  backend: compile
+  mode: reduce-overhead
+
+training:
+  # 每一级重置 optimizer/LR；Teacher 是上一级最佳 student，纯 off-policy KL。
+  max_steps: 10000

@@ -1,0 +1,97 @@
+{
+  "teacher": "Continuous-Rivals-Discrete/langflow-owt",
+  "student_depth": 12,
+  "students": [
+    {
+      "name": "tail_02_rank_020",
+      "ratio": 0.2,
+      "tail_layers": 2,
+      "max_steps": 3,
+      "layer_indices": [
+        10,
+        11
+      ],
+      "rank": 153,
+      "conditioning_rank": 25
+    }
+  ],
+  "targets": [
+    "attn_qkv",
+    "attn_out",
+    "mlp.0",
+    "mlp.2",
+    "adaLN_modulation"
+  ],
+  "num_svd_matrices": 10,
+  "requested_add_ratios": [],
+  "added_students": [],
+  "evaluation_models_total": 3,
+  "new_evaluation_models": 3,
+  "reference_run": null,
+  "reference_models": [],
+  "full_rank_check": true,
+  "training": {
+    "plot_loss": false,
+    "ppl_evaluation": {
+      "enabled": false,
+      "interval": -1,
+      "num_samples_per_rank": 42,
+      "batch_size": 14
+    },
+    "max_steps": 3,
+    "batch_size": 1,
+    "grad_accumulation": 1,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "self_condition_probability": 0.25,
+    "log_every": 1,
+    "validate_every": 3,
+    "validation_batches": 1,
+    "save_every": 0,
+    "early_stopping": {
+      "enabled": false,
+      "metric": "kl",
+      "min_steps": 500,
+      "patience": 5,
+      "min_delta": 0.001
+    },
+    "lr_scheduler": {
+      "name": "cosine",
+      "final_ratio": 0.1
+    }
+  },
+  "evaluation": {
+    "seed": 42,
+    "num_samples": 4,
+    "batch_size": 1,
+    "num_steps": 8,
+    "sequence_length": 128,
+    "scorer": "gpt2-large",
+    "scorer_batch_size": 4,
+    "scorer_max_length": 1024,
+    "corpus": "owt",
+    "timing_warmup_forwards": 5
+  },
+  "gradient_moment": {
+    "enabled": true,
+    "reference_config": "configs/gpt2_corpus_ppl.yaml"
+  },
+  "max_steps_by_rank": {},
+  "execution": {
+    "backend": "compile",
+    "mode": "reduce-overhead",
+    "warmup_forwards": 3,
+    "debug_compile": true
+  },
+  "scorer_execution": "float32/eager unchanged",
+  "global_batch_size_8gpu": 8,
+  "stages": [
+    "teacher_svd",
+    "teacher_and_initial_evaluation",
+    "off_policy_kl",
+    "trained_evaluation"
+  ],
+  "debug": true
+}
+[rank-sweep] plan: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/launch/rank_sweep_plan_20261105_144512_128452.json

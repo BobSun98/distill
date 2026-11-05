@@ -357,7 +357,7 @@ def find_evaluation_directory(run_dir, stage, evaluation):
     return None
 
 
-def evaluate_stage(config, entries, run_dir, stage, allow_distributed, debug):
+def evaluate_stage(config, entries, run_dir, stage, allow_distributed, debug, *, gm_reference=None):
     receipt = run_dir / f"{stage}_evaluation.json"
     evaluation = evaluation_config(config, entries, run_dir, debug)
     path = run_dir / f"gen_ppl_{stage}.yaml"
@@ -368,7 +368,7 @@ def evaluate_stage(config, entries, run_dir, stage, allow_distributed, debug):
         directory = find_evaluation_directory(run_dir, stage, evaluation)
         if directory is None:
             directory = create_run_dir(evaluation)
-        reference = reference_gm_path(config)
+        reference = gm_reference if gm_reference is not None else reference_gm_path(config)
         if reference is not None:
             target = directory / "gradient_moment/reference_owt.json"
             # 与旧 K=12 结果共用同一批真实文本；续评时保留本轮已固定的文件。

@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-05",
+  "experiment": "LangFlow-OWT progressive full-layer SVD rank distillation",
+  "source_checkpoint": "run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best",
+  "teacher": "previous stage best student",
+  "ratios": [
+    0.75,
+    0.7,
+    0.65,
+    0.6,
+    0.55,
+    0.5,
+    0.45,
+    0.4,
+    0.35,
+    0.3,
+    0.25,
+    0.2
+  ],
+  "depth": 12,
+  "factorized_matrices_per_stage": 60,
+  "training_max_steps": 10000,
+  "early_stopping": {
+    "enabled": true,
+    "metric": "kl",
+    "min_steps": 500,
+    "patience": 5,
+    "min_delta": 0.001
+  },
+  "execution": {
+    "backend": "compile",
+    "mode": "reduce-overhead",
+    "warmup_forwards": 3,
+    "debug_compile": false
+  },
+  "formal_world_size": 8,
+  "global_batch_size": 256,
+  "total_unified_evaluation_models": 25,
+  "local_checks": {
+    "unique_unit_checks": 43,
+    "progressive_checks": 11,
+    "existing_regression_checks": 32,
+    "formal_debug_compile_debug_dry_runs": "passed",
+    "resume_cli_dry_run": "passed",
+    "help_single_process": "passed",
+    "native_matrix_svd_checks": "actual FFN/AdaLN dimensions; spectral truncation error, source immutability, bias forward",
+    "source_checkpoint_metadata": "all 12 blocks / five matrices / 80% absolute ranks; unchanged",
+    "python_ast": "passed",
+    "bash_syntax": "passed",
+    "diff_check": "passed"
+  },
+  "gpu_validation_performed": false,
+  "server_validation": "bash scripts/run_owt_progressive_rank.sh compile-debug",
+  "resume_granularity": "completed stage/model; incomplete training restarts that stage initial; malformed completion JSON does not skip work",
+  "plan_file": "run/launch/progressive_rank_plan_20261105_145025_968085.json"
+}
