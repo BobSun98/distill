@@ -7,6 +7,8 @@ from pathlib import Path
 
 import torch
 
+from .execution import tensor_group_timeout
+
 from .config import create_run_dir, load_config, project_path, write_json
 from .data import prepare_data
 from .evaluate import evaluate, training_ppl
@@ -42,7 +44,7 @@ def run_experiment(config, command="all", checkpoint=None, allow_distributed=Tru
         if command == "check-distributed":
             if distributed.world_size() < 2:
                 raise ValueError("通信诊断需要至少两个进程，请设置 NGPU>=2")
-            distributed.setup_tensor_group(config["model"]["device"], communication["tensor_timeout_seconds"])
+            distributed.setup_tensor_group(config["model"]["device"], tensor_group_timeout(config))
             if distributed.is_main():
                 write_json(run_dir / "status.json", {"status": "completed", "command": command})
             progress.emit("communication.check.completed")
@@ -60,7 +62,7 @@ def run_experiment(config, command="all", checkpoint=None, allow_distributed=Tru
             if distributed.is_main():
                 write_json(run_dir / "status.json", {"status": "completed", "command": command})
             return run_dir
-        distributed.setup_tensor_group(config["model"]["device"], communication["tensor_timeout_seconds"])
+        distributed.setup_tensor_group(config["model"]["device"], tensor_group_timeout(config))
         with progress.phase("teacher.load"):
             teacher = load_teacher(config)
         with progress.phase("models.wait_teacher"):

@@ -16,6 +16,7 @@ from .states import off_policy_state, posterior_logits
 from .early_stopping import PlateauMonitor
 from .lr_schedule import make_lr_scheduler
 from .gen_ppl_protocol import write_manifest
+from .execution import ExecutionSession, execution_metadata, mark_step_begin, model_execution_metadata
 from .training_monitor import evaluation_state, plot_training_curves, ppl_due
 from . import distributed, progress
 
@@ -69,6 +70,7 @@ def validate(teacher, student, loader, config, loss_fn=batch_loss, metric_keys=(
                 if index >= config["training"]["validation_batches"]:
                     break
                 batch = move_batch(batch, device)
+                mark_step_begin()
                 if index == 0:
                     progress.emit("validation.first_batch.begin", tokens=batch_tokens(batch))
                 _, metrics = loss_fn(teacher, student, batch, config, query_teacher=True)
@@ -97,7 +99,8 @@ def save_checkpoint(student, tokenizer, run_dir, step, config, name=None):
                                                "loss": config["loss"]})
         write_manifest(path / "gen_ppl_eval.yaml", [{"name": "student", "architecture": str(path / "config.json"),
             "weights": str(path / "model.safetensors"), "generation": {
-                "num_steps": config["evaluation"]["num_steps"], "sequence_length": config["evaluation"]["sequence_length"]}}])
+                "num_steps": config["evaluation"]["num_steps"], "sequence_length": config["evaluation"]["sequence_length"]}}],
+                execution=config.get("execution"))
         progress.emit("checkpoint.save.end", step=step)
     with progress.phase("checkpoint.wait_ready", step=step):
         distributed.barrier()
@@ -107,6 +110,19 @@ def save_checkpoint(student, tokenizer, run_dir, step, config, name=None):
 def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
           loader_fn=make_loader, checkpoint_fn=save_checkpoint, counts_fn=parameter_counts,
           metric_keys=("loss", "ce", "kl"), ppl_fn=None):
+    with ExecutionSession({"teacher": teacher, "student": student}, config.get("execution"), run_dir=run_dir) as execution:
+        if distributed.is_main():
+            write_json(run_dir / "execution.json", {"settings": execution.settings, "status": "running"})
+        checkpoint = _train(teacher, student, tokenizer, config, run_dir, loss_fn=loss_fn,
+            loader_fn=loader_fn, checkpoint_fn=checkpoint_fn, counts_fn=counts_fn, metric_keys=metric_keys, ppl_fn=ppl_fn)
+    if distributed.is_main():
+        write_json(run_dir / "execution.json", {"settings": execution.settings, "status": "completed",
+            "teacher": execution.metadata("teacher"), "student": execution.metadata("student")})
+    return checkpoint
+
+
+def _train(teacher, student, tokenizer, config, run_dir, *, loss_fn, loader_fn,
+           checkpoint_fn, counts_fn, metric_keys, ppl_fn):
     settings = config["training"]
     if settings.get("plot_loss", False):
         from importlib.util import find_spec
@@ -153,6 +169,7 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
             if not distributed.is_main():
                 return
             event["elapsed_seconds"] = time.perf_counter() - started
+            event.update(execution_metadata(config.get("execution")))
             log.write(json.dumps(event, ensure_ascii=False, allow_nan=False) + "\n")
             log.flush()
             print(f"[train] {event}", flush=True)
@@ -170,6 +187,7 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
                 checkpoint_fn(student, tokenizer, run_dir, step, config, name="best")
             return decision
 
+        record({"phase": "execution_start", "step": 0, "max_steps": settings["max_steps"]})
         with progress.phase("validation", step=0):
             metrics = validate(teacher, student, valid_loader, config, loss_fn, metric_keys)
             record({"phase": "valid", "step": 0, **metrics})
@@ -194,6 +212,8 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
                 micro_batches.append(batch)
             step_tokens = sum(batch_tokens(batch) for batch in micro_batches)
             global_tokens = distributed.sum_tensor(step_tokens, device).item()
+            # 同一 optimizer step 的累积梯度仍然存活，不在 micro-batches 之间切换图迭代。
+            mark_step_begin()
             for index, batch in enumerate(micro_batches):
                 batch = move_batch(batch, device)
                 accumulating = index < len(micro_batches) - 1
@@ -263,6 +283,7 @@ def train(teacher, student, tokenizer, config, run_dir, *, loss_fn=batch_loss,
     checkpoint = run_dir / "checkpoints" / "best" if stopping["enabled"] else last_checkpoint
     if distributed.is_main():
         write_json(run_dir / "training.json", {"checkpoint": str(checkpoint),
+                    **model_execution_metadata(student),
                     "last_checkpoint": str(last_checkpoint), "steps": step,
                     "max_steps": settings["max_steps"], "stop_reason": stop_reason,
                     "tokens_seen": total_tokens,

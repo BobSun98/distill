@@ -94,6 +94,10 @@ def plot_training_curves(run_dir):
     run_dir = Path(run_dir)
     events = [json.loads(line) for line in (run_dir / "metrics.jsonl").read_text(encoding="utf-8").splitlines()
               if line.strip()]
+    # 未完成组从 initial 重训时保留原日志；曲线只画最后一次执行，避免跨后端/重启连线。
+    starts = [index for index, event in enumerate(events) if event["phase"] == "execution_start"]
+    if starts:
+        events = events[starts[-1]:]
     paths = []
     fig, ax = plt.subplots(figsize=(9, 5))
     for phase, label in (("train", "Train loss"), ("valid", "Validation loss")):

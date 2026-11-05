@@ -21,6 +21,10 @@ gradient_moment:
   enabled: true
   reference_config: configs/gpt2_corpus_ppl.yaml
 
+execution:
+  # 每卡编译实际 forward；reduce-overhead 请求 PyTorch 自动 CUDA Graph。
+  backend: compile
+
 training:
   max_steps: 5000
   # 每卡 16、累积 2 次；八卡全局 batch=256，四组使用相同训练上限。

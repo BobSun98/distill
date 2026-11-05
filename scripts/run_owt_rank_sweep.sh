@@ -13,12 +13,12 @@ while (( $# )); do
             [[ $# -ge 2 ]] || { echo '--config 需要路径' >&2; exit 2; }
             CONFIG="$2"; shift 2 ;;
         *.yaml|*.yml) CONFIG="$1"; shift ;;
-        --set|--run-dir|--add-rank|--max-steps)
+        --set|--run-dir|--add-rank|--max-steps|--backend)
             [[ $# -ge 2 ]] || { echo "$1 需要参数" >&2; exit 2; }
             ARGS+=("$1" "$2"); shift 2 ;;
         --dry-run) DRY_RUN=1; ARGS+=("$1"); shift ;;
         --help|-h) ARGS+=(--help); shift ;;
-        *) echo '用法: bash scripts/run_owt_rank_sweep.sh [CONFIG.yaml] [all|prepare|build|debug] [--dry-run] [--run-dir DIR] [--add-rank RATIO] [--max-steps N] [--set KEY=VALUE]' >&2; exit 2 ;;
+        *) echo '用法: bash scripts/run_owt_rank_sweep.sh [CONFIG.yaml] [all|prepare|build|debug] [--dry-run] [--run-dir DIR] [--add-rank RATIO] [--max-steps N] [--backend eager|compile] [--set KEY=VALUE]' >&2; exit 2 ;;
     esac
 done
 if [[ -z "$CONFIG" ]]; then
@@ -28,5 +28,7 @@ fi
 # dry-run 只启动一个配置检查进程，不初始化 CUDA 或八卡通信。
 if (( DRY_RUN )) && [[ "$COMMAND" != debug ]]; then COMMAND=prepare; fi
 export DISTILL_MODULE=distill.rank_sweep
+export TORCHINDUCTOR_COMPILE_THREADS=${TORCHINDUCTOR_COMPILE_THREADS:-1}
+export TORCH_LOGS=${TORCH_LOGS:-perf_hints}
 export DISTILL_DEBUG_ENTRY=${DISTILL_DEBUG_ENTRY:-debug/debug_rank_sweep.py}
 exec bash "$PROJECT_ROOT/scripts/run_experiment.sh" "$CONFIG" "$COMMAND" ${ARGS[@]+"${ARGS[@]}"}

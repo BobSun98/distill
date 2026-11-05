@@ -8,6 +8,8 @@ from functools import partial
 from pathlib import Path
 
 import torch
+
+from ..execution import tensor_group_timeout
 import yaml
 from safetensors.torch import load_file
 from torch.utils.data import DataLoader
@@ -190,7 +192,7 @@ def run_experiment(config, command="all", checkpoint=None, allow_distributed=Tru
         device = torch.device("cuda", torch.cuda.current_device())
     try:
         if command == "check-distributed":
-            distributed.setup_tensor_group(device, communication["tensor_timeout_seconds"])
+            distributed.setup_tensor_group(device, tensor_group_timeout(config))
         else:
             if command in ("train", "all"):
                 if distributed.is_main():
@@ -199,7 +201,7 @@ def run_experiment(config, command="all", checkpoint=None, allow_distributed=Tru
                     tokenizer.save_pretrained(run_dir / "tokenizer")
                 distributed.barrier()
                 tokenizer = AutoTokenizer.from_pretrained(run_dir / "tokenizer", local_files_only=True)
-                distributed.setup_tensor_group(device, communication["tensor_timeout_seconds"])
+                distributed.setup_tensor_group(device, tensor_group_timeout(config))
                 teacher, student, original = load_pair(config, weights, architecture, directory, device)
                 vocab_size = student.config.vocab_size if config["model"]["family"] == "langflow" else student.vocab_size
                 if len(tokenizer) != vocab_size:
@@ -229,7 +231,7 @@ def run_experiment(config, command="all", checkpoint=None, allow_distributed=Tru
                 final if final.is_file() else final / "model.safetensors", final_dir / "config.json")
             manifest = run_dir / "gen_ppl_eval.yaml"
             if distributed.is_main():
-                write_manifest(manifest, entries)
+                write_manifest(manifest, entries, execution=config.get("execution"))
             distributed.barrier()
             if command in ("all", "evaluate"):
                 evaluation = load_yaml_config(manifest)

@@ -20,6 +20,12 @@ distributed:
   control_timeout_seconds: 7200
   tensor_timeout_seconds: 180
 
+execution:
+  backend: eager
+  mode: reduce-overhead
+  warmup_forwards: 3
+  debug_compile: false
+
 data:
   corpus: owt
   dataset: Skylion007/openwebtext

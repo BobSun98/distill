@@ -123,6 +123,12 @@ def mean_metrics(sums, tokens, device):
 def abort_on_cuda_oom(error, run_dir):
     if not active() or not isinstance(error, torch.OutOfMemoryError):
         return
+    abort_worker(error, run_dir, reason="oom")
+
+
+def abort_worker(error, run_dir, reason="execution"):
+    if not active():
+        return
     from .config import write_json
     from pathlib import Path
     # OOM 后不进入可能等待其他 rank 的 NCCL/Gloo 清理。退出当前 worker，
@@ -131,11 +137,13 @@ def abort_on_cuda_oom(error, run_dir):
         try:
             write_json(Path(run_dir) / f"fatal_rank_{rank():02d}.json", {
                 "status": "failed", "rank": rank(), "pid": os.getpid(),
-                "error_type": type(error).__name__, "error": str(error), "exit": "distributed_oom_fast_exit"})
+                "error_type": type(error).__name__, "error": str(error),
+                "exit": "distributed_oom_fast_exit" if reason == "oom" else "distributed_execution_fast_exit"})
         except OSError as logging_error:
-            print(f"[fatal OOM] 保存错误记录失败: {logging_error}", file=sys.stderr)
+            print(f"[fatal {reason}] 保存错误记录失败: {logging_error}", file=sys.stderr)
         traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
-        print(f"[rank {rank()}] CUDA OOM: exiting worker immediately; torchrun will stop this job", file=sys.stderr)
+        label = "CUDA OOM" if reason == "oom" else "compiled execution"
+        print(f"[rank {rank()}] {label}: exiting worker immediately; torchrun will stop this job", file=sys.stderr)
         sys.stdout.flush()
         sys.stderr.flush()
     finally:

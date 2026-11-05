@@ -6,6 +6,7 @@ from types import SimpleNamespace
 import torch
 
 from .. import progress
+from ..execution import generation_context
 from ..backbones.elf.generation_utils import _dlm_decode_batch
 from ..backbones.elf.sampling_utils import get_sampling_steps, _ode_step, _sde_step
 
@@ -25,6 +26,11 @@ def cpu_states(z, time, self_cond, decoder=False, sc_scale=None):
 
 @torch.no_grad()
 def collect_states(model, config):
+    with generation_context(model):
+        return _collect_states(model, config)
+
+
+def _collect_states(model, config):
     rollout = config["on_policy"]
     count, length = rollout["rollout_batch_size"], config["evaluation"]["sequence_length"]
     steps = config["evaluation"]["num_steps"]

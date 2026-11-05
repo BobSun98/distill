@@ -21,6 +21,7 @@ from .gen_ppl_protocol import (SEED, NUM_SAMPLES, SCORER, MAX_LENGTH, VERSION,
     sample_ids, gaussian_noise, decode_text, text_statistics, aggregate_scores)
 from .gen_ppl_sampling import generate_batch
 from .inference_metrics import ForwardTimer, aggregate_timing
+from .execution import ExecutionSession, execution_options, forward_preparer
 from . import gradient_moment
 
 
@@ -40,6 +41,7 @@ def load_config(path, overrides=(), debug=False):
     validate_protocol(config["protocol"], debug)
     gradient_moment.validate_config(config)
     runtime = config["runtime"]
+    runtime["execution"] = execution_options(runtime.get("execution"), debug=debug)
     if runtime.get("timing_warmup_forwards", 5) < 0:
         raise ValueError("timing_warmup_forwards 不能为负")
     if runtime["generation_batch_size"] < 1 or not config["models"]:
@@ -138,15 +140,17 @@ def generate_records(model, tokenizer, files, entry, config, metadata, output):
     generation = entry["generation"]
     batch_size = generation.get("batch_size", config["runtime"]["generation_batch_size"])
     records = []
-    with ForwardTimer(model, config["runtime"].get("timing_warmup_forwards", 5)) as timer:
-        for start in range(0, len(ids), batch_size):
-            batch_ids = ids[start:start + batch_size]
-            with progress.phase("unified.generate", model=entry["name"], sample_ids=batch_ids):
-                tokens = generate_batch(model, files["family"], batch_ids, generation, metadata).cpu()
-            timer.flush()
-            for sample_id, row in zip(batch_ids, tokens.tolist()):
-                records.append({"sample_id": sample_id, "token_ids": row, "text": decode_text(row, tokenizer)})
-    metadata["inference_timing"] = timer.result()
+    with ExecutionSession({"generator": model}, config["runtime"].get("execution"), run_dir=output, generation=True) as execution:
+        with ForwardTimer(model, config["runtime"].get("timing_warmup_forwards", 5), prepare=forward_preparer(model)) as timer:
+            for start in range(0, len(ids), batch_size):
+                batch_ids = ids[start:start + batch_size]
+                with progress.phase("unified.generate", model=entry["name"], sample_ids=batch_ids):
+                    tokens = generate_batch(model, files["family"], batch_ids, generation, metadata).cpu()
+                timer.flush()
+                for sample_id, row in zip(batch_ids, tokens.tolist()):
+                    records.append({"sample_id": sample_id, "token_ids": row, "text": decode_text(row, tokenizer)})
+    metadata["inference_timing"] = {**timer.result(), **execution.metadata("generator")}
+    metadata["generator_execution"] = execution.settings
     metadata["num_parameters"] = sum(parameter.numel() for parameter in model.parameters())
     if 0 in ids:
         dimension = model.config.hidden_size if files["family"] == "langflow" else model.text_encoder_dim
@@ -195,6 +199,7 @@ def save_summary(run_dir, protocol, results):
               "repetition_4gram", "num_samples", "num_scored_samples", "num_empty_samples", "score_status",
               "gm", "gm_standard_error", "gm_num_pairs", "gm_num_skipped_pairs", "gm_status", "gm_reference_corpus",
               "num_parameters", "mean_step_ms", "timed_forward_calls", "effective_generation_batch_size"]
+    fields.extend(("execution_backend", "compile_mode", "compile_target", "cuda_graphs_requested", "cuda_graphs_verified", "compile_warmup_seconds"))
     with (run_dir / "summary.csv").open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
         writer.writeheader()
@@ -207,6 +212,8 @@ def protocol_metadata(config, debug=False):
             "noise": "sample_id_stream_cpu_fp32_dim_major_stride_1024_v1",
             "scorer_dtype": "float32", "scorer_attention": "eager", "scorer_batch_size": 1,
             "generation_precision": "float32_parameters_bfloat16_cuda_backbone",
+            "requested_generator_execution": execution_options(config["runtime"].get("execution"), debug=debug),
+            "cached_models_keep_original_execution": True,
             "decode": "strip_one_leading_bos_stop_at_first_eos_skip_special_tokens_no_cleanup",
             "aggregation": "exp(sum_nll / sum_valid_target_tokens)", "padding": "excluded_by_attention_mask",
             "add_special_tokens": False, "first_token": "not_scored",
@@ -216,11 +223,11 @@ def protocol_metadata(config, debug=False):
                 "aggregation": "sum_device_forward_ms / sum_actual_timed_forward_calls",
                 "warmup_forwards_per_rank": config["runtime"].get("timing_warmup_forwards", 5),
                 "method": "CUDA events; CPU uses perf_counter", "includes_decoder_forward": True,
-                "excludes": ["warmup", "model_loading", "sampler_transport", "tokenization", "GPT_scoring", "GM"]},
+                "excludes": ["warmup", "compilation", "extra_graph_warmup", "model_loading", "sampler_transport", "tokenization", "GPT_scoring", "GM"]},
             "parameter_count": "unique generator parameters, including frozen embeddings; scorer excluded"}
 
 
-def evaluation_matches(config, saved, allow_new_models=False):
+def evaluation_matches(config, saved, allow_new_models=False, allow_execution_change=False):
     # 只核对会改变测量口径的配置，不做权重哈希；耗时比较也必须保持 batch/预热条件。
     if any(config.get(key) != saved.get(key) for key in ("protocol", "gradient_moment")):
         return False
@@ -233,20 +240,26 @@ def evaluation_matches(config, saved, allow_new_models=False):
             return False
     elif config["models"] != saved["models"]:
         return False
+    if not allow_execution_change and execution_options(config["runtime"].get("execution")) != execution_options(saved["runtime"].get("execution")):
+        return False
     defaults = {"device": "cuda", "generation_batch_size": 8, "timing_warmup_forwards": 5}
     return all(config["runtime"].get(key, default) == saved["runtime"].get(key, default)
                for key, default in defaults.items())
 
 
-def prepare_evaluation_resume(config, run_dir, allow_new_models=False):
+def prepare_evaluation_resume(config, run_dir, allow_new_models=False, allow_execution_change=False):
     path = Path(run_dir) / "config.yaml"
     saved = load_yaml_config(path)
-    if not evaluation_matches(config, saved, allow_new_models):
+    if not evaluation_matches(config, saved, allow_new_models, allow_execution_change):
         raise ValueError("恢复评测的旧模型、协议或 batch/预热配置不一致；只能在相同条件下追加新模型")
-    if allow_new_models and config["models"] != saved["models"] and distributed.is_main():
-        backup = path.with_name("config_before_add_models.yaml")
-        if not backup.is_file():
-            backup.write_bytes(path.read_bytes())
+    models_changed = config["models"] != saved["models"]
+    execution_changed = execution_options(config["runtime"].get("execution")) != execution_options(saved["runtime"].get("execution"))
+    if (models_changed or execution_changed) and distributed.is_main():
+        for changed, filename in ((models_changed, "config_before_add_models.yaml"),
+                                  (execution_changed, "config_before_execution_change.yaml")):
+            backup = path.with_name(filename)
+            if changed and not backup.is_file():
+                backup.write_bytes(path.read_bytes())
         # 八个 rank 都会读取配置，用原子替换避免读到半写入的 YAML；旧模型结果文件不改动。
         temporary = path.with_suffix(".yaml.tmp")
         temporary.write_text(yaml.safe_dump(config, sort_keys=False), encoding="utf-8")
@@ -267,17 +280,26 @@ def completed_model_result(output, require_gm=False):
     if not required.issubset(saved) or saved["name"] != Path(output).name:
         return None
     # None PPL/GM 也可能是已完成的空文本结果；不能因此重跑或把缺失值当成零。
-    return {key: value for key, value in saved.items() if key not in ("protocol", "per_sample", "model_metadata")}
+    result = {key: value for key, value in saved.items() if key not in ("protocol", "per_sample", "model_metadata")}
+    # 旧记录从未启用编译，只给返回副本补 provenance，不重写原始 metrics.json。
+    result.setdefault("execution_backend", "eager")
+    result.setdefault("compile_mode", None)
+    result.setdefault("compile_target", None)
+    result.setdefault("cuda_graphs_requested", False)
+    result.setdefault("cuda_graphs_verified", False)
+    result.setdefault("compile_warmup_seconds", 0.0)
+    return result
 
 
-def run_gen_ppl(config, allow_distributed=True, debug=False, resume_dir=None, allow_new_models=False):
+def run_gen_ppl(config, allow_distributed=True, debug=False, resume_dir=None, allow_new_models=False, allow_execution_change=False):
     gradient_moment.validate_config(config)
     runtime = config["runtime"]
+    runtime["execution"] = execution_options(runtime.get("execution"), debug=debug)
     owns_group = distributed.setup(runtime["device"], allow_distributed, runtime["control_timeout_seconds"])
     run_dir = Path(distributed.broadcast_main(
         str(project_path(resume_dir) if resume_dir else create_run_dir(config)) if distributed.is_main() else None))
     if resume_dir:
-        prepare_evaluation_resume(config, run_dir, allow_new_models)
+        prepare_evaluation_resume(config, run_dir, allow_new_models, allow_execution_change)
     progress.configure(run_dir, distributed.rank())
     results, cache = [], {}
     try:

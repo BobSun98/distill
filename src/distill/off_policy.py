@@ -12,6 +12,7 @@ from . import distributed, gradient_moment, progress
 from .config import create_run_dir, load_yaml_config, project_path, write_json
 from .gen_ppl import run_gen_ppl, validate_protocol
 from .gen_ppl_protocol import MAX_LENGTH, manifest
+from .execution import execution_options
 
 
 def pipeline(config):
@@ -56,6 +57,7 @@ def evaluation_config(config, checkpoint, run_dir, debug=False):
     result["gradient_moment"].update(config.get("gradient_moment", {}))
     result["run"]["root"] = str(run_dir)
     result["runtime"].update(device=config["model"]["device"], cache_dir=config["model"]["cache_dir"],
+        execution=execution_options(config.get("execution"), debug=debug),
         generation_batch_size=settings["batch_size"],
         control_timeout_seconds=config["distributed"]["control_timeout_seconds"])
     if debug:

@@ -978,7 +978,7 @@ K=4/6/8/10 依此扩展，主干 rank 分别为 307（40%）和 460（60%），A
 已经完成 40%/60% 后，向同一个目录追加 **20% × 尾部 2/4/6/8/10 层**：
 
 ```bash
-# 默认八卡，20% 最多 10000 步；追加到 run/20261101_075912_158102_langflow_owt_svd_tail_rank_sweep。
+# 默认八卡，20% 最多 10000 步，compile + CUDA Graph；追加到已有实验。
 bash scripts/run_owt_tail_rank_sweep_020.sh
 
 # 先查看新增/跳过的学生与评测；不会修改该目录的配置或结果。
@@ -1008,6 +1008,72 @@ bash scripts/run_owt_tail_rank_sweep_020.sh debug
 只调整上限时备份到 `extensions/rank_020_max_steps_10000/`；旧汇总始终保留原预算。
 汇总表的 `training_max_steps` 与图中说明分别标明新尾部组和 K=12 历史参考的预算，
 并继续报告实际训练步数；不能把这些结果当作全部固定 10000 步的对照。
+
+### Compile 与 CUDA Graph 后端
+
+20% 续跑脚本默认传入 `--backend compile`，旧目录没有执行配置时也会显式切换；
+可以用 `--backend eager` 回退。已有学生权重和完成记录继续复用，未完成训练组仍从 SVD initial 重训。
+切换后端会备份原配置/汇总并记录到 `extensions/`，允许切换已开始但未完成组的执行后端，
+步数预算的“训练开始后不得改变”检查继续保留。
+
+```yaml
+execution:
+  backend: compile
+  mode: reduce-overhead
+  warmup_forwards: 3
+  debug_compile: false
+```
+
+LangFlow 编译实际被 `forward` 调用的 `backbone.forward`，覆盖 Transformer 与输出层，
+根模型的 FP32 词表 skip、softmax/embedding 回投、transport 和采样循环保留原实现。
+ELF 编译实际 `forward`。不创建 `_orig_mod` 模型子模块，checkpoint 的参数名与架构恢复方式保持一致。
+Teacher/student 计算部分可编译，optimizer、梯度累积、DDP 通信、验证、日志和早停继续在编译区域外。
+图迭代以 optimizer 更新为边界，累积的 micro-batches 共享边界；采样按 forward 切换图迭代。
+
+`reduce-overhead` 请求 PyTorch 自动捕获可用的 CUDA Graph 区域，不保证每个算子都进入图。
+各输入形状/SC 分支先用真实输入建立缓存，再做编译与图预热；预热使用 `fork_rng`，不消耗正式采样 RNG，
+额外前向不计入 NFE 或 `mean_step_ms`。首次编译可能较慢，日志包含 `execution.warmup`；
+`total_forward_calls` 统计正式采样前向，额外预热另记在 `compile_warmup_forward_calls`。
+预热后计时才开始。模型结束时释放编译上下文和图内存池，再加载 GPT scorer/计算 GM。
+GPT-2-Large 评分仍为 FP32、eager attention、单条评分，不编译 scorer，也不改变 PPL/GM 定义。
+
+八卡首次前向/反向编译可能较长，compile 模式的 tensor collective 超时至少为 900 秒；
+`TORCHINDUCTOR_COMPILE_THREADS` 默认 1，避免八个 rank 同时创建大量编译 worker。
+`TORCH_LOGS` 默认 `perf_hints`，会报告 CUDA Graph 不适用的原因；现有 `NCCL_P2P_DISABLE=1` 保留。
+编译异常和 OOM 会记录 `fatal_rank_XX.json` 并快速退出当前作业，由 torchrun 结束同作业其他 worker。
+
+原始逐模型结果不重写，旧结果按 eager 标记。新结果报告 `execution_backend`、`compile_mode`、
+`compile_target`、`cuda_graphs_requested`、`compile_warmup_seconds`，以及训练记录中的后端。
+`compile_warmup_seconds` 是各 rank 额外预热耗时的最大值，不计入平均前向延迟。
+只有执行后端/模式一致的 `mean_step_ms` 才适合直接比较；同目录恢复保留的旧 eager 结果不会伪标为 compile。
+需要同后端重新测速时，可对最终导出的 `gen_ppl_models.yaml` 用统一入口创建一次新评测。
+训练日志追加 `execution_start` 标记，曲线只画最后一次重训，旧日志保留。
+
+普通 `debug` 仍为单卡 eager。服务器可先运行专用的真实模型编译验证：
+
+```bash
+# 同一个 Python 进程：真实 Teacher -> 12 层尾部 SVD 学生 -> 三步训练 -> 统一生成/PPL/GM。
+bash scripts/verify_compile_cuda_graph.sh
+
+# 可选择空闲的一张卡，默认使用 CUDA 0。
+CUDA_VISIBLE_DEVICES=3 bash scripts/verify_compile_cuda_graph.sh
+
+# 仅检查这套配置，不加载模型、不初始化 GPU。
+bash scripts/verify_compile_cuda_graph.sh --dry-run
+```
+
+每次新建 `run/*_langflow_owt_compile_cuda_graph_debug/`，不会默认恢复或修改正式 sweep。
+成功后查看 `cuda_graph_verification.json`，其中记录实际 replay、逐模型编译/计时信息、
+checkpoint 参数名检查，以及 PyTorch/CUDA/显卡和启动时可用显存。
+完整日志（含启动环境与失败堆栈）在 `run/launch/`。跑完后同步该实验目录和对应启动日志即可复查。
+旧命令 `bash scripts/run_owt_tail_rank_sweep_020.sh compile-debug` 仍指向同一验证脚本。
+
+对应入口为 `debug/debug_compile_backend.py`；仅减少样本/长度/NFE/训练步数和实验组数，
+不缩小 backbone。该配置显式设 `debug_compile=true`，在预热后的实际 forward 中用 profiler 检查
+`cudaGraphLaunch`/`cuGraphLaunch`，没有观察到 replay 则报错，结果写入 `cuda_graph_verification.json`。
+同时核对实际保存的 safetensors 参数名。这个短流程验证兼容性，正式 batch/长度的显存和速度由正式日志记录。
+正式运行的 `cuda_graphs_requested=true` 表示已请求图优化；未启用 profiler 的结果中
+`cuda_graphs_verified` 留空，不伪造 GPU 验证结论。
 
 ## On-policy：真实 student rollout 的 CE/KL/MSE 蒸馏
 

@@ -1,0 +1,14 @@
+extends: owt_tail_rank_sweep_debug.yaml
+
+run:
+  name: langflow_owt_compile_cuda_graph_debug
+
+execution:
+  backend: compile
+  # 仅专用性能验证入口允许 debug 编译，并检查热态 CUDA Graph replay。
+  debug_compile: true
+
+rank_sweep:
+  # 完整真实 12 层，测试当前 20% 尾部结构；减少实验组数，不缩小 backbone。
+  ratios: [0.2]
+  tail_layers: [2]

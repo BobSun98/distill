@@ -23,6 +23,7 @@ from .losses import distillation_loss
 from .models import load_model, load_teacher, load_tokenizer, resolve_model_files
 from .states import off_policy_state, posterior_logits
 from .train import save_checkpoint, seed_everything, train
+from .execution import execution_options, tensor_group_timeout
 
 
 def rank_name(ratio):
@@ -68,6 +69,10 @@ def reference_rows(config):
     depth = config["rank_sweep"]["teacher_depth"]
     rows = [{**row, "tail_layers": depth, "layer_indices": list(range(depth)),
              "training_max_steps": row.get("training_max_steps", rank_max_steps(previous, row["rank_ratio"])),
+             "execution_backend": row.get("execution_backend", "eager"), "compile_mode": row.get("compile_mode"),
+             "compile_target": row.get("compile_target"), "cuda_graphs_verified": row.get("cuda_graphs_verified", False),
+             "cuda_graphs_requested": row.get("cuda_graphs_requested", False),
+             "training_backend": row.get("training_backend", "eager" if row["phase"] == "after" else None),
              "is_reference": True, "reference_run": str(source)}
             for row in report["results"] if row["phase"] in ("before", "after")
             and row["rank_ratio"] in config["rank_sweep"]["ratios"]
@@ -104,6 +109,7 @@ def evaluation_config(config, entries, root, debug=False):
     result["run"]["root"] = str(root)
     result["gradient_moment"].update(config["gradient_moment"])
     result["runtime"].update(device=config["model"]["device"], cache_dir=config["model"]["cache_dir"],
+        execution=execution_options(config.get("execution"), debug=debug),
         generation_batch_size=config["evaluation"]["batch_size"],
         timing_warmup_forwards=config["evaluation"]["timing_warmup_forwards"],
         control_timeout_seconds=config["distributed"]["control_timeout_seconds"])
@@ -273,24 +279,35 @@ def check_step_limit_change(run_dir, previous, config):
 
 
 def save_rank_extension(run_dir, config):
-    """同目录增加 rank/调整未训练 rank 的预算，旧学生与逐模型指标不覆盖。"""
+    """同目录追加 rank、预算或执行后端；旧学生与逐模型指标不覆盖。"""
     path = run_dir / "config.yaml"
     previous = load_yaml_config(path)
     original = previous["rank_sweep"]["ratios"]
     added = [ratio for ratio in config["rank_sweep"]["ratios"] if ratio not in original]
     changes = check_step_limit_change(run_dir, previous, config)
+    old_execution = execution_options(previous.get("execution"))
+    new_execution = execution_options(config.get("execution"))
+    execution_changed = old_execution != new_execution
     unchanged = copy.deepcopy(config)
     unchanged["rank_sweep"]["ratios"] = original
     if "max_steps_by_rank" in previous["rank_sweep"]:
         unchanged["rank_sweep"]["max_steps_by_rank"] = previous["rank_sweep"]["max_steps_by_rank"]
     else:
         unchanged["rank_sweep"].pop("max_steps_by_rank", None)
+    if "execution" in previous:
+        unchanged["execution"] = previous["execution"]
+    else:
+        unchanged.pop("execution", None)
     if not set(original).issubset(config["rank_sweep"]["ratios"]) or unchanged != previous:
-        raise ValueError("必须保留所有原 rank；除未训练 rank 的步数上限外，训练、数据、评测等其他配置必须完全一致")
-    if not added and not changes:
+        raise ValueError("必须保留所有原 rank；除未训练 rank 上限与执行后端外，训练、数据、评测等其他配置必须完全一致")
+    if not added and not changes and not execution_changed:
         return
-    name = "_".join(rank_name(ratio) for ratio in added) if added else "_".join(
-        f"{name}_max_steps_{change['current']}" for name, change in changes.items())
+    if added:
+        name = "_".join(rank_name(ratio) for ratio in added)
+    elif changes:
+        name = "_".join(f"{name}_max_steps_{change['current']}" for name, change in changes.items())
+    else:
+        name = f"execution_{new_execution['backend']}_{new_execution['mode']}"
     backup = run_dir / "extensions" / name
     backup.mkdir(parents=True, exist_ok=True)
     for filename in ("config.yaml", "status.json", "summary.json", "summary.csv", "tail_rank_quality_curve.png",
@@ -301,6 +318,7 @@ def save_rank_extension(run_dir, config):
     write_json(backup / "extension.json", {"original_ratios": original,
         "added_ratios": added, "ratios": config["rank_sweep"]["ratios"],
         "step_limit_changes": changes,
+        "execution_change": {"previous": old_execution, "current": new_execution} if execution_changed else None,
         "new_students": [spec["name"] for spec in student_specs(config) if spec["ratio"] in added]})
     path.write_text(yaml.safe_dump(config, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
@@ -334,7 +352,7 @@ def find_evaluation_directory(run_dir, stage, evaluation):
     # 兼容旧运行：失败前还没写 stage receipt，但已保存部分模型的 metrics.json。
     for directory in sorted(run_dir.glob("*_unified_gen_ppl"), reverse=True):
         saved = directory / "config.yaml"
-        if saved.is_file() and evaluation_matches(evaluation, load_yaml_config(saved), allow_new_models=True):
+        if saved.is_file() and evaluation_matches(evaluation, load_yaml_config(saved), allow_new_models=True, allow_execution_change=True):
             return directory
     return None
 
@@ -361,7 +379,8 @@ def evaluate_stage(config, entries, run_dir, stage, allow_distributed, debug):
         write_json(receipt, {"directory": str(directory), "status": "running"})
     directory = Path(distributed.broadcast_main(str(directory) if distributed.is_main() else None))
     # 与独立 eval_gen_ppl.sh 共用逐模型恢复；未完成模型重跑，已完成结果原样保留。
-    run_gen_ppl(evaluation, allow_distributed=allow_distributed, debug=debug, resume_dir=directory, allow_new_models=True)
+    run_gen_ppl(evaluation, allow_distributed=allow_distributed, debug=debug, resume_dir=directory,
+                allow_new_models=True, allow_execution_change=True)
     if distributed.is_main():
         write_json(receipt, {"directory": str(directory), "status": "completed"})
     progress.configure(run_dir, distributed.rank())
@@ -388,6 +407,10 @@ def save_results(run_dir, config, reports):
                 "tail_layers": 0 if teacher else spec["tail_layers"],
                 "layer_indices": [] if teacher else spec["layer_indices"],
                 "is_reference": False, "reference_run": None,
+                "execution_backend": row.get("execution_backend", "eager"), "compile_mode": row.get("compile_mode"),
+                "cuda_graphs_requested": row.get("cuda_graphs_requested", False),
+                "training_backend": training.get("execution_backend", "eager") if phase == "after" and not teacher else None,
+                "training_compile_mode": training.get("compile_mode"),
                 "training_max_steps": None if teacher else training.get("max_steps", spec["max_steps"]),
                 "training_steps": training.get("steps"), "best_step": training.get("best_step"),
                 "tokens_seen": training.get("tokens_seen"),
@@ -395,10 +418,12 @@ def save_results(run_dir, config, reports):
                 "stop_reason": training.get("stop_reason")})
     rows.extend(row for row in reference_rows(config) if row["phase"] in reports)
     write_json(run_dir / "summary.json", {"config": config, "results": rows,
+        "execution_note": "Cached results keep their original backend. Compare mean_step_ms only with the same execution_backend/compile_mode; compilation and extra graph warmup are excluded and reported separately.",
         "metric_definition": "tail_layers counts compressed final blocks; depth always counts all blocks; training_max_steps is the per-student cap (trained rows use training.json); is_reference keeps historical timing/training budgets; rank is the main projection rank; conditioning_rank is the AdaLN rank; mean_step_ms is per-batch forward latency; num_parameters includes embeddings"})
     fields = ["name", "phase", "rank_ratio", "rank", "conditioning_rank", "depth", "tail_layers", "is_reference", "reference_run",
         "gen_ppl", "sample_entropy", "repetition_4gram", "gm", "gm_standard_error",
         "num_parameters", "mean_step_ms", "effective_generation_batch_size", "timed_forward_calls",
+        "execution_backend", "compile_mode", "compile_target", "cuda_graphs_requested", "cuda_graphs_verified", "compile_warmup_seconds", "training_backend", "training_compile_mode",
         "num_samples", "num_scored_samples", "num_empty_samples", "score_status", "gm_num_pairs", "gm_num_skipped_pairs", "gm_status",
         "training_max_steps", "training_steps", "best_step", "tokens_seen", "checkpoint_tokens_seen", "stop_reason"]
     with (run_dir / "summary.csv").open("w", newline="", encoding="utf-8") as handle:
@@ -508,7 +533,8 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
             saved_config = run_dir / "config.yaml"
             previous = load_yaml_config(saved_config) if resume_dir else None
             if resume_dir and (config["rank_sweep"]["ratios"] != previous["rank_sweep"]["ratios"]
-                    or config["rank_sweep"].get("max_steps_by_rank", {}) != previous["rank_sweep"].get("max_steps_by_rank", {})):
+                    or config["rank_sweep"].get("max_steps_by_rank", {}) != previous["rank_sweep"].get("max_steps_by_rank", {})
+                    or execution_options(config.get("execution")) != execution_options(previous.get("execution"))):
                 save_rank_extension(run_dir, config)
             elif resume_dir and config["training"]["early_stopping"] != previous["training"]["early_stopping"]:
                 # 仅在学生尚未开始训练时更新规则；初始权重和已有初评不受影响。
@@ -527,7 +553,8 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
             return run_dir
         if not distributed.is_main():
             tokenizer = load_tokenizer(config)
-        distributed.setup_tensor_group(config["model"]["device"], communication["tensor_timeout_seconds"])
+        # 首次前向/反向编译耗时较长，避免其他 rank 在正常编译期间触发三分钟 NCCL 超时。
+        distributed.setup_tensor_group(config["model"]["device"], tensor_group_timeout(config))
         torch.set_float32_matmul_precision("highest")
         device = torch.device(config["model"]["device"])
         if device.type == "cuda":
@@ -639,6 +666,7 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
     parser.add_argument("--add-rank", dest="add_ratios", action="append", type=float, default=[],
                         help="向 --run-dir 追加 rank 比例（例如 0.2）；其他实验条件沿用原记录，可重复执行续跑")
     parser.add_argument("--max-steps", type=int, help="只设置 --add-rank 指定 rank 的训练上限；该 rank 所有组均未开始训练时可修改")
+    parser.add_argument("--backend", choices=("eager", "compile"), help="恢复时可切换执行后端；已完成结果保留原后端，compile 使用 CUDA Graph 优化模式")
     parser.add_argument("--dry-run", action="store_true", help="只检查配置并保存计划，不加载模型或数据")
     args = parser.parse_args()
     if args.add_ratios and not args.run_dir:
@@ -658,6 +686,10 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
                 ratios.append(ratio)
         overrides.append("rank_sweep.ratios=" + json.dumps(ratios))
     config = load_config(path, overrides, debug)
+    settings = execution_options(config.get("execution"))
+    if args.backend is not None:
+        settings["backend"] = args.backend
+    config["execution"] = execution_options(settings, debug=debug)
     if args.max_steps is not None:
         limits = dict(config["rank_sweep"].get("max_steps_by_rank", {}))
         limits.update({rank_name(ratio): args.max_steps for ratio in args.add_ratios})
@@ -690,6 +722,7 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
             "full_rank_check": config["rank_sweep"].get("full_rank_check", False),
             "training": config["training"], "evaluation": config["evaluation"], "gradient_moment": config["gradient_moment"],
             "max_steps_by_rank": config["rank_sweep"].get("max_steps_by_rank", {}),
+            "execution": config["execution"], "scorer_execution": "float32/eager unchanged",
             "global_batch_size_8gpu": 8 * config["training"]["batch_size"] * config["training"]["grad_accumulation"],
             "stages": ["teacher_svd", "teacher_and_initial_evaluation", "off_policy_kl", "trained_evaluation"], "debug": debug}
         if args.run_dir:
@@ -717,6 +750,7 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
         return
     directory = run_sweep(config, args.command, allow_distributed, debug, args.run_dir)
     print(f"[rank-sweep] results: {directory}", flush=True)
+    return directory
 
 
 if __name__ == "__main__":

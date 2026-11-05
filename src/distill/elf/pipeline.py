@@ -7,6 +7,8 @@ from pathlib import Path
 
 import torch
 
+from ..execution import tensor_group_timeout
+
 from .. import distributed, progress
 from ..config import load_yaml_config, create_run_dir, project_path, write_json
 from ..train import train, seed_everything
@@ -66,7 +68,7 @@ def run_experiment(config, command="all", checkpoint=None, allow_distributed=Tru
         if command == "check-distributed":
             if distributed.world_size() < 2:
                 raise ValueError("通信检查需要 NGPU>=2")
-            distributed.setup_tensor_group(device, communication["tensor_timeout_seconds"])
+            distributed.setup_tensor_group(device, tensor_group_timeout(config))
         else:
             encoder_path = models.resolve_encoder(config)
             tokenizer = models.load_tokenizer(encoder_path)
@@ -77,7 +79,7 @@ def run_experiment(config, command="all", checkpoint=None, allow_distributed=Tru
                     data.prepare_data(config, tokenizer)
             distributed.barrier()
             if command != "prepare":
-                distributed.setup_tensor_group(device, communication["tensor_timeout_seconds"])
+                distributed.setup_tensor_group(device, tensor_group_timeout(config))
                 encoder = models.load_encoder(encoder_path, config, device)
                 teacher = models.load_teacher(config, device)
                 distributed.barrier()

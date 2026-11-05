@@ -148,6 +148,8 @@ def unified_evaluation_config(run_dir, config, rows, teacher_files):
     result["runtime"].update(device=config["model"]["device"], cache_dir=config["model"]["cache_dir"],
         generation_batch_size=config["evaluation"]["batch_size"],
         control_timeout_seconds=config["distributed"]["control_timeout_seconds"])
+    from .execution import execution_options
+    result["runtime"]["execution"] = execution_options(config.get("execution"))
     return result
 
 

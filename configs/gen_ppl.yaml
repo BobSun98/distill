@@ -16,6 +16,11 @@ gradient_moment:
   reference_config: configs/gpt2_corpus_ppl.yaml
 
 runtime:
+  execution:
+    backend: eager
+    mode: reduce-overhead
+    warmup_forwards: 3
+    debug_compile: false
   device: cuda
   cache_dir: null
   generation_batch_size: 8

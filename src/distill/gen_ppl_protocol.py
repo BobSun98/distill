@@ -84,9 +84,13 @@ def manifest(models):
                         "control_timeout_seconds": 7200}, "models": models}
 
 
-def write_manifest(path, models):
+def write_manifest(path, models, *, execution=None):
     import yaml
     from pathlib import Path
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(yaml.safe_dump(manifest(models), allow_unicode=True, sort_keys=False), encoding="utf-8")
+    result = manifest(models)
+    if execution is not None:
+        from .execution import execution_options
+        result["runtime"]["execution"] = execution_options(execution)
+    path.write_text(yaml.safe_dump(result, allow_unicode=True, sort_keys=False), encoding="utf-8")

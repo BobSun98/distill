@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-04",
+  "target_run": "run/20261101_075912_158102_langflow_owt_svd_tail_rank_sweep",
+  "plan": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/launch/rank_sweep_plan_20261104_180210_687803.json",
+  "execution": {
+    "backend": "compile",
+    "mode": "reduce-overhead",
+    "warmup_forwards": 3,
+    "debug_compile": false
+  },
+  "compile_target": "LangFlow backbone.forward / ELF forward",
+  "scorer": "FP32/eager unchanged",
+  "completed_training_groups": 12,
+  "remaining_training": [
+    "tail_06_rank_020",
+    "tail_08_rank_020",
+    "tail_10_rank_020"
+  ],
+  "new_evaluations": 5,
+  "unit_checks_passed": 65,
+  "cpu_gloo_exit_checks": "passed after allowing local loopback; no models/GPU",
+  "transport_formula_regressions": "passed",
+  "checkpoint_schema": "native modules retained; GPU debug verifies saved keys",
+  "gpu_validation": "not run locally; compile-debug checks hot CUDA Graph replay on real pretrained pipeline",
+  "disk_quota": "user confirmed resolved",
+  "target_configuration_unchanged_locally": true,
+  "cached_eager_metrics": "retained unchanged; returned summaries label original backend"
+}

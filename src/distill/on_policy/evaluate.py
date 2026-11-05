@@ -10,6 +10,7 @@ from ..gen_ppl import (generate_records, score_records, scorer_on_device, save_s
                        protocol_metadata, validate_protocol)
 from ..gen_ppl_protocol import manifest, aggregate_scores
 from ..inference_metrics import aggregate_timing
+from ..execution import execution_options
 
 
 def training_ppl(student, tokenizer, config, run_dir, step, *, scorer_cache, debug=False):
@@ -21,6 +22,7 @@ def training_ppl(student, tokenizer, config, run_dir, step, *, scorer_cache, deb
         generation["sampling"] = dict(config["evaluation"]["sampling"])
     entry = {"name": "current_student", "generation": generation}
     current = manifest([entry])
+    current["runtime"]["execution"] = execution_options(config.get("execution"), debug=debug)
     current["runtime"]["generation_batch_size"] = config["training"]["ppl_evaluation"]["batch_size"]
     if debug:
         current["protocol"]["num_samples"] = config["evaluation"]["num_samples"]
