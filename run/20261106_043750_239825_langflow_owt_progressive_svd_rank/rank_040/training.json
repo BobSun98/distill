@@ -1,0 +1,33 @@
+{
+  "checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261106_043750_239825_langflow_owt_progressive_svd_rank/rank_040/checkpoints/best",
+  "execution_backend": "compile",
+  "compile_mode": "reduce-overhead",
+  "cuda_graphs_requested": true,
+  "compile_target": "backbone.forward",
+  "cuda_graphs_verified": null,
+  "observed_cuda_graph_launches": 0,
+  "compile_warmup_seconds": 0.0,
+  "compile_warmup_forward_calls": 0,
+  "compiled_input_variants": 0,
+  "last_checkpoint": "/proj/gpu_mtk53742/CDLM-distillation/run/20261106_043750_239825_langflow_owt_progressive_svd_rank/rank_040/checkpoints/step_003600",
+  "steps": 3600,
+  "max_steps": 10000,
+  "stop_reason": "plateau",
+  "tokens_seen": 943718400,
+  "checkpoint_tokens_seen": 917504000,
+  "initial_learning_rate": 0.0001,
+  "final_learning_rate": 7.416825523406375e-05,
+  "lr_scheduler": {
+    "name": "cosine",
+    "final_ratio": 0.1
+  },
+  "early_stopping": {
+    "enabled": true,
+    "metric": "kl",
+    "min_steps": 500,
+    "patience": 5,
+    "min_delta": 0.001
+  },
+  "best_step": 3500,
+  "best_value": 0.0474586421623826
+}
