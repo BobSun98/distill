@@ -1,4 +1,4 @@
-"""LangFlow-OWT：上一级最佳低秩 student 担任 Teacher，逐级 SVD 截断与 KL 恢复。"""
+"""LangFlow-OWT：逐级截断 student、固定原始满秩 Teacher；兼容旧实验元数据。"""
 
 import argparse
 import copy
@@ -19,7 +19,7 @@ from .data import prepare_data
 from .execution import execution_options, tensor_group_timeout
 from .gen_ppl import completed_model_result
 from .low_rank import TARGETS, retained_rank, truncate_factors
-from .models import load_model, load_teacher, load_tokenizer
+from .models import load_model, load_teacher, load_tokenizer, resolve_model_files
 from .rank_sweep import (checkpoint_entry, evaluation_config, evaluate_stage, find_evaluation_directory,
                          load_config as load_rank_config, rank_name, save_rank_checkpoint)
 from .train import seed_everything, train
@@ -31,6 +31,28 @@ def rank_schedule(settings):
             or not 0 < end < start <= 100 or step < 1 or (start - end) % step):
         raise ValueError("逐级 rank 必须使用整数百分比，start > end > 0，且步长能整除区间")
     return [percent / 100 for percent in range(start - step, end - 1, -step)]
+
+
+def teacher_mode(config):
+    # 旧 run 没有此字段，必须按旧含义读取，不能静默重解释其 Teacher 链。
+    return config["progressive_rank"].get("teacher_mode", "previous_student")
+
+
+def validate_dense_teacher_config(architecture, config):
+    shape = config["rank_sweep"]
+    if (architecture.low_rank or architecture.n_blocks != shape["teacher_depth"]
+            or architecture.hidden_size != shape["hidden_size"] or architecture.cond_dim != shape["cond_dim"]):
+        raise ValueError("fixed_original 模式需要原始完整层数、宽度且未低秩分解的 Teacher")
+
+
+def validate_supervision_path(teacher, student, config):
+    validate_dense_teacher_config(teacher.config, config)
+    # 蒸馏两侧查询同一加噪状态，必须共享冻结的 embedding 坐标和噪声 proposal。
+    if not torch.equal(teacher._get_embedding_matrix(), student._get_embedding_matrix()):
+        raise ValueError("固定 Teacher 与 student 的 embedding 坐标不同")
+    proposal = teacher.proposal.state_dict()
+    if any(not torch.equal(value, proposal[key]) for key, value in student.proposal.state_dict().items()):
+        raise ValueError("固定 Teacher 与 student 的噪声 proposal 不同")
 
 
 def validate_architecture(architecture, config, ratio):
@@ -50,6 +72,8 @@ def load_config(path, overrides=(), debug=False):
     raw = load_yaml_config(path, overrides)
     ratios = rank_schedule(raw["progressive_rank"])
     config = load_rank_config(path, [*overrides, "rank_sweep.ratios=" + json.dumps(ratios)], debug)
+    if teacher_mode(config) not in ("fixed_original", "previous_student"):
+        raise ValueError("teacher_mode 只支持 fixed_original / previous_student")
     if (config["model"]["family"] != "langflow" or config["data"].get("corpus", "owt") != "owt"
             or config["rank_sweep"].get("tail_layers") is not None
             or set(config["rank_sweep"]["targets"]) != set(TARGETS)
@@ -77,6 +101,8 @@ def completed_record(path, required):
 
 def update_step_config(directory, config, *, write=False):
     previous = load_yaml_config(directory / "config.yaml")
+    if teacher_mode(previous) != teacher_mode(config):
+        raise ValueError("已有实验的 Teacher 模式不能改变，请为固定原始 Teacher 新建实验")
     old_step, new_step = previous["progressive_rank"]["step_percent"], config["progressive_rank"]["step_percent"]
     if old_step == new_step:
         return False
@@ -108,27 +134,33 @@ def best_checkpoint(directory, config):
 def stage_config(config, ratio, parent, parent_ratio):
     result = copy.deepcopy(config)
     result["run"]["name"] = rank_name(ratio)
-    result["model"].update(teacher=str(parent), teacher_config=None)
-    result["progressive_rank"].update(parent_checkpoint=str(parent), teacher_ratio=parent_ratio, current_ratio=ratio)
+    if teacher_mode(config) == "fixed_original":
+        # model.teacher 保留原始模型；上一阶 best 只决定 student 的截断起点。
+        result["progressive_rank"].update(parent_checkpoint=str(parent), source_ratio=parent_ratio,
+                                         teacher_ratio=1.0, current_ratio=ratio)
+    else:
+        result["model"].update(teacher=str(parent), teacher_config=None)
+        result["progressive_rank"].update(parent_checkpoint=str(parent), teacher_ratio=parent_ratio, current_ratio=ratio)
     return result
 
 
 @torch.no_grad()
-def build_truncated_student(teacher, ratio, config):
-    validate_architecture(teacher.config, config, config["progressive_rank"]["teacher_ratio"])
-    architecture = copy.deepcopy(teacher.config)
+def build_truncated_student(source, ratio, config):
+    settings = config["progressive_rank"]
+    validate_architecture(source.config, config, settings.get("source_ratio", settings["teacher_ratio"]))
+    architecture = copy.deepcopy(source.config)
     previous = architecture.low_rank["ranks"]
     paths = sorted(previous)
     architecture.low_rank = {"ratio": ratio, "method": "svd_sqrt", "rounding": "floor",
         "layer_indices": list(range(architecture.n_blocks)), "ranks": {
-            path: retained_rank((teacher.get_submodule(path).out_features, teacher.get_submodule(path).in_features), ratio)
+            path: retained_rank((source.get_submodule(path).out_features, source.get_submodule(path).in_features), ratio)
             for path in paths}}
-    device = next(teacher.parameters()).device
+    device = next(source.parameters()).device
     student = LangFlow(architecture).to(device)
     weights = student.state_dict()
     replaced = {path + suffix for path in paths for suffix in (".down.weight", ".up.weight")}
     # bias、embedding、时间编码、输出头等全部沿用上一级训练后的值。
-    weights.update({key: value for key, value in teacher.state_dict().items() if key not in replaced})
+    weights.update({key: value for key, value in source.state_dict().items() if key not in replaced})
     student.load_state_dict(weights, strict=True)
     local = []
     # 先让八卡并行完成各自的 SVD，再广播新因子；不把大矩阵塞进 Python object collective。
@@ -136,7 +168,7 @@ def build_truncated_student(teacher, ratio, config):
         if index % distributed.world_size() != distributed.rank():
             continue
         with progress.phase("progressive.svd", module=path, ratio=ratio):
-            down, up, report = truncate_factors(teacher.get_submodule(path), ratio)
+            down, up, report = truncate_factors(source.get_submodule(path), ratio)
             target = student.get_submodule(path)
             target.down.weight.copy_(down)
             target.up.weight.copy_(up)
@@ -172,11 +204,14 @@ def evaluation_complete(config, entry, directory, stage, debug):
 
 
 def save_results(run_dir, config, rows, entries):
+    mode = teacher_mode(config)
     write_json(run_dir / "summary.json", {"config": config, "results": rows,
-        "method": "Each teacher is the frozen best checkpoint of the previous rank; truncated student is re-distilled off-policy with KL.",
+        "teacher_mode": mode,
+        "method": ("Fixed original dense Teacher; each student is SVD-truncated from the preceding best student and re-distilled off-policy with KL."
+                   if mode == "fixed_original" else "Each teacher is the frozen best checkpoint of the previous rank; truncated student is re-distilled off-policy with KL."),
         "rank_definition": "Absolute floor(ratio * min(original matrix dimensions)); all blocks and five projections.",
         "timing_note": "Per-batch generator forward latency; compilation/warmup, GPT scoring and GM excluded."})
-    fields = ["name", "phase", "rank_ratio", "teacher_ratio", "parent_checkpoint", "depth", "rank", "conditioning_rank",
+    fields = ["name", "phase", "rank_ratio", "teacher_mode", "teacher_ratio", "teacher_checkpoint", "source_ratio", "parent_checkpoint", "depth", "rank", "conditioning_rank",
         "gen_ppl", "sample_entropy", "repetition_4gram", "gm", "gm_standard_error", "num_parameters", "mean_step_ms",
         "effective_generation_batch_size", "execution_backend", "compile_mode", "compile_target", "cuda_graphs_requested",
         "cuda_graphs_verified", "compile_warmup_seconds", "training_backend", "training_compile_mode",
@@ -189,12 +224,16 @@ def save_results(run_dir, config, rows, entries):
     (run_dir / "gen_ppl_models.yaml").write_text(yaml.safe_dump(evaluation_config(config, entries, run_dir,
         config["rank_sweep"]["debug"]), sort_keys=False), encoding="utf-8")
     if config["rank_sweep"]["plot_results"]:
-        plot_results(run_dir, rows)
+        plot_results(run_dir, rows, mode=mode)
 
 
 def result_row(row, config, phase, ratio, parent=None, parent_ratio=None, directory=None):
     training = json.loads((directory / "training.json").read_text()) if phase == "after" else {}
-    return {**row, "phase": phase, "rank_ratio": ratio, "teacher_ratio": parent_ratio,
+    fixed = teacher_mode(config) == "fixed_original"
+    return {**row, "phase": phase, "rank_ratio": ratio, "teacher_mode": teacher_mode(config),
+        "teacher_ratio": (1.0 if fixed else parent_ratio) if phase != "source" else None,
+        "teacher_checkpoint": (str(config["model"]["teacher"]) if fixed else str(parent)) if phase != "source" else None,
+        "source_ratio": parent_ratio,
         "parent_checkpoint": str(parent) if parent is not None else None, "depth": config["rank_sweep"]["teacher_depth"],
         "rank": retained_rank((config["rank_sweep"]["hidden_size"],) * 2, ratio),
         "conditioning_rank": retained_rank((config["rank_sweep"]["cond_dim"],) * 2, ratio),
@@ -205,7 +244,7 @@ def result_row(row, config, phase, ratio, parent=None, parent_ratio=None, direct
         "training_steps": training.get("steps")}
 
 
-def plot_results(run_dir, rows):
+def plot_results(run_dir, rows, *, mode="previous_student"):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -225,7 +264,8 @@ def plot_results(run_dir, rows):
         ax.set(xlabel="Retained rank (%)", ylabel=label)
         ax.grid(alpha=.2)
         ax.legend(fontsize=8)
-    fig.suptitle("LangFlow-OWT: progressive rank, previous best student as teacher")
+    fig.suptitle("LangFlow-OWT: progressive rank, " + ("fixed original dense Teacher"
+                 if mode == "fixed_original" else "previous best student as teacher"))
     fig.tight_layout()
     fig.savefig(run_dir / "progressive_rank_quality_curve.png", dpi=160)
     plt.close(fig)
@@ -238,6 +278,7 @@ def release_models():
 
 
 def run_progressive(config, command="all", allow_distributed=True, debug=False, resume_dir=None):
+    mode = teacher_mode(config)
     if config["rank_sweep"]["plot_results"] or config["training"]["plot_loss"]:
         from importlib.util import find_spec
         if find_spec("matplotlib") is None:
@@ -253,7 +294,8 @@ def run_progressive(config, command="all", allow_distributed=True, debug=False, 
         if distributed.is_main():
             if resume_dir:
                 update_step_config(run_dir, config, write=True)
-            write_json(run_dir / "status.json", {"status": "running", "command": command, "resumed": bool(resume_dir)})
+            write_json(run_dir / "status.json", {"status": "running", "command": command,
+                                                "resumed": bool(resume_dir), "teacher_mode": mode})
         tokenizer = load_tokenizer(config) if distributed.is_main() else None
         if distributed.is_main():
             prepare_data(config, tokenizer)
@@ -267,6 +309,11 @@ def run_progressive(config, command="all", allow_distributed=True, debug=False, 
         distributed.setup_tensor_group(config["model"]["device"], tensor_group_timeout(config))
         torch.set_float32_matmul_precision("highest")
         device = torch.device("cuda", torch.cuda.current_device())
+        if mode == "fixed_original":
+            # 长评测之前核对原始 Teacher 架构；SVD 起点仍由独立 source_checkpoint 指定。
+            architecture, _ = resolve_model_files(config["model"]["teacher"], config["model"]["cache_dir"],
+                                                   config["model"]["teacher_config"])
+            validate_dense_teacher_config(LangFlowConfig.from_json_file(architecture), config)
         parent = project_path(config["progressive_rank"]["source_checkpoint"])
         parent_ratio = config["progressive_rank"]["start_percent"] / 100
         entry = checkpoint_entry(config, parent, rank_name(parent_ratio) + "_source")
@@ -286,9 +333,13 @@ def run_progressive(config, command="all", allow_distributed=True, debug=False, 
                 if saved_config.is_file() and load_yaml_config(saved_config) != current:
                     raise ValueError(f"本级设置或上游 Teacher 与保存记录不同，不能混用已有结果: {directory}")
                 saved_config.write_text(yaml.safe_dump(current, sort_keys=False), encoding="utf-8")
-                write_json(run_dir / "status.json", {"status": "running", "current_rank": ratio, "teacher_rank": parent_ratio})
+                write_json(run_dir / "status.json", {"status": "running", "current_rank": ratio,
+                    "source_rank": parent_ratio, "teacher_rank": current["progressive_rank"]["teacher_ratio"],
+                    "teacher_mode": mode})
             distributed.barrier()
             progress.configure(directory, distributed.rank())
+            progress.emit("progressive.stage", student_rank=ratio, svd_source=str(parent),
+                          teacher=current["model"]["teacher"], teacher_mode=mode)
             initial = directory / "checkpoints/initial"
             ready = distributed.broadcast_main(completed_record(directory / "truncation.json",
                 ("source_checkpoint", "ratio", "matrices")) is not None and (initial / "model.safetensors").is_file()
@@ -298,13 +349,14 @@ def run_progressive(config, command="all", allow_distributed=True, debug=False, 
                     (directory / "truncation.json").unlink(missing_ok=True)
                 distributed.barrier()
                 seed_everything(config["run"]["seed"] + distributed.rank())
-                teacher = load_teacher(current)
-                student, matrices = build_truncated_student(teacher, ratio, current)
+                # 上一阶 student 只提供初始化；蒸馏 Teacher 在训练分支单独加载。
+                source = load_model(str(parent), device).requires_grad_(False)
+                student, matrices = build_truncated_student(source, ratio, current)
                 save_progressive_checkpoint(student, tokenizer, directory, 0, current, name="initial")
                 if distributed.is_main():
                     write_json(directory / "truncation.json", {"source_checkpoint": str(parent), "source_ratio": parent_ratio,
                         "ratio": ratio, "method": "SVD of learned up @ down", "matrices": matrices})
-                del student, teacher
+                del student, source
                 release_models()
                 distributed.barrier()
             entry = checkpoint_entry(config, initial, rank_name(ratio) + "_initial")
@@ -321,6 +373,8 @@ def run_progressive(config, command="all", allow_distributed=True, debug=False, 
                 student = load_model(str(initial), device)
                 student.backbone.vocab_embed.requires_grad_(False)
                 student.proposal.requires_grad_(False)
+                if mode == "fixed_original":
+                    validate_supervision_path(teacher, student, current)
                 seed_everything(config["run"]["seed"] + distributed.rank())
                 train(teacher, student, tokenizer, current, directory, checkpoint_fn=save_progressive_checkpoint)
                 del student, teacher
@@ -333,11 +387,12 @@ def run_progressive(config, command="all", allow_distributed=True, debug=False, 
             if distributed.is_main():
                 save_results(run_dir, config, rows, entries)
             distributed.barrier()
-            # 下一级同时以本级 best 为 Teacher 和 SVD 起点，严格保持顺序，不提前运行后续级。
+            # 逐级推进 student 的 SVD 起点；固定模式下 model.teacher 始终保持原始模型。
             parent, parent_ratio = checkpoint, ratio
         if distributed.is_main():
             write_json(run_dir / "status.json", {"status": "completed", "ratios": config["rank_sweep"]["ratios"],
-                "source_checkpoint": config["progressive_rank"]["source_checkpoint"], "final_checkpoint": str(parent)})
+                "source_checkpoint": config["progressive_rank"]["source_checkpoint"], "final_checkpoint": str(parent),
+                "teacher_mode": mode})
         distributed.barrier()
     except Exception as error:
         try:
@@ -355,6 +410,7 @@ def run_progressive(config, command="all", allow_distributed=True, debug=False, 
 
 
 def dry_run_plan(config, run_dir=None):
+    fixed = teacher_mode(config) == "fixed_original"
     root = project_path(run_dir) if run_dir else project_path(config["run"]["root"]) / "<new_progressive_run>"
     parent = project_path(config["progressive_rank"]["source_checkpoint"])
     previous_ratio = config["progressive_rank"]["start_percent"] / 100
@@ -363,8 +419,9 @@ def dry_run_plan(config, run_dir=None):
         directory = root / rank_name(ratio)
         initial = checkpoint_entry(config, directory / "checkpoints/initial", rank_name(ratio) + "_initial")
         trained = checkpoint_entry(config, best_checkpoint(directory, config), rank_name(ratio) + "_trained")
-        stages.append({"name": rank_name(ratio), "ratio": ratio, "teacher_ratio": previous_ratio,
-            "teacher_checkpoint": str(parent), "svd_source": str(parent),
+        stages.append({"name": rank_name(ratio), "ratio": ratio, "teacher_ratio": 1.0 if fixed else previous_ratio,
+            "teacher_checkpoint": str(config["model"]["teacher"]) if fixed else str(parent),
+            "svd_source": str(parent), "source_ratio": previous_ratio,
             "rank": retained_rank((config["rank_sweep"]["hidden_size"],) * 2, ratio),
             "conditioning_rank": retained_rank((config["rank_sweep"]["cond_dim"],) * 2, ratio),
             "training_completed": completed_record(directory / "training.json", ("checkpoint", "steps")) is not None,
@@ -374,11 +431,12 @@ def dry_run_plan(config, run_dir=None):
     source = checkpoint_entry(config, project_path(config["progressive_rank"]["source_checkpoint"]),
                               rank_name(config["progressive_rank"]["start_percent"] / 100) + "_source")
     source_complete = evaluation_complete(config, source, root, "source", config["rank_sweep"]["debug"]) if run_dir else False
-    return {"experiment": "progressive_svd_rank", "teacher": "previous rank best student",
+    return {"experiment": "progressive_svd_rank", "run_name": config["run"]["name"],
+        "teacher_mode": teacher_mode(config), "teacher": "fixed original dense Teacher" if fixed else "previous rank best student",
         "source_checkpoint": config["progressive_rank"]["source_checkpoint"], "step_percent": config["progressive_rank"]["step_percent"],
         "student_depth": config["rank_sweep"]["teacher_depth"],
         "targets": config["rank_sweep"]["targets"], "matrices_per_stage": 5 * config["rank_sweep"]["teacher_depth"],
-        "stages": stages, "training": config["training"], "evaluation": config["evaluation"], "execution": config["execution"],
+        "stages": stages, "loss": config["loss"], "training": config["training"], "evaluation": config["evaluation"], "execution": config["execution"],
         "gradient_moment": config["gradient_moment"], "total_evaluation_models": 1 + 2 * len(stages),
         "source_evaluation_completed": source_complete,
         "remaining_training_stages": sum(not stage["training_completed"] for stage in stages),
@@ -389,11 +447,13 @@ def dry_run_plan(config, run_dir=None):
 
 
 def main(default_config="configs/owt_progressive_rank.yaml", allow_distributed=True, debug=False):
-    parser = argparse.ArgumentParser(description="LangFlow-OWT：上一级 student 教下一阶全层低秩 student")
+    parser = argparse.ArgumentParser(description="LangFlow-OWT：逐级初始化 student，固定原始满秩 Teacher 蒸馏")
     parser.add_argument("command", nargs="?", choices=("all", "prepare"), default="all")
     parser.add_argument("--config", default=default_config)
     parser.add_argument("--run-dir", help="复用已完成级别/评测；未完成训练从本级 SVD initial 重训")
     parser.add_argument("--step-percent", type=int, help="rank 百分比步长；恢复时仅允许在尚无学生阶段的目录改变")
+    parser.add_argument("--teacher-mode", choices=("fixed_original", "previous_student"),
+                        help="要求配置/续跑目录使用此 Teacher 模式；不转换旧实验")
     parser.add_argument("--set", dest="overrides", action="append", default=[])
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
@@ -405,6 +465,8 @@ def main(default_config="configs/owt_progressive_rank.yaml", allow_distributed=T
     if args.step_percent is not None:
         overrides.append(f"progressive_rank.step_percent={args.step_percent}")
     config = load_config(project_path(args.run_dir) / "config.yaml" if args.run_dir else args.config, overrides, debug)
+    if args.teacher_mode is not None and teacher_mode(config) != args.teacher_mode:
+        parser.error("当前目录的 Teacher 模式与入口要求不同；固定原始 Teacher 需要新建实验，不能续用旧的学生 Teacher 链")
     if args.run_dir:
         update_step_config(project_path(args.run_dir), config)
     if args.dry_run:

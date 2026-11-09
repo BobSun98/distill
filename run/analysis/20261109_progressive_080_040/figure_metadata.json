@@ -1,0 +1,43 @@
+{
+  "source_run": "run/20261106_043750_239825_langflow_owt_progressive_svd_rank",
+  "source_file": "summary.csv",
+  "script": "tmp/plot_progressive_080_040.py",
+  "included_checkpoints": [
+    "rank_080_source",
+    "rank_070_initial",
+    "rank_070_trained",
+    "rank_060_initial",
+    "rank_060_trained",
+    "rank_050_initial",
+    "rank_050_trained",
+    "rank_040_initial",
+    "rank_040_trained"
+  ],
+  "selected_scope": "80% source; initial/best pairs at 70%, 60%, 50%, 40%",
+  "rank_axis": "absolute retained rank fraction, displayed in decreasing order",
+  "line_encoding": "dashed orange = previous best -> next truncation; solid blue vertical = same-rank KL recovery",
+  "repetition_scale": "recorded fraction multiplied by 100",
+  "gm_error_bars": "one reported standard error",
+  "generation_attempts": 1024,
+  "ppl_scorable_texts_range": [
+    1014,
+    1024
+  ],
+  "gm_valid_pairs_range": [
+    502,
+    512
+  ],
+  "inference": "Diversity decreases along the recorded trajectory; this does not isolate recursive-teacher effects from capacity or cumulative training budget.",
+  "validation": "Values reconciled with per-stage model metrics; no GPU/model execution",
+  "matplotlib_version": "3.11.2",
+  "render_validation": {
+    "pdf_pages": 1,
+    "pdf_page_size_points": [
+      540,
+      403.2
+    ],
+    "exported_png_dpi": 300,
+    "pdf_raster_preview": "tmp/progressive_080_040_pdf_check.png",
+    "visual_inspection": "passed: four panels, stage markers, source references and GM standard errors visible; no overlapping titles"
+  }
+}

@@ -1,9 +1,15 @@
 extends: owt_rank_sweep.yaml
 
 run:
-  name: langflow_owt_progressive_svd_rank
+  name: langflow_owt_progressive_svd_fixed_teacher
+
+model:
+  # 所有 rank 的蒸馏监督都来自同一个原始满秩 Teacher。
+  teacher: Continuous-Rivals-Discrete/langflow-owt
+  teacher_config: null
 
 progressive_rank:
+  teacher_mode: fixed_original
   # 上一轮全 12 层、五个投影全部分解的 80% student；只读使用其最佳权重。
   source_checkpoint: run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best
   start_percent: 80
@@ -19,5 +25,5 @@ execution:
   mode: reduce-overhead
 
 training:
-  # 每一级重置 optimizer/LR；Teacher 是上一级最佳 student，纯 off-policy KL。
+  # 每一级重置 optimizer/LR；固定原始 Teacher，student 从上一级 best 截断。
   max_steps: 10000

@@ -1,0 +1,241 @@
+{
+  "experiment": "progressive_svd_rank",
+  "run_name": "langflow_owt_progressive_svd_fixed_teacher",
+  "teacher_mode": "fixed_original",
+  "teacher": "fixed original dense Teacher",
+  "source_checkpoint": "run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best",
+  "step_percent": 5,
+  "student_depth": 12,
+  "targets": [
+    "attn_qkv",
+    "attn_out",
+    "mlp.0",
+    "mlp.2",
+    "adaLN_modulation"
+  ],
+  "matrices_per_stage": 60,
+  "stages": [
+    {
+      "name": "rank_075",
+      "ratio": 0.75,
+      "teacher_ratio": 1.0,
+      "teacher_checkpoint": "Continuous-Rivals-Discrete/langflow-owt",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best",
+      "source_ratio": 0.8,
+      "rank": 576,
+      "conditioning_rank": 96,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_070",
+      "ratio": 0.7,
+      "teacher_ratio": 1.0,
+      "teacher_checkpoint": "Continuous-Rivals-Discrete/langflow-owt",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmppkuoljgk/rank_075/checkpoints/best",
+      "source_ratio": 0.75,
+      "rank": 537,
+      "conditioning_rank": 89,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_065",
+      "ratio": 0.65,
+      "teacher_ratio": 1.0,
+      "teacher_checkpoint": "Continuous-Rivals-Discrete/langflow-owt",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmppkuoljgk/rank_070/checkpoints/best",
+      "source_ratio": 0.7,
+      "rank": 499,
+      "conditioning_rank": 83,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_060",
+      "ratio": 0.6,
+      "teacher_ratio": 1.0,
+      "teacher_checkpoint": "Continuous-Rivals-Discrete/langflow-owt",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmppkuoljgk/rank_065/checkpoints/best",
+      "source_ratio": 0.65,
+      "rank": 460,
+      "conditioning_rank": 76,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_055",
+      "ratio": 0.55,
+      "teacher_ratio": 1.0,
+      "teacher_checkpoint": "Continuous-Rivals-Discrete/langflow-owt",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmppkuoljgk/rank_060/checkpoints/best",
+      "source_ratio": 0.6,
+      "rank": 422,
+      "conditioning_rank": 70,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_050",
+      "ratio": 0.5,
+      "teacher_ratio": 1.0,
+      "teacher_checkpoint": "Continuous-Rivals-Discrete/langflow-owt",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmppkuoljgk/rank_055/checkpoints/best",
+      "source_ratio": 0.55,
+      "rank": 384,
+      "conditioning_rank": 64,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_045",
+      "ratio": 0.45,
+      "teacher_ratio": 1.0,
+      "teacher_checkpoint": "Continuous-Rivals-Discrete/langflow-owt",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmppkuoljgk/rank_050/checkpoints/best",
+      "source_ratio": 0.5,
+      "rank": 345,
+      "conditioning_rank": 57,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_040",
+      "ratio": 0.4,
+      "teacher_ratio": 1.0,
+      "teacher_checkpoint": "Continuous-Rivals-Discrete/langflow-owt",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmppkuoljgk/rank_045/checkpoints/best",
+      "source_ratio": 0.45,
+      "rank": 307,
+      "conditioning_rank": 51,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_035",
+      "ratio": 0.35,
+      "teacher_ratio": 1.0,
+      "teacher_checkpoint": "Continuous-Rivals-Discrete/langflow-owt",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmppkuoljgk/rank_040/checkpoints/best",
+      "source_ratio": 0.4,
+      "rank": 268,
+      "conditioning_rank": 44,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_030",
+      "ratio": 0.3,
+      "teacher_ratio": 1.0,
+      "teacher_checkpoint": "Continuous-Rivals-Discrete/langflow-owt",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmppkuoljgk/rank_035/checkpoints/best",
+      "source_ratio": 0.35,
+      "rank": 230,
+      "conditioning_rank": 38,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_025",
+      "ratio": 0.25,
+      "teacher_ratio": 1.0,
+      "teacher_checkpoint": "Continuous-Rivals-Discrete/langflow-owt",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmppkuoljgk/rank_030/checkpoints/best",
+      "source_ratio": 0.3,
+      "rank": 192,
+      "conditioning_rank": 32,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    },
+    {
+      "name": "rank_020",
+      "ratio": 0.2,
+      "teacher_ratio": 1.0,
+      "teacher_checkpoint": "Continuous-Rivals-Discrete/langflow-owt",
+      "svd_source": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/tmp/tmppkuoljgk/rank_025/checkpoints/best",
+      "source_ratio": 0.25,
+      "rank": 153,
+      "conditioning_rank": 25,
+      "training_completed": false,
+      "before_evaluation_completed": false,
+      "after_evaluation_completed": false
+    }
+  ],
+  "loss": {
+    "ce_weight": 0.0,
+    "kd_weight": 1.0
+  },
+  "training": {
+    "batch_size": 16,
+    "early_stopping": {
+      "enabled": true,
+      "metric": "kl",
+      "min_delta": 0.001,
+      "min_steps": 500,
+      "patience": 5
+    },
+    "grad_accumulation": 2,
+    "learning_rate": 0.0001,
+    "log_every": 100,
+    "lr_scheduler": {
+      "final_ratio": 0.1,
+      "name": "cosine"
+    },
+    "max_grad_norm": 1.0,
+    "max_steps": 10000,
+    "plot_loss": true,
+    "ppl_evaluation": {
+      "batch_size": 14,
+      "enabled": false,
+      "interval": -1,
+      "num_samples_per_rank": 42
+    },
+    "save_every": 0,
+    "self_condition_probability": 0.25,
+    "validate_every": 100,
+    "validation_batches": 8,
+    "weight_decay": 0.01
+  },
+  "evaluation": {
+    "batch_size": 16,
+    "corpus": "owt",
+    "num_samples": 1024,
+    "num_steps": 1024,
+    "scorer": "gpt2-large",
+    "scorer_batch_size": 4,
+    "scorer_max_length": 1024,
+    "seed": 42,
+    "sequence_length": 1024,
+    "timing_warmup_forwards": 5
+  },
+  "execution": {
+    "backend": "compile",
+    "mode": "reduce-overhead",
+    "warmup_forwards": 3,
+    "debug_compile": false
+  },
+  "gradient_moment": {
+    "enabled": true,
+    "reference_config": "configs/gpt2_corpus_ppl.yaml"
+  },
+  "total_evaluation_models": 25,
+  "source_evaluation_completed": false,
+  "remaining_training_stages": 12,
+  "remaining_evaluation_models": 25,
+  "formal_world_size": 8,
+  "global_batch_size_8gpu": 256,
+  "scorer_execution": "float32/eager unchanged",
+  "resume_granularity": "completed SVD/model evaluation/training stages; incomplete training restarts initial"
+}
+[progressive-rank] plan: /Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/launch/progressive_rank_plan_20261109_155426_044016.json

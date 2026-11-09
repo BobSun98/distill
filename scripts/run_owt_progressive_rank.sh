@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 八卡：从已训练的 80% 学生逐级截断到 20%，每一级先统一评测、KL 蒸馏、再统一评测。
+# 八卡：固定原始 Teacher，从已训练的 80% 学生逐级截断到 20%，统一初评/复评。
 set -euo pipefail
 PROJECT_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 CONFIG=configs/owt_progressive_rank.yaml
@@ -17,12 +17,12 @@ while (( $# )); do
             [[ $# -ge 2 ]] || { echo '--config 需要路径' >&2; exit 2; }
             CONFIG="$2"; shift 2 ;;
         *.yaml|*.yml) CONFIG="$1"; shift ;;
-        --run-dir|--set|--step-percent)
+        --run-dir|--set|--step-percent|--teacher-mode)
             [[ $# -ge 2 ]] || { echo "$1 需要参数" >&2; exit 2; }
             ARGS+=("$1" "$2"); shift 2 ;;
         --dry-run) DRY_RUN=1; ARGS+=(--dry-run); shift ;;
         --help|-h) DRY_RUN=1; ARGS+=(--help); shift ;;
-        *) echo '用法: bash scripts/run_owt_progressive_rank.sh [all|prepare|debug|compile-debug] [--dry-run] [--run-dir DIR] [--step-percent N] [--set KEY=VALUE] [--config CONFIG.yaml]' >&2; exit 2 ;;
+        *) echo '用法: bash scripts/run_owt_progressive_rank.sh [all|prepare|debug|compile-debug] [--dry-run] [--run-dir DIR] [--step-percent N] [--teacher-mode fixed_original|previous_student] [--set KEY=VALUE] [--config CONFIG.yaml]' >&2; exit 2 ;;
     esac
 done
 if (( DRY_RUN )) && [[ "$COMMAND" != debug ]]; then COMMAND=prepare; fi

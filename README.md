@@ -966,32 +966,32 @@ Teacher/student 查询同一 `(z, gamma, student self-conditioning)`，embedding
 仅重做末尾统一评测时也可运行 `bash scripts/run_owt_rank040_velocity.sh evaluate --checkpoint <本次best目录>`。
 本入口默认 `MASTER_PORT=29541`，与常见的29500作业区分；可显式用环境变量覆盖端口。
 
-## LangFlow-OWT：逐级 SVD rank 蒸馏
+## LangFlow-OWT：逐级 SVD student、固定原始满秩 Teacher
 
 ```bash
-# 正式八卡，compile + 自动 CUDA Graph：80% 已训 student -> 70% -> 60% -> ... -> 20%。
-bash scripts/run_owt_progressive_rank.sh
+# 新实验：正式八卡，compile + 自动 CUDA Graph；Teacher 始终是原始满秩模型。
+bash scripts/run_owt_progressive_rank_fixed_teacher.sh
 
-# 只检查实际起点架构、6 级 Teacher/student 传递及预算，不加载权重或初始化 CUDA。
-bash scripts/run_owt_progressive_rank.sh --dry-run
+# 核对 80 -> 70 -> 60 -> 50 -> 40 -> 30 -> 20；Teacher 路径恒定，SVD 起点逐级推进。
+bash scripts/run_owt_progressive_rank_fixed_teacher.sh --dry-run
 
-# 恢复同一个逐级实验，先补齐未完成阶段，再进入下一阶。
-bash scripts/run_owt_progressive_rank.sh --run-dir run/<时间>_langflow_owt_progressive_svd_rank
-
-# 旧 5% 任务还停在起点评测时，先停止旧任务，再在同目录切换为 10% 继续。
-bash scripts/run_owt_progressive_rank.sh --run-dir run/<时间>_langflow_owt_progressive_svd_rank --step-percent 10
+# 仅恢复本次固定 Teacher 实验的新目录。
+bash scripts/run_owt_progressive_rank_fixed_teacher.sh --run-dir run/<时间>_langflow_owt_progressive_svd_fixed_teacher
 
 # 同进程单卡：真实 80% -> 70% -> 60%，每级 3 步，4 样本、128 token、8 NFE。
-bash scripts/run_owt_progressive_rank.sh debug
+bash scripts/run_owt_progressive_rank_fixed_teacher.sh debug
 # 同一短流程启用 compile，并实际检查生成 forward 的 CUDA Graph replay。
-bash scripts/run_owt_progressive_rank.sh compile-debug
+bash scripts/run_owt_progressive_rank_fixed_teacher.sh compile-debug
 ```
 
 配置为 `configs/owt_progressive_rank.yaml`。起点是上一轮完整 12 层 low-rank sweep 的
 `run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best`，
-其原训练最佳为 step=1600。原目录只读，新实验另建 `run/<时间>_langflow_owt_progressive_svd_rank/`。
+其原训练最佳为 step=1600。原目录只读，新实验另建 `run/<时间>_langflow_owt_progressive_svd_fixed_teacher/`。
 
-每一级把上一级验证 KL 最佳 student 冻结为 Teacher，并从同一份权重构造更低 rank 的 student。
+`progressive_rank.teacher_mode=fixed_original`：每一级的 KL Teacher 都固定为原始、未低秩分解的
+`Continuous-Rivals-Discrete/langflow-owt`；只有 student 初始化从上一级验证 KL 最佳权重继续。
+例如70%的student从80% best截断，60%的student从本次70% best截断，两者均向原始满秩Teacher蒸馏。
+原始 Teacher 保持冻结，加载时检查完整架构，并核对 Teacher/student 的冻结 embedding 与 proposal 一致。
 全部学生保持 12 层、hidden=768、cond=128，每个 block 的 QKV、attention 输出、FFN 两个投影和
 AdaLN 五个投影都分解。百分比相对原始矩阵的最小维度，70% 为主干 rank=537、AdaLN rank=89，
 60% 为 460/76，20% 为 153/25。蒸馏后因子已改变，所以重新对 `up @ down` 做 FP32 SVD，
@@ -1010,16 +1010,18 @@ SVD 的60个矩阵分配给八卡并行计算，再用 NCCL 同步新因子；�
 
 - 每级 `rank_070/` … `rank_020/` 保存 Teacher 路径、实际 rank、`truncation.json`、训练日志和 checkpoint。
 - `source_evaluation.json` 和各级 `before_evaluation.json` / `after_evaluation.json` 保存统一评测的位置。
-- 根目录 `summary.csv` / `summary.json` 和 `progressive_rank_quality_curve.png` 持续更新；`teacher_ratio`
-  明确本级监督来自谁，不把各级 KL 当成对同一个固定 Teacher 的误差。
+- 根目录 `summary.csv` / `summary.json` 和 `progressive_rank_quality_curve.png` 持续更新；
+  `teacher_checkpoint` 始终记录原始Teacher，`teacher_ratio=1.0`；`parent_checkpoint` 和 `source_ratio`
+  单独记录本级student的SVD来源。`truncation.json`记录分解的60个有效矩阵及保留能量。
 - `gen_ppl_models.yaml` 与每个 checkpoint 的 `gen_ppl_eval.yaml` 可交给统一八卡接口独立复测。
 
 恢复会跳过已完成截断、训练和逐模型评测；未完成训练从本级 `initial` 重训，未完成评测重跑该模型，
-不恢复 optimizer 到中断 step。完成本级复评后才传递 `best`，不会提前构造后续学生。
-普通恢复使用保存的配置；更改默认 YAML 不会自动更改已有实验的步长。
-尚无 `rank_*` 学生目录时，可用 `--step-percent 10` 复用原目录，配置备份写入 `extensions/step_010/`；
-`--dry-run` 只检查新计划，不修改原记录。若80%起点评测已经完成则复用，否则重跑该模型。
-学生阶段开始后更改步长需要新建实验，以保持 Teacher 来源一致。debug 与正式目录分开。
+不恢复 optimizer 到中断 step。完成本级复评后才把 `best` 传给下一级student初始化。
+新入口强制检查 `fixed_original` 模式，拒绝恢复旧的“上一级学生担任Teacher”目录，避免混用监督目标。
+旧run没有 `teacher_mode` 字段时仍按历史 `previous_student` 含义读取，已有结果与权重保留供对照；
+新实验不会把旧30%中断权重当成起点。默认配置和新入口均使用固定原始Teacher。
+同一模式下，学生阶段开始前仍可用 `--step-percent` 调整步长；`--dry-run` 只检查，不改写原记录。
+新脚本默认 `MASTER_PORT=29551`，可通过环境变量覆盖。debug 与正式目录分开。
 
 ## LangFlow-OWT：尾部层数 × rank 网格
 

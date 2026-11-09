@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-09",
+  "experiment": "Progressive student initialization with fixed original dense Teacher",
+  "script": "scripts/run_owt_progressive_rank_fixed_teacher.sh",
+  "teacher": "Continuous-Rivals-Discrete/langflow-owt",
+  "teacher_mode": "fixed_original",
+  "student_source_checkpoint": "run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best",
+  "student_ranks": [
+    0.7,
+    0.6,
+    0.5,
+    0.4,
+    0.3,
+    0.2
+  ],
+  "teacher_ratios": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "svd_source_ratios": [
+    0.8,
+    0.7,
+    0.6,
+    0.5,
+    0.4,
+    0.3
+  ],
+  "training": {
+    "max_steps": 10000,
+    "early_stopping": {
+      "enabled": true,
+      "metric": "kl",
+      "min_steps": 500,
+      "patience": 5,
+      "min_delta": 0.001
+    },
+    "loss": {
+      "kd_weight": 1.0,
+      "ce_weight": 0.0
+    },
+    "world_size": 8,
+    "per_gpu_batch": 16,
+    "grad_accumulation": 2,
+    "global_batch_size": 256
+  },
+  "execution": {
+    "backend": "compile",
+    "mode": "reduce-overhead",
+    "warmup_forwards": 3,
+    "debug_compile": false
+  },
+  "unified_evaluated_weight_records": 13,
+  "checks": {
+    "unique_checks_passed": 19,
+    "verification_note": "18 checks passed in the full run; the remaining CLI rejection check passed after correcting the test to inspect launcher-merged stdout/stderr.",
+    "cli_modes": "formal/debug/compile-debug dry-runs passed; fixed-mode resume passed; legacy-mode resume rejected before mutation",
+    "legacy_compatibility": "saved legacy stage config remains identical; absent teacher_mode retains historical meaning",
+    "architecture": "real 12-layer source metadata, 60 low-rank projections; fixed Teacher rejects low-rank architecture",
+    "python_ast": "passed",
+    "bash_syntax": "passed",
+    "git_diff_check": "passed"
+  },
+  "plan_file": "run/launch/progressive_rank_plan_20261109_155353_098138.json",
+  "gpu_validation_performed": false,
+  "server_validation": "bash scripts/run_owt_progressive_rank_fixed_teacher.sh compile-debug"
+}

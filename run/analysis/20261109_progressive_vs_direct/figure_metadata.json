@@ -1,0 +1,125 @@
+{
+  "source_runs": {
+    "progressive": "run/20261106_043750_239825_langflow_owt_progressive_svd_rank",
+    "direct": "run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep"
+  },
+  "script": "tmp/plot_progressive_vs_direct.py",
+  "protocol_fields_compared": [
+    "version",
+    "seed",
+    "num_samples",
+    "world_size",
+    "scorer",
+    "scorer_dtype",
+    "scorer_attention",
+    "noise",
+    "generation_precision",
+    "gradient_moment"
+  ],
+  "gm_reference_texts_identical": true,
+  "independent_ranks_measured": [
+    0.8,
+    0.6,
+    0.4
+  ],
+  "progressive_ranks_measured": [
+    0.8,
+    0.7,
+    0.6,
+    0.5,
+    0.4
+  ],
+  "same_80_checkpoint_separately_evaluated": true,
+  "same_80_checkpoint_path_verified": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_080/checkpoints/best/model.safetensors",
+  "generation_length_and_nfe": 1024,
+  "direct_marker_encoding": "open purple triangle = SVD; filled purple square = best after KL; no connecting interpolation",
+  "backend_difference": "direct eager; progressive torch.compile reduce-overhead",
+  "timing_compared": false,
+  "budget_difference": "direct cap 5000/stage; progressive cap 10000/stage, with inherited source and earlier-stage training",
+  "teacher_difference": "direct fixed dense Teacher; progressive previous best student",
+  "gm_error_bars": "one standard error",
+  "interpretation_limit": "Historical comparison, not a matched-budget or fixed-teacher causal ablation.",
+  "matched_distilled_comparisons": [
+    {
+      "rank_ratio": 0.6,
+      "progressive": {
+        "method": "progressive",
+        "phase": "kd",
+        "rank_ratio": 0.6,
+        "name": "rank_060_trained",
+        "gen_ppl": 14.861121544341742,
+        "sample_entropy": 4.46682716030389,
+        "repetition_4gram": 0.20813742089568316,
+        "gm": 0.9168178051484464,
+        "gm_standard_error": 0.09585765434047959,
+        "num_samples": 1024,
+        "num_scored_samples": 1021,
+        "gm_num_pairs": 509,
+        "num_parameters": 150941780,
+        "source_metrics": "run/20261106_043750_239825_langflow_owt_progressive_svd_rank/rank_060/20261106_092746_397558_unified_gen_ppl/rank_060_trained/metrics.json"
+      },
+      "direct": {
+        "method": "direct",
+        "phase": "kd",
+        "rank_ratio": 0.6,
+        "name": "rank_060_trained",
+        "gen_ppl": 28.130983096202336,
+        "sample_entropy": 4.656243351905634,
+        "repetition_4gram": 0.10442656913292216,
+        "gm": 1.2881196707570388,
+        "gm_standard_error": 0.10427480141512965,
+        "num_samples": 1024,
+        "num_scored_samples": 1020,
+        "gm_num_pairs": 508,
+        "num_parameters": 150941780,
+        "source_metrics": "run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/20261030_095525_018313_unified_gen_ppl/rank_060_trained/metrics.json"
+      }
+    },
+    {
+      "rank_ratio": 0.4,
+      "progressive": {
+        "method": "progressive",
+        "phase": "kd",
+        "rank_ratio": 0.4,
+        "name": "rank_040_trained",
+        "gen_ppl": 9.835346577881303,
+        "sample_entropy": 4.204702392936989,
+        "repetition_4gram": 0.3391325396986826,
+        "gm": 0.6969476892371206,
+        "gm_standard_error": 0.09475971798031266,
+        "num_samples": 1024,
+        "num_scored_samples": 1023,
+        "gm_num_pairs": 511,
+        "num_parameters": 126960212,
+        "source_metrics": "run/20261106_043750_239825_langflow_owt_progressive_svd_rank/rank_040/20261106_143313_962146_unified_gen_ppl/rank_040_trained/metrics.json"
+      },
+      "direct": {
+        "method": "direct",
+        "phase": "kd",
+        "rank_ratio": 0.4,
+        "name": "rank_040_trained",
+        "gen_ppl": 43.509244643036716,
+        "sample_entropy": 4.754591511405948,
+        "repetition_4gram": 0.0703874908484213,
+        "gm": 1.5442180756032202,
+        "gm_standard_error": 0.0812415419525867,
+        "num_samples": 1024,
+        "num_scored_samples": 1020,
+        "gm_num_pairs": 508,
+        "num_parameters": 126960212,
+        "source_metrics": "run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/20261030_095525_018313_unified_gen_ppl/rank_040_trained/metrics.json"
+      }
+    }
+  ],
+  "matplotlib_version": "3.11.2",
+  "render_validation": {
+    "pdf_pages": 1,
+    "pdf_page_size_points": [
+      554.4,
+      432
+    ],
+    "exported_png_dpi": 300,
+    "pdf_raster_preview": "tmp/progressive_vs_direct_pdf_check.png",
+    "visual_inspection": "passed: measured direct markers at 80/60/40, progressive path, dense-Teacher reference and GM standard errors visible; annotations unclipped"
+  }
+}
