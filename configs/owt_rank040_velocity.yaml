@@ -1,0 +1,60 @@
+extends: owt_kd.yaml
+
+run:
+  name: langflow_owt_rank040_kl_velocity
+
+model:
+  teacher: Continuous-Rivals-Discrete/langflow-owt
+  keep_layers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  # 独立全层 SVD+KL sweep 的 best（step 5000），直接加载完整因子权重续训。
+  student_weights: run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_040/checkpoints/best/model.safetensors
+  student_config: null
+
+execution:
+  backend: compile
+  mode: reduce-overhead
+
+loss:
+  kd_weight: 0.5
+  ce_weight: 0.0
+  # MSE(v_S, v_T) = alpha(gamma)^2 / 4 * mean_hidden((xhat_S-xhat_T)^2)。
+  mse_weight: 0.5
+
+gradient_moment:
+  enabled: true
+  reference_config: configs/gpt2_corpus_ppl.yaml
+
+training:
+  max_steps: 5000
+  # 本次四卡：4 × 16 × 4 = 256，保持与原实验相同的 global batch。
+  batch_size: 16
+  grad_accumulation: 4
+  learning_rate: 0.0001
+  lr_scheduler:
+    name: cosine
+    final_ratio: 0.1
+  log_every: 100
+  validate_every: 100
+  validation_batches: 8
+  save_every: 0
+  early_stopping:
+    enabled: true
+    # 两个分项均记录原始数值，以实际加权目标选 best，而非只看 KL。
+    metric: loss
+    min_steps: 500
+    patience: 5
+    min_delta: 0.001
+  ppl_evaluation:
+    enabled: false
+    interval: -1
+
+evaluation:
+  corpus: owt
+  seed: 42
+  num_samples: 1024
+  batch_size: 16
+  num_steps: 1024
+  sequence_length: 1024
+  # 同一统一评测中比较旧 KL best 与续训 best，共享噪声与 GM 参考文本。
+  include_initial: true
+

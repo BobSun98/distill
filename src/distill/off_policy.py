@@ -3,6 +3,7 @@
 import argparse
 import gc
 import json
+import os
 from pathlib import Path
 
 import torch
@@ -13,6 +14,7 @@ from .config import create_run_dir, load_yaml_config, project_path, write_json
 from .gen_ppl import run_gen_ppl, validate_protocol
 from .gen_ppl_protocol import MAX_LENGTH, manifest
 from .execution import execution_options
+from .models import student_checkpoint_files
 
 
 def pipeline(config):
@@ -50,9 +52,16 @@ def evaluation_config(config, checkpoint, run_dir, debug=False):
     generation = {key: settings[key] for key in ("num_steps", "sequence_length")}
     if config["model"]["family"] == "elf":
         generation["sampling"] = dict(settings["sampling"])
-    result = manifest([{"name": config["run"]["name"] + "_student",
+    entries = [{"name": config["run"]["name"] + "_student",
         "corpus": settings.get("corpus"),
-        "architecture": str(directory / "config.json"), "weights": str(weights), "generation": generation}])
+        "architecture": str(directory / "config.json"), "weights": str(weights), "generation": generation}]
+    if settings.get("include_initial", False):
+        if not config["model"].get("student_weights"):
+            raise ValueError("统一评测 initial/student 对照需要 model.student_weights")
+        initial_weights, initial_architecture = student_checkpoint_files(config)
+        entries.insert(0, {"name": config["run"]["name"] + "_initial", "corpus": settings.get("corpus"),
+            "architecture": str(initial_architecture), "weights": str(initial_weights), "generation": dict(generation)})
+    result = manifest(entries)
     # 透传统一接口的 GM 开关/参考配置；corpus 必须由实验配置显式提供。
     result["gradient_moment"].update(config.get("gradient_moment", {}))
     result["run"]["root"] = str(run_dir)
@@ -99,8 +108,13 @@ def run_experiment(config, command="all", checkpoint=None, allow_distributed=Tru
                 "checkpoint": str(checkpoint), "evaluation_dir": str(result_dir)})
         distributed.barrier()
     except Exception as error:
-        if run_dir is not None and distributed.is_main():
-            write_json(run_dir / "status.json", {"status": "failed", "command": command, "error": str(error)})
+        try:
+            if run_dir is not None and distributed.is_main():
+                write_json(run_dir / "status.json", {"status": "failed", "command": command, "error": str(error)})
+        except OSError as logging_error:
+            print(f"[off-policy] 保存失败记录时出错: {logging_error}", flush=True)
+        distributed.abort_worker(error, run_dir or project_path(config["run"]["root"]),
+            reason="oom" if isinstance(error, torch.OutOfMemoryError) else "execution")
         raise
     finally:
         if owns_group:
@@ -119,10 +133,15 @@ def main(default_config="configs/off_policy_random_langflow_owt.yaml", allow_dis
     config = load_config(args.config, args.overrides, debug=debug)
     if args.dry_run:
         evaluation = evaluation_config(config, "<checkpoint>", "run", debug)
+        planned_world_size = 1 if debug else int(os.environ.get("NGPU", "8"))
         print(json.dumps({"config": args.config, "model": config["model"], "loss": config["loss"],
             "training": config["training"], "protocol": evaluation["protocol"],
             "gradient_moment": evaluation["gradient_moment"], "corpus": evaluation["models"][0]["corpus"],
-            "generation": evaluation["models"][0]["generation"]}, ensure_ascii=False, indent=2))
+            "generation": evaluation["models"][0]["generation"], "execution": execution_options(config.get("execution"), debug=debug),
+            "evaluation_models": [entry["name"] for entry in evaluation["models"]],
+            "planned_world_size": planned_world_size, "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+            "planned_global_batch_size": planned_world_size * config["training"]["batch_size"] * config["training"]["grad_accumulation"]},
+            ensure_ascii=False, indent=2))
         return
     if args.command == "evaluate" and args.checkpoint is None:
         parser.error("evaluate 必须指定 --checkpoint")

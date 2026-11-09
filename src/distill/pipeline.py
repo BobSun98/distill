@@ -1,6 +1,7 @@
 """采集、训练、评测在同一进程调用；CLI 与 IDE debug 共用此入口。"""
 
 import argparse
+import json
 import os
 from functools import partial
 from pathlib import Path
@@ -12,7 +13,7 @@ from .execution import tensor_group_timeout
 from .config import create_run_dir, load_config, project_path, write_json
 from .data import prepare_data
 from .evaluate import evaluate, training_ppl
-from .models import build_student, load_teacher, load_tokenizer
+from .models import build_student, load_student_checkpoint, load_teacher, load_tokenizer, student_checkpoint_files
 from .train import seed_everything, train
 from . import distributed, progress
 
@@ -73,8 +74,18 @@ def run_experiment(config, command="all", checkpoint=None, allow_distributed=Tru
             raise ValueError("训练序列长度超过 teacher 配置的 model_length")
         if command in ("train", "all"):
             with progress.phase("student.build"):
-                student = build_student(teacher, config["model"]["keep_layers"],
-                                        config["model"].get("block_initialization", "teacher"))
+                if config["model"].get("student_weights"):
+                    student = load_student_checkpoint(teacher, config)
+                    if distributed.is_main():
+                        weights, architecture = student_checkpoint_files(config)
+                        source = weights.parent / "distillation.json"
+                        write_json(run_dir / "initialization.json", {"weights": str(weights), "architecture": str(architecture),
+                            "source_distillation": json.loads(source.read_text()) if source.is_file() else None,
+                            "state_source": "real_corpus_forward_noise", "loss": config["loss"],
+                            "teacher_inputs": "same_z_gamma_student_self_condition"})
+                else:
+                    student = build_student(teacher, config["model"]["keep_layers"],
+                                            config["model"].get("block_initialization", "teacher"))
             with progress.phase("models.wait_student"):
                 distributed.barrier()
             checkpoint = train(teacher, student, tokenizer, config, run_dir,
@@ -90,10 +101,14 @@ def run_experiment(config, command="all", checkpoint=None, allow_distributed=Tru
         distributed.barrier()
         progress.emit("run.completed")
     except Exception as error:
-        progress.emit("run.failed", error=f"{type(error).__name__}: {error}")
-        if distributed.is_main():
-            write_json(run_dir / "status.json", {"status": "failed", "command": command,
-                                                 "error": f"{type(error).__name__}: {error}"})
+        try:
+            progress.emit("run.failed", error=f"{type(error).__name__}: {error}")
+            if distributed.is_main():
+                write_json(run_dir / "status.json", {"status": "failed", "command": command,
+                                                     "error": f"{type(error).__name__}: {error}"})
+        except OSError as logging_error:
+            print(f"[off-policy] 保存失败记录时出错: {logging_error}", flush=True)
+        distributed.abort_worker(error, run_dir, reason="oom" if isinstance(error, torch.OutOfMemoryError) else "execution")
         raise
     finally:
         if owns_group:

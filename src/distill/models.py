@@ -98,6 +98,33 @@ def build_student(teacher, keep_layers, block_initialization="teacher"):
     return student.to(next(teacher.parameters()).device)
 
 
+def student_checkpoint_files(config):
+    settings = config["model"]
+    source = project_path(settings["student_weights"])
+    directory = source.parent if source.suffix == ".safetensors" else source
+    weights = source if source.suffix == ".safetensors" else directory / "model.safetensors"
+    architecture = project_path(settings["student_config"]) if settings.get("student_config") else directory / "config.json"
+    return weights, architecture
+
+
+def load_student_checkpoint(teacher, config):
+    weights, architecture = student_checkpoint_files(config)
+    if not weights.is_file() or not architecture.is_file():
+        raise FileNotFoundError(f"服务器需要完整 student checkpoint：{weights} 及 {architecture}")
+    student = load_model(str(weights), next(teacher.parameters()).device, config_path=str(architecture))
+    if (student.config.n_blocks != len(config["model"]["keep_layers"])
+            or (student.config.hidden_size, student.config.vocab_size) != (teacher.config.hidden_size, teacher.config.vocab_size)):
+        raise ValueError("student checkpoint 的层数、latent 维度或词表与实验配置不同")
+    # 速度监督必须使用同一 embedding 坐标和噪声路径；直接沿用已有权重，不覆盖成 Teacher。
+    if not torch.equal(student._get_embedding_matrix(), teacher._get_embedding_matrix()):
+        raise ValueError("student checkpoint 与 Teacher 的 embedding 坐标不同")
+    if any(not torch.equal(value, teacher.proposal.state_dict()[key]) for key, value in student.proposal.state_dict().items()):
+        raise ValueError("student checkpoint 与 Teacher 的噪声 schedule 不同")
+    student.backbone.vocab_embed.requires_grad_(False)
+    student.proposal.requires_grad_(False)
+    return student
+
+
 def parameter_counts(model):
     total = sum(p.numel() for p in model.parameters())
     embedding = sum(p.numel() for p in model.backbone.vocab_embed.parameters())

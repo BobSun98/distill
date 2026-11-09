@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-09",
+  "experiment": "independent full-layer LangFlow-OWT rank40 checkpoint continuation with off-policy KL + velocity MSE",
+  "source_checkpoint": "run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_040/checkpoints/best",
+  "source_step": 5000,
+  "source_architecture": {
+    "blocks": 12,
+    "hidden": 768,
+    "main_rank": 307,
+    "adaln_rank": 51,
+    "factorized_matrices": 60
+  },
+  "source_weights_present_locally": false,
+  "teacher": "Continuous-Rivals-Discrete/langflow-owt",
+  "loss": {
+    "kd_weight": 0.5,
+    "ce_weight": 0.0,
+    "mse_weight": 0.5
+  },
+  "velocity_definition": "MSE of gamma-path v; alpha(gamma)^2/4 * mean_hidden((xhat_S-xhat_T)^2), mean over tokens",
+  "cuda_visible_devices": "4,5,6,7",
+  "world_size": 4,
+  "per_gpu_batch_size": 16,
+  "grad_accumulation": 4,
+  "global_batch_size": 256,
+  "execution": {
+    "backend": "compile",
+    "mode": "reduce-overhead",
+    "warmup_forwards": 3,
+    "debug_compile": false
+  },
+  "training_max_steps": 5000,
+  "early_stopping": {
+    "enabled": true,
+    "metric": "loss",
+    "min_steps": 500,
+    "patience": 5,
+    "min_delta": 0.001
+  },
+  "evaluation": {
+    "models": [
+      "langflow_owt_rank040_kl_velocity_initial",
+      "langflow_owt_rank040_kl_velocity_student"
+    ],
+    "protocol": {
+      "version": "gen_ppl_v1",
+      "seed": 42,
+      "num_samples": 1024,
+      "scorer": "gpt2-large",
+      "scorer_max_length": 1024
+    },
+    "gradient_moment": {
+      "enabled": true,
+      "reference_config": "configs/gpt2_corpus_ppl.yaml"
+    },
+    "generation": {
+      "num_steps": 1024,
+      "sequence_length": 1024
+    }
+  },
+  "local_checks": {
+    "new_checks": 11,
+    "regression_checks": 31,
+    "unique_passed": 42,
+    "velocity_and_gradient_reference": "explicit VP velocity field and derivative of actual Euler-EDM operator",
+    "pure_KL_compatibility": "exact unchanged result",
+    "launcher_modes": "formal/debug/compile-debug native dry-runs; GPU mask override verified",
+    "python_ast": "passed for 8 files",
+    "bash_syntax": "passed",
+    "diff_check": "passed"
+  },
+  "gpu_validation_performed": false,
+  "server_validation": "bash scripts/run_owt_rank040_velocity.sh compile-debug",
+  "server_run": "bash scripts/run_owt_rank040_velocity.sh"
+}

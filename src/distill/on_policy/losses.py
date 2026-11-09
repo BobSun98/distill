@@ -3,6 +3,7 @@
 import torch
 
 from .. import distributed
+from ..losses import langflow_velocity_mse
 from .rollout import StateBuffer
 
 METRIC_KEYS = ("loss", "ce", "kl", "mse", "teacher_entropy", "error")
@@ -30,11 +31,6 @@ def posterior_terms(student_logits, teacher_logits, target, *, include_ce=True, 
 def teacher_ce(student_logits, teacher_logits, target):
     ce, _, entropy = posterior_terms(student_logits, teacher_logits, target)
     return ce, entropy
-
-
-def langflow_velocity_mse(student_prediction, teacher_prediction, time):
-    # VP gamma 路径：v_S-v_T = -alpha/2 * (xhat_S-xhat_T)。
-    return 0.25 * torch.sigmoid(-time)[:, None] * (student_prediction.float() - teacher_prediction.float()).square().mean(-1)
 
 
 class OnPolicyLoss:

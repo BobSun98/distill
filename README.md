@@ -924,6 +924,48 @@ IDE 入口 `debug/debug_rank_sweep.py` 直接调用同一套 SVD、采集、训�
 不启动其他 Python 进程。debug 保留四种 12 层学生和全部 block 投影，仅缩短为 3 次更新、128 token、8 NFE、
 4 条评测样本，并关闭绘图与早停；本地开发验证不下载/加载预训练权重，真实 GPU 验证由服务器执行。
 
+## LangFlow-OWT：40%全层学生的 KL + velocity 续训
+
+```bash
+# 本次固定使用物理 GPU 4/5/6/7，四卡 DDP，compile + 自动 CUDA Graph。
+bash scripts/run_owt_rank040_velocity.sh
+
+# 仅检查配置、权重路径和四卡计划，不加载模型、不初始化 GPU。
+bash scripts/run_owt_rank040_velocity.sh --dry-run
+
+# 物理 GPU 4 单卡、同进程真实模型流程，3步训练、128 token、8 NFE、每模型4样本。
+bash scripts/run_owt_rank040_velocity.sh debug
+# 同一短流程启用 compile，并检查生成 forward 的实际 CUDA Graph replay。
+bash scripts/run_owt_rank040_velocity.sh compile-debug
+```
+
+起点由 `configs/owt_rank040_velocity.yaml` 的 `model.student_weights` 指定：
+`run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_040/checkpoints/best/model.safetensors`。
+这是独立全层 SVD+KL sweep 的 best，step=5000；架构从同目录 `config.json` 恢复，保持真实12层、
+主干rank=307、AdaLN rank=51、60个低秩矩阵。Git未同步safetensors不影响配置检查，实际权重在服务器读取。
+
+Teacher 是原始 `Continuous-Rivals-Discrete/langflow-owt`。训练沿用真实 OWT 加噪的 off-policy 状态；
+Teacher/student 查询同一 `(z, gamma, student self-conditioning)`，embedding/proposal 冻结，其余student参数训练。
+两者必须共享 embedding 坐标和噪声路径，加载时检查后直接使用旧student权重。
+
+目标为 `loss = 0.5 * KL(Teacher || Student) + 0.5 * velocity_mse`，CE权重为0。
+对 VP gamma 路径，`v_S-v_T = -alpha(gamma)/2 * (xhat_S-xhat_T)`，
+因此按 `alpha^2/4 * mean_hidden((xhat_S-xhat_T)^2)` 计算每个token的MSE，再对token平均。
+`xhat = p @ E` 使用共享embedding；这里没有把logits MSE或无权重embedding MSE当作velocity。
+两个0.5是原始损失系数，不自动平衡两项的数值或梯度；日志分别报告 `kl`、`mse`、`loss`。
+
+本次每卡batch=16、累积4次，四卡全局batch=256。新建optimizer和cosine LR（1e-4→1e-5），
+最多训练5000个新step，每100步验证，按加权验证loss早停（min_steps=500、patience=5、min_delta=0.001）。
+新结果保存到 `run/<时间>_langflow_owt_rank040_kl_velocity/`，`initialization.json` 和checkpoint元数据
+记录起点step5000及其权重路径；原sweep目录只读。主干继续BF16混合精度，概率、KL、velocity MSE归约保持FP32。
+
+结束后用统一 `gen_ppl_v1` 同时评测旧KL best和本次best：每模型1024条、长度/NFE=1024，
+固定seed=42、GPT-2-Large FP32/eager，报告PPL、entropy、GM、重复率、实际覆盖率、参数量和平均单步耗时。
+两套模型共享统一评测的初始噪声和OWT GM参考文本；不在训练中额外计算PPL。
+`gen_ppl_eval.yaml` 可直接交给 `bash scripts/eval_gen_ppl.sh <该文件>` 独立评测。
+仅重做末尾统一评测时也可运行 `bash scripts/run_owt_rank040_velocity.sh evaluate --checkpoint <本次best目录>`。
+本入口默认 `MASTER_PORT=29541`，与常见的29500作业区分；可显式用环境变量覆盖端口。
+
 ## LangFlow-OWT：逐级 SVD rank 蒸馏
 
 ```bash

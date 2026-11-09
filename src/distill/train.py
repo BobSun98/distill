@@ -45,13 +45,15 @@ def batch_loss(teacher, student, token_ids, config, query_teacher=None):
     state = off_policy_state(teacher, distributed.unwrap(student), token_ids,
                              config["training"]["self_condition_probability"])
     if query_teacher is None:
-        query_teacher = config["loss"]["kd_weight"] > 0
+        query_teacher = config["loss"]["kd_weight"] > 0 or config["loss"].get("mse_weight", 0) > 0
     teacher_logits = None
     if query_teacher:
         with torch.no_grad():
             teacher_logits = posterior_logits(teacher, state)
     student_logits = posterior_logits(student, state)
-    return distillation_loss(student_logits, teacher_logits, token_ids, config["loss"])
+    coordinates = teacher._get_embedding_matrix() if config["loss"].get("mse_weight", 0) else None
+    return distillation_loss(student_logits, teacher_logits, token_ids, config["loss"],
+                             gamma=state.gamma, embedding=coordinates)
 
 
 @torch.no_grad()
@@ -93,10 +95,15 @@ def save_checkpoint(student, tokenizer, run_dir, step, config, name=None):
         progress.emit("checkpoint.save.begin", step=step, path=str(path))
         distributed.unwrap(student).save_pretrained(path, safe_serialization=True)
         tokenizer.save_pretrained(path)
-        write_json(path / "distillation.json", {"step": step, "teacher": config["model"]["teacher"],
-                                               "keep_layers": config["model"]["keep_layers"],
-                                               "block_initialization": config["model"].get("block_initialization", "teacher"),
-                                               "loss": config["loss"]})
+        metadata = {"step": step, "teacher": config["model"]["teacher"],
+                    "keep_layers": config["model"]["keep_layers"],
+                    "block_initialization": config["model"].get("block_initialization", "teacher"), "loss": config["loss"]}
+        if config["model"].get("student_weights"):
+            metadata.update(initialization="checkpoint", student_weights=config["model"]["student_weights"])
+        low_rank = getattr(getattr(distributed.unwrap(student), "config", None), "low_rank", None)
+        if low_rank:
+            metadata["low_rank"] = low_rank
+        write_json(path / "distillation.json", metadata)
         write_manifest(path / "gen_ppl_eval.yaml", [{"name": "student", "architecture": str(path / "config.json"),
             "weights": str(path / "model.safetensors"), "generation": {
                 "num_steps": config["evaluation"]["num_steps"], "sequence_length": config["evaluation"]["sequence_length"]}}],
