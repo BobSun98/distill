@@ -160,6 +160,79 @@ GM 越低代表平均梯度越接近参考数据；有限样本无偏估计可�
 `partial_coverage`；所有对无效时 GM 为 null，不能当作零。
 横向比较需使用相同的参考范围、文本长度和 loss 归一化，当前数值不宣称与论文表格逐位对齐。
 
+## Isambard-AI：重建 80% 起点并运行固定 Teacher 逐级实验
+
+独立配置使用单节点四卡 GH200，训练每卡 batch=32、梯度累积=2，全局 batch=256。
+原八卡配置保留，Isambard 配置由 `distributed.expected_world_size=4` 检查进程数。
+训练与生成使用 `compile/reduce-overhead`；生成 batch 单独设置为16，GPT-2-Large
+scorer/GM 使用 FP32/eager。正式质量评测为每模型1024条、1024 token、1024 NFE。
+
+代码位于本仓库；独立 Conda 环境、模型/数据/编译缓存、checkpoint 和运行日志统一存入
+`/projects/u6xs/bobsun.u6xs/distill/`。环境使用 Python 3.11、ARM64 CUDA 12.6
+PyTorch 2.14、Transformers 4.x。创建环境后会保存 `environment/pip-freeze.txt`
+和 `environment/conda-explicit.txt`；不在登录节点构建源码依赖。
+
+```bash
+# 项目根目录：先搭建独立环境，同时创建 Slurm 日志目录。
+bash scripts/setup_isambard_env.sh
+source ~/miniforge3/bin/activate /projects/u6xs/bobsun.u6xs/distill/envs/distill
+
+# 第一步只准备数据，不加载训练模型；等待成功后执行短验证。
+sbatch --gpus=1 --time=02:00:00 scripts/run_owt_isambard.sbatch prepare
+
+# 保留完整12层、训练batch=32、累积2次、长度1024；训练3步，检查真实生成CUDA Graph replay。
+# 此入口单卡验证显存和编译兼容性，四卡NCCL由正式入口的通信检查验证。
+sbatch --gpus=1 --time=00:20:00 scripts/run_owt_isambard.sbatch compile-debug
+
+# 四卡同时编译、正式每卡生成batch=16、真实DDP/累积；每模型64条，8 NFE，训练3步。
+sbatch --time=00:30:00 scripts/run_owt_isambard.sbatch compile-debug-ddp
+
+# 短验证通过后，单独重建80%学生：原始Teacher SVD -> 初评 -> KL训练 -> best复评。
+sbatch --time=12:00:00 scripts/run_owt_isambard.sbatch source80
+
+# 使用日志给出的本轮实际目录；只将经过训练的best作为逐级链起点。
+ln -s "/projects/u6xs/bobsun.u6xs/distill/run/<本轮80%实验>/rank_080/checkpoints/best" \
+  /projects/u6xs/bobsun.u6xs/distill/assets/rank_080_source
+
+sbatch --time=24:00:00 scripts/run_owt_isambard.sbatch progressive
+
+# 同一固定Teacher实验的阶段恢复。
+sbatch --time=24:00:00 scripts/run_owt_isambard.sbatch progressive \
+  --run-dir "/projects/u6xs/bobsun.u6xs/distill/run/<本轮逐级实验>"
+```
+
+`source80` 使用 `configs/owt_rank080_isambard.yaml`，只训练80%这一组，沿用原起点的
+5000步上限、1e-4 cosine LR和KL早停规则。`progressive` 使用
+`configs/owt_progressive_rank_isambard.yaml`，执行80→70→60→50→40→30→20，
+每级最多10000步。新起点应作为本次重建结果记录；不同硬件和micro-batch划分不保证
+复现旧80%权重或相同早停步数。本轮节点PyTorch可见显存为95 GiB，最初每卡64在
+step=0验证的FP32 KL计算中OOM，故改为每卡32、累积2次。该设置已完成单卡三步真实
+训练与训练后评测，PyTorch峰值分配显存61.35 GiB，生成CUDA Graph replay检查通过。
+
+OWT预处理可直接重放 `distill.data.prepare_data`：加载
+`Skylion007/openwebtext` 的 `refs/convert/parquet`，完整训练集最后100000篇留作验证区；
+训练取完整语料前20000篇，验证取保留区前128篇。GPT-2 tokenizer不截断文档、不自动
+添加special token，每篇末尾插入EOS；按原顺序拼接，每1022个内容token外包BOS/EOS，
+生成1024长度block，丢弃最后不足一个block的余量，不padding。训练和验证分别打包。
+旧metadata记录完整语料8013769篇，生成22076个训练block、141个验证block；训练实际
+使用前8192个block，验证使用前128个。重放结果和metadata保存在project下的
+`data/owt_l1024_t20000_v128/`。逐token一致还取决于相同原始数据及tokenizer快照；
+原实验的`refs/convert/parquet`是可移动引用。本轮Isambard训练和GM配置已固定为
+`433fe0f44ed7894fea29c08b3202aa348ccc6369`，与仓库旧builder cache锁文件记录的commit相同。
+
+安装脚本会核对NVIDIA cuSPARSELt 0.7.1的实际AArch64库，并修正其wheel内部误写的
+`sbsa`平台标签后执行`pip check`，修正仅涉及安装元数据。
+
+作业通过`sbatch`分配资源，再用一个`srun` task启动本节点的`torchrun` workers。
+CUDA设备沿用Slurm分配；GH200默认开启NCCL P2P。job级别不添加`--exclusive`。
+`TMPDIR`在Python启动前创建为project下的`tmp/<SLURM_JOB_ID>/`，避免计算节点继承
+不可用的登录节点`/local`目录而导致Triton创建PTX文件失败。
+修复后已完成四卡同形状短验证：DDP训练3步、全局batch=256、生成每卡16，
+rank 0峰值分配显存60.83 GiB；teacher、initial和trained的生成CUDA Graph检查均通过。
+Isambard作业最多24小时，提交前按短验证吞吐估算预算；当前恢复以已完成阶段为单位，
+中断的本级训练从initial重训，不恢复optimizer。`source80`和逐级链分开提交。
+Slurm规范参考[官方skill](https://github.com/isambard-sc/skills.isambard.ac.uk/blob/main/site/plugins/isambard/skills/slurm/SKILL.md)。
+
 ## 服务器运行
 
 在项目根目录安装依赖。服务器需事先安装适配驱动、满足 `pyproject.toml` 版本要求的

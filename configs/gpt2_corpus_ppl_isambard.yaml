@@ -1,0 +1,13 @@
+extends: gpt2_corpus_ppl.yaml
+
+run:
+  root: /projects/u6xs/bobsun.u6xs/distill/run
+
+model:
+  cache_dir: /projects/u6xs/bobsun.u6xs/distill/cache/huggingface/hub
+
+data:
+  # GM 的原始文本读取也复用同一 project 缓存。
+  hf_cache_dir: /projects/u6xs/bobsun.u6xs/distill/cache/huggingface/datasets
+  owt:
+    revision: 433fe0f44ed7894fea29c08b3202aa348ccc6369

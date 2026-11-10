@@ -1,0 +1,25 @@
+extends: owt_rank080_isambard.yaml
+
+run:
+  name: langflow_owt_rank080_isambard_compile_debug
+
+execution:
+  debug_compile: true
+
+rank_sweep:
+  full_rank_check: false
+  plot_results: false
+
+training:
+  # 保留正式的micro-batch、累积次数、长度1024和完整模型，只缩短流程预算。
+  max_steps: 3
+  plot_loss: false
+  log_every: 1
+  validate_every: 3
+  validation_batches: 1
+  early_stopping:
+    enabled: false
+
+evaluation:
+  num_samples: 4
+  num_steps: 8

@@ -529,6 +529,9 @@ def run_sweep(config, command="all", allow_distributed=True, debug=False, resume
     progress.configure(run_dir, distributed.rank())
     reports = {}
     try:
+        expected_world_size = communication.get("expected_world_size")
+        if not debug and command == "all" and expected_world_size is not None and distributed.world_size() != expected_world_size:
+            raise RuntimeError(f"当前配置需要 {expected_world_size} 个进程，当前为 {distributed.world_size()}；请核对 NGPU 和 Slurm 资源")
         if distributed.is_main():
             saved_config = run_dir / "config.yaml"
             previous = load_yaml_config(saved_config) if resume_dir else None
@@ -723,7 +726,8 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
             "training": config["training"], "evaluation": config["evaluation"], "gradient_moment": config["gradient_moment"],
             "max_steps_by_rank": config["rank_sweep"].get("max_steps_by_rank", {}),
             "execution": config["execution"], "scorer_execution": "float32/eager unchanged",
-            "global_batch_size_8gpu": 8 * config["training"]["batch_size"] * config["training"]["grad_accumulation"],
+            "formal_world_size": config["distributed"].get("expected_world_size", 8),
+            "global_batch_size": config["distributed"].get("expected_world_size", 8) * config["training"]["batch_size"] * config["training"]["grad_accumulation"],
             "stages": ["teacher_svd", "teacher_and_initial_evaluation", "off_policy_kl", "trained_evaluation"], "debug": debug}
         if args.run_dir:
             root = project_path(args.run_dir)
@@ -743,7 +747,7 @@ def main(default_config="configs/owt_rank_sweep.yaml", allow_distributed=True, d
             trained = [spec["name"] for spec in specs if (root / spec["name"] / "training.json").is_file()]
             plan["resume_training"] = {"completed": trained, "remaining": [spec["name"] for spec in specs if spec["name"] not in trained]}
             plan["new_evaluation_models"] = sum(len(plan[f"resume_{stage}"]["remaining"]) for stage in ("before", "after"))
-        output = project_path("run/launch") / f"rank_sweep_plan_{datetime.now():%Y%m%d_%H%M%S_%f}.json"
+        output = project_path(config["run"]["root"]) / "launch" / f"rank_sweep_plan_{datetime.now():%Y%m%d_%H%M%S_%f}.json"
         write_json(output, plan)
         print(json.dumps(plan, ensure_ascii=False, indent=2), flush=True)
         print(f"[rank-sweep] plan: {output}", flush=True)

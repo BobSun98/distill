@@ -1,0 +1,6 @@
+# ARM64 CUDA wheel；与旧 progressive 实验保持 Torch 2.14 主版本一致。
+--extra-index-url https://download.pytorch.org/whl/cu126
+torch==2.14.0+cu126
+# 本环境固定在 4.x，避免迁移时同时引入 Transformers 5 的接口变化。
+transformers>=4.38,<5
+-e .

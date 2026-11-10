@@ -14,7 +14,7 @@ export PYTHONUNBUFFERED=1
 cd "$PROJECT_ROOT"
 
 # 连启动阶段和异常堆栈也写入 run，避免仅靠终端保留现场。
-LAUNCH_LOG_DIR="$PROJECT_ROOT/run/launch"
+LAUNCH_LOG_DIR=${DISTILL_LAUNCH_LOG_DIR:-$PROJECT_ROOT/run/launch}
 mkdir -p "$LAUNCH_LOG_DIR"
 LAUNCH_LOG="$LAUNCH_LOG_DIR/$(date +%Y%m%d_%H%M%S)_$$.log"
 run_logged() {

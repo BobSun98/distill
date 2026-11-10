@@ -72,6 +72,9 @@ def load_config(path, overrides=(), debug=False):
     raw = load_yaml_config(path, overrides)
     ratios = rank_schedule(raw["progressive_rank"])
     config = load_rank_config(path, [*overrides, "rank_sweep.ratios=" + json.dumps(ratios)], debug)
+    expected_world_size = config["distributed"].get("expected_world_size", 8)
+    if type(expected_world_size) is not int or expected_world_size < 1:
+        raise ValueError("distributed.expected_world_size 必须为正整数")
     if teacher_mode(config) not in ("fixed_original", "previous_student"):
         raise ValueError("teacher_mode 只支持 fixed_original / previous_student")
     if (config["model"]["family"] != "langflow" or config["data"].get("corpus", "owt") != "owt"
@@ -163,7 +166,7 @@ def build_truncated_student(source, ratio, config):
     weights.update({key: value for key, value in source.state_dict().items() if key not in replaced})
     student.load_state_dict(weights, strict=True)
     local = []
-    # 先让八卡并行完成各自的 SVD，再广播新因子；不把大矩阵塞进 Python object collective。
+    # 各卡并行完成 SVD，再广播新因子；不把大矩阵塞进 Python object collective。
     for index, path in enumerate(paths):
         if index % distributed.world_size() != distributed.rank():
             continue
@@ -289,8 +292,9 @@ def run_progressive(config, command="all", allow_distributed=True, debug=False, 
     progress.configure(run_dir, distributed.rank())
     rows, entries = [], []
     try:
-        if not debug and command == "all" and distributed.world_size() != 8:
-            raise RuntimeError("正式逐级实验使用八卡，请通过 scripts/run_owt_progressive_rank.sh 启动")
+        expected_world_size = config["distributed"].get("expected_world_size", 8)
+        if not debug and command == "all" and distributed.world_size() != expected_world_size:
+            raise RuntimeError(f"正式逐级实验需要 {expected_world_size} 个进程，当前为 {distributed.world_size()}；请核对 NGPU 和 Slurm 资源")
         if distributed.is_main():
             if resume_dir:
                 update_step_config(run_dir, config, write=True)
@@ -442,7 +446,8 @@ def dry_run_plan(config, run_dir=None):
         "remaining_training_stages": sum(not stage["training_completed"] for stage in stages),
         "remaining_evaluation_models": int(not source_complete) + sum(
             int(not stage[phase + "_evaluation_completed"]) for stage in stages for phase in ("before", "after")),
-        "formal_world_size": 8, "global_batch_size_8gpu": 8 * config["training"]["batch_size"] * config["training"]["grad_accumulation"],
+        "formal_world_size": config["distributed"].get("expected_world_size", 8),
+        "global_batch_size": config["distributed"].get("expected_world_size", 8) * config["training"]["batch_size"] * config["training"]["grad_accumulation"],
         "scorer_execution": "float32/eager unchanged", "resume_granularity": "completed SVD/model evaluation/training stages; incomplete training restarts initial"}
 
 
@@ -471,7 +476,7 @@ def main(default_config="configs/owt_progressive_rank.yaml", allow_distributed=T
         update_step_config(project_path(args.run_dir), config)
     if args.dry_run:
         plan = dry_run_plan(config, args.run_dir)
-        output = project_path("run/launch") / f"progressive_rank_plan_{datetime.now():%Y%m%d_%H%M%S_%f}.json"
+        output = project_path(config["run"]["root"]) / "launch" / f"progressive_rank_plan_{datetime.now():%Y%m%d_%H%M%S_%f}.json"
         write_json(output, plan)
         print(json.dumps(plan, ensure_ascii=False, indent=2), flush=True)
         print(f"[progressive-rank] plan: {output}", flush=True)

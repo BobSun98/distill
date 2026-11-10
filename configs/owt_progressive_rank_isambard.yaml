@@ -1,0 +1,27 @@
+extends: owt_progressive_rank.yaml
+
+run:
+  name: langflow_owt_progressive_svd_fixed_teacher_isambard
+  root: /projects/u6xs/bobsun.u6xs/distill/run
+
+model:
+  cache_dir: /projects/u6xs/bobsun.u6xs/distill/cache/huggingface/hub
+
+distributed:
+  expected_world_size: 4
+
+data:
+  revision: 433fe0f44ed7894fea29c08b3202aa348ccc6369
+  hf_cache_dir: /projects/u6xs/bobsun.u6xs/distill/cache/huggingface/datasets
+  prepared_root: /projects/u6xs/bobsun.u6xs/distill/data
+
+gradient_moment:
+  reference_config: configs/gpt2_corpus_ppl_isambard.yaml
+
+progressive_rank:
+  # 重建 80% 并训练完成后，将此目录链接到新实验 rank_080/checkpoints/best。
+  source_checkpoint: /projects/u6xs/bobsun.u6xs/distill/assets/rank_080_source
+
+training:
+  batch_size: 32
+  grad_accumulation: 2

@@ -1,0 +1,33 @@
+extends: owt_rank_sweep.yaml
+
+run:
+  name: langflow_owt_rank080_isambard
+  root: /projects/u6xs/bobsun.u6xs/distill/run
+
+model:
+  cache_dir: /projects/u6xs/bobsun.u6xs/distill/cache/huggingface/hub
+
+distributed:
+  expected_world_size: 4
+
+data:
+  # 旧 builder cache 锁文件记录的同一 Parquet commit。
+  revision: 433fe0f44ed7894fea29c08b3202aa348ccc6369
+  hf_cache_dir: /projects/u6xs/bobsun.u6xs/distill/cache/huggingface/datasets
+  prepared_root: /projects/u6xs/bobsun.u6xs/distill/data
+
+gradient_moment:
+  reference_config: configs/gpt2_corpus_ppl_isambard.yaml
+
+rank_sweep:
+  # 只重建逐级实验需要的 80% 起点，保持原来的 5000 步上限与 KL 早停。
+  ratios: [0.8]
+
+training:
+  # 每卡64在95 GiB节点的KL计算中OOM；四卡 × 每卡32 × 累积2仍为256。
+  batch_size: 32
+  grad_accumulation: 2
+
+execution:
+  backend: compile
+  mode: reduce-overhead
