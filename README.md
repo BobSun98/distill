@@ -966,6 +966,27 @@ Teacher/student 查询同一 `(z, gamma, student self-conditioning)`，embedding
 仅重做末尾统一评测时也可运行 `bash scripts/run_owt_rank040_velocity.sh evaluate --checkpoint <本次best目录>`。
 本入口默认 `MASTER_PORT=29541`，与常见的29500作业区分；可显式用环境变量覆盖端口。
 
+同样设置补跑独立全层20%和60%学生：
+
+```bash
+# GPU 0-7八卡，顺序执行20%和60%；每组训练后统一评测起点与续训best。
+bash scripts/run_owt_rank020_060_velocity.sh
+bash scripts/run_owt_rank020_060_velocity.sh --dry-run
+
+# 单独运行某一组，或先用GPU 0做真实模型短流程验证。
+bash scripts/run_owt_rank020_060_velocity.sh --rank 60
+bash scripts/run_owt_rank020_060_velocity.sh compile-debug
+```
+
+两份配置 `configs/owt_rank020_velocity.yaml`、`configs/owt_rank060_velocity.yaml` 继承40%组的
+Teacher、0.5 KL + 0.5 velocity MSE、训练预算、早停和统一评测设置，并指定各自起点与实验名称。
+本次使用八卡，每卡batch=16、累积2次，保持全局batch=256；40%原入口默认仍为四卡、累积4次。
+20%加载原独立sweep的 `rank_020/checkpoints/best`（step=5000，rank=153/25）；
+60%加载 `rank_060/checkpoints/best`（step=4100，rank=460/76），两组都保持完整12层、60个低秩矩阵。
+结果分别写入新的 `run/<时间>_langflow_owt_rank020_kl_velocity/` 和
+`run/<时间>_langflow_owt_rank060_kl_velocity/`；队列计划、日志和退出码在
+`run/launch/rank020_060_velocity_<时间>_<PID>/`。任一组失败即停止队列。
+
 ## LangFlow-OWT：逐级 SVD student、固定原始满秩 Teacher
 
 ```bash

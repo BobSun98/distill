@@ -1,0 +1,68 @@
+{
+  "date": "2026-11-10",
+  "task": "20% and 60% independent full-layer students; KL + velocity continuation and unified evaluation",
+  "gpu_devices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "world_size": 8,
+  "per_gpu_batch_size": 16,
+  "gradient_accumulation": 2,
+  "global_batch_size": 256,
+  "source_steps": {
+    "rank_020": 5000,
+    "rank_060": 4100
+  },
+  "teacher": "Continuous-Rivals-Discrete/langflow-owt",
+  "loss": {
+    "kd_weight": 0.5,
+    "ce_weight": 0.0,
+    "mse_weight": 0.5
+  },
+  "training_max_steps": 5000,
+  "early_stop_metric": "loss",
+  "evaluation": "source KL best and continuation best for each rank; gen_ppl_v1 with entropy/GM/params/mean_step_ms",
+  "checks": {
+    "source_metadata": "passed; 12 blocks, 60 matrices, correct ranks and best steps",
+    "matching_training": "passed; 8*16*2=256 and other hyperparameters shared with rank40",
+    "native_dry_runs": [
+      {
+        "mode": "formal",
+        "models": [
+          "configs/owt_rank020_velocity.yaml",
+          "configs/owt_rank060_velocity.yaml"
+        ],
+        "world_size": 8,
+        "visible_devices": "0,1,2,3,4,5,6,7"
+      },
+      {
+        "mode": "compile_debug",
+        "models": [
+          "configs/owt_rank020_velocity_debug.yaml",
+          "configs/owt_rank060_velocity_debug.yaml"
+        ],
+        "world_size": 1,
+        "visible_devices": "0"
+      },
+      {
+        "mode": "rank60",
+        "models": [
+          "configs/owt_rank060_velocity.yaml"
+        ],
+        "world_size": 8,
+        "visible_devices": "0,1,2,3,4,5,6,7"
+      }
+    ],
+    "rank40_4gpu_backward_compatibility": "passed",
+    "bash_syntax": "passed",
+    "diff_check": "passed"
+  },
+  "gpu_execution_performed": false,
+  "run_script": "scripts/run_owt_rank020_060_velocity.sh"
+}

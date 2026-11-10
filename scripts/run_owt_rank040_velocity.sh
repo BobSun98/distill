@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 本次仅用物理 GPU 4/5/6/7；原始 LangFlow Teacher + 已训全层 40% student。
+# 默认物理 GPU 4/5/6/7；补充实验可显式用 DISTILL_VELOCITY_GPUS 指定卡组。
 set -euo pipefail
 PROJECT_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 CONFIG=configs/owt_rank040_velocity.yaml
@@ -27,9 +27,10 @@ if (( DRY_RUN )) && [[ "$COMMAND" != debug ]]; then COMMAND=prepare; fi
 if (( COMPILE_DEBUG )); then
     ARGS=(--set execution.backend=compile --set execution.debug_compile=true ${ARGS[@]+"${ARGS[@]}"})
 fi
-# 固定本次授权的四张卡；debug 启动器只保留其中第一张，即物理 GPU 4。
-export CUDA_VISIBLE_DEVICES=4,5,6,7
-export NGPU=4
+# 40% 默认仍为四卡；20%/60% 队列显式选择八卡。debug 只保留所选卡组的第一张。
+export CUDA_VISIBLE_DEVICES=${DISTILL_VELOCITY_GPUS:-4,5,6,7}
+IFS=',' read -r -a VELOCITY_GPU_IDS <<< "$CUDA_VISIBLE_DEVICES"
+export NGPU=${#VELOCITY_GPU_IDS[@]}
 export MASTER_PORT=${MASTER_PORT:-29541}
 export DISTILL_MODULE=distill.off_policy
 export DISTILL_DEBUG_ENTRY=debug/debug_rank040_velocity.py

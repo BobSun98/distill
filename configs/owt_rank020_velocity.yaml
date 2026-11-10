@@ -1,0 +1,12 @@
+extends: owt_rank040_velocity.yaml
+
+run:
+  name: langflow_owt_rank020_kl_velocity
+
+model:
+  # 独立全层 SVD+KL sweep 的 20% best，step=5000；保留全部12层。
+  student_weights: run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_020/checkpoints/best/model.safetensors
+
+training:
+  # 本次八卡：8 × 16 × 2 = 256。
+  grad_accumulation: 2
