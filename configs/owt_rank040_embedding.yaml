@@ -1,0 +1,15 @@
+extends: owt_rank040_velocity.yaml
+
+run:
+  name: langflow_owt_rank040_kl_embedding
+
+loss:
+  kd_weight: 0.5
+  # 本次只比较 embedding matching；显式关闭继承的 velocity 项。
+  mse_weight: 0.0
+  # MSE(p_S @ E, p_T @ E)，hidden/token 平均，不额外按 gamma 加权。
+  embedding_weight: 0.5
+
+training:
+  # 八卡：8 × 16 × 2 = 256；起点仍为独立 KL sweep 的40% best(step5000)。
+  grad_accumulation: 2

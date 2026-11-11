@@ -1,0 +1,99 @@
+{
+  "date": "2026-11-11",
+  "experiment": "full-layer rank20/40/60 off-policy KL + denoised embedding MSE",
+  "proposal": "DistillationContinuesDLM.md section 4.1.2",
+  "target": "mean_hidden_and_valid_tokens((p_S @ E-p_T @ E)^2)",
+  "time_weight": "constant; no additional gamma weighting",
+  "loss": {
+    "kd_weight": 0.5,
+    "ce_weight": 0.0,
+    "mse_weight": 0.0,
+    "embedding_weight": 0.5
+  },
+  "sources": [
+    {
+      "rank": "020",
+      "weights": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_020/checkpoints/best/model.safetensors",
+      "source_step": 5000,
+      "depth": 12,
+      "factorized_matrices": 60,
+      "local_weight_present": false
+    },
+    {
+      "rank": "040",
+      "weights": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_040/checkpoints/best/model.safetensors",
+      "source_step": 5000,
+      "depth": 12,
+      "factorized_matrices": 60,
+      "local_weight_present": false
+    },
+    {
+      "rank": "060",
+      "weights": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_060/checkpoints/best/model.safetensors",
+      "source_step": 4100,
+      "depth": 12,
+      "factorized_matrices": 60,
+      "local_weight_present": false
+    }
+  ],
+  "teacher": "Continuous-Rivals-Discrete/langflow-owt",
+  "embedding_coordinates": "shared frozen E",
+  "state_source": "real OWT forward noise; same z/gamma/student SC for teacher and student",
+  "gpu_devices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "per_gpu_batch_size": 16,
+  "gradient_accumulation": 2,
+  "global_batch_size": 256,
+  "execution": "compile/reduce-overhead with automatic CUDA Graph request; BF16 backbone; FP32 loss",
+  "training_max_steps": 5000,
+  "early_stopping_metric": "loss",
+  "evaluation": "source KL best and new best for each rank via gen_ppl_v1; PPL/entropy/GM/params/mean_step_ms",
+  "checks": {
+    "new_checks_passed": 10,
+    "regressions_passed": 42,
+    "total_unique_passed": 52,
+    "loss_and_gradient": "explicit expected-embedding MSE and analytic softmax Jacobian; teacher/E detached",
+    "precision_and_reduction": "FP32, masked token mean, constant time weight, velocity relation checked",
+    "native_cli_dry_runs": "three-rank formal, three-rank compile-debug, single-rank selector",
+    "python_ast": "passed",
+    "bash_syntax": "passed",
+    "git_diff_check": "passed"
+  },
+  "plans": [
+    {
+      "config": "configs/owt_rank020_embedding.yaml",
+      "plan": "run/launch/rank_embedding_20261111_114145_99784/rank_020.plan.log",
+      "model_names": [
+        "langflow_owt_rank020_kl_embedding_initial",
+        "langflow_owt_rank020_kl_embedding_student"
+      ]
+    },
+    {
+      "config": "configs/owt_rank040_embedding.yaml",
+      "plan": "run/launch/rank_embedding_20261111_114145_99784/rank_040.plan.log",
+      "model_names": [
+        "langflow_owt_rank040_kl_embedding_initial",
+        "langflow_owt_rank040_kl_embedding_student"
+      ]
+    },
+    {
+      "config": "configs/owt_rank060_embedding.yaml",
+      "plan": "run/launch/rank_embedding_20261111_114145_99784/rank_060.plan.log",
+      "model_names": [
+        "langflow_owt_rank060_kl_embedding_initial",
+        "langflow_owt_rank060_kl_embedding_student"
+      ]
+    }
+  ],
+  "gpu_validation_performed": false,
+  "server_debug": "bash scripts/run_owt_rank_embedding.sh compile-debug",
+  "server_run": "bash scripts/run_owt_rank_embedding.sh"
+}

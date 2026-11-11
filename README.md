@@ -987,6 +987,43 @@ Teacher、0.5 KL + 0.5 velocity MSE、训练预算、早停和统一评测设置
 `run/<时间>_langflow_owt_rank060_kl_velocity/`；队列计划、日志和退出码在
 `run/launch/rank020_060_velocity_<时间>_<PID>/`。任一组失败即停止队列。
 
+## LangFlow-OWT：KL + denoised embedding matching
+
+对应 proposal 第4.1.2节：用共享冻结的 `E` 将 posterior 映射为预测去噪表示
+`xhat_S = p_S @ E`、`xhat_T = p_T @ E`，匹配这两个预测。此处沿用 velocity 实验的
+hidden/token 平均口径，采用无额外时间加权的 embedding MSE：
+`loss = 0.5 * KL(Teacher || Student) + 0.5 * mean((xhat_S-xhat_T)^2)`。
+相同预测下，velocity MSE 还乘 `sigmoid(-gamma)/4`；本次 embedding 项使用常数时间权重，
+显式设置 `mse_weight=0`、`embedding_weight=0.5`，分项日志名为 `embedding_mse`。
+两种连续目标因此构成对时间权重的比较；系数0.5不会自动平衡两项的数值或梯度。
+
+```bash
+# 八卡 GPU 0-7，顺序训练和统一评测20%、40%、60%。
+bash scripts/run_owt_rank_embedding.sh
+# 只核对三组配置/起点/八卡计划，不读取权重或初始化GPU。
+bash scripts/run_owt_rank_embedding.sh --dry-run
+# 单组运行；或用GPU 0先验证真实模型三步短流程及生成CUDA Graph replay。
+bash scripts/run_owt_rank_embedding.sh --rank 40
+bash scripts/run_owt_rank_embedding.sh compile-debug
+```
+
+配置为 `configs/owt_rank020_embedding.yaml`、`configs/owt_rank040_embedding.yaml`、
+`configs/owt_rank060_embedding.yaml`，起点仍是独立全层 KL sweep 的对应 `checkpoints/best`，
+最佳step分别为5000、5000、4100；与velocity实验从同一份KL权重开始，结果另存新目录。
+三组都保持完整12层、60个低秩矩阵。Teacher固定为原始LangFlow-OWT，训练沿用真实OWT加噪的
+off-policy状态及相同SC；embedding/proposal冻结，概率、embedding MSE与归约使用FP32。
+
+默认每卡batch=16、累积2次，八卡全局batch=256；compile/reduce-overhead与自动CUDA Graph。
+每组最多5000个新step，cosine LR为1e-4→1e-5，每100步验证，按 `0.5*KL+0.5*embedding_mse`
+早停并选择best（min_steps=500、patience=5、min_delta=0.001）。单卡debug保留真实结构，仅减少
+训练到3步、长度128、8 NFE和每模型4个样本，并在当前Python进程直接调用工程流程。
+
+每组结束后统一评测旧KL起点与本次best：每模型1024条、长度/NFE=1024、seed=42，报告
+PPL、unigram entropy、GM、重复率、覆盖率、参数量和平均单步耗时；GPT-2-Large评分保持FP32/eager。
+两套权重共用固定初始噪声和本组OWT GM参考语料。新实验目录为
+`run/<时间>_langflow_owt_rank020_kl_embedding/`（40%/60%依此命名），队列计划/日志/退出码位于
+`run/launch/rank_embedding_<时间>_<PID>/`，任一组失败即停止队列。
+
 ## LangFlow-OWT：逐级 SVD student、固定原始满秩 Teacher
 
 ```bash

@@ -1,0 +1,8 @@
+extends: owt_rank040_embedding.yaml
+
+run:
+  name: langflow_owt_rank020_kl_embedding
+
+model:
+  # 独立全层 SVD+KL 的20% best(step5000)，作为与 velocity 实验相同的起点。
+  student_weights: run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_020/checkpoints/best/model.safetensors

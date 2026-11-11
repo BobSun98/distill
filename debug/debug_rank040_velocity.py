@@ -1,4 +1,4 @@
-"""单卡全层低秩 checkpoint 的 KL+velocity 续训与统一评测，架构与可见卡由入口指定。"""
+"""单卡低秩 checkpoint 续训与统一评测；架构、连续目标与可见卡由入口配置指定。"""
 
 import os
 import sys

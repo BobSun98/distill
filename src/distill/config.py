@@ -60,16 +60,18 @@ def load_config(path, overrides=()):
     if min(training["max_steps"], training["batch_size"], training["grad_accumulation"],
            training["log_every"], training["validate_every"]) < 1:
         raise ValueError("训练步数、batch size、梯度累积与日志间隔必须为正数")
-    coefficients = [loss["kd_weight"], loss["ce_weight"], loss.get("mse_weight", 0)]
+    coefficients = [loss["kd_weight"], loss["ce_weight"], loss.get("mse_weight", 0), loss.get("embedding_weight", 0)]
     if any(not math.isfinite(value) or value < 0 for value in coefficients) or sum(coefficients) <= 0:
-        raise ValueError("KD/CE/velocity MSE 权重必须为有限非负数，且至少启用一个 loss")
+        raise ValueError("KD/CE/velocity/embedding 权重必须为有限非负数，且至少启用一个 loss")
     if not 0 <= training["self_condition_probability"] <= 1:
         raise ValueError("self_condition_probability 必须在 [0, 1] 内")
     stopping = training["early_stopping"]
-    if stopping["metric"] not in ("loss", "kl", "ce", "mse"):
-        raise ValueError("early_stopping.metric 只支持验证 loss、kl、ce 或 mse")
+    if stopping["metric"] not in ("loss", "kl", "ce", "mse", "embedding_mse"):
+        raise ValueError("early_stopping.metric 只支持验证 loss、kl、ce、mse 或 embedding_mse")
     if stopping["metric"] == "mse" and not loss.get("mse_weight", 0):
         raise ValueError("按 velocity MSE 早停需要启用 loss.mse_weight")
+    if stopping["metric"] == "embedding_mse" and not loss.get("embedding_weight", 0):
+        raise ValueError("按 embedding MSE 早停需要启用 loss.embedding_weight")
     if stopping["patience"] < 1 or stopping["min_steps"] < 0 or stopping["min_delta"] < 0:
         raise ValueError("早停 patience 必须为正，min_steps/min_delta 不能为负")
     if data["sequence_length"] < 3:

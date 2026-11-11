@@ -45,13 +45,14 @@ def batch_loss(teacher, student, token_ids, config, query_teacher=None):
     state = off_policy_state(teacher, distributed.unwrap(student), token_ids,
                              config["training"]["self_condition_probability"])
     if query_teacher is None:
-        query_teacher = config["loss"]["kd_weight"] > 0 or config["loss"].get("mse_weight", 0) > 0
+        query_teacher = any(config["loss"].get(key, 0) > 0 for key in ("kd_weight", "mse_weight", "embedding_weight"))
     teacher_logits = None
     if query_teacher:
         with torch.no_grad():
             teacher_logits = posterior_logits(teacher, state)
     student_logits = posterior_logits(student, state)
-    coordinates = teacher._get_embedding_matrix() if config["loss"].get("mse_weight", 0) else None
+    continuous = config["loss"].get("mse_weight", 0) or config["loss"].get("embedding_weight", 0)
+    coordinates = teacher._get_embedding_matrix() if continuous else None
     return distillation_loss(student_logits, teacher_logits, token_ids, config["loss"],
                              gamma=state.gamma, embedding=coordinates)
 
