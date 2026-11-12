@@ -1024,6 +1024,48 @@ PPL、unigram entropy、GM、重复率、覆盖率、参数量和平均单步耗
 `run/<时间>_langflow_owt_rank020_kl_embedding/`（40%/60%依此命名），队列计划/日志/退出码位于
 `run/launch/rank_embedding_<时间>_<PID>/`，任一组失败即停止队列。
 
+## LangFlow-OWT：Teacher直接SVD后只使用纯MSE训练
+
+```bash
+# 八卡 GPU 0-7：共享原始Teacher的SVD，40%/60%分别做pure embedding和pure velocity。
+bash scripts/run_owt_svd_pure_mse.sh
+# 只检查四组的初始化、纯目标、预算及统一评测计划。
+bash scripts/run_owt_svd_pure_mse.sh --dry-run
+# 中断恢复同一实验；未完成训练从对应的共享SVD initial重训。
+bash scripts/run_owt_svd_pure_mse.sh --run-dir run/<时间>_langflow_owt_svd_pure_mse
+# 单卡GPU 0真实短流程验证；可以只选40% embedding以缩短检查时间。
+bash scripts/run_owt_svd_pure_mse.sh compile-debug --rank 40 --objective embedding
+```
+
+配置是 `configs/owt_svd_pure_mse.yaml`。此实验从原始满秩LangFlow-OWT重新计算FP32 SVD，
+生成全12层、五个投影全部分解的40%（rank=307/51）和60%（rank=460/76）学生。
+SVD的60个矩阵在八卡上分摊；每个rank只生成一份 `rank_040/checkpoints/initial/` 或
+`rank_060/checkpoints/initial/`，其step=0、无任何KL或其他优化更新。两类目标独立从同一份初始化加载。
+
+四组为 `embedding_rank_040`、`embedding_rank_060`、`velocity_rank_040`、`velocity_rank_060`：
+
+- pure embedding：`kd_weight=0, ce_weight=0, mse_weight=0, embedding_weight=1`；
+  使用 `mean((p_S@E-p_T@E)^2)`，hidden/token平均，无额外gamma权重。
+- pure velocity：`kd_weight=0, ce_weight=0, mse_weight=1, embedding_weight=0`；
+  使用 `sigmoid(-gamma)/4 * mean_hidden((p_S@E-p_T@E)^2)` 后按token平均。
+
+Teacher固定为原始模型，embedding/proposal冻结，其余student参数训练；状态保持真实OWT加噪的
+off-policy定义，同一z/gamma/student SC。每组重新设相同训练seed、optimizer和cosine LR（1e-4→1e-5），
+最多5000步；八卡每卡batch=16、累积2次，全局batch=256。按本组纯MSE loss验证/早停，
+min_steps=500、每100步验证、patience=5；`svd_mse.min_delta` 分别设embedding=1e-5、velocity=1e-7，
+以适配原始数值尺度。日志中的KL/CE以及满秩数值检查的KL仅作诊断，均不参与训练目标或早停。
+
+使用现有SVD、训练、compile/reduce-overhead/自动CUDA Graph及统一评测工程函数。
+先统一评测Teacher和两份SVD起点一次，再训练并复评两个embedding学生，然后训练并复评两个velocity学生，
+总共评测7套权重。每模型1024条、长度/NFE=1024、seed=42，GPT-2-Large FP32/eager，
+报告PPL、entropy、GM、重复率、覆盖率、参数量和平均单步耗时。后续两次评测复用初评的同一份GM参考语料。
+
+结果保存到 `run/<时间>_langflow_owt_svd_pure_mse/`；各组有独立配置、`initialization.json`、
+训练日志、best和停止时checkpoint。根目录的 `summary.csv` / `summary.json` 记录目标、0/1系数、
+纯MSE最佳值、实际训练步数和评测指标；`gen_ppl_models.yaml` 可经 `eval_gen_ppl.sh` 独立复测。
+恢复复用已完成SVD、训练组和逐模型评测，不恢复中断step的optimizer。debug保持真实12层与两种rank，
+默认四组各训练3步，长度128、8 NFE、每模型4条样本；整个debug流程直接调用工程函数。
+
 ## LangFlow-OWT：逐级 SVD student、固定原始满秩 Teacher
 
 ```bash

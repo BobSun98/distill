@@ -1,0 +1,37 @@
+extends: owt_rank_sweep.yaml
+
+run:
+  name: langflow_owt_svd_pure_mse
+
+model:
+  # 本实验直接从原始 Teacher 做 SVD；不读取任何 KL 训练后的 student。
+  student_weights: null
+  student_config: null
+
+rank_sweep:
+  ratios: [0.4, 0.6]
+  plot_results: false
+
+svd_mse:
+  # 每个 rank 的同一份 step-0 初始化分别训练两个纯目标。
+  objectives: [embedding, velocity]
+  # 两种原始MSE量纲不同；现有velocity日志约2e-5~1e-4，避免沿用KL的0.001阈值。
+  min_delta:
+    embedding: 0.00001
+    velocity: 0.0000001
+
+loss:
+  kd_weight: 0.0
+  ce_weight: 0.0
+  mse_weight: 0.0
+  # 根配置使用首个目标作初始化元数据；每组会保存明确的纯目标配置。
+  embedding_weight: 1.0
+
+training:
+  max_steps: 5000
+  batch_size: 16
+  grad_accumulation: 2
+  early_stopping:
+    metric: loss
+    # 各训练组按上面的目标配置覆盖该阈值。
+    min_delta: 0.00001

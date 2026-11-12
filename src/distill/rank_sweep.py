@@ -237,7 +237,8 @@ def check_full_rank(teacher, config, run_dir, tail_layers=None):
             torch.manual_seed(config["run"]["seed"])
             state = off_policy_state(teacher, student, token_ids, 0.0)
             expected, actual = posterior_logits(teacher, state), posterior_logits(student, state)
-        loss, _ = distillation_loss(actual, expected, None, config["loss"])
+        # 满秩诊断始终报告 posterior KL，与随后实际选择的训练目标无关。
+        loss, _ = distillation_loss(actual, expected, None, {"kd_weight": 1.0, "ce_weight": 0.0})
         difference = actual.float() - expected.float()
         if not torch.isfinite(loss).item() or not torch.isfinite(difference).all().item():
             raise FloatingPointError("满秩 SVD 单步对照产生非有限结果")

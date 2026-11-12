@@ -1,0 +1,229 @@
+{
+  "experiment": "fresh_teacher_svd_pure_mse",
+  "teacher": "Continuous-Rivals-Discrete/langflow-owt",
+  "initialization": "Teacher -> FP32 SVD -> shared per-rank step-0 checkpoint",
+  "student_depth": 12,
+  "num_svd_matrices": 60,
+  "jobs": [
+    {
+      "name": "embedding_rank_040",
+      "ratio": 0.4,
+      "tail_layers": 12,
+      "max_steps": 5000,
+      "layer_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "initial_name": "rank_040",
+      "objective": "embedding",
+      "loss": {
+        "kd_weight": 0.0,
+        "ce_weight": 0.0,
+        "mse_weight": 0.0,
+        "embedding_weight": 1.0
+      },
+      "student_weights": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/<new_svd_pure_mse_run>/rank_040/checkpoints/initial/model.safetensors",
+      "source_step": 0,
+      "rank": 307,
+      "conditioning_rank": 51,
+      "early_stopping": {
+        "enabled": true,
+        "metric": "loss",
+        "min_steps": 500,
+        "patience": 5,
+        "min_delta": 1e-05
+      },
+      "training_completed": false
+    },
+    {
+      "name": "embedding_rank_060",
+      "ratio": 0.6,
+      "tail_layers": 12,
+      "max_steps": 5000,
+      "layer_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "initial_name": "rank_060",
+      "objective": "embedding",
+      "loss": {
+        "kd_weight": 0.0,
+        "ce_weight": 0.0,
+        "mse_weight": 0.0,
+        "embedding_weight": 1.0
+      },
+      "student_weights": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/<new_svd_pure_mse_run>/rank_060/checkpoints/initial/model.safetensors",
+      "source_step": 0,
+      "rank": 460,
+      "conditioning_rank": 76,
+      "early_stopping": {
+        "enabled": true,
+        "metric": "loss",
+        "min_steps": 500,
+        "patience": 5,
+        "min_delta": 1e-05
+      },
+      "training_completed": false
+    },
+    {
+      "name": "velocity_rank_040",
+      "ratio": 0.4,
+      "tail_layers": 12,
+      "max_steps": 5000,
+      "layer_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "initial_name": "rank_040",
+      "objective": "velocity",
+      "loss": {
+        "kd_weight": 0.0,
+        "ce_weight": 0.0,
+        "mse_weight": 1.0,
+        "embedding_weight": 0.0
+      },
+      "student_weights": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/<new_svd_pure_mse_run>/rank_040/checkpoints/initial/model.safetensors",
+      "source_step": 0,
+      "rank": 307,
+      "conditioning_rank": 51,
+      "early_stopping": {
+        "enabled": true,
+        "metric": "loss",
+        "min_steps": 500,
+        "patience": 5,
+        "min_delta": 1e-07
+      },
+      "training_completed": false
+    },
+    {
+      "name": "velocity_rank_060",
+      "ratio": 0.6,
+      "tail_layers": 12,
+      "max_steps": 5000,
+      "layer_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "initial_name": "rank_060",
+      "objective": "velocity",
+      "loss": {
+        "kd_weight": 0.0,
+        "ce_weight": 0.0,
+        "mse_weight": 1.0,
+        "embedding_weight": 0.0
+      },
+      "student_weights": "/Users/bobsun/Desktop/MediaTek/distill_proj/distill/run/<new_svd_pure_mse_run>/rank_060/checkpoints/initial/model.safetensors",
+      "source_step": 0,
+      "rank": 460,
+      "conditioning_rank": 76,
+      "early_stopping": {
+        "enabled": true,
+        "metric": "loss",
+        "min_steps": 500,
+        "patience": 5,
+        "min_delta": 1e-07
+      },
+      "training_completed": false
+    }
+  ],
+  "training": {
+    "plot_loss": true,
+    "ppl_evaluation": {
+      "enabled": false,
+      "interval": -1,
+      "num_samples_per_rank": 42,
+      "batch_size": 14
+    },
+    "max_steps": 5000,
+    "batch_size": 16,
+    "grad_accumulation": 2,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "self_condition_probability": 0.25,
+    "log_every": 100,
+    "validate_every": 100,
+    "validation_batches": 8,
+    "save_every": 0,
+    "early_stopping": {
+      "enabled": true,
+      "metric": "loss",
+      "min_steps": 500,
+      "patience": 5,
+      "min_delta": 1e-05
+    },
+    "lr_scheduler": {
+      "name": "cosine",
+      "final_ratio": 0.1
+    }
+  },
+  "evaluation": {
+    "seed": 42,
+    "num_samples": 1024,
+    "batch_size": 16,
+    "num_steps": 1024,
+    "sequence_length": 1024,
+    "scorer": "gpt2-large",
+    "scorer_batch_size": 4,
+    "scorer_max_length": 1024,
+    "corpus": "owt",
+    "timing_warmup_forwards": 5
+  },
+  "gradient_moment": {
+    "enabled": true,
+    "reference_config": "configs/gpt2_corpus_ppl.yaml"
+  },
+  "execution": {
+    "backend": "compile",
+    "mode": "reduce-overhead",
+    "warmup_forwards": 3,
+    "debug_compile": false
+  },
+  "formal_world_size": 8,
+  "global_batch_size_8gpu": 256,
+  "evaluation_models_total": 7,
+  "completed_evaluation_models": [],
+  "remaining_evaluation_models": 7,
+  "scorer_execution": "float32/eager unchanged",
+  "diagnostic_kl": "logged only; coefficient zero; no KL warmup"
+}
