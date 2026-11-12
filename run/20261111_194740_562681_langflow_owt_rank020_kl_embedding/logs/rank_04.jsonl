@@ -1,0 +1,291 @@
+{"time": "2026-11-11T19:47:40+08:00", "rank": 4, "pid": 3485238, "stage": "run.start", "elapsed_seconds": 0.00042435619980096817, "world_size": 8, "torch_version": "2.14.0+cu130", "local_rank": 4, "device": "cuda"}
+{"time": "2026-11-11T19:47:40+08:00", "rank": 4, "pid": 3485238, "stage": "cuda.runtime", "elapsed_seconds": 0.0011001909151673317, "logical_device": 4, "gpu": "NVIDIA RTX A6000", "cuda_version": "13.0", "nccl_version": [2, 30, 7]}
+{"time": "2026-11-11T19:47:40+08:00", "rank": 4, "pid": 3485238, "stage": "data.wait_ready.begin", "elapsed_seconds": 0.001415005885064602}
+{"time": "2026-11-11T19:47:41+08:00", "rank": 4, "pid": 3485238, "stage": "data.wait_ready.end", "elapsed_seconds": 1.3180887112393975, "seconds": 1.316365678794682}
+{"time": "2026-11-11T19:47:42+08:00", "rank": 4, "pid": 3485238, "stage": "tensor_group.init.begin", "elapsed_seconds": 1.8779846243560314, "backend": "nccl", "device": "cuda:4", "timeout_seconds": 900}
+{"time": "2026-11-11T19:47:42+08:00", "rank": 4, "pid": 3485238, "stage": "tensor_group.init.end", "elapsed_seconds": 1.8888807743787766, "seconds": 0.010530438274145126, "backend": "nccl", "device": "cuda:4", "timeout_seconds": 900}
+{"time": "2026-11-11T19:47:42+08:00", "rank": 4, "pid": 3485238, "stage": "communication.all_reduce.begin", "elapsed_seconds": 1.8891785703599453, "backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+{"time": "2026-11-11T19:47:44+08:00", "rank": 4, "pid": 3485238, "stage": "communication.all_reduce.end", "elapsed_seconds": 3.724964238703251, "seconds": 1.8354943841695786, "backend": "nccl", "device": "cuda:4", "bytes": 1048576}
+{"time": "2026-11-11T19:47:44+08:00", "rank": 4, "pid": 3485238, "stage": "communication.broadcast.begin", "elapsed_seconds": 3.7256188625469804, "backend": "nccl", "device": "cuda:4"}
+{"time": "2026-11-11T19:47:44+08:00", "rank": 4, "pid": 3485238, "stage": "communication.broadcast.end", "elapsed_seconds": 3.7306840987876058, "seconds": 0.00490433257073164, "backend": "nccl", "device": "cuda:4"}
+{"time": "2026-11-11T19:47:44+08:00", "rank": 4, "pid": 3485238, "stage": "teacher.load.begin", "elapsed_seconds": 3.730962010100484}
+{"time": "2026-11-11T19:47:44+08:00", "rank": 4, "pid": 3485238, "stage": "model.files.wait.begin", "elapsed_seconds": 3.731171623803675, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+{"time": "2026-11-11T19:47:44+08:00", "rank": 4, "pid": 3485238, "stage": "model.files.wait.end", "elapsed_seconds": 4.16128003783524, "seconds": 0.42999015003442764, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+{"time": "2026-11-11T19:47:44+08:00", "rank": 4, "pid": 3485238, "stage": "model.weights.load.begin", "elapsed_seconds": 4.161540883593261, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+{"time": "2026-11-11T19:47:47+08:00", "rank": 4, "pid": 3485238, "stage": "model.weights.load.end", "elapsed_seconds": 7.286117659881711, "seconds": 3.1240840749815106, "model": "Continuous-Rivals-Discrete/langflow-owt"}
+{"time": "2026-11-11T19:47:47+08:00", "rank": 4, "pid": 3485238, "stage": "model.to_device.begin", "elapsed_seconds": 7.2877306221053, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:4"}
+{"time": "2026-11-11T19:47:48+08:00", "rank": 4, "pid": 3485238, "stage": "model.to_device.end", "elapsed_seconds": 7.653986065648496, "seconds": 0.36600168514996767, "model": "Continuous-Rivals-Discrete/langflow-owt", "device": "cuda:4"}
+{"time": "2026-11-11T19:47:48+08:00", "rank": 4, "pid": 3485238, "stage": "teacher.load.end", "elapsed_seconds": 7.65529677271843, "seconds": 3.9242235319688916}
+{"time": "2026-11-11T19:47:48+08:00", "rank": 4, "pid": 3485238, "stage": "models.wait_teacher.begin", "elapsed_seconds": 7.655551212839782}
+{"time": "2026-11-11T19:47:48+08:00", "rank": 4, "pid": 3485238, "stage": "models.wait_teacher.end", "elapsed_seconds": 7.657760279253125, "seconds": 0.002089075744152069}
+{"time": "2026-11-11T19:47:48+08:00", "rank": 4, "pid": 3485238, "stage": "student.build.begin", "elapsed_seconds": 7.676361100748181}
+{"time": "2026-11-11T19:47:48+08:00", "rank": 4, "pid": 3485238, "stage": "model.files.wait.begin", "elapsed_seconds": 7.677756327204406, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_020/checkpoints/best/model.safetensors"}
+{"time": "2026-11-11T19:47:48+08:00", "rank": 4, "pid": 3485238, "stage": "model.files.wait.end", "elapsed_seconds": 7.682084893807769, "seconds": 0.004101851023733616, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_020/checkpoints/best/model.safetensors"}
+{"time": "2026-11-11T19:47:48+08:00", "rank": 4, "pid": 3485238, "stage": "model.weights.load.begin", "elapsed_seconds": 7.682320933789015, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_020/checkpoints/best/model.safetensors"}
+{"time": "2026-11-11T19:47:51+08:00", "rank": 4, "pid": 3485238, "stage": "model.weights.load.end", "elapsed_seconds": 11.220428058877587, "seconds": 3.537882089614868, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_020/checkpoints/best/model.safetensors"}
+{"time": "2026-11-11T19:47:51+08:00", "rank": 4, "pid": 3485238, "stage": "model.to_device.begin", "elapsed_seconds": 11.221116210334003, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_020/checkpoints/best/model.safetensors", "device": "cuda:4"}
+{"time": "2026-11-11T19:47:52+08:00", "rank": 4, "pid": 3485238, "stage": "model.to_device.end", "elapsed_seconds": 11.430734380148351, "seconds": 0.20944012980908155, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261029_214354_612541_langflow_owt_svd_block_rank_sweep/rank_020/checkpoints/best/model.safetensors", "device": "cuda:4"}
+{"time": "2026-11-11T19:47:52+08:00", "rank": 4, "pid": 3485238, "stage": "student.build.end", "elapsed_seconds": 11.501336659304798, "seconds": 3.8246348248794675}
+{"time": "2026-11-11T19:47:52+08:00", "rank": 4, "pid": 3485238, "stage": "models.wait_student.begin", "elapsed_seconds": 11.501676144078374}
+{"time": "2026-11-11T19:47:52+08:00", "rank": 4, "pid": 3485238, "stage": "models.wait_student.end", "elapsed_seconds": 11.502915023826063, "seconds": 0.0011402135714888573}
+{"time": "2026-11-11T19:47:56+08:00", "rank": 4, "pid": 3485238, "stage": "execution.enabled", "elapsed_seconds": 15.558437256142497, "execution_backend": "compile", "compile_mode": "reduce-overhead", "cuda_graphs_requested": true, "roles": ["teacher", "student"]}
+{"time": "2026-11-11T19:47:56+08:00", "rank": 4, "pid": 3485238, "stage": "data.loaders.begin", "elapsed_seconds": 15.559232677333057}
+{"time": "2026-11-11T19:47:56+08:00", "rank": 4, "pid": 3485238, "stage": "data.loaders.end", "elapsed_seconds": 15.764954249374568, "seconds": 0.2054956704378128}
+{"time": "2026-11-11T19:47:56+08:00", "rank": 4, "pid": 3485238, "stage": "ddp.init.begin", "elapsed_seconds": 15.766989530064166, "device": "cuda:4"}
+{"time": "2026-11-11T19:47:56+08:00", "rank": 4, "pid": 3485238, "stage": "ddp.init.end", "elapsed_seconds": 16.198713649064302, "seconds": 0.4314199723303318, "device": "cuda:4"}
+{"time": "2026-11-11T19:47:56+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 16.20171656832099, "step": 0}
+{"time": "2026-11-11T19:47:56+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 16.207605669274926, "tokens": 16384}
+{"time": "2026-11-11T19:48:19+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 38.79677321296185, "loss": 0.24439959228038788, "ce": 4.288339614868164, "kl": 0.433151513338089, "embedding_mse": 0.05564766377210617}
+{"time": "2026-11-11T19:48:19+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 38.7997951824218, "local_tokens": 16384}
+{"time": "2026-11-11T19:48:19+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 38.80202369578183, "seconds": 0.001787765882909298, "local_tokens": 16384}
+{"time": "2026-11-11T19:48:19+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 38.804795917123556, "step": 0}
+{"time": "2026-11-11T19:48:20+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 39.84558616671711, "seconds": 1.0403076624497771, "step": 0}
+{"time": "2026-11-11T19:48:20+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 39.84606550633907, "seconds": 23.644079588353634, "step": 0}
+{"time": "2026-11-11T19:48:20+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 39.84623112902045, "step": 1}
+{"time": "2026-11-11T19:48:20+08:00", "rank": 4, "pid": 3485238, "stage": "train.micro_batch.begin", "elapsed_seconds": 39.858555130660534, "step": 1, "micro_batch": 1}
+{"time": "2026-11-11T19:49:03+08:00", "rank": 4, "pid": 3485238, "stage": "train.micro_batch.forward_done", "elapsed_seconds": 83.16239781677723, "step": 1, "micro_batch": 1}
+{"time": "2026-11-11T19:49:07+08:00", "rank": 4, "pid": 3485238, "stage": "train.micro_batch.backward_done", "elapsed_seconds": 86.54651396907866, "step": 1, "micro_batch": 1}
+{"time": "2026-11-11T19:49:07+08:00", "rank": 4, "pid": 3485238, "stage": "train.micro_batch.begin", "elapsed_seconds": 86.54762754775584, "step": 1, "micro_batch": 2}
+{"time": "2026-11-11T19:49:07+08:00", "rank": 4, "pid": 3485238, "stage": "train.micro_batch.forward_done", "elapsed_seconds": 87.30878034140915, "step": 1, "micro_batch": 2}
+{"time": "2026-11-11T19:49:08+08:00", "rank": 4, "pid": 3485238, "stage": "train.micro_batch.backward_done", "elapsed_seconds": 87.58410787303, "step": 1, "micro_batch": 2}
+{"time": "2026-11-11T19:49:33+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 113.16692020744085, "step": 1}
+{"time": "2026-11-11T19:53:16+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 335.4259168440476, "step": 100}
+{"time": "2026-11-11T19:53:18+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 337.5065771397203, "step": 100}
+{"time": "2026-11-11T19:53:18+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 337.5069901747629, "step": 100}
+{"time": "2026-11-11T19:53:18+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 337.5112905353308, "tokens": 16384}
+{"time": "2026-11-11T19:53:18+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 338.2339383363724, "loss": 0.24755814671516418, "ce": 4.289523124694824, "kl": 0.4388231635093689, "embedding_mse": 0.05629313737154007}
+{"time": "2026-11-11T19:53:18+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 338.23633320536464, "local_tokens": 16384}
+{"time": "2026-11-11T19:53:18+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 338.2397734504193, "seconds": 0.0031344182789325714, "local_tokens": 16384}
+{"time": "2026-11-11T19:53:18+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 338.24392925575376, "seconds": 0.7367222905158997, "step": 100}
+{"time": "2026-11-11T19:56:53+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 553.2554138852283, "step": 200}
+{"time": "2026-11-11T19:56:55+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 555.2930460982025, "step": 200}
+{"time": "2026-11-11T19:56:55+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 555.293278934434, "step": 200}
+{"time": "2026-11-11T19:56:55+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 555.2961506387219, "tokens": 16384}
+{"time": "2026-11-11T19:56:56+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 556.017672194168, "loss": 0.2462548166513443, "ce": 4.290105819702148, "kl": 0.43663179874420166, "embedding_mse": 0.05587782338261604}
+{"time": "2026-11-11T19:56:56+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 556.0192467020825, "local_tokens": 16384}
+{"time": "2026-11-11T19:56:56+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 556.0228758845478, "seconds": 0.0034877052530646324, "local_tokens": 16384}
+{"time": "2026-11-11T19:56:56+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 556.0244801454246, "step": 200}
+{"time": "2026-11-11T19:56:57+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 556.8353709774092, "seconds": 0.8107507172971964, "step": 200}
+{"time": "2026-11-11T19:56:57+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 556.835579986684, "seconds": 1.5422210777178407, "step": 200}
+{"time": "2026-11-11T20:00:23+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 762.91304334905, "step": 300}
+{"time": "2026-11-11T20:00:25+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 765.0145897222683, "step": 300}
+{"time": "2026-11-11T20:00:25+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 765.0151377636939, "step": 300}
+{"time": "2026-11-11T20:00:25+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 765.0196994943544, "tokens": 16384}
+{"time": "2026-11-11T20:00:26+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 765.7387522188947, "loss": 0.24157941341400146, "ce": 4.281486988067627, "kl": 0.42826709151268005, "embedding_mse": 0.05489175021648407}
+{"time": "2026-11-11T20:00:26+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 765.7411999255419, "local_tokens": 16384}
+{"time": "2026-11-11T20:00:26+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 765.7514474447817, "seconds": 0.009818697348237038, "local_tokens": 16384}
+{"time": "2026-11-11T20:00:26+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 765.7544830003753, "step": 300}
+{"time": "2026-11-11T20:00:27+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 767.152570313774, "seconds": 1.3976719798520207, "step": 300}
+{"time": "2026-11-11T20:00:27+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 767.1529603935778, "seconds": 2.13764207623899, "step": 300}
+{"time": "2026-11-11T20:03:51+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 970.6002719057724, "step": 400}
+{"time": "2026-11-11T20:03:53+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 972.7270722389221, "step": 400}
+{"time": "2026-11-11T20:03:53+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 972.7277010995895, "step": 400}
+{"time": "2026-11-11T20:03:53+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 972.7325455769897, "tokens": 16384}
+{"time": "2026-11-11T20:03:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 973.4582942742854, "loss": 0.2415066510438919, "ce": 4.281917572021484, "kl": 0.4280194044113159, "embedding_mse": 0.0549938939511776}
+{"time": "2026-11-11T20:03:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 973.4609582610428, "local_tokens": 16384}
+{"time": "2026-11-11T20:03:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 973.4707592409104, "seconds": 0.009368423372507095, "local_tokens": 16384}
+{"time": "2026-11-11T20:03:54+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 973.4745777379721, "step": 400}
+{"time": "2026-11-11T20:03:55+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 974.918357629329, "seconds": 1.4433618867769837, "step": 400}
+{"time": "2026-11-11T20:03:55+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 974.9205207740888, "seconds": 2.1925785299390554, "step": 400}
+{"time": "2026-11-11T20:07:24+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 1184.316078756936, "step": 500}
+{"time": "2026-11-11T20:07:26+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 1186.3958668280393, "step": 500}
+{"time": "2026-11-11T20:07:26+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 1186.3963602306321, "step": 500}
+{"time": "2026-11-11T20:07:26+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 1186.4001525780186, "tokens": 16384}
+{"time": "2026-11-11T20:07:27+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 1187.1232611658052, "loss": 0.23898711800575256, "ce": 4.279398441314697, "kl": 0.4236432909965515, "embedding_mse": 0.05433095246553421}
+{"time": "2026-11-11T20:07:27+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 1187.1253076735884, "local_tokens": 16384}
+{"time": "2026-11-11T20:07:27+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 1187.1303831953555, "seconds": 0.004856624640524387, "local_tokens": 16384}
+{"time": "2026-11-11T20:07:27+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 1187.1326213609427, "step": 500}
+{"time": "2026-11-11T20:07:28+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 1188.2440824983642, "seconds": 1.1111627873033285, "step": 500}
+{"time": "2026-11-11T20:07:28+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 1188.244394313544, "seconds": 1.8479357026517391, "step": 500}
+{"time": "2026-11-11T20:10:54+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 1393.595465102233, "step": 600}
+{"time": "2026-11-11T20:10:56+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 1395.6966941365972, "step": 600}
+{"time": "2026-11-11T20:10:56+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 1395.697088523768, "step": 600}
+{"time": "2026-11-11T20:10:56+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 1395.6997310770676, "tokens": 16384}
+{"time": "2026-11-11T20:10:57+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 1396.4233904965222, "loss": 0.24008941650390625, "ce": 4.283990383148193, "kl": 0.4256919026374817, "embedding_mse": 0.054486945271492004}
+{"time": "2026-11-11T20:10:57+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 1396.4248875146732, "local_tokens": 16384}
+{"time": "2026-11-11T20:10:57+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 1396.4359242506325, "seconds": 0.010854795575141907, "local_tokens": 16384}
+{"time": "2026-11-11T20:10:57+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 1396.438509519212, "step": 600}
+{"time": "2026-11-11T20:10:58+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 1397.8302293131128, "seconds": 1.3914151573553681, "step": 600}
+{"time": "2026-11-11T20:10:58+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 1397.8307831576094, "seconds": 2.1335822762921453, "step": 600}
+{"time": "2026-11-11T20:14:21+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 1600.4655243307352, "step": 700}
+{"time": "2026-11-11T20:14:23+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 1602.9313203981146, "step": 700}
+{"time": "2026-11-11T20:14:23+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 1602.9316545464098, "step": 700}
+{"time": "2026-11-11T20:14:23+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 1602.9345689946786, "tokens": 16384}
+{"time": "2026-11-11T20:14:24+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 1603.6554687349126, "loss": 0.237299382686615, "ce": 4.2750959396362305, "kl": 0.4207366704940796, "embedding_mse": 0.05386210232973099}
+{"time": "2026-11-11T20:14:24+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 1603.6574650947005, "local_tokens": 16384}
+{"time": "2026-11-11T20:14:24+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 1603.665076916106, "seconds": 0.007374522276222706, "local_tokens": 16384}
+{"time": "2026-11-11T20:14:24+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 1603.667263545096, "step": 700}
+{"time": "2026-11-11T20:14:25+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 1604.8916752617806, "seconds": 1.2240031566470861, "step": 700}
+{"time": "2026-11-11T20:14:25+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 1604.8921418022364, "seconds": 1.960355549119413, "step": 700}
+{"time": "2026-11-11T20:17:54+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 1814.3795878123492, "step": 800}
+{"time": "2026-11-11T20:17:57+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 1816.5095013743266, "step": 800}
+{"time": "2026-11-11T20:17:57+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 1816.5101406555623, "step": 800}
+{"time": "2026-11-11T20:17:57+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 1816.5150673761964, "tokens": 16384}
+{"time": "2026-11-11T20:17:57+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 1817.240046118386, "loss": 0.23695474863052368, "ce": 4.27287483215332, "kl": 0.42016780376434326, "embedding_mse": 0.0537416934967041}
+{"time": "2026-11-11T20:17:57+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 1817.2428047340363, "local_tokens": 16384}
+{"time": "2026-11-11T20:17:57+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 1817.250440593809, "seconds": 0.007208460010588169, "local_tokens": 16384}
+{"time": "2026-11-11T20:17:57+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 1817.2543574878946, "step": 800}
+{"time": "2026-11-11T20:17:59+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 1818.5018598912284, "seconds": 1.2471870267763734, "step": 800}
+{"time": "2026-11-11T20:17:59+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 1818.5023181829602, "seconds": 1.9919662699103355, "step": 800}
+{"time": "2026-11-11T20:21:24+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 2024.0270172450691, "step": 900}
+{"time": "2026-11-11T20:21:26+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 2026.1354134893045, "step": 900}
+{"time": "2026-11-11T20:21:26+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 2026.1359453899786, "step": 900}
+{"time": "2026-11-11T20:21:26+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 2026.1402396578342, "tokens": 16384}
+{"time": "2026-11-11T20:21:27+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 2026.864634089172, "loss": 0.23679685592651367, "ce": 4.26959753036499, "kl": 0.41990530490875244, "embedding_mse": 0.05368839204311371}
+{"time": "2026-11-11T20:21:27+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 2026.86714341864, "local_tokens": 16384}
+{"time": "2026-11-11T20:21:27+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 2026.87035483215, "seconds": 0.0028257472440600395, "local_tokens": 16384}
+{"time": "2026-11-11T20:21:27+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 2026.8734917901456, "seconds": 0.7373896315693855, "step": 900}
+{"time": "2026-11-11T20:24:52+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 2231.620786261745, "step": 1000}
+{"time": "2026-11-11T20:24:54+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 2233.6592972883955, "step": 1000}
+{"time": "2026-11-11T20:24:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 2233.6595658538863, "step": 1000}
+{"time": "2026-11-11T20:24:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 2233.662345345132, "tokens": 16384}
+{"time": "2026-11-11T20:24:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 2234.383042315021, "loss": 0.2339922934770584, "ce": 4.267331123352051, "kl": 0.4149462878704071, "embedding_mse": 0.05303829908370972}
+{"time": "2026-11-11T20:24:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 2234.3846283936873, "local_tokens": 16384}
+{"time": "2026-11-11T20:24:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 2234.3899085279554, "seconds": 0.005158012732863426, "local_tokens": 16384}
+{"time": "2026-11-11T20:24:54+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 2234.3920150790364, "step": 1000}
+{"time": "2026-11-11T20:24:55+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 2235.371079277247, "seconds": 0.9788996931165457, "step": 1000}
+{"time": "2026-11-11T20:24:55+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 2235.3712910646573, "seconds": 1.7116344096139073, "step": 1000}
+{"time": "2026-11-11T20:28:23+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 2443.178684583865, "step": 1100}
+{"time": "2026-11-11T20:28:25+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 2445.2989806225523, "step": 1100}
+{"time": "2026-11-11T20:28:25+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 2445.2996239559725, "step": 1100}
+{"time": "2026-11-11T20:28:25+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 2445.3046986870468, "tokens": 16384}
+{"time": "2026-11-11T20:28:26+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 2446.029581977986, "loss": 0.23363137245178223, "ce": 4.2658915519714355, "kl": 0.4142885208129883, "embedding_mse": 0.052974238991737366}
+{"time": "2026-11-11T20:28:26+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 2446.0319712348282, "local_tokens": 16384}
+{"time": "2026-11-11T20:28:26+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 2446.0347161339596, "seconds": 0.002395196817815304, "local_tokens": 16384}
+{"time": "2026-11-11T20:28:26+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 2446.037876199931, "step": 1100}
+{"time": "2026-11-11T20:28:28+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 2447.5431503327563, "seconds": 1.5048745404928923, "step": 1100}
+{"time": "2026-11-11T20:28:28+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 2447.543674607761, "seconds": 2.2438665786758065, "step": 1100}
+{"time": "2026-11-11T20:31:53+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 2652.9243320673704, "step": 1200}
+{"time": "2026-11-11T20:31:55+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 2655.0326732788235, "step": 1200}
+{"time": "2026-11-11T20:31:55+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 2655.0331331733614, "step": 1200}
+{"time": "2026-11-11T20:31:55+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 2655.036256787367, "tokens": 16384}
+{"time": "2026-11-11T20:31:56+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 2655.758261781186, "loss": 0.233637273311615, "ce": 4.269376754760742, "kl": 0.41431331634521484, "embedding_mse": 0.05296122282743454}
+{"time": "2026-11-11T20:31:56+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 2655.7600942505524, "local_tokens": 16384}
+{"time": "2026-11-11T20:31:56+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 2655.767713038251, "seconds": 0.00740034319460392, "local_tokens": 16384}
+{"time": "2026-11-11T20:31:56+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 2655.7697389712557, "seconds": 0.7364967120811343, "step": 1200}
+{"time": "2026-11-11T20:35:19+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 2859.1514430977404, "step": 1300}
+{"time": "2026-11-11T20:35:21+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 2861.1909153545275, "step": 1300}
+{"time": "2026-11-11T20:35:21+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 2861.191205749288, "step": 1300}
+{"time": "2026-11-11T20:35:21+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 2861.194128799252, "tokens": 16384}
+{"time": "2026-11-11T20:35:22+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 2861.915264035575, "loss": 0.23055121302604675, "ce": 4.263552665710449, "kl": 0.4088429808616638, "embedding_mse": 0.052259452641010284}
+{"time": "2026-11-11T20:35:22+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 2861.916979819536, "local_tokens": 16384}
+{"time": "2026-11-11T20:35:22+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 2861.9219366768375, "seconds": 0.004811226390302181, "local_tokens": 16384}
+{"time": "2026-11-11T20:35:22+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 2861.9235430117697, "step": 1300}
+{"time": "2026-11-11T20:35:23+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 2862.907671118155, "seconds": 0.9839552408084273, "step": 1300}
+{"time": "2026-11-11T20:35:23+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 2862.9078850261867, "seconds": 1.7165901707485318, "step": 1300}
+{"time": "2026-11-11T20:38:52+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 3071.590638961643, "step": 1400}
+{"time": "2026-11-11T20:38:54+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 3073.7193759456277, "step": 1400}
+{"time": "2026-11-11T20:38:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 3073.71996497456, "step": 1400}
+{"time": "2026-11-11T20:38:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 3073.7240474764258, "tokens": 16384}
+{"time": "2026-11-11T20:38:55+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 3074.4469264298677, "loss": 0.22792735695838928, "ce": 4.2563862800598145, "kl": 0.40421032905578613, "embedding_mse": 0.051644377410411835}
+{"time": "2026-11-11T20:38:55+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 3074.4489754335955, "local_tokens": 16384}
+{"time": "2026-11-11T20:38:55+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 3074.454750524834, "seconds": 0.005509738810360432, "local_tokens": 16384}
+{"time": "2026-11-11T20:38:55+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 3074.4580502724275, "step": 1400}
+{"time": "2026-11-11T20:38:56+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 3076.0471943840384, "seconds": 1.5887509640306234, "step": 1400}
+{"time": "2026-11-11T20:38:56+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 3076.0476938933134, "seconds": 2.327623247168958, "step": 1400}
+{"time": "2026-11-11T20:42:22+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 3281.5915648182854, "step": 1500}
+{"time": "2026-11-11T20:42:24+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 3283.687993625179, "step": 1500}
+{"time": "2026-11-11T20:42:24+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 3283.688441997394, "step": 1500}
+{"time": "2026-11-11T20:42:24+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 3283.6916918810457, "tokens": 16384}
+{"time": "2026-11-11T20:42:24+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 3284.4139377595857, "loss": 0.22722212970256805, "ce": 4.256279945373535, "kl": 0.40311312675476074, "embedding_mse": 0.051331132650375366}
+{"time": "2026-11-11T20:42:25+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 3284.415545269847, "local_tokens": 16384}
+{"time": "2026-11-11T20:42:25+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 3284.4229555483907, "seconds": 0.007182398810982704, "local_tokens": 16384}
+{"time": "2026-11-11T20:42:25+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 3284.4250666862354, "step": 1500}
+{"time": "2026-11-11T20:42:26+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 3285.6899168463424, "seconds": 1.264587927609682, "step": 1500}
+{"time": "2026-11-11T20:42:26+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 3285.6902873404324, "seconds": 2.0017526699230075, "step": 1500}
+{"time": "2026-11-11T20:45:51+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 3491.2225708467886, "step": 1600}
+{"time": "2026-11-11T20:45:53+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 3493.253954333253, "step": 1600}
+{"time": "2026-11-11T20:45:53+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 3493.254130038433, "step": 1600}
+{"time": "2026-11-11T20:45:53+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 3493.2559406757355, "tokens": 16384}
+{"time": "2026-11-11T20:45:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 3493.977207285352, "loss": 0.2286917269229889, "ce": 4.2615132331848145, "kl": 0.40566492080688477, "embedding_mse": 0.051718540489673615}
+{"time": "2026-11-11T20:45:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 3493.978448336944, "local_tokens": 16384}
+{"time": "2026-11-11T20:45:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 3493.9805302759632, "seconds": 0.0019760429859161377, "local_tokens": 16384}
+{"time": "2026-11-11T20:45:54+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 3493.981953240931, "step": 1600}
+{"time": "2026-11-11T20:45:55+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 3494.645194868557, "seconds": 0.6630762619897723, "step": 1600}
+{"time": "2026-11-11T20:45:55+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 3494.645623244345, "seconds": 1.3913939138874412, "step": 1600}
+{"time": "2026-11-11T20:49:20+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 3700.2627285560593, "step": 1700}
+{"time": "2026-11-11T20:49:22+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 3702.396775567904, "step": 1700}
+{"time": "2026-11-11T20:49:22+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 3702.397370059043, "step": 1700}
+{"time": "2026-11-11T20:49:22+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 3702.40198884625, "tokens": 16384}
+{"time": "2026-11-11T20:49:23+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 3703.1271057622507, "loss": 0.22458752989768982, "ce": 4.253241539001465, "kl": 0.3981701135635376, "embedding_mse": 0.05100495368242264}
+{"time": "2026-11-11T20:49:23+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 3703.129579488188, "local_tokens": 16384}
+{"time": "2026-11-11T20:49:23+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 3703.1368949022144, "seconds": 0.006950341165065765, "local_tokens": 16384}
+{"time": "2026-11-11T20:49:23+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 3703.139977593906, "step": 1700}
+{"time": "2026-11-11T20:49:25+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 3704.7676958180964, "seconds": 1.6273737689480186, "step": 1700}
+{"time": "2026-11-11T20:49:25+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 3704.7680897619575, "seconds": 2.3705585887655616, "step": 1700}
+{"time": "2026-11-11T20:52:52+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 3911.7632994595915, "step": 1800}
+{"time": "2026-11-11T20:52:54+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 3913.835752098821, "step": 1800}
+{"time": "2026-11-11T20:52:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 3913.8360999329016, "step": 1800}
+{"time": "2026-11-11T20:52:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 3913.8395207887515, "tokens": 16384}
+{"time": "2026-11-11T20:52:55+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 3914.563490302302, "loss": 0.2257642149925232, "ce": 4.255023956298828, "kl": 0.40043309330940247, "embedding_mse": 0.051095325499773026}
+{"time": "2026-11-11T20:52:55+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 3914.5650148941204, "local_tokens": 16384}
+{"time": "2026-11-11T20:52:55+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 3914.5693633258343, "seconds": 0.004165101796388626, "local_tokens": 16384}
+{"time": "2026-11-11T20:52:55+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 3914.5714197531343, "step": 1800}
+{"time": "2026-11-11T20:52:56+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 3915.7479748036712, "seconds": 1.176269294694066, "step": 1800}
+{"time": "2026-11-11T20:52:56+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 3915.7482609413564, "seconds": 1.9120613066479564, "step": 1800}
+{"time": "2026-11-11T20:56:22+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 4122.279891354032, "step": 1900}
+{"time": "2026-11-11T20:56:24+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 4124.329794430174, "step": 1900}
+{"time": "2026-11-11T20:56:24+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 4124.330097077414, "step": 1900}
+{"time": "2026-11-11T20:56:24+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 4124.332360880449, "tokens": 16384}
+{"time": "2026-11-11T20:56:25+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 4125.0548040904105, "loss": 0.22261719405651093, "ce": 4.252348899841309, "kl": 0.3946422338485718, "embedding_mse": 0.05059215426445007}
+{"time": "2026-11-11T20:56:25+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 4125.05593971815, "local_tokens": 16384}
+{"time": "2026-11-11T20:56:25+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 4125.057494598441, "seconds": 0.0014445586130023003, "local_tokens": 16384}
+{"time": "2026-11-11T20:56:25+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 4125.059001031332, "step": 1900}
+{"time": "2026-11-11T20:56:26+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 4125.797951440327, "seconds": 0.7387551069259644, "step": 1900}
+{"time": "2026-11-11T20:56:26+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 4125.798343904316, "seconds": 1.4681497616693377, "step": 1900}
+{"time": "2026-11-11T20:59:49+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 4328.909430935979, "step": 2000}
+{"time": "2026-11-11T20:59:51+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 4331.036363627762, "step": 2000}
+{"time": "2026-11-11T20:59:51+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 4331.03722838033, "step": 2000}
+{"time": "2026-11-11T20:59:51+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 4331.043425680138, "tokens": 16384}
+{"time": "2026-11-11T20:59:52+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 4331.770007710904, "loss": 0.22742363810539246, "ce": 4.258712291717529, "kl": 0.4032648205757141, "embedding_mse": 0.051582470536231995}
+{"time": "2026-11-11T20:59:52+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 4331.773650239222, "local_tokens": 16384}
+{"time": "2026-11-11T20:59:52+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 4331.782544716261, "seconds": 0.008385268971323967, "local_tokens": 16384}
+{"time": "2026-11-11T20:59:52+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 4331.785938121378, "seconds": 0.7483905330300331, "step": 2000}
+{"time": "2026-11-11T21:03:21+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 4541.1554705593735, "step": 2100}
+{"time": "2026-11-11T21:03:23+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 4543.232400302775, "step": 2100}
+{"time": "2026-11-11T21:03:23+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 4543.232936276123, "step": 2100}
+{"time": "2026-11-11T21:03:23+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 4543.236948935315, "tokens": 16384}
+{"time": "2026-11-11T21:03:24+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 4543.963012487628, "loss": 0.22193844616413116, "ce": 4.24908447265625, "kl": 0.39334481954574585, "embedding_mse": 0.050532061606645584}
+{"time": "2026-11-11T21:03:24+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 4543.965183148161, "local_tokens": 16384}
+{"time": "2026-11-11T21:03:24+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 4543.966778027825, "seconds": 0.0012934459373354912, "local_tokens": 16384}
+{"time": "2026-11-11T21:03:24+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 4543.969667238183, "step": 2100}
+{"time": "2026-11-11T21:03:25+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 4545.15432678815, "seconds": 1.1842057788744569, "step": 2100}
+{"time": "2026-11-11T21:03:25+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 4545.1547863502055, "seconds": 1.9217359693720937, "step": 2100}
+{"time": "2026-11-11T21:06:51+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 4750.7484776079655, "step": 2200}
+{"time": "2026-11-11T21:06:53+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 4752.849933453836, "step": 2200}
+{"time": "2026-11-11T21:06:53+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 4752.850406648591, "step": 2200}
+{"time": "2026-11-11T21:06:53+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 4752.854470916092, "tokens": 16384}
+{"time": "2026-11-11T21:06:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 4753.577601414174, "loss": 0.21906690299510956, "ce": 4.24249267578125, "kl": 0.3884471654891968, "embedding_mse": 0.049686647951602936}
+{"time": "2026-11-11T21:06:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 4753.579863468185, "local_tokens": 16384}
+{"time": "2026-11-11T21:06:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 4753.584049337544, "seconds": 0.003872341476380825, "local_tokens": 16384}
+{"time": "2026-11-11T21:06:54+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 4753.585959737189, "step": 2200}
+{"time": "2026-11-11T21:06:55+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 4754.523531921208, "seconds": 0.937218020670116, "step": 2200}
+{"time": "2026-11-11T21:06:55+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 4754.523948984221, "seconds": 1.6733854301273823, "step": 2200}
+{"time": "2026-11-11T21:10:18+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 4957.518771583214, "step": 2300}
+{"time": "2026-11-11T21:10:20+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 4959.567725685425, "step": 2300}
+{"time": "2026-11-11T21:10:20+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 4959.568168474361, "step": 2300}
+{"time": "2026-11-11T21:10:20+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 4959.571645300835, "tokens": 16384}
+{"time": "2026-11-11T21:10:20+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 4960.296207369305, "loss": 0.21781405806541443, "ce": 4.242399215698242, "kl": 0.38621464371681213, "embedding_mse": 0.04941348731517792}
+{"time": "2026-11-11T21:10:20+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 4960.298275991343, "local_tokens": 16384}
+{"time": "2026-11-11T21:10:20+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 4960.301727387123, "seconds": 0.003217531368136406, "local_tokens": 16384}
+{"time": "2026-11-11T21:10:20+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 4960.303773690946, "seconds": 0.73546845279634, "step": 2300}
+{"time": "2026-11-11T21:13:50+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 5169.491816529073, "step": 2400}
+{"time": "2026-11-11T21:13:52+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 5171.617359466851, "step": 2400}
+{"time": "2026-11-11T21:13:52+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 5171.618008971214, "step": 2400}
+{"time": "2026-11-11T21:13:52+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 5171.622793111019, "tokens": 16384}
+{"time": "2026-11-11T21:13:52+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 5172.347686137073, "loss": 0.2184470146894455, "ce": 4.243517875671387, "kl": 0.3873027563095093, "embedding_mse": 0.049591273069381714}
+{"time": "2026-11-11T21:13:52+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 5172.350913712755, "local_tokens": 16384}
+{"time": "2026-11-11T21:13:52+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 5172.359098923393, "seconds": 0.007664253003895283, "local_tokens": 16384}
+{"time": "2026-11-11T21:13:52+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 5172.36258920189, "step": 2400}
+{"time": "2026-11-11T21:13:54+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 5173.987076332793, "seconds": 1.6239094631746411, "step": 2400}
+{"time": "2026-11-11T21:13:54+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 5173.987555988133, "seconds": 2.3694056887179613, "step": 2400}
+{"time": "2026-11-11T21:17:20+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.begin", "elapsed_seconds": 5379.559565332718, "step": 2500}
+{"time": "2026-11-11T21:17:22+08:00", "rank": 4, "pid": 3485238, "stage": "train.step.end", "elapsed_seconds": 5381.661178108305, "step": 2500}
+{"time": "2026-11-11T21:17:22+08:00", "rank": 4, "pid": 3485238, "stage": "validation.begin", "elapsed_seconds": 5381.661602346227, "step": 2500}
+{"time": "2026-11-11T21:17:22+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.begin", "elapsed_seconds": 5381.664649535902, "tokens": 16384}
+{"time": "2026-11-11T21:17:22+08:00", "rank": 4, "pid": 3485238, "stage": "validation.first_batch.end", "elapsed_seconds": 5382.387083707377, "loss": 0.21741840243339539, "ce": 4.24368953704834, "kl": 0.38561874628067017, "embedding_mse": 0.04921804368495941}
+{"time": "2026-11-11T21:17:22+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.begin", "elapsed_seconds": 5382.388523588888, "local_tokens": 16384}
+{"time": "2026-11-11T21:17:22+08:00", "rank": 4, "pid": 3485238, "stage": "validation.reduce.end", "elapsed_seconds": 5382.398105837405, "seconds": 0.00939391553401947, "local_tokens": 16384}
+{"time": "2026-11-11T21:17:22+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 5382.400477567688, "step": 2500}
+{"time": "2026-11-11T21:17:24+08:00", "rank": 4, "pid": 3485238, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 5383.793337186798, "seconds": 1.3925710879266262, "step": 2500}
+{"time": "2026-11-11T21:17:24+08:00", "rank": 4, "pid": 3485238, "stage": "validation.end", "elapsed_seconds": 5383.793990492821, "seconds": 2.132261261343956, "step": 2500}
