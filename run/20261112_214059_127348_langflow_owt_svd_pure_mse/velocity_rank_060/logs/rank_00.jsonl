@@ -1,0 +1,586 @@
+{"time": "2026-11-13T09:24:40+08:00", "rank": 0, "pid": 1713390, "stage": "model.files.wait.begin", "elapsed_seconds": 0.00040816236287355423, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/rank_060/checkpoints/initial/model.safetensors"}
+{"time": "2026-11-13T09:24:40+08:00", "rank": 0, "pid": 1713390, "stage": "model.files.resolve.begin", "elapsed_seconds": 0.0008528102189302444, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/rank_060/checkpoints/initial/model.safetensors"}
+{"time": "2026-11-13T09:24:40+08:00", "rank": 0, "pid": 1713390, "stage": "model.files.resolve.end", "elapsed_seconds": 0.0011717714369297028, "seconds": 0.00010343920439481735, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/rank_060/checkpoints/initial/model.safetensors"}
+{"time": "2026-11-13T09:24:40+08:00", "rank": 0, "pid": 1713390, "stage": "model.files.wait.end", "elapsed_seconds": 0.0032511521130800247, "seconds": 0.002411068417131901, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/rank_060/checkpoints/initial/model.safetensors"}
+{"time": "2026-11-13T09:24:40+08:00", "rank": 0, "pid": 1713390, "stage": "model.weights.load.begin", "elapsed_seconds": 0.0035361265763640404, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/rank_060/checkpoints/initial/model.safetensors"}
+{"time": "2026-11-13T09:24:42+08:00", "rank": 0, "pid": 1713390, "stage": "model.weights.load.end", "elapsed_seconds": 1.3406147863715887, "seconds": 1.3368602711707354, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/rank_060/checkpoints/initial/model.safetensors"}
+{"time": "2026-11-13T09:24:42+08:00", "rank": 0, "pid": 1713390, "stage": "model.to_device.begin", "elapsed_seconds": 1.340902840718627, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/rank_060/checkpoints/initial/model.safetensors", "device": "cuda:0"}
+{"time": "2026-11-13T09:24:42+08:00", "rank": 0, "pid": 1713390, "stage": "model.to_device.end", "elapsed_seconds": 1.420084367506206, "seconds": 0.07898099441081285, "model": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/rank_060/checkpoints/initial/model.safetensors", "device": "cuda:0"}
+{"time": "2026-11-13T09:24:42+08:00", "rank": 0, "pid": 1713390, "stage": "execution.enabled", "elapsed_seconds": 1.4295053323730826, "execution_backend": "compile", "compile_mode": "reduce-overhead", "cuda_graphs_requested": true, "roles": ["teacher", "student"]}
+{"time": "2026-11-13T09:24:42+08:00", "rank": 0, "pid": 1713390, "stage": "data.loaders.begin", "elapsed_seconds": 1.4297671737149358}
+{"time": "2026-11-13T09:24:42+08:00", "rank": 0, "pid": 1713390, "stage": "data.loaders.end", "elapsed_seconds": 1.473818046040833, "seconds": 0.04397176671773195}
+{"time": "2026-11-13T09:24:42+08:00", "rank": 0, "pid": 1713390, "stage": "ddp.init.begin", "elapsed_seconds": 1.474757724441588, "device": "cuda:0"}
+{"time": "2026-11-13T09:24:42+08:00", "rank": 0, "pid": 1713390, "stage": "ddp.init.end", "elapsed_seconds": 1.6816430510953069, "seconds": 0.20680408459156752, "device": "cuda:0"}
+{"time": "2026-11-13T09:24:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 1.6847356082871556, "step": 0}
+{"time": "2026-11-13T09:24:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 1.6862131655216217, "tokens": 16384}
+{"time": "2026-11-13T09:24:50+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 9.638281957246363, "loss": 0.00015714832989033312, "ce": 3.5625357627868652, "kl": 0.5667059421539307, "mse": 0.00015714832989033312}
+{"time": "2026-11-13T09:24:50+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 9.639476025477052, "local_tokens": 16384}
+{"time": "2026-11-13T09:24:52+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 11.574560944922268, "seconds": 1.9349637124687433, "local_tokens": 16384}
+{"time": "2026-11-13T09:24:52+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 11.575844841077924, "step": 0, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T09:24:52+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 12.014083001762629, "step": 0}
+{"time": "2026-11-13T09:24:52+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 12.014160891063511, "step": 0}
+{"time": "2026-11-13T09:24:52+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 12.014908612705767, "seconds": 0.0006987443193793297, "step": 0}
+{"time": "2026-11-13T09:24:52+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 12.017191264778376, "seconds": 10.332392849959433, "step": 0}
+{"time": "2026-11-13T09:24:52+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 12.017268907278776, "step": 1}
+{"time": "2026-11-13T09:24:52+08:00", "rank": 0, "pid": 1713390, "stage": "train.micro_batch.begin", "elapsed_seconds": 12.02172315493226, "step": 1, "micro_batch": 1}
+{"time": "2026-11-13T09:25:07+08:00", "rank": 0, "pid": 1713390, "stage": "train.micro_batch.forward_done", "elapsed_seconds": 26.72941740322858, "step": 1, "micro_batch": 1}
+{"time": "2026-11-13T09:25:09+08:00", "rank": 0, "pid": 1713390, "stage": "train.micro_batch.backward_done", "elapsed_seconds": 28.766726845875382, "step": 1, "micro_batch": 1}
+{"time": "2026-11-13T09:25:09+08:00", "rank": 0, "pid": 1713390, "stage": "train.micro_batch.begin", "elapsed_seconds": 28.767272884957492, "step": 1, "micro_batch": 2}
+{"time": "2026-11-13T09:25:10+08:00", "rank": 0, "pid": 1713390, "stage": "train.micro_batch.forward_done", "elapsed_seconds": 29.506510742008686, "step": 1, "micro_batch": 2}
+{"time": "2026-11-13T09:25:10+08:00", "rank": 0, "pid": 1713390, "stage": "train.micro_batch.backward_done", "elapsed_seconds": 29.764146647416055, "step": 1, "micro_batch": 2}
+{"time": "2026-11-13T09:25:14+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 34.21026075351983, "step": 1}
+{"time": "2026-11-13T09:28:58+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 257.7104855030775, "step": 100}
+{"time": "2026-11-13T09:29:00+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 259.88330434728414, "step": 100}
+{"time": "2026-11-13T09:29:00+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 259.88340686727315, "step": 100}
+{"time": "2026-11-13T09:29:00+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 259.88527997303754, "tokens": 16384}
+{"time": "2026-11-13T09:29:01+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 260.61698724422604, "loss": 5.3028146794531494e-05, "ce": 3.0989646911621094, "kl": 0.16473332047462463, "mse": 5.3028146794531494e-05}
+{"time": "2026-11-13T09:29:01+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 260.6180555205792, "local_tokens": 16384}
+{"time": "2026-11-13T09:29:01+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 260.64119787700474, "seconds": 0.023053164593875408, "local_tokens": 16384}
+{"time": "2026-11-13T09:29:01+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 260.6425190810114, "step": 100, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T09:29:02+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 261.4100829390809, "step": 100}
+{"time": "2026-11-13T09:29:02+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 261.4101935662329, "step": 100}
+{"time": "2026-11-13T09:29:02+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 261.4109956184402, "seconds": 0.0007375990971922874, "step": 100}
+{"time": "2026-11-13T09:29:02+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 261.41373997554183, "seconds": 1.5302695548161864, "step": 100}
+{"time": "2026-11-13T09:32:39+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 478.484271784313, "step": 200}
+{"time": "2026-11-13T09:32:41+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 480.65648449771106, "step": 200}
+{"time": "2026-11-13T09:32:41+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 480.6565856747329, "step": 200}
+{"time": "2026-11-13T09:32:41+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 480.65847927797586, "tokens": 16384}
+{"time": "2026-11-13T09:32:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 481.39197162445635, "loss": 4.8407629947178066e-05, "ce": 3.0785439014434814, "kl": 0.14818252623081207, "mse": 4.8407629947178066e-05}
+{"time": "2026-11-13T09:32:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 481.3930167835206, "local_tokens": 16384}
+{"time": "2026-11-13T09:32:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 481.41500821337104, "seconds": 0.021901213563978672, "local_tokens": 16384}
+{"time": "2026-11-13T09:32:42+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 481.41631318535656, "step": 200, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T09:32:42+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 482.16578705143183, "step": 200}
+{"time": "2026-11-13T09:32:42+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 482.16587209235877, "step": 200}
+{"time": "2026-11-13T09:32:42+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 482.16659110877663, "seconds": 0.0006711231544613838, "step": 200}
+{"time": "2026-11-13T09:32:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 482.1689470699057, "seconds": 1.5122967539355159, "step": 200}
+{"time": "2026-11-13T09:36:16+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 695.9130953513086, "step": 300}
+{"time": "2026-11-13T09:36:18+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 698.0844764793292, "step": 300}
+{"time": "2026-11-13T09:36:18+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 698.0845760609955, "step": 300}
+{"time": "2026-11-13T09:36:18+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 698.0865348018706, "tokens": 16384}
+{"time": "2026-11-13T09:36:19+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 698.8193467855453, "loss": 4.602766421157867e-05, "ce": 3.0743699073791504, "kl": 0.14131973683834076, "mse": 4.602766421157867e-05}
+{"time": "2026-11-13T09:36:19+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 698.8203534623608, "local_tokens": 16384}
+{"time": "2026-11-13T09:36:19+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 698.8426603153348, "seconds": 0.022220473736524582, "local_tokens": 16384}
+{"time": "2026-11-13T09:36:19+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 698.8438660427928, "step": 300, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T09:36:20+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 699.6191562982276, "step": 300}
+{"time": "2026-11-13T09:36:20+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 699.619275781326, "step": 300}
+{"time": "2026-11-13T09:36:20+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 699.6200524168089, "seconds": 0.000701400451362133, "step": 300}
+{"time": "2026-11-13T09:36:20+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 699.6232900936157, "seconds": 1.538639417849481, "step": 300}
+{"time": "2026-11-13T09:39:54+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 913.5651392117143, "step": 400}
+{"time": "2026-11-13T09:39:56+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 915.7384371757507, "step": 400}
+{"time": "2026-11-13T09:39:56+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 915.7385414130986, "step": 400}
+{"time": "2026-11-13T09:39:56+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 915.7404887182638, "tokens": 16384}
+{"time": "2026-11-13T09:39:57+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 916.4746101982892, "loss": 4.3420328438514844e-05, "ce": 3.0657434463500977, "kl": 0.134273961186409, "mse": 4.3420328438514844e-05}
+{"time": "2026-11-13T09:39:57+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 916.4757253658026, "local_tokens": 16384}
+{"time": "2026-11-13T09:39:57+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 916.4961806004867, "seconds": 0.020361601375043392, "local_tokens": 16384}
+{"time": "2026-11-13T09:39:57+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 916.4974565813318, "step": 400, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T09:39:57+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 917.2783328415826, "step": 400}
+{"time": "2026-11-13T09:39:57+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 917.2784386845306, "step": 400}
+{"time": "2026-11-13T09:39:57+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 917.2792212050408, "seconds": 0.0007154811173677444, "step": 400}
+{"time": "2026-11-13T09:39:57+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 917.2820385033265, "seconds": 1.5434325458481908, "step": 400}
+{"time": "2026-11-13T09:43:31+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 1131.0297913458198, "step": 500}
+{"time": "2026-11-13T09:43:33+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 1133.202284133993, "step": 500}
+{"time": "2026-11-13T09:43:33+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 1133.2023908607662, "step": 500}
+{"time": "2026-11-13T09:43:33+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 1133.204319410026, "tokens": 16384}
+{"time": "2026-11-13T09:43:34+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 1133.9369073407724, "loss": 4.2520605347817764e-05, "ce": 3.0661606788635254, "kl": 0.13184452056884766, "mse": 4.2520605347817764e-05}
+{"time": "2026-11-13T09:43:34+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 1133.9379400731996, "local_tokens": 16384}
+{"time": "2026-11-13T09:43:34+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 1133.9608229659498, "seconds": 0.022789955139160156, "local_tokens": 16384}
+{"time": "2026-11-13T09:43:34+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 1133.962066409178, "step": 500, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T09:43:35+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 1134.7038993993774, "step": 500}
+{"time": "2026-11-13T09:43:35+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 1134.7039821455255, "step": 500}
+{"time": "2026-11-13T09:43:35+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 1134.7047000592574, "seconds": 0.0006712162867188454, "step": 500}
+{"time": "2026-11-13T09:43:35+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 1134.7069574091583, "seconds": 1.5045084618031979, "step": 500}
+{"time": "2026-11-13T09:47:09+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 1348.6886292081326, "step": 600}
+{"time": "2026-11-13T09:47:11+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 1350.8648592364043, "step": 600}
+{"time": "2026-11-13T09:47:11+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 1350.8649625591934, "step": 600}
+{"time": "2026-11-13T09:47:11+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 1350.866906305775, "tokens": 16384}
+{"time": "2026-11-13T09:47:12+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 1351.6005229903385, "loss": 4.0791193896438926e-05, "ce": 3.055788993835449, "kl": 0.12685826420783997, "mse": 4.0791193896438926e-05}
+{"time": "2026-11-13T09:47:12+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 1351.6016294313595, "local_tokens": 16384}
+{"time": "2026-11-13T09:47:12+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 1351.6235832525417, "seconds": 0.021863527595996857, "local_tokens": 16384}
+{"time": "2026-11-13T09:47:12+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 1351.6248409738764, "step": 600, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T09:47:13+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 1352.370501392521, "step": 600}
+{"time": "2026-11-13T09:47:13+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 1352.3705851724371, "step": 600}
+{"time": "2026-11-13T09:47:13+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 1352.3713652342558, "seconds": 0.000725090503692627, "step": 600}
+{"time": "2026-11-13T09:47:13+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 1352.3736624643207, "seconds": 1.5086432974785566, "step": 600}
+{"time": "2026-11-13T09:50:46+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 1566.1515657408163, "step": 700}
+{"time": "2026-11-13T09:50:48+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 1568.3234141450375, "step": 700}
+{"time": "2026-11-13T09:50:48+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 1568.3235133755952, "step": 700}
+{"time": "2026-11-13T09:50:48+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 1568.325409827754, "tokens": 16384}
+{"time": "2026-11-13T09:50:49+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 1569.0592182129622, "loss": 4.0356957470066845e-05, "ce": 3.0523252487182617, "kl": 0.12419204413890839, "mse": 4.0356957470066845e-05}
+{"time": "2026-11-13T09:50:49+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 1569.0603393455967, "local_tokens": 16384}
+{"time": "2026-11-13T09:50:49+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 1569.0811485322192, "seconds": 0.020703313872218132, "local_tokens": 16384}
+{"time": "2026-11-13T09:50:49+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 1569.0824056696147, "step": 700, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T09:50:50+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 1569.8468457674608, "step": 700}
+{"time": "2026-11-13T09:50:50+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 1569.8469500411302, "step": 700}
+{"time": "2026-11-13T09:50:50+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 1569.8477348797023, "seconds": 0.0007234932854771614, "step": 700}
+{"time": "2026-11-13T09:50:50+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 1569.8504565935582, "seconds": 1.5268816212192178, "step": 700}
+{"time": "2026-11-13T09:54:24+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 1783.7317861765623, "step": 800}
+{"time": "2026-11-13T09:54:26+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 1785.9088106229901, "step": 800}
+{"time": "2026-11-13T09:54:26+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 1785.9089133162051, "step": 800}
+{"time": "2026-11-13T09:54:26+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 1785.9108692379668, "tokens": 16384}
+{"time": "2026-11-13T09:54:27+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 1786.643908476457, "loss": 3.89147135138046e-05, "ce": 3.0533432960510254, "kl": 0.1216345801949501, "mse": 3.89147135138046e-05}
+{"time": "2026-11-13T09:54:27+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 1786.6449667755514, "local_tokens": 16384}
+{"time": "2026-11-13T09:54:27+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 1786.6671879235655, "seconds": 0.022127646021544933, "local_tokens": 16384}
+{"time": "2026-11-13T09:54:27+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 1786.668419455178, "step": 800, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T09:54:28+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 1787.4186045005918, "step": 800}
+{"time": "2026-11-13T09:54:28+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 1787.418693951331, "step": 800}
+{"time": "2026-11-13T09:54:28+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 1787.4194424841553, "seconds": 0.0006990274414420128, "step": 800}
+{"time": "2026-11-13T09:54:28+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 1787.421740342863, "seconds": 1.5127707356587052, "step": 800}
+{"time": "2026-11-13T09:58:01+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 2001.1976597197354, "step": 900}
+{"time": "2026-11-13T09:58:04+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 2003.3662975095212, "step": 900}
+{"time": "2026-11-13T09:58:04+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 2003.3663974944502, "step": 900}
+{"time": "2026-11-13T09:58:04+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 2003.3683348121122, "tokens": 16384}
+{"time": "2026-11-13T09:58:04+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 2004.1019523907453, "loss": 3.8071062590461224e-05, "ce": 3.054898262023926, "kl": 0.12062039971351624, "mse": 3.8071062590461224e-05}
+{"time": "2026-11-13T09:58:04+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 2004.1031151581556, "local_tokens": 16384}
+{"time": "2026-11-13T09:58:04+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 2004.1248523499817, "seconds": 0.021642396226525307, "local_tokens": 16384}
+{"time": "2026-11-13T09:58:04+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 2004.1261217640713, "step": 900, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T09:58:05+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 2004.8799280403182, "step": 900}
+{"time": "2026-11-13T09:58:05+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 2004.880011764355, "step": 900}
+{"time": "2026-11-13T09:58:05+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 2004.8807762758806, "seconds": 0.0007158955559134483, "step": 900}
+{"time": "2026-11-13T09:58:05+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 2004.8830870669335, "seconds": 1.5166333252564073, "step": 900}
+{"time": "2026-11-13T10:01:39+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 2218.9510244550183, "step": 1000}
+{"time": "2026-11-13T10:01:41+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 2221.12443947047, "step": 1000}
+{"time": "2026-11-13T10:01:41+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 2221.1245416048914, "step": 1000}
+{"time": "2026-11-13T10:01:41+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 2221.126438018866, "tokens": 16384}
+{"time": "2026-11-13T10:01:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 2221.860298543237, "loss": 3.827290493063629e-05, "ce": 3.0494673252105713, "kl": 0.11825543642044067, "mse": 3.827290493063629e-05}
+{"time": "2026-11-13T10:01:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 2221.861418766901, "local_tokens": 16384}
+{"time": "2026-11-13T10:01:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 2221.8830045061186, "seconds": 0.02149220183491707, "local_tokens": 16384}
+{"time": "2026-11-13T10:01:42+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 2221.884386942722, "step": 1000, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T10:01:43+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 2222.6642584288493, "step": 1000}
+{"time": "2026-11-13T10:01:43+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 2222.6643632873893, "step": 1000}
+{"time": "2026-11-13T10:01:43+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 2222.665134000592, "seconds": 0.0007052812725305557, "step": 1000}
+{"time": "2026-11-13T10:01:43+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 2222.667994982563, "seconds": 1.5433894293382764, "step": 1000}
+{"time": "2026-11-13T10:05:17+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 2436.4345863293856, "step": 1100}
+{"time": "2026-11-13T10:05:19+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 2438.6065316256136, "step": 1100}
+{"time": "2026-11-13T10:05:19+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 2438.606642608531, "step": 1100}
+{"time": "2026-11-13T10:05:19+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 2438.608566469513, "tokens": 16384}
+{"time": "2026-11-13T10:05:20+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 2439.3427073089406, "loss": 3.768412716453895e-05, "ce": 3.051551580429077, "kl": 0.11693000793457031, "mse": 3.768412716453895e-05}
+{"time": "2026-11-13T10:05:20+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 2439.343749495223, "local_tokens": 16384}
+{"time": "2026-11-13T10:05:20+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 2439.3648321358487, "seconds": 0.020994877442717552, "local_tokens": 16384}
+{"time": "2026-11-13T10:05:20+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 2439.366065485403, "step": 1100, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T10:05:20+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 2440.1512675443664, "step": 1100}
+{"time": "2026-11-13T10:05:20+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 2440.151372101158, "step": 1100}
+{"time": "2026-11-13T10:05:20+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 2440.1521577313542, "seconds": 0.0007120370864868164, "step": 1100}
+{"time": "2026-11-13T10:05:20+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 2440.1549788769335, "seconds": 1.5482716672122478, "step": 1100}
+{"time": "2026-11-13T10:08:54+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 2654.2145492248237, "step": 1200}
+{"time": "2026-11-13T10:08:57+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 2656.392053144984, "step": 1200}
+{"time": "2026-11-13T10:08:57+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 2656.392153635621, "step": 1200}
+{"time": "2026-11-13T10:08:57+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 2656.3941095480695, "tokens": 16384}
+{"time": "2026-11-13T10:08:57+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 2657.1267835758626, "loss": 3.6751109291799366e-05, "ce": 3.045253276824951, "kl": 0.11442188918590546, "mse": 3.6751109291799366e-05}
+{"time": "2026-11-13T10:08:57+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 2657.1278876662254, "local_tokens": 16384}
+{"time": "2026-11-13T10:08:57+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 2657.150547163561, "seconds": 0.02256345935165882, "local_tokens": 16384}
+{"time": "2026-11-13T10:08:57+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 2657.1518841627985, "step": 1200, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T10:08:58+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 2657.9046170683578, "step": 1200}
+{"time": "2026-11-13T10:08:58+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 2657.9047041013837, "step": 1200}
+{"time": "2026-11-13T10:08:58+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 2657.9054258605465, "seconds": 0.0006661210209131241, "step": 1200}
+{"time": "2026-11-13T10:08:58+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 2657.907752634026, "seconds": 1.5155392969027162, "step": 1200}
+{"time": "2026-11-13T10:12:32+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 2871.6719633517787, "step": 1300}
+{"time": "2026-11-13T10:12:34+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 2873.843976005912, "step": 1300}
+{"time": "2026-11-13T10:12:34+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 2873.844086500816, "step": 1300}
+{"time": "2026-11-13T10:12:34+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 2873.8460204917938, "tokens": 16384}
+{"time": "2026-11-13T10:12:35+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 2874.579776769504, "loss": 3.6210109101375565e-05, "ce": 3.044248104095459, "kl": 0.11364756524562836, "mse": 3.6210109101375565e-05}
+{"time": "2026-11-13T10:12:35+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 2874.5809512771666, "local_tokens": 16384}
+{"time": "2026-11-13T10:12:35+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 2874.6022125091404, "seconds": 0.02116434369236231, "local_tokens": 16384}
+{"time": "2026-11-13T10:12:35+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 2874.6034526107833, "step": 1300, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T10:12:36+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 2875.35985001456, "step": 1300}
+{"time": "2026-11-13T10:12:36+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 2875.359936230816, "step": 1300}
+{"time": "2026-11-13T10:12:36+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 2875.3606646442786, "seconds": 0.0006784116849303246, "step": 1300}
+{"time": "2026-11-13T10:12:36+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 2875.3629387132823, "seconds": 1.518794503994286, "step": 1300}
+{"time": "2026-11-13T10:16:09+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 3089.3329648710787, "step": 1400}
+{"time": "2026-11-13T10:16:12+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 3091.506717439741, "step": 1400}
+{"time": "2026-11-13T10:16:12+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 3091.5068198712543, "step": 1400}
+{"time": "2026-11-13T10:16:12+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 3091.508822911419, "tokens": 16384}
+{"time": "2026-11-13T10:16:12+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 3092.2420501830056, "loss": 3.5549797757994384e-05, "ce": 3.040421485900879, "kl": 0.11069740355014801, "mse": 3.5549797757994384e-05}
+{"time": "2026-11-13T10:16:12+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 3092.2431721044704, "local_tokens": 16384}
+{"time": "2026-11-13T10:16:12+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 3092.264732941985, "seconds": 0.02146243304014206, "local_tokens": 16384}
+{"time": "2026-11-13T10:16:12+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 3092.26645493228, "step": 1400, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T10:16:13+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 3093.1607286445796, "step": 1400}
+{"time": "2026-11-13T10:16:13+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 3093.160833113827, "step": 1400}
+{"time": "2026-11-13T10:16:13+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 3093.161619164981, "seconds": 0.0007111374288797379, "step": 1400}
+{"time": "2026-11-13T10:16:13+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 3093.1643988955766, "seconds": 1.6575169879943132, "step": 1400}
+{"time": "2026-11-13T10:19:47+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 3306.9955360339954, "step": 1500}
+{"time": "2026-11-13T10:19:49+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 3309.1697148988023, "step": 1500}
+{"time": "2026-11-13T10:19:49+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 3309.169836550951, "step": 1500}
+{"time": "2026-11-13T10:19:49+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 3309.171790643595, "tokens": 16384}
+{"time": "2026-11-13T10:19:50+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 3309.905500746332, "loss": 3.5663553717313334e-05, "ce": 3.044210910797119, "kl": 0.11260662227869034, "mse": 3.5663553717313334e-05}
+{"time": "2026-11-13T10:19:50+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 3309.906613016501, "local_tokens": 16384}
+{"time": "2026-11-13T10:19:50+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 3309.9265724215657, "seconds": 0.019867001101374626, "local_tokens": 16384}
+{"time": "2026-11-13T10:19:50+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 3309.9277494642884, "seconds": 0.7578564547002316, "step": 1500}
+{"time": "2026-11-13T10:23:24+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 3523.9866826916113, "step": 1600}
+{"time": "2026-11-13T10:23:26+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 3526.159351453185, "step": 1600}
+{"time": "2026-11-13T10:23:26+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 3526.1594517454505, "step": 1600}
+{"time": "2026-11-13T10:23:26+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 3526.161377088167, "tokens": 16384}
+{"time": "2026-11-13T10:23:27+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 3526.8952792407945, "loss": 3.527385706547648e-05, "ce": 3.040865182876587, "kl": 0.11117540299892426, "mse": 3.527385706547648e-05}
+{"time": "2026-11-13T10:23:27+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 3526.8964276090264, "local_tokens": 16384}
+{"time": "2026-11-13T10:23:27+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 3526.9170057130978, "seconds": 0.020484470762312412, "local_tokens": 16384}
+{"time": "2026-11-13T10:23:27+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 3526.9182559447363, "step": 1600, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T10:23:28+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 3527.6838962705806, "step": 1600}
+{"time": "2026-11-13T10:23:28+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 3527.683999704197, "step": 1600}
+{"time": "2026-11-13T10:23:28+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 3527.6848216038197, "seconds": 0.0007582874968647957, "step": 1600}
+{"time": "2026-11-13T10:23:28+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 3527.687644000165, "seconds": 1.5281258141621947, "step": 1600}
+{"time": "2026-11-13T10:27:02+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 3741.4934533713385, "step": 1700}
+{"time": "2026-11-13T10:27:04+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 3743.6669914145023, "step": 1700}
+{"time": "2026-11-13T10:27:04+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 3743.6670913398266, "step": 1700}
+{"time": "2026-11-13T10:27:04+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 3743.669047300704, "tokens": 16384}
+{"time": "2026-11-13T10:27:05+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 3744.4019050803035, "loss": 3.423736779950559e-05, "ce": 3.0401268005371094, "kl": 0.10866115242242813, "mse": 3.423736779950559e-05}
+{"time": "2026-11-13T10:27:05+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 3744.403059516102, "local_tokens": 16384}
+{"time": "2026-11-13T10:27:05+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 3744.4263456230983, "seconds": 0.023191191256046295, "local_tokens": 16384}
+{"time": "2026-11-13T10:27:05+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 3744.427568566054, "step": 1700, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T10:27:05+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 3745.1986678857356, "step": 1700}
+{"time": "2026-11-13T10:27:05+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 3745.198772263713, "step": 1700}
+{"time": "2026-11-13T10:27:05+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 3745.199581084773, "seconds": 0.0007449528202414513, "step": 1700}
+{"time": "2026-11-13T10:27:05+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 3745.2023988971487, "seconds": 1.5352459782734513, "step": 1700}
+{"time": "2026-11-13T10:30:39+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 3959.2146938499063, "step": 1800}
+{"time": "2026-11-13T10:30:42+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 3961.3865784555674, "step": 1800}
+{"time": "2026-11-13T10:30:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 3961.386687667109, "step": 1800}
+{"time": "2026-11-13T10:30:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 3961.3886168180034, "tokens": 16384}
+{"time": "2026-11-13T10:30:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 3962.1217810902745, "loss": 3.4364504244877025e-05, "ce": 3.038435935974121, "kl": 0.10907401144504547, "mse": 3.4364504244877025e-05}
+{"time": "2026-11-13T10:30:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 3962.1229138793424, "local_tokens": 16384}
+{"time": "2026-11-13T10:30:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 3962.1436643339694, "seconds": 0.020659465342760086, "local_tokens": 16384}
+{"time": "2026-11-13T10:30:42+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 3962.1449576588348, "step": 1800, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T10:30:43+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 3962.918015972711, "step": 1800}
+{"time": "2026-11-13T10:30:43+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 3962.9181178761646, "step": 1800}
+{"time": "2026-11-13T10:30:43+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 3962.918908452615, "seconds": 0.0007246332243084908, "step": 1800}
+{"time": "2026-11-13T10:30:43+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 3962.9216365981847, "seconds": 1.5348875559866428, "step": 1800}
+{"time": "2026-11-13T10:34:17+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 4176.696643668227, "step": 1900}
+{"time": "2026-11-13T10:34:19+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 4178.866401013918, "step": 1900}
+{"time": "2026-11-13T10:34:19+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 4178.866507311352, "step": 1900}
+{"time": "2026-11-13T10:34:19+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 4178.868404692039, "tokens": 16384}
+{"time": "2026-11-13T10:34:20+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 4179.602740562521, "loss": 3.360543996677734e-05, "ce": 3.035261869430542, "kl": 0.10610098391771317, "mse": 3.360543996677734e-05}
+{"time": "2026-11-13T10:34:20+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 4179.603841637261, "local_tokens": 16384}
+{"time": "2026-11-13T10:34:20+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 4179.623944866471, "seconds": 0.02000763639807701, "local_tokens": 16384}
+{"time": "2026-11-13T10:34:20+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 4179.625236488879, "step": 1900, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T10:34:21+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 4180.372615507804, "step": 1900}
+{"time": "2026-11-13T10:34:21+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 4180.372699326836, "step": 1900}
+{"time": "2026-11-13T10:34:21+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 4180.373444264755, "seconds": 0.0006980253383517265, "step": 1900}
+{"time": "2026-11-13T10:34:21+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 4180.375727817416, "seconds": 1.509164297953248, "step": 1900}
+{"time": "2026-11-13T10:37:55+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 4394.466701732017, "step": 2000}
+{"time": "2026-11-13T10:37:57+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 4396.641083031893, "step": 2000}
+{"time": "2026-11-13T10:37:57+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 4396.641212195158, "step": 2000}
+{"time": "2026-11-13T10:37:57+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 4396.643205253407, "tokens": 16384}
+{"time": "2026-11-13T10:37:58+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 4397.376972979866, "loss": 3.422171721467748e-05, "ce": 3.039717197418213, "kl": 0.10684870183467865, "mse": 3.422171721467748e-05}
+{"time": "2026-11-13T10:37:58+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 4397.378102652729, "local_tokens": 16384}
+{"time": "2026-11-13T10:37:58+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 4397.39939516224, "seconds": 0.02119998261332512, "local_tokens": 16384}
+{"time": "2026-11-13T10:37:58+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 4397.40064795129, "step": 2000, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T10:37:58+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 4398.17299141176, "step": 2000}
+{"time": "2026-11-13T10:37:58+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 4398.173093100078, "step": 2000}
+{"time": "2026-11-13T10:37:58+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 4398.17389490176, "seconds": 0.0007321881130337715, "step": 2000}
+{"time": "2026-11-13T10:37:58+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 4398.176643333398, "seconds": 1.5353680131956935, "step": 2000}
+{"time": "2026-11-13T10:41:32+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 4612.100748797879, "step": 2100}
+{"time": "2026-11-13T10:41:34+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 4614.2748085502535, "step": 2100}
+{"time": "2026-11-13T10:41:34+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 4614.274906679057, "step": 2100}
+{"time": "2026-11-13T10:41:34+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 4614.2768150558695, "tokens": 16384}
+{"time": "2026-11-13T10:41:35+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 4615.010890854523, "loss": 3.316110814921558e-05, "ce": 3.033738374710083, "kl": 0.10481347143650055, "mse": 3.316110814921558e-05}
+{"time": "2026-11-13T10:41:35+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 4615.012010076083, "local_tokens": 16384}
+{"time": "2026-11-13T10:41:35+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 4615.03335256502, "seconds": 0.02125170174986124, "local_tokens": 16384}
+{"time": "2026-11-13T10:41:35+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 4615.034639989957, "step": 2100, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T10:41:36+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 4615.79761477001, "step": 2100}
+{"time": "2026-11-13T10:41:36+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 4615.797718359157, "step": 2100}
+{"time": "2026-11-13T10:41:36+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 4615.798639386892, "seconds": 0.0007697707042098045, "step": 2100}
+{"time": "2026-11-13T10:41:36+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 4615.806086792611, "seconds": 1.531076998449862, "step": 2100}
+{"time": "2026-11-13T10:45:10+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 4829.950301591307, "step": 2200}
+{"time": "2026-11-13T10:45:12+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 4832.1244633113965, "step": 2200}
+{"time": "2026-11-13T10:45:12+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 4832.124569765292, "step": 2200}
+{"time": "2026-11-13T10:45:12+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 4832.126510785893, "tokens": 16384}
+{"time": "2026-11-13T10:45:13+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 4832.86085538473, "loss": 3.300206662970595e-05, "ce": 3.0356905460357666, "kl": 0.10525698959827423, "mse": 3.300206662970595e-05}
+{"time": "2026-11-13T10:45:13+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 4832.862274589017, "local_tokens": 16384}
+{"time": "2026-11-13T10:45:13+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 4832.884769952856, "seconds": 0.022372545674443245, "local_tokens": 16384}
+{"time": "2026-11-13T10:45:13+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 4832.886158462614, "step": 2200, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T10:45:14+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 4833.764229294844, "step": 2200}
+{"time": "2026-11-13T10:45:14+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 4833.76433833316, "step": 2200}
+{"time": "2026-11-13T10:45:14+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 4833.765120970085, "seconds": 0.000716199167072773, "step": 2200}
+{"time": "2026-11-13T10:45:14+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 4833.767970839515, "seconds": 1.6433310704305768, "step": 2200}
+{"time": "2026-11-13T10:48:48+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 5047.575237902813, "step": 2300}
+{"time": "2026-11-13T10:48:50+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 5049.746219835244, "step": 2300}
+{"time": "2026-11-13T10:48:50+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 5049.7463220097125, "step": 2300}
+{"time": "2026-11-13T10:48:50+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 5049.748186290264, "tokens": 16384}
+{"time": "2026-11-13T10:48:51+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 5050.481775952503, "loss": 3.276608185842633e-05, "ce": 3.033783435821533, "kl": 0.10329081118106842, "mse": 3.276608185842633e-05}
+{"time": "2026-11-13T10:48:51+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 5050.482860055752, "local_tokens": 16384}
+{"time": "2026-11-13T10:48:51+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 5050.504417567514, "seconds": 0.021464793011546135, "local_tokens": 16384}
+{"time": "2026-11-13T10:48:51+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 5050.505593137816, "seconds": 0.7592163225635886, "step": 2300}
+{"time": "2026-11-13T10:52:25+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 5264.590810366906, "step": 2400}
+{"time": "2026-11-13T10:52:27+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 5266.766475194134, "step": 2400}
+{"time": "2026-11-13T10:52:27+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 5266.7665758132935, "step": 2400}
+{"time": "2026-11-13T10:52:27+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 5266.768495328724, "tokens": 16384}
+{"time": "2026-11-13T10:52:28+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 5267.502473005094, "loss": 3.255260526202619e-05, "ce": 3.0327649116516113, "kl": 0.10369498282670975, "mse": 3.255260526202619e-05}
+{"time": "2026-11-13T10:52:28+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 5267.503581003286, "local_tokens": 16384}
+{"time": "2026-11-13T10:52:28+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 5267.5255588945, "seconds": 0.021886002272367477, "local_tokens": 16384}
+{"time": "2026-11-13T10:52:28+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 5267.526724592783, "step": 2400, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T10:52:28+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 5268.290175830014, "step": 2400}
+{"time": "2026-11-13T10:52:28+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 5268.290281545371, "step": 2400}
+{"time": "2026-11-13T10:52:28+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 5268.291045079008, "seconds": 0.0006987117230892181, "step": 2400}
+{"time": "2026-11-13T10:52:28+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 5268.293817925267, "seconds": 1.527173837646842, "step": 2400}
+{"time": "2026-11-13T10:56:02+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 5482.15345138032, "step": 2500}
+{"time": "2026-11-13T10:56:04+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 5484.327502365224, "step": 2500}
+{"time": "2026-11-13T10:56:04+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 5484.327607434243, "step": 2500}
+{"time": "2026-11-13T10:56:04+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 5484.329503250308, "tokens": 16384}
+{"time": "2026-11-13T10:56:05+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 5485.064009631053, "loss": 3.225011460017413e-05, "ce": 3.0331239700317383, "kl": 0.10266593098640442, "mse": 3.225011460017413e-05}
+{"time": "2026-11-13T10:56:05+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 5485.065130467527, "local_tokens": 16384}
+{"time": "2026-11-13T10:56:05+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 5485.085734235123, "seconds": 0.020506668835878372, "local_tokens": 16384}
+{"time": "2026-11-13T10:56:05+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 5485.087046244182, "step": 2500, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T10:56:06+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 5485.839689110406, "step": 2500}
+{"time": "2026-11-13T10:56:06+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 5485.839772549458, "step": 2500}
+{"time": "2026-11-13T10:56:06+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 5485.840502869338, "seconds": 0.0006825188174843788, "step": 2500}
+{"time": "2026-11-13T10:56:06+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 5485.8427948877215, "seconds": 1.5151154287159443, "step": 2500}
+{"time": "2026-11-13T10:59:40+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 5699.751313636079, "step": 2600}
+{"time": "2026-11-13T10:59:42+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 5701.925330434926, "step": 2600}
+{"time": "2026-11-13T10:59:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 5701.925427294336, "step": 2600}
+{"time": "2026-11-13T10:59:42+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 5701.927270235494, "tokens": 16384}
+{"time": "2026-11-13T10:59:43+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 5702.66136119701, "loss": 3.228685454814695e-05, "ce": 3.0330538749694824, "kl": 0.10279238969087601, "mse": 3.228685454814695e-05}
+{"time": "2026-11-13T10:59:43+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 5702.662426894531, "local_tokens": 16384}
+{"time": "2026-11-13T10:59:43+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 5702.6855096351355, "seconds": 0.022995364852249622, "local_tokens": 16384}
+{"time": "2026-11-13T10:59:43+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 5702.686747830361, "step": 2600, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T10:59:44+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 5703.453661044128, "step": 2600}
+{"time": "2026-11-13T10:59:44+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 5703.453764278442, "step": 2600}
+{"time": "2026-11-13T10:59:44+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 5703.454541046172, "seconds": 0.0007141046226024628, "step": 2600}
+{"time": "2026-11-13T10:59:44+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 5703.457343007438, "seconds": 1.5318576470017433, "step": 2600}
+{"time": "2026-11-13T11:03:17+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 5917.266773943789, "step": 2700}
+{"time": "2026-11-13T11:03:20+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 5919.442550656386, "step": 2700}
+{"time": "2026-11-13T11:03:20+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 5919.442662934773, "step": 2700}
+{"time": "2026-11-13T11:03:20+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 5919.444515146315, "tokens": 16384}
+{"time": "2026-11-13T11:03:20+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 5920.178277526051, "loss": 3.225742693757638e-05, "ce": 3.032608985900879, "kl": 0.10155878961086273, "mse": 3.225742693757638e-05}
+{"time": "2026-11-13T11:03:20+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 5920.17934579961, "local_tokens": 16384}
+{"time": "2026-11-13T11:03:20+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 5920.2019915394485, "seconds": 0.02255356404930353, "local_tokens": 16384}
+{"time": "2026-11-13T11:03:20+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 5920.2031912617385, "step": 2700, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T11:03:21+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 5920.96493178606, "step": 2700}
+{"time": "2026-11-13T11:03:21+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 5920.965033127926, "step": 2700}
+{"time": "2026-11-13T11:03:21+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 5920.9657969800755, "seconds": 0.0006965044885873795, "step": 2700}
+{"time": "2026-11-13T11:03:21+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 5920.968593871221, "seconds": 1.5258682435378432, "step": 2700}
+{"time": "2026-11-13T11:06:55+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 6135.0317413257435, "step": 2800}
+{"time": "2026-11-13T11:06:57+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 6137.208435825072, "step": 2800}
+{"time": "2026-11-13T11:06:57+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 6137.208536079153, "step": 2800}
+{"time": "2026-11-13T11:06:57+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 6137.210469568148, "tokens": 16384}
+{"time": "2026-11-13T11:06:58+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 6137.944633733481, "loss": 3.157107130391523e-05, "ce": 3.031616449356079, "kl": 0.10061952471733093, "mse": 3.157107130391523e-05}
+{"time": "2026-11-13T11:06:58+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 6137.945659598336, "local_tokens": 16384}
+{"time": "2026-11-13T11:06:58+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 6137.96863846574, "seconds": 0.022888658568263054, "local_tokens": 16384}
+{"time": "2026-11-13T11:06:58+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 6137.969853296876, "step": 2800, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T11:06:59+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 6138.74416128546, "step": 2800}
+{"time": "2026-11-13T11:06:59+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 6138.7442694799975, "step": 2800}
+{"time": "2026-11-13T11:06:59+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 6138.745040816255, "seconds": 0.000705106183886528, "step": 2800}
+{"time": "2026-11-13T11:06:59+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 6138.7479187184945, "seconds": 1.5393200404942036, "step": 2800}
+{"time": "2026-11-13T11:10:33+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 6352.597154691815, "step": 2900}
+{"time": "2026-11-13T11:10:35+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 6354.770101760514, "step": 2900}
+{"time": "2026-11-13T11:10:35+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 6354.770203219727, "step": 2900}
+{"time": "2026-11-13T11:10:35+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 6354.77210754808, "tokens": 16384}
+{"time": "2026-11-13T11:10:36+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 6355.504581533372, "loss": 3.1665109418099746e-05, "ce": 3.0333640575408936, "kl": 0.10068877786397934, "mse": 3.1665109418099746e-05}
+{"time": "2026-11-13T11:10:36+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 6355.505651699379, "local_tokens": 16384}
+{"time": "2026-11-13T11:10:36+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 6355.528443846852, "seconds": 0.022699263878166676, "local_tokens": 16384}
+{"time": "2026-11-13T11:10:36+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 6355.529696480371, "step": 2900, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T11:10:36+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 6356.314221405424, "step": 2900}
+{"time": "2026-11-13T11:10:36+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 6356.3143214751035, "step": 2900}
+{"time": "2026-11-13T11:10:36+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 6356.315062244423, "seconds": 0.0006766598671674728, "step": 2900}
+{"time": "2026-11-13T11:10:36+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 6356.317768503912, "seconds": 1.5475032152608037, "step": 2900}
+{"time": "2026-11-13T11:14:11+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 6570.458865603432, "step": 3000}
+{"time": "2026-11-13T11:14:13+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 6572.636343036778, "step": 3000}
+{"time": "2026-11-13T11:14:13+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 6572.636444749311, "step": 3000}
+{"time": "2026-11-13T11:14:13+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 6572.638361444697, "tokens": 16384}
+{"time": "2026-11-13T11:14:14+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 6573.372953653336, "loss": 3.167167233186774e-05, "ce": 3.031782627105713, "kl": 0.10007001459598541, "mse": 3.167167233186774e-05}
+{"time": "2026-11-13T11:14:14+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 6573.374110339209, "local_tokens": 16384}
+{"time": "2026-11-13T11:14:14+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 6573.395423214883, "seconds": 0.021218829788267612, "local_tokens": 16384}
+{"time": "2026-11-13T11:14:14+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 6573.396673342213, "step": 3000, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T11:14:14+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 6574.138964266516, "step": 3000}
+{"time": "2026-11-13T11:14:14+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 6574.139045787044, "step": 3000}
+{"time": "2026-11-13T11:14:14+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 6574.139806328341, "seconds": 0.0007111690938472748, "step": 3000}
+{"time": "2026-11-13T11:14:14+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 6574.142085340805, "seconds": 1.5055827451869845, "step": 3000}
+{"time": "2026-11-13T11:17:48+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 6788.112572927959, "step": 3100}
+{"time": "2026-11-13T11:17:50+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 6790.285960410722, "step": 3100}
+{"time": "2026-11-13T11:17:50+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 6790.286059382372, "step": 3100}
+{"time": "2026-11-13T11:17:50+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 6790.28796315752, "tokens": 16384}
+{"time": "2026-11-13T11:17:51+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 6791.021617834456, "loss": 3.160008054692298e-05, "ce": 3.031630516052246, "kl": 0.09944169968366623, "mse": 3.160008054692298e-05}
+{"time": "2026-11-13T11:17:51+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 6791.022655886598, "local_tokens": 16384}
+{"time": "2026-11-13T11:17:51+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 6791.044944378547, "seconds": 0.02219802513718605, "local_tokens": 16384}
+{"time": "2026-11-13T11:17:51+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 6791.046205131337, "step": 3100, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T11:17:52+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 6791.820081280544, "step": 3100}
+{"time": "2026-11-13T11:17:52+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 6791.820195993409, "step": 3100}
+{"time": "2026-11-13T11:17:52+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 6791.8210639311, "seconds": 0.0007995497435331345, "step": 3100}
+{"time": "2026-11-13T11:17:52+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 6791.8238644860685, "seconds": 1.5377438394352794, "step": 3100}
+{"time": "2026-11-13T11:21:26+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 7005.973067381419, "step": 3200}
+{"time": "2026-11-13T11:21:28+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 7008.149019595236, "step": 3200}
+{"time": "2026-11-13T11:21:28+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 7008.149119754322, "step": 3200}
+{"time": "2026-11-13T11:21:28+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 7008.151029563509, "tokens": 16384}
+{"time": "2026-11-13T11:21:29+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 7008.885180990212, "loss": 3.1349594792118296e-05, "ce": 3.0310540199279785, "kl": 0.0994001030921936, "mse": 3.1349594792118296e-05}
+{"time": "2026-11-13T11:21:29+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 7008.886258055456, "local_tokens": 16384}
+{"time": "2026-11-13T11:21:29+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 7008.908545986749, "seconds": 0.02219540812075138, "local_tokens": 16384}
+{"time": "2026-11-13T11:21:29+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 7008.9098211135715, "step": 3200, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T11:21:30+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 7009.683521267958, "step": 3200}
+{"time": "2026-11-13T11:21:30+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 7009.683639286086, "step": 3200}
+{"time": "2026-11-13T11:21:30+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 7009.684398249723, "seconds": 0.0006905524060130119, "step": 3200}
+{"time": "2026-11-13T11:21:30+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 7009.687178149819, "seconds": 1.5379934199154377, "step": 3200}
+{"time": "2026-11-13T11:25:04+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 7223.737046099268, "step": 3300}
+{"time": "2026-11-13T11:25:06+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 7225.910821288824, "step": 3300}
+{"time": "2026-11-13T11:25:06+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 7225.910923963413, "step": 3300}
+{"time": "2026-11-13T11:25:06+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 7225.912826377898, "tokens": 16384}
+{"time": "2026-11-13T11:25:07+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 7226.645543268882, "loss": 3.1351821235148236e-05, "ce": 3.0321178436279297, "kl": 0.10010072588920593, "mse": 3.1351821235148236e-05}
+{"time": "2026-11-13T11:25:07+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 7226.646626857109, "local_tokens": 16384}
+{"time": "2026-11-13T11:25:07+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 7226.67041254323, "seconds": 0.023692473769187927, "local_tokens": 16384}
+{"time": "2026-11-13T11:25:07+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 7226.6715722950175, "seconds": 0.76059240847826, "step": 3300}
+{"time": "2026-11-13T11:28:41+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 7440.941109789535, "step": 3400}
+{"time": "2026-11-13T11:28:43+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 7443.1198303848505, "step": 3400}
+{"time": "2026-11-13T11:28:43+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 7443.119930625893, "step": 3400}
+{"time": "2026-11-13T11:28:43+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 7443.121819871478, "tokens": 16384}
+{"time": "2026-11-13T11:28:44+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 7443.855225566775, "loss": 3.1067116651684046e-05, "ce": 3.029961109161377, "kl": 0.09897468984127045, "mse": 3.1067116651684046e-05}
+{"time": "2026-11-13T11:28:44+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 7443.856402312405, "local_tokens": 16384}
+{"time": "2026-11-13T11:28:44+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 7443.879197677597, "seconds": 0.0227016881108284, "local_tokens": 16384}
+{"time": "2026-11-13T11:28:44+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 7443.880444393493, "step": 3400, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T11:28:45+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 7444.665200009942, "step": 3400}
+{"time": "2026-11-13T11:28:45+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 7444.665304817259, "step": 3400}
+{"time": "2026-11-13T11:28:45+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 7444.666113933548, "seconds": 0.000742095522582531, "step": 3400}
+{"time": "2026-11-13T11:28:45+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 7444.668928373605, "seconds": 1.5489360447973013, "step": 3400}
+{"time": "2026-11-13T11:32:19+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 7658.71624549292, "step": 3500}
+{"time": "2026-11-13T11:32:21+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 7660.8904442368075, "step": 3500}
+{"time": "2026-11-13T11:32:21+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 7660.890546721406, "step": 3500}
+{"time": "2026-11-13T11:32:21+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 7660.892405072227, "tokens": 16384}
+{"time": "2026-11-13T11:32:22+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 7661.626799817197, "loss": 3.097572334809229e-05, "ce": 3.0303497314453125, "kl": 0.09813518077135086, "mse": 3.097572334809229e-05}
+{"time": "2026-11-13T11:32:22+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 7661.62789300736, "local_tokens": 16384}
+{"time": "2026-11-13T11:32:22+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 7661.650039478205, "seconds": 0.022054544650018215, "local_tokens": 16384}
+{"time": "2026-11-13T11:32:22+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 7661.65125352703, "step": 3500, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T11:32:23+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 7662.440390851349, "step": 3500}
+{"time": "2026-11-13T11:32:23+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 7662.440487232059, "step": 3500}
+{"time": "2026-11-13T11:32:23+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 7662.441273587756, "seconds": 0.0007350556552410126, "step": 3500}
+{"time": "2026-11-13T11:32:23+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 7662.443552627228, "seconds": 1.5529501559212804, "step": 3500}
+{"time": "2026-11-13T11:35:57+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 7876.832025595009, "step": 3600}
+{"time": "2026-11-13T11:35:59+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 7879.011624314822, "step": 3600}
+{"time": "2026-11-13T11:35:59+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 7879.011731845327, "step": 3600}
+{"time": "2026-11-13T11:35:59+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 7879.013645638712, "tokens": 16384}
+{"time": "2026-11-13T11:36:00+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 7879.748066660017, "loss": 3.092677070526406e-05, "ce": 3.0308079719543457, "kl": 0.09815506637096405, "mse": 3.092677070526406e-05}
+{"time": "2026-11-13T11:36:00+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 7879.749183052219, "local_tokens": 16384}
+{"time": "2026-11-13T11:36:00+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 7879.771734655835, "seconds": 0.022458364255726337, "local_tokens": 16384}
+{"time": "2026-11-13T11:36:00+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 7879.772948428057, "step": 3600, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T11:36:01+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 7880.519880815409, "step": 3600}
+{"time": "2026-11-13T11:36:01+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 7880.519968866371, "step": 3600}
+{"time": "2026-11-13T11:36:01+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 7880.520692584105, "seconds": 0.0006716540083289146, "step": 3600}
+{"time": "2026-11-13T11:36:01+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 7880.522974606603, "seconds": 1.5111846690997481, "step": 3600}
+{"time": "2026-11-13T11:39:35+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 8094.659518966451, "step": 3700}
+{"time": "2026-11-13T11:39:37+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 8096.830418701284, "step": 3700}
+{"time": "2026-11-13T11:39:37+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 8096.830518833362, "step": 3700}
+{"time": "2026-11-13T11:39:37+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 8096.832404364832, "tokens": 16384}
+{"time": "2026-11-13T11:39:38+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 8097.565264458768, "loss": 3.050855957553722e-05, "ce": 3.029022216796875, "kl": 0.09765277802944183, "mse": 3.050855957553722e-05}
+{"time": "2026-11-13T11:39:38+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 8097.566344563849, "local_tokens": 16384}
+{"time": "2026-11-13T11:39:38+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 8097.589505082928, "seconds": 0.023067674599587917, "local_tokens": 16384}
+{"time": "2026-11-13T11:39:38+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 8097.590714019723, "step": 3700, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T11:39:39+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 8098.378743221983, "step": 3700}
+{"time": "2026-11-13T11:39:39+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 8098.378846927546, "step": 3700}
+{"time": "2026-11-13T11:39:39+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 8098.379622600041, "seconds": 0.0007037585601210594, "step": 3700}
+{"time": "2026-11-13T11:39:39+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 8098.382295828313, "seconds": 1.5517164450138807, "step": 3700}
+{"time": "2026-11-13T11:43:13+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 8312.661733075045, "step": 3800}
+{"time": "2026-11-13T11:43:15+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 8314.839927210473, "step": 3800}
+{"time": "2026-11-13T11:43:15+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 8314.840030230582, "step": 3800}
+{"time": "2026-11-13T11:43:15+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 8314.841920289211, "tokens": 16384}
+{"time": "2026-11-13T11:43:16+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 8315.574891407974, "loss": 3.06292058667168e-05, "ce": 3.0293638706207275, "kl": 0.09725385904312134, "mse": 3.06292058667168e-05}
+{"time": "2026-11-13T11:43:16+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 8315.57640977297, "local_tokens": 16384}
+{"time": "2026-11-13T11:43:16+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 8315.599073087797, "seconds": 0.02255262713879347, "local_tokens": 16384}
+{"time": "2026-11-13T11:43:16+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 8315.600349449553, "step": 3800, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T11:43:17+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 8316.353721316904, "step": 3800}
+{"time": "2026-11-13T11:43:17+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 8316.353804212995, "step": 3800}
+{"time": "2026-11-13T11:43:17+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 8316.35453311354, "seconds": 0.0006770351901650429, "step": 3800}
+{"time": "2026-11-13T11:43:17+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 8316.356719875708, "seconds": 1.5166286015883088, "step": 3800}
+{"time": "2026-11-13T11:46:51+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 8530.570069107227, "step": 3900}
+{"time": "2026-11-13T11:46:53+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 8532.748218189925, "step": 3900}
+{"time": "2026-11-13T11:46:53+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 8532.74831848219, "step": 3900}
+{"time": "2026-11-13T11:46:53+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 8532.750226606615, "tokens": 16384}
+{"time": "2026-11-13T11:46:54+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 8533.483678793535, "loss": 3.0389857784030028e-05, "ce": 3.02891206741333, "kl": 0.09710066020488739, "mse": 3.0389857784030028e-05}
+{"time": "2026-11-13T11:46:54+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 8533.484824531712, "local_tokens": 16384}
+{"time": "2026-11-13T11:46:54+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 8533.508264275268, "seconds": 0.02334445435553789, "local_tokens": 16384}
+{"time": "2026-11-13T11:46:54+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 8533.509478057735, "step": 3900, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T11:46:54+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 8534.27368037682, "step": 3900}
+{"time": "2026-11-13T11:46:54+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 8534.273784232326, "step": 3900}
+{"time": "2026-11-13T11:46:54+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 8534.274574209005, "seconds": 0.000725260004401207, "step": 3900}
+{"time": "2026-11-13T11:46:54+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 8534.2773039788, "seconds": 1.5289256572723389, "step": 3900}
+{"time": "2026-11-13T11:50:29+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 8748.665619339794, "step": 4000}
+{"time": "2026-11-13T11:50:31+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 8750.843306423165, "step": 4000}
+{"time": "2026-11-13T11:50:31+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 8750.843410283327, "step": 4000}
+{"time": "2026-11-13T11:50:31+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 8750.845323170535, "tokens": 16384}
+{"time": "2026-11-13T11:50:32+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 8751.579237146303, "loss": 3.0487186450045556e-05, "ce": 3.030470848083496, "kl": 0.09759954363107681, "mse": 3.0487186450045556e-05}
+{"time": "2026-11-13T11:50:32+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 8751.580395990051, "local_tokens": 16384}
+{"time": "2026-11-13T11:50:32+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 8751.60295827873, "seconds": 0.02246747352182865, "local_tokens": 16384}
+{"time": "2026-11-13T11:50:32+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 8751.604218343273, "step": 4000, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T11:50:33+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 8752.390701566823, "step": 4000}
+{"time": "2026-11-13T11:50:33+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 8752.390807108954, "step": 4000}
+{"time": "2026-11-13T11:50:33+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 8752.391554540955, "seconds": 0.0006818370893597603, "step": 4000}
+{"time": "2026-11-13T11:50:33+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 8752.39431568794, "seconds": 1.550841878168285, "step": 4000}
+{"time": "2026-11-13T11:54:07+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 8966.574128523469, "step": 4100}
+{"time": "2026-11-13T11:54:09+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 8968.751534133218, "step": 4100}
+{"time": "2026-11-13T11:54:09+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 8968.751642550342, "step": 4100}
+{"time": "2026-11-13T11:54:09+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 8968.753541434184, "tokens": 16384}
+{"time": "2026-11-13T11:54:10+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 8969.488625452854, "loss": 3.0345647246576846e-05, "ce": 3.029240131378174, "kl": 0.09662018716335297, "mse": 3.0345647246576846e-05}
+{"time": "2026-11-13T11:54:10+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 8969.489678289741, "local_tokens": 16384}
+{"time": "2026-11-13T11:54:10+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 8969.511659745127, "seconds": 0.021891026757657528, "local_tokens": 16384}
+{"time": "2026-11-13T11:54:10+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 8969.512883590534, "step": 4100, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T11:54:10+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 8970.278888570145, "step": 4100}
+{"time": "2026-11-13T11:54:10+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 8970.278973031789, "step": 4100}
+{"time": "2026-11-13T11:54:10+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 8970.279710954987, "seconds": 0.0006884075701236725, "step": 4100}
+{"time": "2026-11-13T11:54:10+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 8970.281975342892, "seconds": 1.5302733294665813, "step": 4100}
+{"time": "2026-11-13T11:57:45+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 9184.66285829898, "step": 4200}
+{"time": "2026-11-13T11:57:47+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 9186.840232331306, "step": 4200}
+{"time": "2026-11-13T11:57:47+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 9186.840337468311, "step": 4200}
+{"time": "2026-11-13T11:57:47+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 9186.842264994048, "tokens": 16384}
+{"time": "2026-11-13T11:57:48+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 9187.5770617472, "loss": 3.0187922675395384e-05, "ce": 3.0299980640411377, "kl": 0.0963393896818161, "mse": 3.0187922675395384e-05}
+{"time": "2026-11-13T11:57:48+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 9187.578130245209, "local_tokens": 16384}
+{"time": "2026-11-13T11:57:48+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 9187.598842657171, "seconds": 0.020623574033379555, "local_tokens": 16384}
+{"time": "2026-11-13T11:57:48+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 9187.599953192286, "seconds": 0.7595623433589935, "step": 4200}
+{"time": "2026-11-13T12:01:22+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 9401.813452827744, "step": 4300}
+{"time": "2026-11-13T12:01:24+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 9403.989301631227, "step": 4300}
+{"time": "2026-11-13T12:01:24+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 9403.989405476488, "step": 4300}
+{"time": "2026-11-13T12:01:24+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 9403.991320268251, "tokens": 16384}
+{"time": "2026-11-13T12:01:25+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 9404.725466817617, "loss": 3.0353265174198896e-05, "ce": 3.030456781387329, "kl": 0.09648993611335754, "mse": 3.0353265174198896e-05}
+{"time": "2026-11-13T12:01:25+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 9404.726621309295, "local_tokens": 16384}
+{"time": "2026-11-13T12:01:25+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 9404.748583712615, "seconds": 0.021867822855710983, "local_tokens": 16384}
+{"time": "2026-11-13T12:01:25+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 9404.74978933204, "step": 4300, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T12:01:26+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 9405.54465673957, "step": 4300}
+{"time": "2026-11-13T12:01:26+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 9405.544765586033, "step": 4300}
+{"time": "2026-11-13T12:01:26+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 9405.545538822189, "seconds": 0.000702287070453167, "step": 4300}
+{"time": "2026-11-13T12:01:26+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 9405.548305996694, "seconds": 1.5588362086564302, "step": 4300}
+{"time": "2026-11-13T12:05:00+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 9619.90254293941, "step": 4400}
+{"time": "2026-11-13T12:05:02+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 9622.081141368486, "step": 4400}
+{"time": "2026-11-13T12:05:02+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 9622.081244017929, "step": 4400}
+{"time": "2026-11-13T12:05:02+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 9622.083150906488, "tokens": 16384}
+{"time": "2026-11-13T12:05:03+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 9622.81774408929, "loss": 3.0183002309058793e-05, "ce": 3.02948260307312, "kl": 0.09642720222473145, "mse": 3.0183002309058793e-05}
+{"time": "2026-11-13T12:05:03+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 9622.818824586459, "local_tokens": 16384}
+{"time": "2026-11-13T12:05:03+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 9622.841045259498, "seconds": 0.02212448325008154, "local_tokens": 16384}
+{"time": "2026-11-13T12:05:03+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 9622.842202441767, "seconds": 0.7609045617282391, "step": 4400}
+{"time": "2026-11-13T12:08:37+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 9837.12517488096, "step": 4500}
+{"time": "2026-11-13T12:08:39+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 9839.30264461413, "step": 4500}
+{"time": "2026-11-13T12:08:39+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 9839.302749379538, "step": 4500}
+{"time": "2026-11-13T12:08:39+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 9839.304667716846, "tokens": 16384}
+{"time": "2026-11-13T12:08:40+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 9840.038656892255, "loss": 3.01493018923793e-05, "ce": 3.030968189239502, "kl": 0.09656102955341339, "mse": 3.01493018923793e-05}
+{"time": "2026-11-13T12:08:40+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 9840.039808843285, "local_tokens": 16384}
+{"time": "2026-11-13T12:08:40+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 9840.063057507388, "seconds": 0.023153855465352535, "local_tokens": 16384}
+{"time": "2026-11-13T12:08:40+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 9840.064317952842, "step": 4500, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T12:08:41+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 9840.808034867048, "step": 4500}
+{"time": "2026-11-13T12:08:41+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 9840.808119251393, "step": 4500}
+{"time": "2026-11-13T12:08:41+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 9840.808894419111, "seconds": 0.0007268525660037994, "step": 4500}
+{"time": "2026-11-13T12:08:41+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 9840.81113498751, "seconds": 1.508316076360643, "step": 4500}
+{"time": "2026-11-13T12:12:15+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 10055.137999439612, "step": 4600}
+{"time": "2026-11-13T12:12:17+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 10057.31702408474, "step": 4600}
+{"time": "2026-11-13T12:12:17+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 10057.317122636363, "step": 4600}
+{"time": "2026-11-13T12:12:17+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 10057.318989283405, "tokens": 16384}
+{"time": "2026-11-13T12:12:18+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 10058.053788151592, "loss": 3.015323272848036e-05, "ce": 3.027439594268799, "kl": 0.09589460492134094, "mse": 3.015323272848036e-05}
+{"time": "2026-11-13T12:12:18+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 10058.054918008856, "local_tokens": 16384}
+{"time": "2026-11-13T12:12:18+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 10058.075666927733, "seconds": 0.020654202438890934, "local_tokens": 16384}
+{"time": "2026-11-13T12:12:18+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 10058.076826747507, "seconds": 0.7596510946750641, "step": 4600}
+{"time": "2026-11-13T12:15:52+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 10272.270136236213, "step": 4700}
+{"time": "2026-11-13T12:15:55+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 10274.449423962273, "step": 4700}
+{"time": "2026-11-13T12:15:55+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 10274.449525116943, "step": 4700}
+{"time": "2026-11-13T12:15:55+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 10274.451403459534, "tokens": 16384}
+{"time": "2026-11-13T12:15:55+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 10275.186049075797, "loss": 3.0112574677332304e-05, "ce": 3.0259475708007812, "kl": 0.09590452909469604, "mse": 3.0112574677332304e-05}
+{"time": "2026-11-13T12:15:55+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 10275.187137009576, "local_tokens": 16384}
+{"time": "2026-11-13T12:15:55+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 10275.20971518755, "seconds": 0.02247920911759138, "local_tokens": 16384}
+{"time": "2026-11-13T12:15:55+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 10275.210882689804, "step": 4700, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/best"}
+{"time": "2026-11-13T12:15:56+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 10275.987161434256, "step": 4700}
+{"time": "2026-11-13T12:15:56+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 10275.987267448567, "step": 4700}
+{"time": "2026-11-13T12:15:56+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 10275.988062154502, "seconds": 0.0007212087512016296, "step": 4700}
+{"time": "2026-11-13T12:15:56+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 10275.990827229805, "seconds": 1.5412398632615805, "step": 4700}
+{"time": "2026-11-13T12:19:31+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.begin", "elapsed_seconds": 10490.445814437233, "step": 4800}
+{"time": "2026-11-13T12:19:33+08:00", "rank": 0, "pid": 1713390, "stage": "train.step.end", "elapsed_seconds": 10492.621172255836, "step": 4800}
+{"time": "2026-11-13T12:19:33+08:00", "rank": 0, "pid": 1713390, "stage": "validation.begin", "elapsed_seconds": 10492.621273727156, "step": 4800}
+{"time": "2026-11-13T12:19:33+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.begin", "elapsed_seconds": 10492.623204472475, "tokens": 16384}
+{"time": "2026-11-13T12:19:34+08:00", "rank": 0, "pid": 1713390, "stage": "validation.first_batch.end", "elapsed_seconds": 10493.356999837793, "loss": 2.9962233384139836e-05, "ce": 3.028719425201416, "kl": 0.09610415995121002, "mse": 2.9962233384139836e-05}
+{"time": "2026-11-13T12:19:34+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.begin", "elapsed_seconds": 10493.358151770197, "local_tokens": 16384}
+{"time": "2026-11-13T12:19:34+08:00", "rank": 0, "pid": 1713390, "stage": "validation.reduce.end", "elapsed_seconds": 10493.380907693878, "seconds": 0.02265908569097519, "local_tokens": 16384}
+{"time": "2026-11-13T12:19:34+08:00", "rank": 0, "pid": 1713390, "stage": "validation.end", "elapsed_seconds": 10493.382115636952, "seconds": 0.7607881017029285, "step": 4800}
+{"time": "2026-11-13T12:19:34+08:00", "rank": 0, "pid": 1713390, "stage": "train.early_stop", "elapsed_seconds": 10493.382187576964, "step": 4800, "metric": "loss", "best_step": 4700, "best_value": 2.7459939246909926e-05}
+{"time": "2026-11-13T12:19:34+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.begin", "elapsed_seconds": 10493.382320608944, "step": 4800, "path": "/proj/gpu_mtk53742/CDLM-distillation/run/20261112_214059_127348_langflow_owt_svd_pure_mse/velocity_rank_060/checkpoints/step_004800"}
+{"time": "2026-11-13T12:19:34+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.save.end", "elapsed_seconds": 10493.90186741855, "step": 4800}
+{"time": "2026-11-13T12:19:34+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.begin", "elapsed_seconds": 10493.901948056184, "step": 4800}
+{"time": "2026-11-13T12:19:34+08:00", "rank": 0, "pid": 1713390, "stage": "checkpoint.wait_ready.end", "elapsed_seconds": 10493.902694018558, "seconds": 0.0006949920207262039, "step": 4800}
+{"time": "2026-11-13T12:19:34+08:00", "rank": 0, "pid": 1713390, "stage": "training.plot.begin", "elapsed_seconds": 10493.905231214128}
+{"time": "2026-11-13T12:19:34+08:00", "rank": 0, "pid": 1713390, "stage": "training.plot.end", "elapsed_seconds": 10494.072654461488, "seconds": 0.1673516733571887}
